@@ -1792,23 +1792,34 @@ ${eb.previewText || 'Sample preview chapter...'}
 
     if (tabName === 'overview') {
       const totalRevenue = (this.state.orders || []).reduce((acc, o) => acc + (o.amount || 0), 0);
+      const allUsers = (this.state.users || []).filter(u => u.role !== 'admin');
+      const gdSrtStudents = allUsers.filter(u => (u.purchasedCourses || []).includes('phase2_1')).length;
+      const srtOnlyStudents = allUsers.filter(u => (u.purchasedCourses || []).includes('phase2_2')).length;
       pane.innerHTML = `
-        <h3 style="font-size:1.35rem; color:#0a192f; margin-bottom:1.25rem;">Coaching Overview & Statistics</h3>
+        <h3 style="font-size:1.35rem; color:#0a192f; margin-bottom:1.25rem;">Coaching Overview & Real-Time Statistics</h3>
         <div class="analytics-kpi-grid">
-          <div class="kpi-tile">
-            <strong>${this.state.users ? this.state.users.length : 3}</strong>
-            <span>Registered Students</span>
+          <div class="kpi-tile" style="border-top:3px solid #0a192f;">
+            <strong>${allUsers.length}</strong>
+            <span>Total Students</span>
           </div>
-          <div class="kpi-tile">
-            <strong style="color:#10b981;">₹${totalRevenue.toLocaleString()}</strong>
-            <span>Total Sales Revenue</span>
+          <div class="kpi-tile" style="border-top:3px solid #0284c7;">
+            <strong style="color:#0284c7;">${gdSrtStudents}</strong>
+            <span>GD + SRT (₹99)</span>
           </div>
-          <div class="kpi-tile">
-            <strong style="color:#0284c7;">${this.state.courses ? this.state.courses.length : 3}</strong>
+          <div class="kpi-tile" style="border-top:3px solid #10b981;">
+            <strong style="color:#10b981;">${srtOnlyStudents}</strong>
+            <span>Only SRT (₹49)</span>
+          </div>
+          <div class="kpi-tile" style="border-top:3px solid #16a34a;">
+            <strong style="color:#16a34a;">₹${totalRevenue.toLocaleString()}</strong>
+            <span>Total Revenue</span>
+          </div>
+          <div class="kpi-tile" style="border-top:3px solid #6366f1;">
+            <strong style="color:#6366f1;">${this.state.courses ? this.state.courses.length : 3}</strong>
             <span>Active Courses</span>
           </div>
-          <div class="kpi-tile">
-            <strong style="color:#ca8a04;">${this.state.selections ? this.state.selections.length : 19}</strong>
+          <div class="kpi-tile" style="border-top:3px solid #f59e0b;">
+            <strong style="color:#f59e0b;">${this.state.selections ? this.state.selections.length : 19}</strong>
             <span>Selection Heroes</span>
           </div>
         </div>
@@ -1997,32 +2008,48 @@ ${eb.previewText || 'Sample preview chapter...'}
         </div>
       `;
     } else if (tabName === 'users') {
+      const courseBadgeMap = {
+        'phase2_1': '<span style="background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">🎯 GD + SRT (₹99)</span>',
+        'phase2_2': '<span style="background:#dcfce7; color:#15803d; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">🚀 Only SRT (₹49)</span>',
+        'phase2_gd_yt': '<span style="background:#fef3c7; color:#92400e; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">📹 GD Free</span>',
+        'course_1': '<span style="background:#ede9fe; color:#5b21b6; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">✈️ Airforce Complete</span>',
+        'course_2': '<span style="background:#e0e7ff; color:#3730a3; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">⚓ Navy SSR/MR</span>',
+        'course_3': '<span style="background:#fee2e2; color:#991b1b; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">🎖️ Army GD</span>',
+        'ebook_1': '<span style="background:#f1f5f9; color:#334155; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">📖 E-Book</span>'
+      };
       pane.innerHTML = `
-        <h3 style="font-size:1.35rem; color:#0a192f; margin-bottom:1.25rem;">User & Course Access Control</h3>
+        <h3 style="font-size:1.35rem; color:#0a192f; margin-bottom:0.35rem;">Student Attendance & Batch Admissions</h3>
         <p style="color:#64748b; font-size:0.9rem; margin-bottom:1.25rem;">
-          View registered students and manually grant or revoke access to any course or test series.
+          View all registered students, their contact numbers, and exactly which batches they are enrolled in.
         </p>
         <div class="custom-table-wrapper">
           <table class="data-table">
             <thead>
               <tr>
                 <th>Student</th>
-                <th>Email / Phone</th>
-                <th>Role</th>
-                <th>Purchased Courses</th>
+                <th>Phone & WhatsApp</th>
+                <th>Email</th>
+                <th>Enrolled Batches</th>
                 <th>Access Control</th>
               </tr>
             </thead>
             <tbody>
               ${(this.state.users || []).map(u => `
                 <tr>
-                  <td><strong>${u.name}</strong></td>
-                  <td>${u.email}<br><span style="color:#64748b; font-size:0.8rem;">${u.phone}</span></td>
-                  <td>${u.role}</td>
-                  <td><span style="font-size:0.8rem;">${(u.purchasedCourses || []).join(', ') || 'None'}</span></td>
+                  <td><strong>${u.name}</strong><br><span style="color:#64748b; font-size:0.75rem;">ID: ${u.id}</span></td>
                   <td>
-                    <button class="btn btn-defence" style="padding:0.3rem 0.6rem; font-size:0.75rem;" onclick="App.grantUserAccessPrompt('${u.id}')">
-                      + Grant Access
+                    <strong>${u.phone || 'N/A'}</strong><br>
+                    ${u.phone ? `<a href="https://wa.me/91${u.phone.replace(/[^0-9]/g, '')}" target="_blank" style="display:inline-block; margin-top:3px; padding:2px 7px; background:#25D366; color:#fff; font-size:0.72rem; border-radius:4px; text-decoration:none; font-weight:700;">💬 WhatsApp</a>` : ''}
+                  </td>
+                  <td><span style="font-size:0.82rem; color:#475569;">${u.email}</span></td>
+                  <td>
+                    ${(u.purchasedCourses || []).length > 0
+                      ? (u.purchasedCourses || []).map(cId => courseBadgeMap[cId] || `<span style="font-size:0.75rem;">${cId}</span>`).join('')
+                      : '<span style="color:#94a3b8; font-size:0.8rem; font-style:italic;">No batches yet</span>'}
+                  </td>
+                  <td>
+                    <button class="btn btn-defence" style="padding:0.35rem 0.7rem; font-size:0.78rem;" onclick="App.grantUserAccessPrompt('${u.id}')">
+                      + Grant Batch
                     </button>
                   </td>
                 </tr>
