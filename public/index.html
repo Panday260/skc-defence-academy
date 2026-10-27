@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>SKC DEFENCE ACADEMY | Official Portal - IAF, Navy, Army, ICG</title>
+  <meta name="description" content="Official learning and test portal of SKC Defence Academy. Comprehensive preparation for Airforce Agniveer Vayu, Navy SSR/MR, ICG, Army GD and Phase-II GD & SRT.">
+  <link rel="icon" type="image/png" href="/uploads/logo.png">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+  <!-- ======================== HEADER ======================== -->
+  <header class="app-header">
+    <div class="container">
+      <div class="header-inner">
+        <!-- Brand -->
+        <div class="brand-wrapper" onclick="App.navigateTo('home')">
+          <img id="academy-logo-img" src="/uploads/logo.png" alt="SKC Defence Academy Logo" class="brand-logo" onerror="this.src='/uploads/logo.png'">
+          <div class="brand-text">
+            <h1 id="academy-brand-title">SKC DEFENCE ACADEMY</h1>
+            <p id="academy-brand-tagline">Premier Defence Training Institute • IAF • Navy • Army • ICG</p>
+          </div>
+        </div>
+
+        <!-- Header Actions -->
+        <div class="header-actions">
+          <button id="digital-board-toggle-btn" class="btn btn-board" onclick="App.toggleDigitalBoardMode()" title="Toggle High Contrast & Large Touch Targets for 75-inch Board">
+            📺 75-inch Board Mode
+          </button>
+          
+          <div id="user-header-area">
+            <!-- Populated dynamically by app.js -->
+          </div>
+
+          <button class="btn btn-secondary btn-admin-nav" onclick="App.navigateTo('admin-panel')" title="Admin Management Panel">
+            <span class="admin-icon">🛡️</span> <span class="admin-btn-label">Admin</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================== MAIN CONTENT ======================== -->
+  <main class="container" style="flex:1;">
+
+    <!-- ======================== HOME VIEW ======================== -->
+    <div id="view-home" class="view-section active">
+      
+      <!-- Hero Banner -->
+      <section class="hero-banner" style="border-radius: var(--radius); margin-top: 1.5rem; margin-bottom: 2rem;">
+        <div class="hero-banner-inner">
+          <span class="hero-tag">Official Defence Academy Portal</span>
+          <h2>Join SKC DEFENCE ACADEMY</h2>
+          <p>India's leading institute for Airforce Agniveer Vayu, Navy SSR/MR, Army CEE, Coast Guard & Phase-II (GD & SRT) Mastery.</p>
+          
+          <div class="hero-stats-row">
+            <div class="hero-stat-pill">
+              <strong>1000+</strong>
+              <span>Selections in Forces</span>
+            </div>
+            <div class="hero-stat-pill">
+              <strong>Intake 02/2026</strong>
+              <span>Target Batches Active</span>
+            </div>
+            <div class="hero-stat-pill">
+              <strong>100%</strong>
+              <span>Real CBT Exam Pattern</span>
+            </div>
+            <div class="hero-stat-pill">
+              <strong>Phase-II Special</strong>
+              <span>GD & SRT Interactive Lab</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           10 DASHBOARD BUTTONS (ONLY ON MAIN SCREEN AS SPECIFIED)
+           ========================================================= -->
+      <section class="dashboard-section">
+        <div class="section-header">
+          <h2>🎯 Quick Access Dashboard</h2>
+          <p>Choose your target section to start learning, practice mock tests, or download materials</p>
+        </div>
+
+        <div class="home-buttons-grid">
+          
+          <!-- 1. Paid Courses -->
+          <div class="home-btn-card" data-view="paid-courses" onclick="App.navigateTo('paid-courses')">
+            <span class="btn-card-badge" style="background:#e0f2fe; color:#0369a1;">HTML Tests</span>
+            <div class="card-icon-bubble bubble-courses">🎓</div>
+            <h3>Paid Courses</h3>
+            <p>Video Lectures, HTML Mock Tests & Class Notes</p>
+          </div>
+
+          <!-- 2. Free Test Series -->
+          <div class="home-btn-card" data-view="free-test-series" onclick="App.navigateTo('free-test-series')">
+            <span class="btn-card-badge" style="background:#dcfce7; color:#15803d;">PDF Enabled</span>
+            <div class="card-icon-bubble bubble-freetest">📝</div>
+            <h3>Free Test Series</h3>
+            <p>All-India Mock CBT Tests & Question Paper PDFs</p>
+          </div>
+
+          <!-- 3. OUR Selections -->
+          <div class="home-btn-card" data-view="our-selections" onclick="App.navigateTo('our-selections')">
+            <span class="btn-card-badge" style="background:#fef3c7; color:#b45309;">Intake 2026</span>
+            <div class="card-icon-bubble bubble-selections">🎖️</div>
+            <h3>OUR Selections</h3>
+            <p>Our Proud Warriors in Armed Forces Slideshow</p>
+          </div>
+
+          <!-- 4. Paid Test Series -->
+          <div class="home-btn-card" data-view="paid-test-series" onclick="App.navigateTo('paid-test-series')">
+            <span class="btn-card-badge" style="background:#fee2e2; color:#b91c1c;">4 Forces</span>
+            <div class="card-icon-bubble bubble-paidtest">🎯</div>
+            <h3>Paid Test Series</h3>
+            <p>Airforce, Navy, ICG & Army Targeted Test Series</p>
+          </div>
+
+          <!-- 5. E-Books -->
+          <div class="home-btn-card" data-view="ebooks" onclick="App.navigateTo('ebooks')">
+            <span class="btn-card-badge" style="background:#ede9fe; color:#6d28d9;">Paid Book</span>
+            <div class="card-icon-bubble bubble-ebooks">📚</div>
+            <h3>E-Books</h3>
+            <p>Special English & Defence GK Golden E-Book</p>
+          </div>
+
+          <!-- 6. PYQ PDFs -->
+          <div class="home-btn-card" data-view="pyq-pdfs" onclick="App.navigateTo('pyq-pdfs')">
+            <span class="btn-card-badge" style="background:#ffedd5; color:#c2410c;">Solved</span>
+            <div class="card-icon-bubble bubble-pyq">📄</div>
+            <h3>PYQ PDFs</h3>
+            <p>Previous Year Question Papers with Answer Key</p>
+          </div>
+
+          <!-- 7. Syllabus -->
+          <div class="home-btn-card" data-view="syllabus" onclick="App.navigateTo('syllabus')">
+            <span class="btn-card-badge" style="background:#e0e7ff; color:#3730a3;">Official</span>
+            <div class="card-icon-bubble bubble-syllabus">📋</div>
+            <h3>Syllabus</h3>
+            <p>Complete Exam Pattern & Topic-wise Weightage PDFs</p>
+          </div>
+
+          <!-- 8. Social Links -->
+          <div class="home-btn-card" data-view="social-links" onclick="App.navigateTo('social-links')">
+            <span class="btn-card-badge" style="background:#fce7f3; color:#be185d;">Portals</span>
+            <div class="card-icon-bubble bubble-social">🌐</div>
+            <h3>Social Links</h3>
+            <p>YouTube, Telegram, Instagram & Govt Portals</p>
+          </div>
+
+          <!-- 9. Phase-II (GD & SRT) -->
+          <div class="home-btn-card" data-view="phase2" onclick="App.navigateTo('phase2')" style="border-color:#f59e0b; background:#fffbeb;">
+            <span class="btn-card-badge" style="background:#f59e0b; color:#0f172a;">Priority</span>
+            <div class="card-icon-bubble bubble-phase2">⚡</div>
+            <h3>Phase-II (GD & SRT)</h3>
+            <p>02 Batches: GD + SRT Batch & Interactive SRT HTML</p>
+          </div>
+
+          <!-- 10. Current Affairs -->
+          <div class="home-btn-card" data-view="current-affairs" onclick="App.navigateTo('current-affairs')">
+            <span class="btn-card-badge" style="background:#ccfbf1; color:#0f766e;">2 Sections</span>
+            <div class="card-icon-bubble bubble-ca">📰</div>
+            <h3>Current Affairs</h3>
+            <p>Weekly Capsules & Monthly Defence Digest</p>
+          </div>
+
+        </div>
+
+        <!-- =========================================================
+             OUR SELECTIONS SLIDESHOW CAROUSEL
+             "OUR Selections:-not in whole page we adjust all in slideshow"
+             ========================================================= -->
+        <div class="slideshow-wrapper">
+          <div class="slideshow-header">
+            <h3>
+              <span>🏆</span> OUR SELECTIONS INTAKE 02/2026 (SKC HEROES)
+            </h3>
+            <div class="slideshow-controls">
+              <button class="slide-arrow-btn" onclick="App.slidePrev()" title="Previous Selection">‹</button>
+              <button class="slide-arrow-btn" onclick="App.slideNext()" title="Next Selection">›</button>
+            </div>
+          </div>
+
+          <div class="slideshow-track-container">
+            <div id="selections-carousel-track" class="slideshow-track">
+              <!-- Populated dynamically with genuine downloaded selection photos -->
+            </div>
+          </div>
+
+          <div style="text-align:center; margin-top:1rem; font-size:0.85rem; color:#cbd5e1;">
+            Click on any candidate card to view verification details and exam roll number.
+          </div>
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- ======================== 1. PAID COURSES VIEW ======================== -->
+    <div id="view-paid-courses" class="view-section">
+      <div class="view-header">
+        <h2>🎓 Paid Courses (HTML Mock & Video Classes Enabled)</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+      <div id="paid-courses-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+
+    <!-- ======================== 2. FREE TEST SERIES VIEW ======================== -->
+    <div id="view-free-test-series" class="view-section">
+      <div class="view-header">
+        <h2>📝 Free Test Series (Online CBT + PDF Enabled)</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+      <div id="free-tests-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+
+    <!-- ======================== 3. OUR SELECTIONS VIEW ======================== -->
+    <div id="view-our-selections" class="view-section">
+      <div class="view-header">
+        <h2>🎖️ Our Star Selections in Indian Armed Forces</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+      <p style="color:#64748b; margin-bottom:1.5rem;">
+        Every year, hundreds of dedicated students from SKC Defence Academy wear the uniform of the Indian Airforce, Navy, Army and Coast Guard.
+      </p>
+      <div class="slideshow-wrapper" style="margin-bottom:2rem;">
+        <div class="slideshow-track-container">
+          <div id="selections-full-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1.25rem;">
+            <!-- Populated dynamically -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== 4. PAID TEST SERIES VIEW ======================== -->
+    <div id="view-paid-test-series" class="view-section">
+      <div class="view-header">
+        <h2>🎯 Paid Test Series (Airforce, Navy, ICG & Army)</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+      
+      <!-- Category Tabs -->
+      <div id="pts-tabs-container" class="pts-category-tabs">
+        <!-- Airforce, Navy, ICG, Army -->
+      </div>
+
+      <div id="pts-content-area">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+
+    <!-- ======================== 5. E-BOOKS VIEW ======================== -->
+    <div id="view-ebooks" class="view-section">
+      <div class="view-header">
+        <h2>📚 E-Books (SKC Defence Official Publications)</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+      <div id="ebooks-list">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+
+    <!-- ======================== 6. PYQ PDFS VIEW ======================== -->
+    <div id="view-pyq-pdfs" class="view-section">
+      <div class="view-header">
+        <h2>📄 Previous Year Question Papers (PYQ PDFs)</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+      <div id="pyqs-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:1.25rem;">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+
+    <!-- ======================== 7. SYLLABUS VIEW ======================== -->
+    <div id="view-syllabus" class="view-section">
+      <div class="view-header">
+        <h2>📋 Official Syllabus & Exam Pattern PDFs</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+      <div id="syllabus-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:1.25rem;">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+
+    <!-- ======================== 8. SOCIAL LINKS VIEW ======================== -->
+    <div id="view-social-links" class="view-section">
+      <div class="view-header">
+        <h2>🌐 Official Social Media & Registration Sites</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+      <div id="social-links-container">
+        <!-- Populated dynamically -->
+      </div>
+    </div>
+
+    <!-- ======================== 9. PHASE-II (GD & SRT) VIEW ======================== -->
+    <div id="view-phase2" class="view-section">
+      <div class="view-header">
+        <h2>⚡ Airforce Phase-II (GD & SRT) Flagship Portal</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+      <div id="phase2-container">
+        <!-- Populated dynamically with 02 batches -->
+      </div>
+    </div>
+
+    <!-- ======================== 10. CURRENT AFFAIRS VIEW ======================== -->
+    <div id="view-current-affairs" class="view-section">
+      <div class="view-header">
+        <h2>📰 Defence Current Affairs (Weekly & Monthly)</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+      
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:2.5rem;">
+        <div>
+          <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #0284c7; padding-bottom:0.4rem;">
+            📅 Weekly Defence Capsules
+          </h3>
+          <div id="ca-weekly-list"></div>
+        </div>
+
+        <div>
+          <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #f59e0b; padding-bottom:0.4rem;">
+            📖 Monthly Defence Digests
+          </h3>
+          <div id="ca-monthly-list"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================== STUDENT LIBRARY / MY COURSES ======================== -->
+    <div id="view-my-courses" class="view-section">
+      <div class="view-header">
+        <h2>📖 My Library (Purchased Courses & Test Series)</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      </div>
+
+      <h3 style="font-size:1.15rem; color:#0a192f; margin-bottom:1rem;">Enrolled Courses</h3>
+      <div id="my-enrolled-courses" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:1.25rem; margin-bottom:2rem;"></div>
+
+      <h3 style="font-size:1.15rem; color:#0a192f; margin-bottom:1rem;">Unlocked Test Series</h3>
+      <div id="my-enrolled-tests" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:1.25rem;"></div>
+    </div>
+
+    <!-- ======================== CBT TEST WORKSPACE ======================== -->
+    <div id="view-test-viewport" class="view-section">
+      <div id="cbt-viewport">
+        <!-- Rendered by test-engine.js -->
+      </div>
+    </div>
+
+    <!-- ======================== SRT SIMULATOR WORKSPACE ======================== -->
+    <div id="view-srt-viewport" class="view-section">
+      <div id="srt-viewport">
+        <!-- Rendered by srt-engine.js -->
+      </div>
+    </div>
+
+    <!-- ======================== ADMIN PANEL VIEW ======================== -->
+    <div id="view-admin-panel" class="view-section">
+      <div class="view-header">
+        <h2>🛡️ Coaching Owner & Staff Administration Panel</h2>
+        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Exit to Public Site</button>
+      </div>
+
+      <div class="admin-layout">
+        <!-- Sidebar Navigation -->
+        <div class="admin-sidebar">
+          <ul class="admin-menu-list">
+            <li><button class="admin-menu-btn active" data-tab="overview" onclick="App.switchAdminTab('overview')">📊 Overview</button></li>
+            <li><button class="admin-menu-btn" data-tab="gd-classes" onclick="App.switchAdminTab('gd-classes')">📹 GD YouTube Classes</button></li>
+            <li><button class="admin-menu-btn" data-tab="courses" onclick="App.switchAdminTab('courses')">🎓 Paid Courses</button></li>
+            <li><button class="admin-menu-btn" data-tab="test-series" onclick="App.switchAdminTab('test-series')">📝 Test Series</button></li>
+            <li><button class="admin-menu-btn" data-tab="selections" onclick="App.switchAdminTab('selections')">🎖️ Selections</button></li>
+            <li><button class="admin-menu-btn" data-tab="users" onclick="App.switchAdminTab('users')">👥 Students Access</button></li>
+          </ul>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="admin-content-pane" id="admin-pane-container">
+          <!-- Populated dynamically -->
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ======================== FOOTER ======================== -->
+  <footer class="app-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
+            <img src="/uploads/logo.png" style="width:40px; height:40px; border-radius:50%; background:#fff; padding:2px;" alt="Logo" onerror="this.src='/uploads/logo.png'">
+            <h4 style="margin:0; font-size:1.15rem; color:#fff;">SKC DEFENCE ACADEMY</h4>
+          </div>
+          <p style="font-size:0.85rem; line-height:1.5; color:#cbd5e1; margin-bottom:0.75rem;">
+            Committed to shaping disciplined, determined and victorious warriors for the Indian Armed Forces.
+          </p>
+          <p style="font-size:0.82rem; color:#94a3b8;">
+            Developer / Official Email: <a href="mailto:Skcdefenceacademy@gmail.com" style="color:#f59e0b; font-weight:700;">Skcdefenceacademy@gmail.com</a>
+          </p>
+        </div>
+
+        <div class="footer-col">
+          <h4>Defence Examinations</h4>
+          <ul>
+            <li><a href="javascript:void(0)" onclick="App.navigateTo('paid-test-series'); App.selectPtsCategory('Airforce');">Airforce Agniveer Vayu</a></li>
+            <li><a href="javascript:void(0)" onclick="App.navigateTo('paid-test-series'); App.selectPtsCategory('Navy');">Indian Navy SSR & MR</a></li>
+            <li><a href="javascript:void(0)" onclick="App.navigateTo('paid-test-series'); App.selectPtsCategory('Army');">Indian Army Agniveer GD</a></li>
+            <li><a href="javascript:void(0)" onclick="App.navigateTo('paid-test-series'); App.selectPtsCategory('ICG');">Indian Coast Guard (ICG)</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Phase-II Special</h4>
+          <ul>
+            <li><a href="javascript:void(0)" onclick="App.navigateTo('phase2')">Airforce GD + SRT Batch</a></li>
+            <li><a href="javascript:void(0)" onclick="App.navigateTo('phase2')">AIRFORCE SRT Simulator</a></li>
+            <li><a href="javascript:void(0)" onclick="App.navigateTo('ebooks')">Defence Golden E-Book</a></li>
+            <li><a href="javascript:void(0)" onclick="App.navigateTo('social-links')">Official Social Channels</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>© 2026 SKC DEFENCE ACADEMY. All Rights Reserved. Anti-Piracy Watermark Protection Enabled.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================== MODALS ======================== -->
+
+  <!-- Generic Modal (Course Viewer, Previews, Dynamic Forms) -->
+  <div id="generic-modal" class="modal-backdrop">
+    <div class="modal-card" style="max-width:680px;">
+      <div class="modal-header">
+        <h3 id="generic-modal-title">Details</h3>
+        <button class="modal-close-btn" onclick="App.closeModal('generic-modal')">×</button>
+      </div>
+      <div class="modal-body" id="generic-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Selection Lightbox Modal -->
+  <div id="selection-modal" class="modal-backdrop">
+    <div class="modal-card" style="max-width:540px;">
+      <div class="modal-header">
+        <h3>🏆 SKC Defence Academy Selection Hero</h3>
+        <button class="modal-close-btn" onclick="App.closeModal('selection-modal')">×</button>
+      </div>
+      <div class="modal-body" id="selection-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Checkout & Payment Modal -->
+  <div id="checkout-modal" class="modal-backdrop">
+    <div class="modal-card" style="max-width:480px;">
+      <div class="modal-header">
+        <h3>Secure Checkout & Payment</h3>
+        <button class="modal-close-btn" onclick="App.closeModal('checkout-modal')">×</button>
+      </div>
+      <div class="modal-body" id="checkout-modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="login-modal" class="modal-backdrop">
+    <div class="modal-card" style="max-width:420px;">
+      <div class="modal-header">
+        <h3>Student Login</h3>
+        <button class="modal-close-btn" onclick="App.closeModal('login-modal')">×</button>
+      </div>
+      <div class="modal-body">
+        <button class="btn btn-outline" style="width:100%; margin-bottom:1.25rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;" onclick="App.switchUser('student1'); App.closeModal('login-modal');">
+          <span style="font-weight:bold; color:#ea4335;">G</span> Continue with Google
+        </button>
+
+        <div style="text-align:center; color:#94a3b8; font-size:0.8rem; margin-bottom:1.25rem;">OR MOBILE NUMBER (OTP)</div>
+
+        <div class="form-group">
+          <label class="form-label">Mobile Number</label>
+          <input type="tel" id="login-mobile-input" class="form-control" placeholder="10-digit mobile number" value="9812345678">
+        </div>
+        <button class="btn btn-primary" style="width:100%; margin-bottom:1rem;" onclick="alert('OTP sent to your mobile: 2026'); App.switchUser('student1'); App.closeModal('login-modal');">
+          Send OTP & Login
+        </button>
+
+        <div style="text-align:center; margin-top:1rem; border-top:1px solid #e2e8f0; padding-top:0.75rem;">
+          <a href="javascript:void(0)" style="font-size:0.85rem; color:#0284c7; text-decoration:none;" onclick="App.switchUser('admin'); App.closeModal('login-modal');">
+            Coaching Staff? Login as Admin
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="/js/test-engine.js"></script>
+  <script src="/js/srt-engine.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

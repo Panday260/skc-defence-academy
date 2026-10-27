@@ -1,0 +1,1174 @@
+{
+  "academy": {
+    "name": "SKC DEFENCE ACADEMY",
+    "tagline": "Premier Defence Training Institute • IAF • Navy • Army • ICG",
+    "email": "Skcdefenceacademy@gmail.com",
+    "phone": "+91 98765 43210",
+    "upiId": "skcdefenceacademy@okaxis",
+    "logo": "/uploads/logo.png",
+    "banner": "/uploads/banner.png",
+    "address": "SKC Defence Academy Campus, Near Defence Cantonment, India",
+    "adminPin": "skcadmin@2026"
+  },
+  "users": [
+    {
+      "id": "usr_admin",
+      "name": "SKC Academy Admin",
+      "email": "Skcdefenceacademy@gmail.com",
+      "phone": "9876543210",
+      "role": "admin",
+      "purchasedCourses": [
+        "course_1",
+        "course_2",
+        "course_3",
+        "phase2_1",
+        "phase2_2",
+        "ebook_1"
+      ],
+      "purchasedTests": [
+        "pts_airforce",
+        "pts_navy",
+        "pts_icg",
+        "pts_army"
+      ]
+    },
+    {
+      "id": "usr_student1",
+      "name": "Aakash Verma",
+      "email": "aakash.defence@gmail.com",
+      "phone": "9812345678",
+      "role": "student",
+      "purchasedCourses": [
+        "course_1",
+        "phase2_1"
+      ],
+      "purchasedTests": [
+        "pts_airforce"
+      ],
+      "purchasedEbooks": [
+        "ebook_1"
+      ]
+    },
+    {
+      "id": "usr_student2",
+      "name": "Pooja Sharma",
+      "email": "pooja.sharma@gmail.com",
+      "phone": "9712345678",
+      "role": "student",
+      "purchasedCourses": [
+        "course_2",
+        "course_1"
+      ],
+      "purchasedTests": [
+        "pts_navy"
+      ],
+      "purchasedEbooks": []
+    }
+  ],
+  "selections": [
+    {
+      "id": "sel_1",
+      "name": "Aman Sharma",
+      "exam": "Airforce Agniveer Vayu",
+      "intake": "Intake 02/2026",
+      "post": "Airmen (Group X)",
+      "image": "/uploads/selections/1780648688032.png",
+      "rollNo": "SKC-2026-1001",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_2",
+      "name": "Vikram Singh",
+      "exam": "Airforce Agniveer Vayu",
+      "intake": "Intake 02/2026",
+      "post": "Airmen (Group Y)",
+      "image": "/uploads/selections/1780649056954.png",
+      "rollNo": "SKC-2026-1002",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_3",
+      "name": "Rahul Verma",
+      "exam": "Indian Navy SSR",
+      "intake": "Batch 02/2026",
+      "post": "Senior Secondary Recruit",
+      "image": "/uploads/selections/1780649293539.png",
+      "rollNo": "SKC-2026-1003",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_4",
+      "name": "Rohit Yadav",
+      "exam": "Airforce Agniveer Vayu",
+      "intake": "Intake 02/2026",
+      "post": "Airmen Technical",
+      "image": "/uploads/selections/1780650160848.png",
+      "rollNo": "SKC-2026-1004",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_5",
+      "name": "Deepak Choudhary",
+      "exam": "Indian Coast Guard",
+      "intake": "Batch 01/2026",
+      "post": "Navik (GD)",
+      "image": "/uploads/selections/1780650309147.png",
+      "rollNo": "SKC-2026-1005",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_6",
+      "name": "Sachin Kumar",
+      "exam": "Indian Army Agniveer",
+      "intake": "Rally 2026",
+      "post": "Soldier General Duty",
+      "image": "/uploads/selections/1780650625934.png",
+      "rollNo": "SKC-2026-1006",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_7",
+      "name": "Praveen Rajput",
+      "exam": "Airforce Phase-II",
+      "intake": "Intake 02/2026",
+      "post": "GD & SRT Cleared",
+      "image": "/uploads/selections/1780650835088.png",
+      "rollNo": "SKC-2026-1007",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_8",
+      "name": "Ajay Gurjar",
+      "exam": "Airforce Agniveer Vayu",
+      "intake": "Intake 02/2026",
+      "post": "Airmen (Group X)",
+      "image": "/uploads/selections/1780651168270.png",
+      "rollNo": "SKC-2026-1008",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_9",
+      "name": "Mohit Saini",
+      "exam": "Indian Navy MR",
+      "intake": "Batch 02/2026",
+      "post": "Matric Recruit",
+      "image": "/uploads/selections/1780651299897.png",
+      "rollNo": "SKC-2026-1009",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_10",
+      "name": "Suraj Bhan",
+      "exam": "Indian Army Agniveer",
+      "intake": "Batch 2026",
+      "post": "Soldier Technical",
+      "image": "/uploads/selections/1780651382408.png",
+      "rollNo": "SKC-2026-1010",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_11",
+      "name": "Ankit Meena",
+      "exam": "Airforce Agniveer Vayu",
+      "intake": "Intake 02/2026",
+      "post": "Airmen (Group Y)",
+      "image": "/uploads/selections/1780659525824.png",
+      "rollNo": "SKC-2026-1011",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_12",
+      "name": "Karan Shekhawat",
+      "exam": "Indian Coast Guard",
+      "intake": "Batch 02/2026",
+      "post": "Navik (DB)",
+      "image": "/uploads/selections/1780660164049.png",
+      "rollNo": "SKC-2026-1012",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_13",
+      "name": "Vishal Tiwari",
+      "exam": "Airforce Agniveer Vayu",
+      "intake": "Intake 02/2026",
+      "post": "Airmen (Group X)",
+      "image": "/uploads/selections/1780662295381.png",
+      "rollNo": "SKC-2026-1013",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_14",
+      "name": "Manish Bhati",
+      "exam": "Indian Army Agniveer",
+      "intake": "Batch 2026",
+      "post": "Clerk / SKT",
+      "image": "/uploads/selections/1780663622830.png",
+      "rollNo": "SKC-2026-1014",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_15",
+      "name": "Kuldeep Tanwar",
+      "exam": "Airforce Phase-II",
+      "intake": "Intake 02/2026",
+      "post": "GD & SRT Cleared",
+      "image": "/uploads/selections/1780663839314.png",
+      "rollNo": "SKC-2026-1015",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_16",
+      "name": "Dharmendra Rao",
+      "exam": "Indian Navy SSR",
+      "intake": "Batch 02/2026",
+      "post": "Navy Sailor",
+      "image": "/uploads/selections/1780664893715.png",
+      "rollNo": "SKC-2026-1016",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_17",
+      "name": "Naveen Godara",
+      "exam": "Airforce Agniveer Vayu",
+      "intake": "Intake 02/2026",
+      "post": "Airmen (Group X)",
+      "image": "/uploads/selections/1780671374560.png",
+      "rollNo": "SKC-2026-1017",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_18",
+      "name": "Pankaj Joshi",
+      "exam": "Airforce Agniveer Vayu",
+      "intake": "Intake 02/2026",
+      "post": "Airmen (Group Y)",
+      "image": "/uploads/selections/1780672580472.png",
+      "rollNo": "SKC-2026-1018",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    },
+    {
+      "id": "sel_19",
+      "name": "Ravi Shankar",
+      "exam": "Indian Coast Guard",
+      "intake": "Batch 01/2026",
+      "post": "Yantrik",
+      "image": "/uploads/selections/1780816885846.png",
+      "rollNo": "SKC-2026-1019",
+      "quote": "Selection achieved through hard work and SKC Defence Academy guidance!"
+    }
+  ],
+  "courses": [
+    {
+      "id": "course_1",
+      "title": "Airforce Agniveer Vayu Complete Batch 2026 (Group X & Y)",
+      "category": "Airforce",
+      "price": 1499,
+      "originalPrice": 3999,
+      "badge": "Most Popular",
+      "thumbnail": "/uploads/banner.png",
+      "description": "Targeted live & recorded batch for Airforce Agniveer Vayu (Science & Other than Science). Complete syllabus coverage with HTML mock tests, formula PDFs & regular doubt sessions.",
+      "features": [
+        "120+ Full Length Video Lectures",
+        "Chapter-wise HTML Mock Tests with Instant Scoring",
+        "Class PDFs & English 500 Golden Rules Notes",
+        "Previous 5 Years Question Paper Discussions"
+      ],
+      "videos": [
+        {
+          "id": "v1",
+          "title": "English: Subject-Verb Agreement & Error Spotting (Concept + 50 MCQs)",
+          "duration": "48 mins",
+          "youtubeUrl": "https://www.youtube.com/watch?v=ysz5S6PUM-U",
+          "youtubeId": "ysz5S6PUM-U"
+        },
+        {
+          "id": "v2",
+          "title": "Physics: Kinematics, Projectile & Circular Motion Short Tricks",
+          "duration": "54 mins",
+          "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "youtubeId": "dQw4w9WgXcQ"
+        },
+        {
+          "id": "v3",
+          "title": "Mathematics: Matrices, Determinants & Integration for Group X",
+          "duration": "52 mins",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ"
+        },
+        {
+          "id": "v4",
+          "title": "RAGA: Figure Series, Analogy & Coding Decoding Tricks",
+          "duration": "42 mins",
+          "youtubeUrl": "https://www.youtube.com/watch?v=L_LUpnjgPso",
+          "youtubeId": "L_LUpnjgPso"
+        }
+      ],
+      "pdfs": [
+        {
+          "id": "c_pdf1",
+          "title": "Airforce English 500 Golden Rules & Fixed Prepositions.pdf",
+          "size": "3.2 MB",
+          "pages": 45,
+          "url": "/uploads/pdfs/airforce_english_rules.pdf"
+        },
+        {
+          "id": "c_pdf2",
+          "title": "Physics 100 Most Repeated Formulae & Dimensional Analysis.pdf",
+          "size": "2.6 MB",
+          "pages": 32,
+          "url": "/uploads/pdfs/physics_formula_handbook.pdf"
+        },
+        {
+          "id": "c_pdf3",
+          "title": "RAGA Speed Calculation & Non-Verbal Reasoning Tricks.pdf",
+          "size": "4.1 MB",
+          "pages": 58,
+          "url": "/uploads/pdfs/raga_reasoning_guide.pdf"
+        }
+      ],
+      "htmlMocks": [
+        {
+          "id": "hm_1",
+          "title": "Agniveer English Special HTML Mock Test - 01",
+          "questions": 20,
+          "timeMinutes": 20
+        },
+        {
+          "id": "hm_2",
+          "title": "Physics Mechanics & Thermodynamics HTML Set - 01",
+          "questions": 25,
+          "timeMinutes": 25
+        }
+      ]
+    },
+    {
+      "id": "course_2",
+      "title": "Indian Navy SSR / MR Target Selection Batch 2026",
+      "category": "Navy",
+      "price": 1299,
+      "originalPrice": 3299,
+      "badge": "Target Batch",
+      "thumbnail": "/uploads/selections/1780648688032.png",
+      "description": "Comprehensive course for Navy SSR (Senior Secondary Recruit) and MR (Matric Recruit). Includes Science, Mathematics, English and General Awareness.",
+      "features": [
+        "Complete Navy SSR / MR Syllabus in Hindi & English",
+        "Subject-wise Practice Sets and Formula PDFs",
+        "Memory Based Question Papers 2022-2025 Solved",
+        "Special Science & Maritime GK Capsules"
+      ],
+      "videos": [
+        {
+          "id": "v2_1",
+          "title": "Navy Science: General Science, Waves & Optics Masterclass",
+          "duration": "50 mins",
+          "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+          "youtubeId": "dQw4w9WgXcQ"
+        },
+        {
+          "id": "v2_2",
+          "title": "Navy English: Active/Passive Voice & Direct/Indirect Speech",
+          "duration": "45 mins",
+          "youtubeUrl": "https://www.youtube.com/watch?v=ysz5S6PUM-U",
+          "youtubeId": "ysz5S6PUM-U"
+        }
+      ],
+      "pdfs": [
+        {
+          "id": "c_pdf4",
+          "title": "Navy SSR General Science Capsule & 400 Important MCQs.pdf",
+          "size": "3.8 MB",
+          "pages": 52,
+          "url": "/uploads/pdfs/navy_science_capsule.pdf"
+        }
+      ],
+      "htmlMocks": [
+        {
+          "id": "hm_3",
+          "title": "Navy SSR Full Length Practice Set (Science + Math)",
+          "questions": 50,
+          "timeMinutes": 40
+        }
+      ]
+    },
+    {
+      "id": "course_3",
+      "title": "Indian Army Agniveer GD & Technical Supreme Batch",
+      "category": "Army",
+      "price": 999,
+      "originalPrice": 2499,
+      "badge": "New Batch",
+      "thumbnail": "/uploads/selections/1780649056954.png",
+      "description": "Designed specifically for the Common Entrance Examination (CEE) of Army Agniveer GD, Tradesman & Technical trades with simple Hindi explanation.",
+      "features": [
+        "Basic to Advanced Math Calculation Shortcuts",
+        "General Knowledge & General Science 1000 One-Liners",
+        "OMR & CBT Exam Orientation Tests",
+        "Physical Test & Medical Guidelines Tips"
+      ],
+      "videos": [
+        {
+          "id": "v3_1",
+          "title": "Army GD Math: Percentage, Ratio & Time-Work Shortcuts",
+          "duration": "40 mins",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ"
+        }
+      ],
+      "pdfs": [
+        {
+          "id": "c_pdf5",
+          "title": "Army Agniveer 1000 High Frequency GK & GS One Liners.pdf",
+          "size": "2.9 MB",
+          "pages": 38,
+          "url": "/uploads/pdfs/army_gk_one_liners.pdf"
+        }
+      ],
+      "htmlMocks": [
+        {
+          "id": "hm_4",
+          "title": "Army Agniveer GD Mock Test - 01",
+          "questions": 50,
+          "timeMinutes": 45
+        }
+      ]
+    }
+  ],
+  "freeTests": [
+    {
+      "id": "ft_1",
+      "title": "Airforce Agniveer Vayu Free All-India Mock Test 01",
+      "exam": "Airforce Agniveer Vayu",
+      "category": "Free",
+      "totalMarks": 50,
+      "durationMinutes": 45,
+      "positiveMarks": 1,
+      "negativeMarks": 0.25,
+      "instructions": "Total 50 Questions: English (20 Qs) + RAGA (30 Qs). Each correct answer awards 1 mark. 0.25 mark will be deducted for every incorrect attempt.",
+      "questions": [
+        {
+          "id": "q1",
+          "section": "English",
+          "question": "Choose the correct synonym of the given word: **CANDID**",
+          "options": [
+            "Secretive",
+            "Frank",
+            "Deceitful",
+            "Cruel"
+          ],
+          "answer": 1,
+          "explanation": "'Candid' means truthful, frank, and straightforward. Therefore, 'Frank' is the exact synonym."
+        },
+        {
+          "id": "q2",
+          "section": "English",
+          "question": "Fill in the blank: Neither the teacher nor the students ______ present in the auditorium.",
+          "options": [
+            "was",
+            "were",
+            "is",
+            "has been"
+          ],
+          "answer": 1,
+          "explanation": "In 'Neither... nor', the verb agrees with the subject closest to it. Here 'students' is plural, so 'were' is correct."
+        },
+        {
+          "id": "q3",
+          "section": "English",
+          "question": "Identify the correctly spelt word:",
+          "options": [
+            "Accomodation",
+            "Accommodation",
+            "Acomodation",
+            "Acommodation"
+          ],
+          "answer": 1,
+          "explanation": "The correct spelling is 'Accommodation' with double 'c' and double 'm'."
+        },
+        {
+          "id": "q4",
+          "section": "English",
+          "question": "Choose the antonym of the given word: **OBSOLETE**",
+          "options": [
+            "Modern",
+            "Outdated",
+            "Remote",
+            "Ancient"
+          ],
+          "answer": 0,
+          "explanation": "'Obsolete' means no longer produced or used (outdated). The opposite is 'Modern'."
+        },
+        {
+          "id": "q5",
+          "section": "English",
+          "question": "Select the one word substitution: 'A person who loves books'",
+          "options": [
+            "Bibliophile",
+            "Philanthropist",
+            "Polyglot",
+            "Misogynist"
+          ],
+          "answer": 0,
+          "explanation": "A 'Bibliophile' is a person who collects or has a great love of books."
+        },
+        {
+          "id": "q6",
+          "section": "RAGA - Reasoning",
+          "question": "If AIRFORCE is coded as 1-9-18-6-15-18-3-5, then what is the code for DEFENCE?",
+          "options": [
+            "4-5-6-5-14-3-5",
+            "4-5-6-5-13-3-5",
+            "4-5-7-5-14-3-5",
+            "3-5-6-5-14-3-5"
+          ],
+          "answer": 0,
+          "explanation": "Each letter is replaced by its alphabetical position number: D=4, E=5, F=6, E=5, N=14, C=3, E=5."
+        },
+        {
+          "id": "q7",
+          "section": "RAGA - Reasoning",
+          "question": "Complete the series: 3, 7, 15, 31, 63, ?",
+          "options": [
+            "95",
+            "127",
+            "125",
+            "121"
+          ],
+          "answer": 1,
+          "explanation": "Pattern is (x * 2) + 1: (3*2)+1=7, (7*2)+1=15, (15*2)+1=31, (31*2)+1=63, (63*2)+1 = 127."
+        },
+        {
+          "id": "q8",
+          "section": "RAGA - General Awareness",
+          "question": "Who is the Supreme Commander of the Indian Armed Forces?",
+          "options": [
+            "Prime Minister of India",
+            "Chief of Defence Staff (CDS)",
+            "President of India",
+            "Defence Minister"
+          ],
+          "answer": 2,
+          "explanation": "According to Article 53(2) of the Constitution of India, the Supreme Command of the Defence Forces is vested in the President of India."
+        },
+        {
+          "id": "q9",
+          "section": "RAGA - General Awareness",
+          "question": "Where is the headquarters of the Eastern Air Command located?",
+          "options": [
+            "Shillong",
+            "Prayagraj",
+            "Gandhinagar",
+            "Bengaluru"
+          ],
+          "answer": 0,
+          "explanation": "Eastern Air Command of the Indian Air Force is headquartered at Shillong, Meghalaya."
+        },
+        {
+          "id": "q10",
+          "section": "RAGA - Mathematics",
+          "question": "If 15 men can complete a project in 20 days, how many days will 25 men take to complete the same project?",
+          "options": [
+            "10 days",
+            "12 days",
+            "14 days",
+            "16 days"
+          ],
+          "answer": 1,
+          "explanation": "Using M1 * D1 = M2 * D2: 15 * 20 = 25 * D2 => 300 / 25 = 12 days."
+        }
+      ]
+    },
+    {
+      "id": "ft_2",
+      "title": "Indian Navy SSR Free Full Length Mock Test 01",
+      "exam": "Indian Navy SSR",
+      "category": "Free",
+      "totalMarks": 50,
+      "durationMinutes": 30,
+      "positiveMarks": 1,
+      "negativeMarks": 0.25,
+      "instructions": "Full Navy SSR Pattern Test. Science & Mathematics with General Awareness.",
+      "questions": [
+        {
+          "id": "nq1",
+          "section": "Science",
+          "question": "What is the SI unit of electric resistance?",
+          "options": [
+            "Volt",
+            "Ampere",
+            "Ohm",
+            "Joule"
+          ],
+          "answer": 2,
+          "explanation": "The SI unit of electrical resistance is Ohm (represented by Omega)."
+        },
+        {
+          "id": "nq2",
+          "section": "Science",
+          "question": "Sound waves in air are which type of waves?",
+          "options": [
+            "Transverse",
+            "Longitudinal",
+            "Electromagnetic",
+            "Torsional"
+          ],
+          "answer": 1,
+          "explanation": "Sound waves in air travel as longitudinal waves consisting of compressions and rarefactions."
+        },
+        {
+          "id": "nq3",
+          "section": "General Awareness",
+          "question": "Which is India's first indigenous aircraft carrier commissioned by Indian Navy?",
+          "options": [
+            "INS Vikramaditya",
+            "INS Vikrant",
+            "INS Arihant",
+            "INS Kolkata"
+          ],
+          "answer": 1,
+          "explanation": "INS Vikrant (IAC-1) is the first aircraft carrier built completely in India by Cochin Shipyard."
+        }
+      ]
+    },
+    {
+      "id": "ft_3",
+      "title": "Indian Army GD General Science & GK Free Practice Set",
+      "exam": "Indian Army Agniveer GD",
+      "category": "Free",
+      "totalMarks": 50,
+      "durationMinutes": 25,
+      "positiveMarks": 2,
+      "negativeMarks": 0.5,
+      "instructions": "Army Agniveer GD Mock Paper: GK & General Science 25 Questions.",
+      "questions": [
+        {
+          "id": "aq1",
+          "section": "General Science",
+          "question": "Which gas is most abundant in Earth's atmosphere?",
+          "options": [
+            "Oxygen",
+            "Nitrogen",
+            "Carbon Dioxide",
+            "Hydrogen"
+          ],
+          "answer": 1,
+          "explanation": "Nitrogen makes up approximately 78% of the Earth's atmosphere."
+        },
+        {
+          "id": "aq2",
+          "section": "General Knowledge",
+          "question": "When is Indian Army Day celebrated every year?",
+          "options": [
+            "15th January",
+            "8th October",
+            "4th December",
+            "26th January"
+          ],
+          "answer": 0,
+          "explanation": "Indian Army Day is celebrated on 15th January in recognition of Field Marshal K. M. Cariappa taking over as the first Commander-in-Chief in 1949."
+        }
+      ]
+    }
+  ],
+  "paidTestSeries": [
+    {
+      "id": "pts_airforce",
+      "name": "Airforce",
+      "title": "Indian Airforce (Agniveer Vayu) Paid Test Series",
+      "price": 399,
+      "originalPrice": 999,
+      "icon": "fighter-jet",
+      "badge": "Top Defence Series",
+      "description": "Targeted test series for Airforce Group X (Science) and Group Y (Other than Science). Exactly matches the official CDAC online examination interface.",
+      "features": [
+        "Full Length Mock Tests as per Latest Agnipath Vayu Syllabus",
+        "Sectional Tests for English, Physics, Math and RAGA",
+        "All-India Rank, Scorecard, Accuracy & Percentile Analytics",
+        "Full Step-by-Step Bilingual Solutions (Hindi & English)"
+      ],
+      "tests": []
+    },
+    {
+      "id": "pts_navy",
+      "name": "Navy",
+      "title": "Indian Navy (SSR / MR) Paid Test Series",
+      "price": 349,
+      "originalPrice": 899,
+      "icon": "ship",
+      "badge": "Navy Special",
+      "description": "Real exam level mock tests for Indian Navy Senior Secondary Recruit (SSR) & Matric Recruit (MR).",
+      "features": [
+        "Complete 100-Question SSR Mock Tests",
+        "50-Question MR Practice Sets",
+        "Bilingual Answer Key with In-depth Explanations"
+      ],
+      "tests": []
+    },
+    {
+      "id": "pts_icg",
+      "name": "ICG",
+      "title": "Indian Coast Guard (Navik GD & DB) Paid Test Series",
+      "price": 349,
+      "originalPrice": 899,
+      "icon": "shield",
+      "badge": "Coast Guard Special",
+      "description": "Special mock sets matching ICG Stage-I Section-I and Section-II examination patterns.",
+      "features": [
+        "ICG Navik GD Section-I + Section-II Full Mocks",
+        "ICG Navik DB Section-I Full Mocks",
+        "Negative Marking & Sectional Cutoff Simulation"
+      ],
+      "tests": []
+    },
+    {
+      "id": "pts_army",
+      "name": "Army",
+      "title": "Indian Army (Agniveer GD / Tech / Clerk) Paid Test Series",
+      "price": 299,
+      "originalPrice": 799,
+      "icon": "medal",
+      "badge": "Army Special",
+      "description": "Curated high-yield practice sets for Indian Army Common Entrance Examination (CEE).",
+      "features": [
+        "50 Questions Army GD & Tradesman Mock Tests",
+        "Army Technical & Clerk Special Subject Tests",
+        "Simple Hindi & English Explanations"
+      ],
+      "tests": []
+    }
+  ],
+  "ebooks": [
+    {
+      "id": "ebook_1",
+      "title": "SKC Defence Academy Special: English & Defence GK Golden E-Book (2026 Edition)",
+      "price": 199,
+      "originalPrice": 499,
+      "author": "SKC Defence Academy Faculty",
+      "pages": 184,
+      "coverImage": "/uploads/selections/1780650160848.png",
+      "description": "The most recommended defence preparation e-book covering 1500+ Golden English grammar rules, root word vocabulary, and 2000+ Previous Year Questions for Airforce, Navy, ICG and Army exams.",
+      "features": [
+        "1500+ Golden Rules of English Grammar with Defence Exam Examples",
+        "Airforce Phase-II GD Speaking Phrasebook & Discussion Vocabulary",
+        "Complete Static Defence GK (Aircraft, Ships, Missiles, Commands, Insignia)",
+        "Anti-Piracy Watermark Protection Automatically Embedded on Download"
+      ],
+      "previewText": "SKC DEFENCE ACADEMY SPECIAL E-BOOK (PREVIEW EXCERPT)\n\nPART 1: THE 50 GOLDEN RULES OF SUBJECT-VERB AGREEMENT\n\nRule 1: When two subjects are joined by \"as well as\", \"along with\", \"together with\", \"with\", \"in addition to\", \"accompanied by\", \"like\", \"unlike\", \"rather than\", the verb agrees with the FIRST subject.\nExample: The Wing Commander along with his squadron (is/are) returning to the airbase. -> Answer: 'is' (Wing Commander is singular).\n\nRule 2: When two subjects are connected by \"either... or\", \"neither... nor\", \"not only... but also\", the verb agrees with the NEAREST subject.\nExample: Neither the pilot nor the navigators (was/were) injured. -> Answer: 'were' (navigators is plural).\n\nRule 3: Words like 'each', 'every', 'neither', 'either', 'one of the' are always followed by a plural noun but a SINGULAR verb.\nExample: One of the Sukhoi-30 fighters (has/have) completed the sortie. -> Answer: 'has'.",
+      "pdfUrl": "/uploads/pdfs/skc_defence_golden_ebook.pdf"
+    }
+  ],
+  "pyqs": [
+    {
+      "id": "pyq_1",
+      "exam": "Airforce Agniveer Vayu",
+      "title": "Airforce Agniveer Intake 02/2025 Solved Paper - Science Group (X)",
+      "year": "2025",
+      "size": "4.2 MB",
+      "pages": 24,
+      "url": "/uploads/pdfs/airforce_intake_02_2025_group_x.pdf"
+    },
+    {
+      "id": "pyq_2",
+      "exam": "Airforce Agniveer Vayu",
+      "title": "Airforce Agniveer Intake 02/2025 Solved Paper - Non-Science Group (Y)",
+      "year": "2025",
+      "size": "3.8 MB",
+      "pages": 20,
+      "url": "/uploads/pdfs/airforce_intake_02_2025_group_y.pdf"
+    },
+    {
+      "id": "pyq_3",
+      "exam": "Indian Navy SSR",
+      "title": "Indian Navy SSR 2024 Memory Based Question Paper with Answer Key",
+      "year": "2024",
+      "size": "3.1 MB",
+      "pages": 18,
+      "url": "/uploads/pdfs/navy_ssr_2024_solved.pdf"
+    },
+    {
+      "id": "pyq_4",
+      "exam": "Indian Coast Guard",
+      "title": "ICG Navik GD 2024 Stage-I Solved Question Bank",
+      "year": "2024",
+      "size": "2.9 MB",
+      "pages": 16,
+      "url": "/uploads/pdfs/icg_navik_gd_2024.pdf"
+    },
+    {
+      "id": "pyq_5",
+      "exam": "Indian Army Agniveer",
+      "title": "Indian Army Agniveer GD Original Exam Paper 2024 (All India Rally)",
+      "year": "2024",
+      "size": "2.5 MB",
+      "pages": 14,
+      "url": "/uploads/pdfs/army_agniveer_gd_2024.pdf"
+    }
+  ],
+  "syllabus": [
+    {
+      "id": "syl_1",
+      "exam": "Indian Airforce",
+      "title": "Airforce Agniveer Vayu Detailed Syllabus & Topic-wise Weightage 2026",
+      "size": "1.8 MB",
+      "pages": 12,
+      "url": "/uploads/pdfs/airforce_syllabus_2026.pdf"
+    },
+    {
+      "id": "syl_2",
+      "exam": "Indian Navy",
+      "title": "Indian Navy SSR & MR Official Exam Pattern & Detailed Syllabus 2026",
+      "size": "1.5 MB",
+      "pages": 10,
+      "url": "/uploads/pdfs/navy_syllabus_2026.pdf"
+    },
+    {
+      "id": "syl_3",
+      "exam": "Indian Coast Guard",
+      "title": "ICG Navik (GD/DB) & Yantrik Stage-I & Stage-II Complete Syllabus",
+      "size": "1.9 MB",
+      "pages": 14,
+      "url": "/uploads/pdfs/icg_syllabus_2026.pdf"
+    },
+    {
+      "id": "syl_4",
+      "exam": "Indian Army",
+      "title": "Indian Army Agniveer (GD, Technical, Clerk/SKT) CEE Official Syllabus",
+      "size": "1.4 MB",
+      "pages": 8,
+      "url": "/uploads/pdfs/army_syllabus_2026.pdf"
+    }
+  ],
+  "phase2": [
+    {
+      "id": "phase2_gd_yt",
+      "title": "AIRFORCE GD SPECIAL BATCH (Daily YouTube Classes & PDFs)",
+      "price": 0,
+      "originalPrice": 999,
+      "badge": "Daily YouTube Classes",
+      "type": "GD Classes & PDFs",
+      "description": "Dedicated batch for daily Airforce Phase-II Group Discussion (GD) classes uploaded from YouTube along with complete lecture notes, speaking scripts, and downloadable study PDFs.",
+      "features": [
+        "Daily YouTube Video Lectures & Live GD Mock Demonstrations",
+        "Downloadable Class Notes & Speaking Phrasebook PDFs",
+        "Top 30+ Trending Defence GD Topics with Hindi/English Scripts",
+        "Officer Like Qualities (OLQ) Speaking Techniques & Feedback"
+      ],
+      "gdClasses": [],
+      "youtubeVideos": [],
+      "classPdfs": []
+    },
+    {
+      "id": "phase2_1",
+      "title": "Airforce GD + SRT Special Batch (Phase-II Master Course)",
+      "price": 799,
+      "originalPrice": 1999,
+      "badge": "High Priority",
+      "type": "GD & SRT",
+      "description": "Our comprehensive flagship program for Airforce Phase-II. Includes Group Discussion (GD) speaking mastery, trending defence topics, body language tips, and full Situation Reaction Test (SRT) HTML simulator access.",
+      "features": [
+        "Interactive HTML SRT Test Engine (45 Situations in 30 Mins)",
+        "Top 30 GD Topics with English Scripts & Key Discussion Arguments",
+        "YouTube Video Demonstrations of Live Mock GD Sessions",
+        "Class Notes PDFs & Officer Like Qualities (OLQ) Evaluation"
+      ],
+      "youtubeVideos": [],
+      "classPdfs": [
+        {
+          "id": "p2_pdf1",
+          "title": "Airforce Phase-II GD Speaking Guide & 30 Most Common Topics.pdf",
+          "size": "5.1 MB",
+          "pages": 64,
+          "url": "/uploads/pdfs/phase2_gd_guide.pdf"
+        },
+        {
+          "id": "p2_pdf2",
+          "title": "SRT Psychology Rules & 100 Solved Scenarios.pdf",
+          "size": "3.9 MB",
+          "pages": 48,
+          "url": "/uploads/pdfs/phase2_srt_scenarios.pdf"
+        }
+      ],
+      "gdTopics": [
+        {
+          "id": "gdt_1",
+          "title": "Agnipath Scheme: Transformation of Indian Armed Forces",
+          "category": "Defence Policy",
+          "introduction": "Agnipath is a landmark recruitment reform designed to keep the Indian Armed Forces youthful, tech-savvy, and agile.",
+          "pros": [
+            "Brings average age of troops down from 32 to 26 years",
+            "Instills high discipline, fitness, and skill training in Indian youth",
+            "Seva Nidhi package of ~11.71 Lakhs enables youth to start businesses or higher studies",
+            "Retention of top 25% ensures combat-hardened core cadres"
+          ],
+          "cons": [
+            "Concerns regarding post-service career opportunities for 75% outgoing troops",
+            "Need for continuous transition support and skill recognition certificates"
+          ],
+          "conclusion": "With corporate tie-ups and priority quotas in CAPFs and state police, Agnipath strikes a balance between modernisation and youth empowerment."
+        },
+        {
+          "id": "gdt_2",
+          "title": "Artificial Intelligence & Unmanned Drones in Modern Combat",
+          "category": "Military Technology",
+          "introduction": "Recent conflicts (Russia-Ukraine, Armenia-Azerbaijan) proved that loitering munitions and AI surveillance are modern war-winners.",
+          "pros": [
+            "Replaces human pilots in high-risk reconnaissance and deep strike missions",
+            "Real-time autonomous tracking of enemy radar and artillery positions",
+            "Indigenous programs like Tapas-BH, Ghatak UCAV, and Swarm Drones under Make in India"
+          ],
+          "cons": [
+            "Risk of electronic jamming and cyber countermeasures",
+            "Ethical considerations in autonomous kill-chains"
+          ],
+          "conclusion": "Integrating AI with human judgment gives Indian Armed Forces a formidable asymmetric edge."
+        },
+        {
+          "id": "gdt_3",
+          "title": "Women in Combat Roles in Indian Armed Forces",
+          "category": "National Integration",
+          "introduction": "From IAF fighter pilots (Avani Chaturvedi, Bhawana Kanth) to permanent commissions in Navy and Army, Indian women are defending the frontlines.",
+          "pros": [
+            "Equality of opportunity based purely on merit and capability",
+            "Diverse operational perspectives in intelligence, flying, and naval warfare",
+            "Inspires millions of young girls across India to pursue defence careers"
+          ],
+          "cons": [
+            "Requires tailored field infrastructure and logistical adjustments"
+          ],
+          "conclusion": "Merit knows no gender; professional standards and rigorous training produce world-class warriors."
+        }
+      ]
+    },
+    {
+      "id": "phase2_2",
+      "title": "AIRFORCE SRT Special Batch (Situation Reaction Test Simulator)",
+      "price": 499,
+      "originalPrice": 1299,
+      "badge": "HTML Enabled",
+      "type": "SRT Only",
+      "description": "Targeted interactive HTML simulator for Airforce SRT. Practice real psychological situations under 30-minute strict time limits with instant OLQ feedback and class PDFs.",
+      "features": [
+        "HTML Interactive CBT Simulator for SRT",
+        "Timed 45 Scenarios in 30 Minutes",
+        "Downloadable Class Notes & Psychological Do's and Don'ts",
+        "YouTube Video Analysis of Tricky Situations"
+      ],
+      "youtubeVideos": [
+        {
+          "id": "srt_v1",
+          "title": "SRT Psychology Decoded: What the Psychologist Looks For in Your Responses",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ"
+        }
+      ],
+      "classPdfs": [
+        {
+          "id": "p2_pdf3",
+          "title": "Airforce SRT Official Do's and Don'ts & Positive Thinking Handbook.pdf",
+          "size": "3.2 MB",
+          "pages": 40,
+          "url": "/uploads/pdfs/srt_handbook.pdf"
+        }
+      ]
+    }
+  ],
+  "srtScenarios": [
+    {
+      "id": "srt_1",
+      "situation": "1. You are travelling in an express train and suddenly smoke starts filling your coach. The emergency alarm chain is pulled but it does not work. You...",
+      "options": [
+        "Jump out of the moving train to save your life immediately.",
+        "Use wet handkerchief on face, locate the coach fire extinguisher to tackle the source, alert the guard/TTE through mobile and passengers calmly.",
+        "Start shouting in panic and wait for the train to stop at next station.",
+        "Lock yourself inside the train lavatory until help arrives."
+      ],
+      "bestAnswer": 1,
+      "olq": "Speed of Decision, Sense of Responsibility, Courage",
+      "explanation": "Shows initiative, emotional stability under emergency, active problem solving and concern for co-passengers."
+    },
+    {
+      "id": "srt_2",
+      "situation": "2. During your 1.6 km physical fitness run at Airforce Selection Centre, your sports shoe gets badly torn 400 meters before the finish line. You...",
+      "options": [
+        "Stop running, sit down and complain to the ground sergeant.",
+        "Remove both shoes quickly or kick off the torn shoe, sprint barefoot with determination, and finish well within the qualifying time.",
+        "Slow down to a slow walk to avoid foot injury and accept failure.",
+        "Wait for medical team to bring a new shoe."
+      ],
+      "bestAnswer": 1,
+      "olq": "Determination, Stamina, Willpower",
+      "explanation": "Demonstrates extreme grit and never-give-up warrior spirit to achieve the mission objective."
+    },
+    {
+      "id": "srt_3",
+      "situation": "3. You are walking along a riverbank and see a boy drowning. You know only basic swimming. You...",
+      "options": [
+        "Run away from the spot because you are not an expert swimmer.",
+        "Shout for nearby locals/fishermen for help, look for a long bamboo pole or throw a rope/inflatable tube to pull the boy safely to the bank.",
+        "Jump blindly into deep whirlpool water without any plan.",
+        "Record the video on your phone to upload on social media."
+      ],
+      "bestAnswer": 1,
+      "olq": "Effective Intelligence, Resourcefulness, Bravery",
+      "explanation": "Uses intelligence and available resources practically without endangering another life unnecessarily."
+    },
+    {
+      "id": "srt_4",
+      "situation": "4. Your group is given a problem during Group Planning Exercise (GPE). Two candidates start arguing aggressively with each other, delaying the team. You...",
+      "options": [
+        "Join one candidate and shout down the other.",
+        "Stay completely silent and let them fight.",
+        "Intervene calmly, synthesize valid points from both candidates, remind them of the common time constraint, and lead the team to a united solution.",
+        "Complain to the Group Testing Officer (GTO) about their bad behaviour."
+      ],
+      "bestAnswer": 2,
+      "olq": "Social Adaptability, Cooperation, Leadership",
+      "explanation": "Displays conflict resolution, team spirit, and mature leadership under group pressure."
+    },
+    {
+      "id": "srt_5",
+      "situation": "5. While returning home late at night, you find an injured motorcyclist bleeding on the roadside with nobody around. You...",
+      "options": [
+        "Ignore him and hurry home because police might question you.",
+        "Provide immediate first aid to stop bleeding, call 112/108 ambulance, and transport him to the nearest hospital emergency unit safely.",
+        "Take pictures and post on Twitter asking for help.",
+        "Inform his relatives from his phone and wait there without doing first aid."
+      ],
+      "bestAnswer": 1,
+      "olq": "Sense of Responsibility, Human Values, Decisiveness",
+      "explanation": "Takes direct personal responsibility to save a fellow citizen's life."
+    }
+  ],
+  "currentAffairs": {
+    "weekly": [
+      {
+        "id": "ca_w1",
+        "title": "Weekly Defence Current Affairs - October 2026 (Week 4)",
+        "date": "October 2026",
+        "summary": "Joint Military Exercise updates, successful flight test of new generation VSHORADS missile, and Indian Air Force modernisation milestones.",
+        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w4.pdf",
+        "highlights": [
+          "DRDO successfully flight-tests Very Short Range Air Defence System (VSHORADS)",
+          "Indian Navy conducts Malabar multilateral maritime exercise with Quad partners",
+          "Indian Army inducts new indigenous heavy-duty logistics drones in high-altitude Ladakh",
+          "Defence Acquisition Council (DAC) accords AoN for 114 Multi-Role Fighter Aircraft (MRFA)"
+        ]
+      },
+      {
+        "id": "ca_w2",
+        "title": "Weekly Defence Current Affairs - October 2026 (Week 3)",
+        "date": "October 2026",
+        "summary": "IAF celebrates Air Force Day with mega airshow, new appointments in Armed Forces, and border infrastructure updates.",
+        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w3.pdf",
+        "highlights": [
+          "Indian Air Force showcases Tejas Mk-1A and indigenous combat aircraft at Annual Air Display",
+          "Border Roads Organisation (BRO) completes high-altitude strategic tunnel in Arunachal Pradesh",
+          "INS Imphal conducts successful anti-ship missile firing in the Arabian Sea"
+        ]
+      }
+    ],
+    "monthly": [
+      {
+        "id": "ca_m1",
+        "title": "Monthly Defence Digest & National Current Affairs - October 2026",
+        "date": "October 2026 Edition",
+        "size": "6.4 MB",
+        "pages": 72,
+        "pdfUrl": "/uploads/pdfs/ca_monthly_oct_2026.pdf",
+        "summary": "Full 72-page comprehensive monthly edition. Covers all major national events, defence procurements, bilateral military exercises, bilateral treaties, and 200 high-yield MCQs for upcoming exams."
+      },
+      {
+        "id": "ca_m2",
+        "title": "Monthly Defence Digest & National Current Affairs - September 2026",
+        "date": "September 2026 Edition",
+        "size": "5.8 MB",
+        "pages": 68,
+        "pdfUrl": "/uploads/pdfs/ca_monthly_sep_2026.pdf",
+        "summary": "Comprehensive September edition with complete coverage of G20 defence initiatives, naval commissioning, and tri-service exercises."
+      }
+    ]
+  },
+  "socialLinks": {
+    "youtube": "https://www.youtube.com/@skcdefenceacademy",
+    "telegram": "https://t.me/skcdefenceacademy",
+    "instagram": "https://instagram.com/skcdefenceacademy",
+    "registrationSites": [
+      {
+        "name": "Indian Airforce (Agnipath Vayu Official)",
+        "url": "https://agnipathvayu.cdac.in",
+        "icon": "plane"
+      },
+      {
+        "name": "Indian Navy (Official Portal)",
+        "url": "https://www.joinindiannavy.gov.in",
+        "icon": "anchor"
+      },
+      {
+        "name": "Indian Army (Join Indian Army Official)",
+        "url": "https://joinindianarmy.nic.in",
+        "icon": "crosshairs"
+      },
+      {
+        "name": "Indian Coast Guard (Join ICG Official)",
+        "url": "https://joinindiancoastguard.cdac.in",
+        "icon": "compass"
+      }
+    ]
+  },
+  "orders": [
+    {
+      "id": "ord_535089",
+      "studentName": "Pooja Sharma",
+      "item": "Airforce Agniveer Vayu Complete Batch 2026",
+      "amount": 1499,
+      "gateway": "PhonePe",
+      "status": "SUCCESS",
+      "paymentRef": "TXN1793040754213",
+      "date": "2026-10-26 18:52"
+    },
+    {
+      "id": "ord_101",
+      "studentName": "Aakash Verma",
+      "item": "Airforce Agniveer Vayu Complete Batch",
+      "amount": 1499,
+      "gateway": "PhonePe (UPI)",
+      "status": "SUCCESS",
+      "date": "2026-10-24 14:32"
+    },
+    {
+      "id": "ord_102",
+      "studentName": "Aakash Verma",
+      "item": "Airforce GD + SRT Special Batch",
+      "amount": 799,
+      "gateway": "Razorpay (Card)",
+      "status": "SUCCESS",
+      "date": "2026-10-24 14:35"
+    },
+    {
+      "id": "ord_103",
+      "studentName": "Pooja Sharma",
+      "item": "Navy SSR / MR Target Selection Batch",
+      "amount": 1299,
+      "gateway": "PayU (UPI)",
+      "status": "SUCCESS",
+      "date": "2026-10-25 09:12"
+    },
+    {
+      "id": "ord_104",
+      "studentName": "Rohit Yadav",
+      "item": "Indian Airforce Paid Test Series",
+      "amount": 399,
+      "gateway": "PhonePe (UPI)",
+      "status": "SUCCESS",
+      "date": "2026-10-25 11:45"
+    },
+    {
+      "id": "ord_105",
+      "studentName": "Vikram Singh",
+      "item": "English & Defence GK Golden E-Book",
+      "amount": 199,
+      "gateway": "Razorpay (UPI)",
+      "status": "SUCCESS",
+      "date": "2026-10-26 16:20"
+    }
+  ]
+}
