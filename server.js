@@ -758,16 +758,23 @@ app.get('/api/selections', (req, res) => {
   res.json({ success: true, data: db.selections || [] });
 });
 
-app.post('/api/selections', requireAdmin, (req, res) => {
+app.post('/api/selections', requireAdmin, upload.single('candidatePhoto'), (req, res) => {
   const db = readDb();
+  let imagePath = '/uploads/selections/1780648688032.png';
+  if (req.file) {
+    imagePath = '/uploads/selections/' + req.file.filename;
+  } else if (req.body.image) {
+    imagePath = req.body.image;
+  }
+
   const newSelection = {
     id: 'sel_' + Date.now(),
-    name: req.body.name || 'Candidate Name',
-    exam: req.body.exam || 'Airforce Agniveer Vayu',
-    intake: req.body.intake || 'Intake 02/2027',
-    post: req.body.post || 'Airmen',
-    rollNo: req.body.rollNo || 'SKC-' + Math.floor(1000 + Math.random() * 9000),
-    image: req.body.image || '/uploads/selections/1780648688032.png',
+    name: (req.body.name || 'Candidate Name').trim(),
+    exam: (req.body.exam || 'Airforce Agniveer Vayu').trim(),
+    intake: (req.body.intake || 'Intake 02/2027').trim(),
+    post: (req.body.post || 'Airmen').trim(),
+    rollNo: (req.body.rollNo || '').trim(),
+    image: imagePath,
     quote: req.body.quote || 'Selection achieved with SKC Defence Academy!'
   };
   db.selections = db.selections || [];

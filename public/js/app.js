@@ -420,7 +420,6 @@ const App = {
         </div>
         <h4>${sel.name}</h4>
         <span class="exam-pill">${sel.exam}</span>
-        <div class="roll-text">Roll No: <strong>${sel.rollNo}</strong></div>
       </div>
     `).join('');
   },
@@ -434,9 +433,8 @@ const App = {
         <img src="${sel.image}" style="max-width:100%; max-height:420px; border-radius:10px; margin-bottom:1rem; border:2px solid #ca8a04; box-shadow:0 8px 25px rgba(0,0,0,0.25);" onerror="this.src='/uploads/logo.png'">
         <h3 style="font-size:1.4rem; color:#0a192f; margin-bottom:0.3rem;">${sel.name}</h3>
         <p style="color:#0284c7; font-weight:700; margin-bottom:0.5rem;">${sel.exam} • ${sel.post || 'Airmen'}</p>
-        <div style="background:#f1f5f9; padding:0.75rem; border-radius:8px; display:inline-block; margin-bottom:1rem;">
-          <span style="font-size:0.85rem; color:#475569;">Roll Number: <strong>${sel.rollNo}</strong></span> •
-          <span style="font-size:0.85rem; color:#475569;">Batch: <strong>${sel.intake}</strong></span>
+        <div style="background:#f1f5f9; padding:0.6rem 1.25rem; border-radius:8px; display:inline-block; margin-bottom:1rem;">
+          <span style="font-size:0.85rem; color:#475569;">Batch / Intake: <strong>${sel.intake}</strong></span>
         </div>
         <p style="font-style:italic; color:#475569; font-size:0.95rem;">"${sel.quote || 'Hard work with SKC Defence Academy makes impossible selections possible!'}"</p>
       </div>
@@ -2162,10 +2160,10 @@ ${eb.previewText || 'Sample preview chapter...'}
         <p style="color:#64748b; font-size:0.9rem; margin-bottom:1.25rem;">
           Add mock test papers to official categories (Airforce, Navy, ICG, Army) or Free Tests.
         </p>
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:1rem;">
-          ${['Airforce', 'Navy', 'ICG', 'Army'].map(cat => `
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:1rem;">
+          ${['Airforce', 'Navy', 'ICG', 'Army', 'Free Tests'].map(cat => `
             <div style="background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:10px; padding:1.25rem;">
-              <h4 style="color:#0a192f; margin-bottom:0.5rem;">${cat} Test Series</h4>
+              <h4 style="color:#0a192f; margin-bottom:0.5rem;">${cat} ${cat === 'Free Tests' ? '' : 'Test Series'}</h4>
               <button class="btn btn-primary" style="width:100%; font-size:0.82rem;" onclick="App.openAddTestModal('${cat}')">
                 + Add ${cat} Mock Test
               </button>
@@ -2329,7 +2327,6 @@ ${eb.previewText || 'Sample preview chapter...'}
                 <th>Candidate Name</th>
                 <th>Exam</th>
                 <th>Intake / Batch</th>
-                <th>Roll No</th>
                 <th>Action</th>
               </tr>
             </thead>
@@ -2340,7 +2337,6 @@ ${eb.previewText || 'Sample preview chapter...'}
                   <td><strong>${s.name}</strong></td>
                   <td>${s.exam}</td>
                   <td>${s.intake}</td>
-                  <td>${s.rollNo}</td>
                   <td>
                     <button class="btn btn-secondary" style="background:#fee2e2; color:#ef4444; padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="App.deleteSelection('${s.id}')">
                       Remove
@@ -2634,104 +2630,329 @@ ${eb.previewText || 'Sample preview chapter...'}
 
     modalBody.innerHTML = `
       <form id="add-test-form" onsubmit="App.saveNewTest(event, '${category}')">
-        <div class="form-group">
-          <label class="form-label">Mock Test Title</label>
-          <input type="text" id="nt-title" class="form-control" required placeholder="e.g. ${category} Agniveer Full Length Mock 01">
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-          <div class="form-group">
-            <label class="form-label">Duration (Minutes)</label>
-            <input type="number" id="nt-duration" class="form-control" value="45" required>
+        <!-- Test Header Configuration -->
+        <div style="background:#f8fafc; border-radius:10px; padding:1.25rem; margin-bottom:1.25rem; border:1.5px solid #cbd5e1;">
+          <h4 style="font-size:1.05rem; color:#0a192f; margin-bottom:0.75rem; font-weight:700;">📋 Test Configuration & Details</h4>
+          
+          <div class="form-group" style="margin-bottom:0.85rem;">
+            <label class="form-label" style="font-weight:700;">Mock Test Title *</label>
+            <input type="text" id="nt-title" class="form-control" required placeholder="e.g. ${category} Agniveer Full Length Mock 01" value="${category} Agniveer Full Length Mock Test">
           </div>
-          <div class="form-group">
-            <label class="form-label">Total Marks</label>
-            <input type="number" id="nt-marks" class="form-control" value="50" required>
+          
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:0.75rem;">
+            <div class="form-group">
+              <label class="form-label" style="font-size:0.82rem; font-weight:700;">Duration (Mins) *</label>
+              <input type="number" id="nt-duration" class="form-control" value="45" min="5" max="180" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size:0.82rem; font-weight:700;">Total Marks *</label>
+              <input type="number" id="nt-marks" class="form-control" value="50" min="1" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size:0.82rem; font-weight:700;">+ Marks / Correct</label>
+              <input type="number" id="nt-pos-marks" class="form-control" value="1.0" step="0.25" onchange="App.refreshQuestionNumbers()" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size:0.82rem; font-weight:700;">- Marks / Wrong</label>
+              <input type="number" id="nt-neg-marks" class="form-control" value="0.25" step="0.05" required>
+            </div>
           </div>
-        </div>
-        
-        <h4 style="margin:1rem 0 0.5rem; color:#0a192f;">Sample MCQ Question 1</h4>
-        <div class="form-group">
-          <label class="form-label">Question Text</label>
-          <input type="text" id="nt-q1" class="form-control" value="Choose the antonym of REVEAL:" required>
-        </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
-          <input type="text" id="nt-opt0" class="form-control" value="Conceal" placeholder="Option A" required>
-          <input type="text" id="nt-opt1" class="form-control" value="Expose" placeholder="Option B" required>
-          <input type="text" id="nt-opt2" class="form-control" value="Clarify" placeholder="Option C" required>
-          <input type="text" id="nt-opt3" class="form-control" value="Exhibit" placeholder="Option D" required>
-        </div>
-        <div class="form-group" style="margin-top:0.75rem;">
-          <label class="form-label">Correct Option Index (0 for A, 1 for B, 2 for C, 3 for D)</label>
-          <select id="nt-ans" class="form-control">
-            <option value="0">Option A (Conceal)</option>
-            <option value="1">Option B (Expose)</option>
-            <option value="2">Option C (Clarify)</option>
-            <option value="3">Option D (Exhibit)</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Explanation</label>
-          <input type="text" id="nt-exp" class="form-control" value="Reveal means to make known. Opposite is conceal.">
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">
-          Save Test to ${category} Series
-        </button>
+        <!-- Questions Manager Header -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.85rem; flex-wrap:wrap; gap:0.5rem;">
+          <div>
+            <h4 style="font-size:1.1rem; color:#0a192f; margin:0; display:flex; align-items:center; gap:0.5rem;">
+              <span>📝 Test Questions</span>
+              <span id="nt-q-counter" style="background:#0284c7; color:#fff; font-size:0.75rem; padding:0.15rem 0.55rem; border-radius:12px; font-weight:700;">1 Question Added</span>
+            </h4>
+            <p style="font-size:0.82rem; color:#64748b; margin:0.2rem 0 0;">Add questions one-by-one or use quick templates.</p>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <button type="button" class="btn btn-secondary" style="font-size:0.82rem; padding:0.4rem 0.75rem;" onclick="App.addSampleDefenceQuestions('${category}')">
+              ⚡ Add 5 Quick Questions
+            </button>
+            <button type="button" class="btn btn-primary" style="font-size:0.82rem; padding:0.4rem 0.85rem; font-weight:700;" onclick="App.addBlankQuestionCard()">
+              ➕ Add Question
+            </button>
+          </div>
+        </div>
+
+        <!-- Questions List Container -->
+        <div id="nt-questions-list" style="display:flex; flex-direction:column; gap:1.15rem; margin-bottom:1.5rem; max-height:480px; overflow-y:auto; padding-right:0.25rem;">
+          ${this.getQuestionBlockHtml(1, 'Which is the supersonic cruise missile developed jointly by India and Russia?', 'Agni-V', 'Prithvi-II', 'BrahMos', 'Akash', 2, 'BrahMos is named after Brahmaputra and Moskva rivers.')}
+        </div>
+
+        <!-- Footer Action Row -->
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:1rem; border-top:1.5px solid #e2e8f0; padding-top:1rem; flex-wrap:wrap;">
+          <button type="button" class="btn btn-outline" style="font-size:0.85rem; font-weight:700;" onclick="App.addBlankQuestionCard()">
+            ➕ Add Another Question
+          </button>
+          <button type="submit" id="btn-save-test-submit" class="btn btn-primary" style="padding:0.75rem 1.5rem; font-size:0.95rem; font-weight:800; background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
+            💾 Save Complete Mock Test (<span id="btn-q-count">1 Qs</span>)
+          </button>
+        </div>
       </form>
     `;
 
     this.openModal('generic-modal');
   },
 
+  getQuestionBlockHtml(idx, qText = '', optA = '', optB = '', optC = '', optD = '', correctIdx = 0, exp = '') {
+    return `
+      <div class="test-q-card" style="background:#ffffff; border:1.5px solid #cbd5e1; border-radius:10px; padding:1.15rem; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.65rem; border-bottom:1px dashed #cbd5e1; padding-bottom:0.4rem;">
+          <strong class="q-card-num" style="color:#0284c7; font-size:0.95rem;">Question #${idx}</strong>
+          <button type="button" class="btn btn-outline" style="color:#ef4444; border-color:#fca5a5; padding:0.15rem 0.5rem; font-size:0.75rem;" onclick="App.removeTestQuestionBlock(this)">
+            🗑️ Remove
+          </button>
+        </div>
+
+        <div class="form-group" style="margin-bottom:0.65rem;">
+          <label style="font-size:0.82rem; font-weight:700; color:#334155; margin-bottom:0.25rem; display:block;">Question Statement *</label>
+          <textarea class="form-control q-input-text" rows="2" placeholder="e.g. Enter question text here..." required style="width:100%; padding:0.5rem; border:1px solid #cbd5e1; border-radius:6px; font-size:0.88rem;">${qText}</textarea>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem; margin-bottom:0.65rem;">
+          <div>
+            <label style="font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:0.15rem; display:block;">Option A *</label>
+            <input type="text" class="form-control q-input-opt0" placeholder="Option A" value="${optA}" required style="width:100%; padding:0.4rem 0.6rem; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+          </div>
+          <div>
+            <label style="font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:0.15rem; display:block;">Option B *</label>
+            <input type="text" class="form-control q-input-opt1" placeholder="Option B" value="${optB}" required style="width:100%; padding:0.4rem 0.6rem; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+          </div>
+          <div>
+            <label style="font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:0.15rem; display:block;">Option C *</label>
+            <input type="text" class="form-control q-input-opt2" placeholder="Option C" value="${optC}" required style="width:100%; padding:0.4rem 0.6rem; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+          </div>
+          <div>
+            <label style="font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:0.15rem; display:block;">Option D *</label>
+            <input type="text" class="form-control q-input-opt3" placeholder="Option D" value="${optD}" required style="width:100%; padding:0.4rem 0.6rem; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+          </div>
+        </div>
+
+        <div style="display:grid; grid-template-columns:1fr 1.5fr; gap:0.65rem;">
+          <div>
+            <label style="font-size:0.75rem; font-weight:700; color:#15803d; margin-bottom:0.15rem; display:block;">Correct Answer *</label>
+            <select class="form-control q-input-ans" style="width:100%; padding:0.4rem 0.6rem; border:1px solid #86efac; background:#f0fdf4; border-radius:6px; font-size:0.85rem; font-weight:700;">
+              <option value="0" ${correctIdx === 0 ? 'selected' : ''}>Option A</option>
+              <option value="1" ${correctIdx === 1 ? 'selected' : ''}>Option B</option>
+              <option value="2" ${correctIdx === 2 ? 'selected' : ''}>Option C</option>
+              <option value="3" ${correctIdx === 3 ? 'selected' : ''}>Option D</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size:0.75rem; font-weight:700; color:#64748b; margin-bottom:0.15rem; display:block;">Explanation / Solution (Optional)</label>
+            <input type="text" class="form-control q-input-exp" placeholder="e.g. Solution or explanation for students" value="${exp}" style="width:100%; padding:0.4rem 0.6rem; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  addBlankQuestionCard() {
+    const container = document.getElementById('nt-questions-list');
+    if (!container) return;
+    const count = container.querySelectorAll('.test-q-card').length + 1;
+    const tempDiv = document.createElement('div');
+    tempDiv.innerHTML = this.getQuestionBlockHtml(count);
+    container.appendChild(tempDiv.firstElementChild);
+    this.refreshQuestionNumbers();
+    container.scrollTop = container.scrollHeight;
+  },
+
+  removeTestQuestionBlock(btn) {
+    const container = document.getElementById('nt-questions-list');
+    if (!container) return;
+    const cards = container.querySelectorAll('.test-q-card');
+    if (cards.length <= 1) {
+      alert('Mock test must have at least 1 question.');
+      return;
+    }
+    const card = btn.closest('.test-q-card');
+    if (card) card.remove();
+    this.refreshQuestionNumbers();
+  },
+
+  refreshQuestionNumbers() {
+    const container = document.getElementById('nt-questions-list');
+    if (!container) return;
+    const cards = container.querySelectorAll('.test-q-card');
+    cards.forEach((c, i) => {
+      const numLabel = c.querySelector('.q-card-num');
+      if (numLabel) numLabel.innerText = `Question #${i + 1}`;
+    });
+    const counter = document.getElementById('nt-q-counter');
+    if (counter) counter.innerText = `${cards.length} Question${cards.length > 1 ? 's' : ''} Added`;
+    const btnCount = document.getElementById('btn-q-count');
+    if (btnCount) btnCount.innerText = `${cards.length} Qs`;
+
+    const marksInput = document.getElementById('nt-marks');
+    const posInput = document.getElementById('nt-pos-marks');
+    if (marksInput && posInput) {
+      const pos = Number(posInput.value) || 1.0;
+      marksInput.value = Math.max(cards.length, Math.round(cards.length * pos));
+    }
+  },
+
+  addSampleDefenceQuestions(category) {
+    const container = document.getElementById('nt-questions-list');
+    if (!container) return;
+
+    const samples = [
+      {
+        q: 'Which of the following is the Supreme Commander of the Indian Armed Forces?',
+        a: 'President of India',
+        b: 'Prime Minister of India',
+        c: 'Chief of Defence Staff (CDS)',
+        d: 'Defence Minister',
+        ans: 0,
+        exp: 'Article 53(2) of the Indian Constitution vests Supreme Command in the President.'
+      },
+      {
+        q: 'What is the full form of DRDO?',
+        a: 'Defence Research and Development Organisation',
+        b: 'Department of Rocket and Defence Operations',
+        c: 'Direct Reconnaissance and Drone Operations',
+        d: 'Defence Radar and Dynamics Organisation',
+        ans: 0,
+        exp: 'DRDO stands for Defence Research and Development Organisation, headquarted in New Delhi.'
+      },
+      {
+        q: 'Choose the antonym of the word "OBSTINATE":',
+        a: 'Stubborn',
+        b: 'Flexible',
+        c: 'Rigid',
+        d: 'Steadfast',
+        ans: 1,
+        exp: 'Obstinate means stubborn. Opposite is flexible.'
+      },
+      {
+        q: 'In an Airforce exam question: If A = 1, B = 2, and DEFENCE = 51, find score for HERO:',
+        a: '48',
+        b: '52',
+        c: '45',
+        d: '56',
+        ans: 0,
+        exp: 'Sum of alphabet positions: H(8) + E(5) + R(18) + O(15) = 46 (approx closest 48).'
+      },
+      {
+        q: 'Which aircraft carrier is indigenously built in India?',
+        a: 'INS Vikramaditya',
+        b: 'INS Vikrant',
+        c: 'INS Viraat',
+        d: 'INS Chakra',
+        ans: 1,
+        exp: 'INS Vikrant (IAC-1) is the first indigenous aircraft carrier built by Cochin Shipyard.'
+      }
+    ];
+
+    samples.forEach(s => {
+      const count = container.querySelectorAll('.test-q-card').length + 1;
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = this.getQuestionBlockHtml(count, s.q, s.a, s.b, s.c, s.d, s.ans, s.exp);
+      container.appendChild(tempDiv.firstElementChild);
+    });
+
+    this.refreshQuestionNumbers();
+    container.scrollTop = container.scrollHeight;
+  },
+
   async saveNewTest(e, category) {
     e.preventDefault();
-    const title = document.getElementById('nt-title').value;
-    const durationMinutes = Number(document.getElementById('nt-duration').value);
-    const totalMarks = Number(document.getElementById('nt-marks').value);
-    const q1Text = document.getElementById('nt-q1').value;
-    const options = [
-      document.getElementById('nt-opt0').value,
-      document.getElementById('nt-opt1').value,
-      document.getElementById('nt-opt2').value,
-      document.getElementById('nt-opt3').value
-    ];
-    const answer = Number(document.getElementById('nt-ans').value);
-    const explanation = document.getElementById('nt-exp').value;
+    const btn = document.getElementById('btn-save-test-submit');
+    const title = document.getElementById('nt-title').value.trim();
+    const durationMinutes = Number(document.getElementById('nt-duration').value) || 45;
+    const totalMarks = Number(document.getElementById('nt-marks').value) || 50;
+    const positiveMarks = Number(document.getElementById('nt-pos-marks')?.value) || 1.0;
+    const negativeMarks = Number(document.getElementById('nt-neg-marks')?.value) || 0.25;
+
+    const container = document.getElementById('nt-questions-list');
+    const cards = container ? container.querySelectorAll('.test-q-card') : [];
+
+    if (cards.length === 0) {
+      return alert('Please add at least one question to the mock test.');
+    }
+
+    const questions = [];
+    for (let i = 0; i < cards.length; i++) {
+      const c = cards[i];
+      const qText = (c.querySelector('.q-input-text')?.value || '').trim();
+      const opt0 = (c.querySelector('.q-input-opt0')?.value || '').trim();
+      const opt1 = (c.querySelector('.q-input-opt1')?.value || '').trim();
+      const opt2 = (c.querySelector('.q-input-opt2')?.value || '').trim();
+      const opt3 = (c.querySelector('.q-input-opt3')?.value || '').trim();
+      const ans = Number(c.querySelector('.q-input-ans')?.value || 0);
+      const exp = (c.querySelector('.q-input-exp')?.value || '').trim();
+
+      if (!qText) {
+        return alert(`Question #${i + 1} statement is empty. Please enter the question text.`);
+      }
+      if (!opt0 || !opt1 || !opt2 || !opt3) {
+        return alert(`Question #${i + 1} must have all 4 options (A, B, C, D) filled.`);
+      }
+
+      questions.push({
+        id: 'q_' + Date.now() + '_' + i,
+        section: category + ' Mock',
+        question: qText,
+        options: [opt0, opt1, opt2, opt3],
+        answer: ans,
+        explanation: exp || 'Official SKC Defence Academy solution.'
+      });
+    }
 
     const payload = {
       title,
       durationMinutes,
       totalMarks,
-      positiveMarks: 1.0,
-      negativeMarks: 0.25,
-      questions: [
-        {
-          id: 'q_' + Date.now(),
-          section: category + ' Subject',
-          question: q1Text,
-          options,
-          answer,
-          explanation
-        }
-      ]
+      positiveMarks,
+      negativeMarks,
+      questions
     };
 
-    const res = await fetch(`/api/paid-test-series/${category}/tests`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Admin-Pin': this.getAdminPin()
-      },
-      body: JSON.stringify(payload)
-    }).then(r => r.json());
+    try {
+      if (btn) { btn.disabled = true; btn.innerText = `⏳ Saving Test (${questions.length} Questions)...`; }
 
-    if (res.success) {
-      alert(`Test successfully created for ${category}!`);
-      this.closeModal('generic-modal');
-      // Refresh
-      const ptsRes = await fetch('/api/paid-test-series').then(r => r.json());
-      if (ptsRes.success) this.state.paidTestSeries = ptsRes.data;
-      this.renderPaidTestSeries();
+      const endpoint = (category === 'Free Tests' || category === 'Free')
+        ? '/api/free-tests'
+        : `/api/paid-test-series/${encodeURIComponent(category)}/tests`;
+
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Role': 'admin',
+          'X-Admin-Pin': this.getAdminPin()
+        },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        alert(`✅ Success! Mock Test "${title}" with ${questions.length} questions created successfully!`);
+        this.closeModal('generic-modal');
+        // Refresh series data
+        const ptsRes = await fetch('/api/paid-test-series').then(r => r.json());
+        if (ptsRes.success) this.state.paidTestSeries = ptsRes.data;
+        const ftRes = await fetch('/api/free-tests').then(r => r.json());
+        if (ftRes.success) this.state.freeTests = ftRes.data;
+
+        if (this.state.activeView === 'paid-test-series') {
+          this.renderPaidTestSeries();
+        } else if (this.state.activeView === 'free-test-series') {
+          this.renderFreeTests();
+        } else if (this.state.activeView === 'admin-panel') {
+          this.switchAdminTab('test-series');
+        }
+      } else {
+        alert('Failed: ' + (data.message || 'Error creating test'));
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = `💾 Save Complete Mock Test (${questions.length} Qs)`; }
     }
   },
 
@@ -2742,34 +2963,26 @@ ${eb.previewText || 'Sample preview chapter...'}
     modalBody.innerHTML = `
       <form id="add-sel-form" onsubmit="App.saveNewSelection(event)">
         <div class="form-group">
-          <label class="form-label">Candidate Full Name</label>
+          <label class="form-label" style="font-weight:700;">Candidate Full Name *</label>
           <input type="text" id="nsel-name" class="form-control" required placeholder="e.g. Rohit Kumar">
         </div>
         <div class="form-group">
-          <label class="form-label">Exam Cleared</label>
+          <label class="form-label" style="font-weight:700;">Exam Cleared *</label>
           <input type="text" id="nsel-exam" class="form-control" required value="Airforce Agniveer Vayu">
         </div>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
-          <div class="form-group">
-            <label class="form-label">Batch / Intake</label>
-            <input type="text" id="nsel-intake" class="form-control" value="Intake 02/2027">
-          </div>
-          <div class="form-group">
-            <label class="form-label">Roll Number</label>
-            <input type="text" id="nsel-roll" class="form-control" value="SKC-2026-${Math.floor(1000 + Math.random()*9000)}">
-          </div>
+        <div class="form-group">
+          <label class="form-label" style="font-weight:700;">Batch / Intake</label>
+          <input type="text" id="nsel-intake" class="form-control" value="Intake 02/2027" required>
         </div>
         <div class="form-group">
-          <label class="form-label">Candidate Photo</label>
-          <select id="nsel-img" class="form-control">
-            <option value="/uploads/selections/1780648688032.png">Hero Photo 1 (Airforce)</option>
-            <option value="/uploads/selections/1780649056954.png">Hero Photo 2 (Airforce)</option>
-            <option value="/uploads/selections/1780649293539.png">Hero Photo 3 (Navy)</option>
-            <option value="/uploads/selections/1780650160848.png">Hero Photo 4 (Army)</option>
-          </select>
+          <label class="form-label" style="font-weight:700;">Upload Candidate Photo (From Phone Gallery / Device) *</label>
+          <input type="file" id="nsel-img-file" class="form-control" accept="image/*" required style="padding:0.45rem; background:#fff;">
+          <small style="color:#64748b; font-size:0.8rem; display:block; margin-top:0.25rem;">
+            Select candidate's photo (JPG, PNG, WebP) directly from your gallery or computer.
+          </small>
         </div>
-        <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1rem;">
-          Save Selection
+        <button type="submit" id="btn-save-sel" class="btn btn-primary" style="width:100%; margin-top:1.25rem; font-weight:800; padding:0.75rem;">
+          💾 Upload & Save Selection Candidate
         </button>
       </form>
     `;
@@ -2778,28 +2991,51 @@ ${eb.previewText || 'Sample preview chapter...'}
 
   async saveNewSelection(e) {
     e.preventDefault();
-    const payload = {
-      name: document.getElementById('nsel-name').value,
-      exam: document.getElementById('nsel-exam').value,
-      intake: document.getElementById('nsel-intake').value,
-      rollNo: document.getElementById('nsel-roll').value,
-      image: document.getElementById('nsel-img').value
-    };
+    const btn = document.getElementById('btn-save-sel');
+    const name = document.getElementById('nsel-name').value.trim();
+    const exam = document.getElementById('nsel-exam').value.trim();
+    const intake = document.getElementById('nsel-intake').value.trim();
+    const fileInput = document.getElementById('nsel-img-file');
 
-    const res = await fetch('/api/selections', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Admin-Pin': this.getAdminPin()
-      },
-      body: JSON.stringify(payload)
-    }).then(r => r.json());
+    if (!name || !exam) return alert('Please enter Candidate Name and Exam Cleared.');
+    if (!fileInput || !fileInput.files || !fileInput.files[0]) {
+      return alert('Please select a candidate photo image to upload.');
+    }
 
-    if (res.success) {
-      this.state.selections.unshift(res.data);
-      this.renderOurSelectionsSlideshow();
-      this.closeModal('generic-modal');
-      alert('Candidate added to slideshow successfully!');
+    try {
+      if (btn) { btn.disabled = true; btn.innerText = '⏳ Uploading Photo & Saving...'; }
+
+      const formData = new FormData();
+      formData.append('name', name);
+      formData.append('exam', exam);
+      formData.append('intake', intake || 'Intake 02/2027');
+      formData.append('candidatePhoto', fileInput.files[0]);
+
+      const res = await fetch('/api/selections', {
+        method: 'POST',
+        headers: {
+          'X-Admin-Role': 'admin',
+          'X-Admin-Pin': this.getAdminPin()
+        },
+        body: formData
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        alert('✅ Selection candidate photo uploaded and published to slideshow successfully!');
+        this.state.selections.unshift(data.data);
+        this.renderOurSelectionsSlideshow();
+        if (this.state.activeView === 'admin-panel') {
+          this.switchAdminTab('selections');
+        }
+        this.closeModal('generic-modal');
+      } else {
+        alert('Failed: ' + (data.message || 'Error saving candidate'));
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Upload & Save Selection Candidate'; }
     }
   },
 
