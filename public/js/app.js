@@ -939,8 +939,8 @@ ${eb.previewText || 'Sample preview chapter...'}
           </ul>
           <div class="card-pricing-row">
             <div class="price-box">
-              <span class="current-price">₹${b1 ? b1.price : 799}</span>
-              <span class="original-price">₹${b1 ? b1.originalPrice : 1999}</span>
+              <span class="current-price">₹${b1 ? b1.price : 99}</span>
+              <span class="original-price">₹${b1 ? b1.originalPrice : 499}</span>
             </div>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
               <button class="btn btn-primary" style="background:#0284c7; border:none; font-weight:800;" onclick="App.openPhase2Viewer('phase2_1')">
@@ -951,7 +951,7 @@ ${eb.previewText || 'Sample preview chapter...'}
                   ▶ Enrolled
                 </button>
               ` : `
-                <button class="btn btn-outline" onclick="App.openCheckoutModal('course', 'phase2_1', 'Airforce GD + SRT Special Batch', ${b1 ? b1.price : 799})">
+                <button class="btn btn-outline" onclick="App.openCheckoutModal('course', 'phase2_1', 'Airforce GD + SRT Special Batch', ${b1 ? b1.price : 99})">
                   Enroll
                 </button>
               `}
@@ -974,15 +974,15 @@ ${eb.previewText || 'Sample preview chapter...'}
           </ul>
           <div class="card-pricing-row">
             <div class="price-box">
-              <span class="current-price">₹${b2 ? b2.price : 499}</span>
-              <span class="original-price">₹${b2 ? b2.originalPrice : 1299}</span>
+              <span class="current-price">₹${b2 ? b2.price : 49}</span>
+              <span class="original-price">₹${b2 ? b2.originalPrice : 199}</span>
             </div>
             <div style="display:flex; gap:0.5rem;">
               <button class="btn btn-primary" onclick="App.launchSrtSimulator()">
                 🚀 Launch SRT
               </button>
               ${isB2Purchased || isB1Purchased ? '' : `
-                <button class="btn btn-outline" onclick="App.openCheckoutModal('course', 'phase2_2', 'AIRFORCE SRT Batch', ${b2 ? b2.price : 499})">
+                <button class="btn btn-outline" onclick="App.openCheckoutModal('course', 'phase2_2', 'AIRFORCE SRT Batch', ${b2 ? b2.price : 49})">
                   Enroll
                 </button>
               `}
