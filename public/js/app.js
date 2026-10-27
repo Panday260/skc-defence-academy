@@ -415,7 +415,7 @@ const App = {
     track.innerHTML = this.state.selections.map((sel, idx) => `
       <div class="selection-slide-card" onclick="App.openSelectionModal(${idx})">
         <div class="selection-img-wrapper">
-          <div class="selection-badge-corner">${sel.intake || 'Intake 02/2026'}</div>
+          <div class="selection-badge-corner">${sel.intake || 'Intake 02/2027'}</div>
           <img src="${sel.image}" alt="${sel.name}" loading="lazy" onerror="this.src='/uploads/logo.png'">
         </div>
         <h4>${sel.name}</h4>
@@ -2752,7 +2752,7 @@ ${eb.previewText || 'Sample preview chapter...'}
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
           <div class="form-group">
             <label class="form-label">Batch / Intake</label>
-            <input type="text" id="nsel-intake" class="form-control" value="Intake 02/2026">
+            <input type="text" id="nsel-intake" class="form-control" value="Intake 02/2027">
           </div>
           <div class="form-group">
             <label class="form-label">Roll Number</label>

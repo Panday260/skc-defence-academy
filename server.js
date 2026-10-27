@@ -764,7 +764,7 @@ app.post('/api/selections', requireAdmin, (req, res) => {
     id: 'sel_' + Date.now(),
     name: req.body.name || 'Candidate Name',
     exam: req.body.exam || 'Airforce Agniveer Vayu',
-    intake: req.body.intake || 'Intake 02/2026',
+    intake: req.body.intake || 'Intake 02/2027',
     post: req.body.post || 'Airmen',
     rollNo: req.body.rollNo || 'SKC-' + Math.floor(1000 + Math.random() * 9000),
     image: req.body.image || '/uploads/selections/1780648688032.png',
