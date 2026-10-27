@@ -59,8 +59,52 @@ const App = {
       if (pyqRes.success) this.state.pyqs = pyqRes.data;
       if (sylRes.success) this.state.syllabus = sylRes.data;
       if (p2Res.success) {
-        this.state.phase2Batches = p2Res.batches;
-        this.state.srtScenarios = p2Res.srtScenarios;
+        this.state.phase2Batches = p2Res.batches || [];
+        this.state.srtScenarios = p2Res.srtScenarios || [];
+
+        // Permanent client-side backup merge
+        try {
+          const localBackup = localStorage.getItem('skc_permanent_phase2');
+          if (localBackup) {
+            const cachedBatches = JSON.parse(localBackup);
+            if (Array.isArray(cachedBatches)) {
+              this.state.phase2Batches.forEach(b => {
+                const cb = cachedBatches.find(x => x.id === b.id);
+                if (cb) {
+                  if (Array.isArray(cb.youtubeVideos)) {
+                    const existingVids = new Set((b.youtubeVideos || []).map(v => v.id || v.youtubeId));
+                    cb.youtubeVideos.forEach(v => {
+                      if (!existingVids.has(v.id || v.youtubeId)) {
+                        b.youtubeVideos = b.youtubeVideos || [];
+                        b.youtubeVideos.push(v);
+                      }
+                    });
+                  }
+                  if (Array.isArray(cb.classPdfs)) {
+                    const existingPdfs = new Set((b.classPdfs || []).map(p => p.id || p.title));
+                    cb.classPdfs.forEach(p => {
+                      if (!existingPdfs.has(p.id || p.title)) {
+                        b.classPdfs = b.classPdfs || [];
+                        b.classPdfs.push(p);
+                      }
+                    });
+                  }
+                  if (Array.isArray(cb.gdClasses)) {
+                    const existingGds = new Set((b.gdClasses || []).map(g => g.id || g.youtubeId));
+                    cb.gdClasses.forEach(g => {
+                      if (!existingGds.has(g.id || g.youtubeId)) {
+                        b.gdClasses = b.gdClasses || [];
+                        b.gdClasses.push(g);
+                      }
+                    });
+                  }
+                }
+              });
+            }
+          }
+        } catch (e) {
+          console.warn('Phase-2 local merge err:', e);
+        }
       }
       if (caRes.success) this.state.currentAffairs = caRes.data;
       if (selRes.success) this.state.selections = selRes.data;
@@ -1550,7 +1594,10 @@ ${eb.previewText || 'Sample preview chapter...'}
       if (data.success) {
         alert('✅ Video class added permanently to YouTube folder! All users can now view it.');
         const p2Res = await fetch('/api/phase2').then(r => r.json());
-        if (p2Res.success) this.state.phase2Batches = p2Res.batches;
+        if (p2Res.success) {
+          this.state.phase2Batches = p2Res.batches;
+          try { localStorage.setItem('skc_permanent_phase2', JSON.stringify(this.state.phase2Batches)); } catch (e) {}
+        }
         this.openPhase2Viewer(batchId, 'youtube');
         this.renderPhase2();
       } else {
@@ -1597,7 +1644,10 @@ ${eb.previewText || 'Sample preview chapter...'}
       if (data.success) {
         alert('✅ PDF study material uploaded permanently to PDF folder! All users can now view it.');
         const p2Res = await fetch('/api/phase2').then(r => r.json());
-        if (p2Res.success) this.state.phase2Batches = p2Res.batches;
+        if (p2Res.success) {
+          this.state.phase2Batches = p2Res.batches;
+          try { localStorage.setItem('skc_permanent_phase2', JSON.stringify(this.state.phase2Batches)); } catch (e) {}
+        }
         this.openPhase2Viewer(batchId, 'pdf');
         this.renderPhase2();
       } else {
@@ -1624,7 +1674,10 @@ ${eb.previewText || 'Sample preview chapter...'}
       if (data.success) {
         alert('Video removed successfully.');
         const p2Res = await fetch('/api/phase2').then(r => r.json());
-        if (p2Res.success) this.state.phase2Batches = p2Res.batches;
+        if (p2Res.success) {
+          this.state.phase2Batches = p2Res.batches;
+          try { localStorage.setItem('skc_permanent_phase2', JSON.stringify(this.state.phase2Batches)); } catch (e) {}
+        }
         this.openPhase2Viewer(batchId, 'youtube');
         this.renderPhase2();
       } else {
@@ -1649,7 +1702,10 @@ ${eb.previewText || 'Sample preview chapter...'}
       if (data.success) {
         alert('PDF removed successfully.');
         const p2Res = await fetch('/api/phase2').then(r => r.json());
-        if (p2Res.success) this.state.phase2Batches = p2Res.batches;
+        if (p2Res.success) {
+          this.state.phase2Batches = p2Res.batches;
+          try { localStorage.setItem('skc_permanent_phase2', JSON.stringify(this.state.phase2Batches)); } catch (e) {}
+        }
         this.openPhase2Viewer(batchId, 'pdf');
         this.renderPhase2();
       } else {
@@ -2350,6 +2406,7 @@ ${eb.previewText || 'Sample preview chapter...'}
         const p2Res = await fetch('/api/phase2').then(r => r.json());
         if (p2Res.success) {
           this.state.phase2Batches = p2Res.batches;
+          try { localStorage.setItem('skc_permanent_phase2', JSON.stringify(this.state.phase2Batches)); } catch (e) {}
         }
         setTimeout(() => {
           this.switchAdminTab('gd-classes');
@@ -2401,6 +2458,7 @@ ${eb.previewText || 'Sample preview chapter...'}
         const p2Res = await fetch('/api/phase2').then(r => r.json());
         if (p2Res.success) {
           this.state.phase2Batches = p2Res.batches;
+          try { localStorage.setItem('skc_permanent_phase2', JSON.stringify(this.state.phase2Batches)); } catch (e) {}
         }
         if (this.state.activeView === 'admin-panel') {
           this.switchAdminTab('gd-classes');

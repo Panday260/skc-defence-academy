@@ -870,9 +870,105 @@
         "Top 30+ Trending Defence GD Topics with Hindi/English Scripts",
         "Officer Like Qualities (OLQ) Speaking Techniques & Feedback"
       ],
-      "gdClasses": [],
-      "youtubeVideos": [],
-      "classPdfs": []
+      "gdClasses": [
+        {
+          "id": "gd_101",
+          "title": "Airforce Phase-II GD Class 01: Introduction & Body Language Mastery",
+          "topic": "Airforce GD Preparation",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ",
+          "pdfTitle": "Airforce Phase-II GD Speaking Guide & 30 Most Common Topics.pdf",
+          "pdfUrl": "/uploads/pdfs/phase2_gd_guide.pdf",
+          "pdfSize": "5.1 MB",
+          "pages": 64,
+          "notes": "Master group discussion entry, posture, eye contact, and tone of voice with live demo.",
+          "date": "2026-10-25"
+        },
+        {
+          "id": "gd_102",
+          "title": "Airforce Phase-II GD Class 02: Agnipath Scheme & Military Reforms",
+          "topic": "Agnipath Scheme",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ",
+          "pdfTitle": "Agnipath Scheme Debate Points & Key Arguments.pdf",
+          "pdfUrl": "/uploads/pdfs/phase2_gd_guide.pdf",
+          "pdfSize": "3.5 MB",
+          "pages": 18,
+          "notes": "Key pros, cons, and structured conclusion for Agnipath scheme discussions.",
+          "date": "2026-10-26"
+        },
+        {
+          "id": "gd_103",
+          "title": "Airforce Phase-II GD Class 03: AI & Drone Warfare in Armed Forces",
+          "topic": "Military Technology",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ",
+          "pdfTitle": "Modern Defence Technology & Drone Warfare Notes.pdf",
+          "pdfUrl": "/uploads/pdfs/phase2_gd_guide.pdf",
+          "pdfSize": "4.2 MB",
+          "pages": 22,
+          "notes": "Analysis of drone swarm attacks, air defence, and electronic warfare for IAF GD.",
+          "date": "2026-10-27"
+        }
+      ],
+      "youtubeVideos": [
+        {
+          "id": "vid_gd_101",
+          "title": "Airforce Phase-II GD Class 01: Introduction & Body Language Mastery",
+          "topic": "Airforce GD Preparation",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ",
+          "date": "2026-10-25",
+          "notes": "Master group discussion entry, posture, eye contact, and tone of voice with live demo."
+        },
+        {
+          "id": "vid_gd_102",
+          "title": "Airforce Phase-II GD Class 02: Agnipath Scheme & Military Reforms",
+          "topic": "Agnipath Scheme",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ",
+          "date": "2026-10-26",
+          "notes": "Key pros, cons, and structured conclusion for Agnipath scheme discussions."
+        },
+        {
+          "id": "vid_gd_103",
+          "title": "Airforce Phase-II GD Class 03: AI & Drone Warfare in Armed Forces",
+          "topic": "Military Technology",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ",
+          "date": "2026-10-27",
+          "notes": "Analysis of drone swarm attacks, air defence, and electronic warfare for IAF GD."
+        }
+      ],
+      "classPdfs": [
+        {
+          "id": "pdf_gd_101",
+          "title": "Airforce Phase-II GD Speaking Guide & 30 Most Common Topics.pdf",
+          "topic": "Airforce GD Preparation",
+          "size": "5.1 MB",
+          "pages": 64,
+          "date": "2026-10-25",
+          "url": "/uploads/pdfs/phase2_gd_guide.pdf"
+        },
+        {
+          "id": "pdf_gd_102",
+          "title": "Agnipath Scheme Debate Points & Key Arguments.pdf",
+          "topic": "Agnipath Scheme",
+          "size": "3.5 MB",
+          "pages": 18,
+          "date": "2026-10-26",
+          "url": "/uploads/pdfs/phase2_gd_guide.pdf"
+        },
+        {
+          "id": "pdf_gd_103",
+          "title": "Modern Defence Technology & Drone Warfare Notes.pdf",
+          "topic": "Military Technology",
+          "size": "4.2 MB",
+          "pages": 22,
+          "date": "2026-10-27",
+          "url": "/uploads/pdfs/phase2_gd_guide.pdf"
+        }
+      ]
     },
     {
       "id": "phase2_1",
@@ -888,7 +984,35 @@
         "YouTube Video Demonstrations of Live Mock GD Sessions",
         "Class Notes PDFs & Officer Like Qualities (OLQ) Evaluation"
       ],
-      "youtubeVideos": [],
+      "youtubeVideos": [
+        {
+          "id": "vid_gd_101",
+          "title": "Airforce Phase-II GD Class 01: Introduction & Body Language Mastery",
+          "topic": "Airforce GD Preparation",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ",
+          "date": "2026-10-25",
+          "notes": "Master group discussion entry, posture, eye contact, and tone of voice with live demo."
+        },
+        {
+          "id": "vid_gd_102",
+          "title": "Airforce Phase-II GD Class 02: Agnipath Scheme & Military Reforms",
+          "topic": "Agnipath Scheme",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ",
+          "date": "2026-10-26",
+          "notes": "Key pros, cons, and structured conclusion for Agnipath scheme discussions."
+        },
+        {
+          "id": "vid_gd_103",
+          "title": "Airforce Phase-II GD Class 03: AI & Drone Warfare in Armed Forces",
+          "topic": "Military Technology",
+          "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
+          "youtubeId": "3JZ_D3ELwOQ",
+          "date": "2026-10-27",
+          "notes": "Analysis of drone swarm attacks, air defence, and electronic warfare for IAF GD."
+        }
+      ],
       "classPdfs": [
         {
           "id": "p2_pdf1",
