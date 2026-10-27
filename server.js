@@ -76,14 +76,13 @@ function extractYoutubeId(url) {
 
 // Middleware: Ensure only authorized coaching Admin can make changes
 function requireAdmin(req, res, next) {
-  const adminPin = req.headers['x-admin-pin'] || req.body?.adminPin || req.query?.adminPin;
-  const adminRole = req.headers['x-admin-role'] || req.body?.adminRole;
-  if (adminPin === 'skcadmin@2026' || adminPin === 'admin123' || adminRole === 'admin') {
+  const adminPin = (req.headers['x-admin-pin'] || req.body?.adminPin || req.query?.adminPin || '').trim().toLowerCase();
+  if (adminPin === 'skcadmin2026' || adminPin === 'skcadmin@2026' || adminPin === 'admin123') {
     return next();
   }
   return res.status(403).json({
     success: false,
-    message: 'Access Denied: Only Coaching Admin is authorized to add, edit or delete content.'
+    message: 'Access Denied: Only Coaching Admin/Owner is authorized to add, edit or delete content.'
   });
 }
 
@@ -95,7 +94,7 @@ app.get('/api/academy', (req, res) => {
   res.json({ success: true, data: db.academy || {} });
 });
 
-app.put('/api/academy', (req, res) => {
+app.put('/api/academy', requireAdmin, (req, res) => {
   const db = readDb();
   db.academy = { ...db.academy, ...req.body };
   writeDb(db);
@@ -194,7 +193,7 @@ app.get('/api/courses', (req, res) => {
   res.json({ success: true, data: db.courses || [] });
 });
 
-app.post('/api/courses', (req, res) => {
+app.post('/api/courses', requireAdmin, (req, res) => {
   const db = readDb();
   const newCourse = {
     id: 'course_' + Date.now(),
@@ -216,7 +215,7 @@ app.post('/api/courses', (req, res) => {
   res.json({ success: true, data: newCourse });
 });
 
-app.put('/api/courses/:id', (req, res) => {
+app.put('/api/courses/:id', requireAdmin, (req, res) => {
   const db = readDb();
   const index = (db.courses || []).findIndex(c => c.id === req.params.id);
   if (index === -1) return res.status(404).json({ success: false, message: 'Course not found' });
@@ -225,7 +224,7 @@ app.put('/api/courses/:id', (req, res) => {
   res.json({ success: true, data: db.courses[index] });
 });
 
-app.delete('/api/courses/:id', (req, res) => {
+app.delete('/api/courses/:id', requireAdmin, (req, res) => {
   const db = readDb();
   db.courses = (db.courses || []).filter(c => c.id !== req.params.id);
   writeDb(db);
@@ -238,7 +237,7 @@ app.get('/api/free-tests', (req, res) => {
   res.json({ success: true, data: db.freeTests || [] });
 });
 
-app.post('/api/free-tests', (req, res) => {
+app.post('/api/free-tests', requireAdmin, (req, res) => {
   const db = readDb();
   const newTest = {
     id: 'ft_' + Date.now(),
@@ -264,7 +263,7 @@ app.get('/api/paid-test-series', (req, res) => {
   res.json({ success: true, data: db.paidTestSeries || [] });
 });
 
-app.post('/api/paid-test-series/:category/tests', (req, res) => {
+app.post('/api/paid-test-series/:category/tests', requireAdmin, (req, res) => {
   const db = readDb();
   const { category } = req.params;
   const series = (db.paidTestSeries || []).find(s => s.name.toLowerCase() === category.toLowerCase() || s.id === category);
@@ -285,7 +284,7 @@ app.post('/api/paid-test-series/:category/tests', (req, res) => {
   res.json({ success: true, data: newMock });
 });
 
-app.delete('/api/paid-test-series/:category/tests/:testId', (req, res) => {
+app.delete('/api/paid-test-series/:category/tests/:testId', requireAdmin, (req, res) => {
   const db = readDb();
   const { category, testId } = req.params;
   const series = (db.paidTestSeries || []).find(s => s.name.toLowerCase() === category.toLowerCase() || s.id === category);
@@ -301,7 +300,7 @@ app.get('/api/ebooks', (req, res) => {
   res.json({ success: true, data: db.ebooks || [] });
 });
 
-app.post('/api/ebooks', (req, res) => {
+app.post('/api/ebooks', requireAdmin, (req, res) => {
   const db = readDb();
   const newEbook = {
     id: 'ebook_' + Date.now(),
@@ -328,7 +327,7 @@ app.get('/api/pyqs', (req, res) => {
   res.json({ success: true, data: db.pyqs || [] });
 });
 
-app.post('/api/pyqs', (req, res) => {
+app.post('/api/pyqs', requireAdmin, (req, res) => {
   const db = readDb();
   const newPyq = {
     id: 'pyq_' + Date.now(),
@@ -351,7 +350,7 @@ app.get('/api/syllabus', (req, res) => {
   res.json({ success: true, data: db.syllabus || [] });
 });
 
-app.post('/api/syllabus', (req, res) => {
+app.post('/api/syllabus', requireAdmin, (req, res) => {
   const db = readDb();
   const newSyl = {
     id: 'syl_' + Date.now(),
@@ -480,7 +479,7 @@ app.delete('/api/phase2/gd-classes/:classId', requireAdmin, (req, res) => {
   res.status(404).json({ success: false, message: 'GD Batch not found' });
 });
 
-app.post('/api/phase2/srt-scenarios', (req, res) => {
+app.post('/api/phase2/srt-scenarios', requireAdmin, (req, res) => {
   const db = readDb();
   const newScenario = {
     id: 'srt_' + Date.now(),
@@ -496,7 +495,7 @@ app.post('/api/phase2/srt-scenarios', (req, res) => {
   res.json({ success: true, data: newScenario });
 });
 
-app.post('/api/phase2/:batchId/topics', (req, res) => {
+app.post('/api/phase2/:batchId/topics', requireAdmin, (req, res) => {
   const db = readDb();
   const batch = (db.phase2 || []).find(b => b.id === req.params.batchId);
   if (!batch) return res.status(404).json({ success: false, message: 'Batch not found' });
@@ -635,7 +634,7 @@ app.get('/api/current-affairs', (req, res) => {
   res.json({ success: true, data: db.currentAffairs || { weekly: [], monthly: [] } });
 });
 
-app.post('/api/current-affairs', (req, res) => {
+app.post('/api/current-affairs', requireAdmin, (req, res) => {
   const { type, title, date, summary, highlights, pdfUrl, pages, size } = req.body;
   const db = readDb();
   db.currentAffairs = db.currentAffairs || { weekly: [], monthly: [] };
@@ -674,7 +673,7 @@ app.get('/api/selections', (req, res) => {
   res.json({ success: true, data: db.selections || [] });
 });
 
-app.post('/api/selections', (req, res) => {
+app.post('/api/selections', requireAdmin, (req, res) => {
   const db = readDb();
   const newSelection = {
     id: 'sel_' + Date.now(),
@@ -692,20 +691,71 @@ app.post('/api/selections', (req, res) => {
   res.json({ success: true, data: newSelection });
 });
 
-app.delete('/api/selections/:id', (req, res) => {
+app.delete('/api/selections/:id', requireAdmin, (req, res) => {
   const db = readDb();
   db.selections = (db.selections || []).filter(s => s.id !== req.params.id);
   writeDb(db);
   res.json({ success: true });
 });
 
-// 12. Users Management (Admin)
+// 12. Users Management & Onboarding Auth
+app.post('/api/users/auth', (req, res) => {
+  const { name, phone, email, targetExam } = req.body;
+  const cleanName = (name || '').trim();
+  const db = readDb();
+  db.users = db.users || [];
+
+  // Check if admin login: name matches skcadmin2026 (case-insensitive)
+  if (cleanName.toLowerCase() === 'skcadmin2026') {
+    return res.json({
+      success: true,
+      isAdmin: true,
+      adminPin: 'skcadmin2026',
+      user: {
+        id: 'usr_admin',
+        name: 'SKC Admin',
+        phone: '9876543210',
+        email: 'Skcdefenceacademy@gmail.com',
+        role: 'admin',
+        purchasedCourses: ['course_1', 'course_2', 'course_3', 'phase2_1', 'phase2_2', 'ebook_1'],
+        purchasedTests: ['pts_airforce', 'pts_navy', 'pts_icg', 'pts_army']
+      }
+    });
+  }
+
+  // Normal student registration or login by phone or name
+  let user = db.users.find(u => (phone && u.phone === phone) || (cleanName && u.name.toLowerCase() === cleanName.toLowerCase()));
+  if (!user) {
+    user = {
+      id: 'usr_' + Date.now(),
+      name: cleanName || 'Student',
+      phone: phone || '',
+      email: email || '',
+      targetExam: targetExam || 'Airforce',
+      role: 'student',
+      purchasedCourses: [],
+      purchasedTests: [],
+      purchasedEbooks: [],
+      joinedDate: new Date().toISOString().replace('T', ' ').substring(0, 16)
+    };
+    db.users.push(user);
+    writeDb(db);
+  } else {
+    if (targetExam) {
+      user.targetExam = targetExam;
+      writeDb(db);
+    }
+  }
+
+  res.json({ success: true, isAdmin: false, user });
+});
+
 app.get('/api/users', (req, res) => {
   const db = readDb();
   res.json({ success: true, data: db.users || [] });
 });
 
-app.post('/api/users/:id/grant', (req, res) => {
+app.post('/api/users/:id/grant', requireAdmin, (req, res) => {
   const { type, itemId } = req.body; // type: course | test | ebook
   const db = readDb();
   const user = (db.users || []).find(u => u.id === req.params.id);
@@ -725,7 +775,7 @@ app.post('/api/users/:id/grant', (req, res) => {
   res.json({ success: true, user });
 });
 
-app.post('/api/users/:id/revoke', (req, res) => {
+app.post('/api/users/:id/revoke', requireAdmin, (req, res) => {
   const { type, itemId } = req.body;
   const db = readDb();
   const user = (db.users || []).find(u => u.id === req.params.id);
@@ -878,7 +928,7 @@ app.get('/api/pdf/download', async (req, res) => {
 });
 
 // 16. Multer File Uploads (Images & PDFs)
-app.post('/api/upload', upload.single('file'), (req, res) => {
+app.post('/api/upload', requireAdmin, upload.single('file'), (req, res) => {
   if (!req.file) return res.status(400).json({ success: false, message: 'No file uploaded' });
   const isPdf = req.file.mimetype === 'application/pdf';
   const relativeUrl = isPdf ? `/uploads/pdfs/${req.file.filename}` : `/uploads/selections/${req.file.filename}`;

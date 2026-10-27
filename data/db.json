@@ -30,7 +30,9 @@
         "pts_navy",
         "pts_icg",
         "pts_army"
-      ]
+      ],
+      "targetExam": "phase2",
+      "joinedDate": "2026-10-26 10:30"
     },
     {
       "id": "usr_student1",
@@ -47,7 +49,9 @@
       ],
       "purchasedEbooks": [
         "ebook_1"
-      ]
+      ],
+      "targetExam": "phase2",
+      "joinedDate": "2026-10-26 10:30"
     },
     {
       "id": "usr_student2",
@@ -62,7 +66,21 @@
       "purchasedTests": [
         "pts_navy"
       ],
-      "purchasedEbooks": []
+      "purchasedEbooks": [],
+      "targetExam": "navy",
+      "joinedDate": "2026-10-26 10:30"
+    },
+    {
+      "id": "usr_1793094344104",
+      "name": "Vikas Yadav",
+      "phone": "9876500001",
+      "email": "",
+      "targetExam": "phase2",
+      "role": "student",
+      "purchasedCourses": [],
+      "purchasedTests": [],
+      "purchasedEbooks": [],
+      "joinedDate": "2026-10-27 09:45"
     }
   ],
   "selections": [

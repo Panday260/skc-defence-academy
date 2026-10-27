@@ -72,7 +72,7 @@ const App = {
     }
   },
 
-  // 2. User Session Management
+  // 2. User Session & Onboarding Management
   restoreSession() {
     const saved = localStorage.getItem('skc_active_user');
     if (saved) {
@@ -82,95 +82,193 @@ const App = {
         this.state.user = null;
       }
     }
-    // Default student session if none
-    if (!this.state.user) {
-      this.state.user = {
-        id: 'usr_student1',
-        name: 'Aakash Verma',
-        email: 'aakash.defence@gmail.com',
-        phone: '9812345678',
-        role: 'student',
-        purchasedCourses: ['course_1', 'phase2_1'],
-        purchasedTests: ['pts_airforce'],
-        purchasedEbooks: ['ebook_1']
-      };
+    const savedExam = localStorage.getItem('skc_target_exam');
+    if (savedExam) {
+      this.state.targetExam = savedExam;
     }
+
     this.updateUserUI();
+    this.applyTargetExamFilter();
+
+    // If student/visitor has not registered or logged in, show onboarding modal
+    if (!this.state.user) {
+      setTimeout(() => {
+        this.openLoginModal();
+      }, 700);
+    }
   },
 
-  switchUser(role) {
-    if (role === 'admin') {
-      this.state.user = {
-        id: 'usr_admin',
-        name: 'SKC Admin',
-        email: 'Skcdefenceacademy@gmail.com',
-        phone: '9876543210',
-        role: 'admin',
-        purchasedCourses: ['course_1', 'course_2', 'course_3', 'phase2_1', 'phase2_2', 'ebook_1'],
-        purchasedTests: ['pts_airforce', 'pts_navy', 'pts_icg', 'pts_army']
-      };
-      this.navigateTo('admin-panel');
-    } else if (role === 'student2') {
-      this.state.user = {
-        id: 'usr_student2',
-        name: 'Pooja Sharma',
-        email: 'pooja.sharma@gmail.com',
-        phone: '9712345678',
-        role: 'student',
-        purchasedCourses: ['course_2'],
-        purchasedTests: ['pts_navy'],
-        purchasedEbooks: []
-      };
-      this.navigateTo('home');
-    } else {
-      this.state.user = {
-        id: 'usr_student1',
-        name: 'Aakash Verma',
-        email: 'aakash.defence@gmail.com',
-        phone: '9812345678',
-        role: 'student',
-        purchasedCourses: ['course_1', 'phase2_1'],
-        purchasedTests: ['pts_airforce'],
-        purchasedEbooks: ['ebook_1']
-      };
-      this.navigateTo('home');
-    }
-    localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
-    this.updateUserUI();
-    this.renderActiveView();
+  getAdminPin() {
+    return localStorage.getItem('skc_admin_pin') || (this.state.user && this.state.user.adminPin) || 'skcadmin2026';
   },
 
   updateUserUI() {
     const userContainer = document.getElementById('user-header-area');
     if (!userContainer) return;
+
     if (this.state.user) {
-      userContainer.innerHTML = `
-        <div class="user-profile-badge" onclick="App.toggleUserDropdown()">
-          <div class="user-avatar-circle">${this.state.user.name.charAt(0)}</div>
-          <span class="user-name-text">${this.state.user.name.split(' ')[0]}</span>
-          <span class="user-role-badge" style="background:${this.state.user.role === 'admin' ? '#ef4444' : '#10b981'};">
-            ${this.state.user.role.toUpperCase()}
-          </span>
-        </div>
-      `;
+      if (this.state.user.role === 'admin') {
+        // Only visible when logged in with secret admin code
+        userContainer.innerHTML = `
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <button class="btn btn-primary" style="background:#dc2626; border:none; padding:0.4rem 0.85rem; font-size:0.82rem; font-weight:800; border-radius:6px; box-shadow:0 2px 8px rgba(220,38,38,0.4);" onclick="App.navigateTo('admin-panel')">
+              🛡️ Admin Panel
+            </button>
+            <button class="btn btn-outline" style="padding:0.4rem 0.65rem; font-size:0.75rem; border-color:#94a3b8; color:#cbd5e1;" onclick="App.logout()">
+              Logout
+            </button>
+          </div>
+        `;
+      } else {
+        // Normal student view: only their name/initials, no admin buttons
+        userContainer.innerHTML = `
+          <div style="display:flex; align-items:center; gap:0.4rem;">
+            <div class="user-profile-badge" onclick="App.openOnboardingModal()" title="Click to view details or change target exam">
+              <div class="user-avatar-circle" style="background:#10b981; color:#fff;">${(this.state.user.name || 'S').charAt(0).toUpperCase()}</div>
+              <span class="user-name-text">${(this.state.user.name || 'Student').split(' ')[0]}</span>
+              <span class="user-role-badge" style="background:#10b981;">STUDENT</span>
+            </div>
+            <button class="btn btn-outline" style="padding:0.35rem 0.55rem; font-size:0.75rem; border-color:#cbd5e1; color:#94a3b8;" onclick="App.logout()" title="Logout / Switch Account">
+              🚪 Logout
+            </button>
+          </div>
+        `;
+      }
     } else {
       userContainer.innerHTML = `
-        <button class="btn btn-secondary" onclick="App.openLoginModal()">Login</button>
-        <button class="btn btn-primary" onclick="App.openSignupModal()">Register</button>
+        <button class="btn btn-primary" style="padding:0.45rem 1rem; font-size:0.85rem; font-weight:700;" onclick="App.openLoginModal()">
+          Student Login
+        </button>
       `;
     }
   },
 
-  toggleUserDropdown() {
-    const choice = prompt(
-      `Logged in as: ${this.state.user.name} (${this.state.user.role.toUpperCase()})\n\nSwitch active profile for testing:\n1. Aakash (Student with Airforce & GD+SRT access)\n2. Pooja (Student with Navy access)\n3. Coaching Admin (Full management)\n4. Logout / Sign In again\n\nEnter number (1-4):`
-    );
-    if (choice === '1') this.switchUser('student1');
-    if (choice === '2') this.switchUser('student2');
-    if (choice === '3') this.switchUser('admin');
-    if (choice === '4') {
+  openOnboardingModal() {
+    this.openLoginModal();
+  },
+
+  openLoginModal() {
+    if (this.state.user && this.state.user.role !== 'admin') {
+      const nameInput = document.getElementById('auth-name-input');
+      const phoneInput = document.getElementById('auth-phone-input');
+      const examSelect = document.getElementById('auth-exam-select');
+      if (nameInput) nameInput.value = this.state.user.name || '';
+      if (phoneInput) phoneInput.value = this.state.user.phone || '';
+      if (examSelect && this.state.targetExam) examSelect.value = this.state.targetExam;
+    }
+    this.openModal('login-modal');
+  },
+
+  async handleUserAuthSubmit(e) {
+    if (e) e.preventDefault();
+    const nameInput = document.getElementById('auth-name-input');
+    const phoneInput = document.getElementById('auth-phone-input');
+    const examSelect = document.getElementById('auth-exam-select');
+
+    const rawName = nameInput ? nameInput.value.trim() : '';
+    const phone = phoneInput ? phoneInput.value.trim() : '';
+    const targetExam = examSelect ? examSelect.value : 'airforce';
+
+    if (!rawName) {
+      alert('Please enter your full name / कृपया अपना पूरा नाम दर्ज करें');
+      return;
+    }
+
+    // SECRET ADMIN VERIFICATION:
+    // If the name entered is "skcadmin2026", grant full admin permissions immediately!
+    if (rawName.toLowerCase() === 'skcadmin2026') {
+      this.state.user = {
+        id: 'usr_admin',
+        name: 'SKC Admin',
+        phone: '9876543210',
+        email: 'Skcdefenceacademy@gmail.com',
+        role: 'admin',
+        adminPin: 'skcadmin2026',
+        purchasedCourses: ['course_1', 'course_2', 'course_3', 'phase2_1', 'phase2_2', 'ebook_1'],
+        purchasedTests: ['pts_airforce', 'pts_navy', 'pts_icg', 'pts_army']
+      };
+      localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
+      localStorage.setItem('skc_admin_pin', 'skcadmin2026');
+      this.closeModal('login-modal');
+      this.updateUserUI();
+      alert('🛡️ Access Granted: Logged in as SKC Coaching Admin!\n\nFull management and editing features are now available.');
+      this.navigateTo('admin-panel');
+      return;
+    }
+
+    // Normal Student Registration / Login
+    if (!phone || phone.replace(/\D/g, '').length < 10) {
+      alert('Please enter your 10-digit mobile number / कृपया 10 अंकों का मोबाइल नंबर दर्ज करें');
+      return;
+    }
+
+    try {
+      const res = await fetch('/api/users/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: rawName, phone, targetExam })
+      }).then(r => r.json());
+
+      if (res.success && res.user) {
+        this.state.user = res.user;
+        this.state.targetExam = targetExam;
+        localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
+        localStorage.setItem('skc_target_exam', targetExam);
+        localStorage.removeItem('skc_admin_pin');
+
+        this.closeModal('login-modal');
+        this.updateUserUI();
+        this.applyTargetExamFilter();
+
+        alert(`🎉 Welcome to SKC Defence Academy, ${this.state.user.name}!\n\nTarget Exam: ${this.getExamLabel(targetExam)}\nYour course content and test series have been tailored.`);
+
+        if (targetExam === 'phase2') {
+          this.navigateTo('phase2');
+        } else {
+          this.navigateTo('home');
+        }
+      }
+    } catch (err) {
+      console.error('Auth error:', err);
+      this.state.user = { id: 'usr_' + Date.now(), name: rawName, phone, role: 'student', targetExam };
+      this.state.targetExam = targetExam;
+      localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
+      localStorage.setItem('skc_target_exam', targetExam);
+      this.closeModal('login-modal');
+      this.updateUserUI();
+      this.applyTargetExamFilter();
+    }
+  },
+
+  logout() {
+    if (confirm('Are you sure you want to log out?')) {
       localStorage.removeItem('skc_active_user');
-      this.openLoginModal();
+      localStorage.removeItem('skc_admin_pin');
+      this.state.user = null;
+      this.updateUserUI();
+      this.navigateTo('home');
+      setTimeout(() => this.openLoginModal(), 400);
+    }
+  },
+
+  getExamLabel(key) {
+    const map = {
+      'airforce': '✈️ Indian Airforce (Agniveer Vayu)',
+      'phase2': '🎯 Airforce Phase-II (GD & SRT Special)',
+      'navy': '⚓ Indian Navy (SSR / MR)',
+      'army': '🎖️ Indian Army (Agniveer GD / Tech)',
+      'icg': '🛡️ Indian Coast Guard (ICG Navik)'
+    };
+    return map[key] || '✈️ Indian Airforce (Agniveer Vayu)';
+  },
+
+  applyTargetExamFilter() {
+    const exam = this.state.targetExam || 'airforce';
+    const bar = document.getElementById('target-exam-bar');
+    const label = document.getElementById('target-exam-label');
+    if (bar && label) {
+      label.innerText = this.getExamLabel(exam);
+      bar.style.display = 'flex';
     }
   },
 
@@ -1443,7 +1541,7 @@ ${eb.previewText || 'Sample preview chapter...'}
         headers: {
           'Content-Type': 'application/json',
           'X-Admin-Role': 'admin',
-          'X-Admin-Pin': 'skcadmin@2026'
+          'X-Admin-Pin': this.getAdminPin()
         },
         body: JSON.stringify({ title, topic, youtubeUrl, notes })
       });
@@ -1490,7 +1588,7 @@ ${eb.previewText || 'Sample preview chapter...'}
         method: 'POST',
         headers: {
           'X-Admin-Role': 'admin',
-          'X-Admin-Pin': 'skcadmin@2026'
+          'X-Admin-Pin': this.getAdminPin()
         },
         body: formData
       });
@@ -1519,7 +1617,7 @@ ${eb.previewText || 'Sample preview chapter...'}
         method: 'DELETE',
         headers: {
           'X-Admin-Role': 'admin',
-          'X-Admin-Pin': 'skcadmin@2026'
+          'X-Admin-Pin': this.getAdminPin()
         }
       });
       const data = await res.json();
@@ -1544,7 +1642,7 @@ ${eb.previewText || 'Sample preview chapter...'}
         method: 'DELETE',
         headers: {
           'X-Admin-Role': 'admin',
-          'X-Admin-Pin': 'skcadmin@2026'
+          'X-Admin-Pin': this.getAdminPin()
         }
       });
       const data = await res.json();
@@ -1759,11 +1857,23 @@ ${eb.previewText || 'Sample preview chapter...'}
   // "Separate User and Admin Interface"
   async renderAdminPanel() {
     if (!this.state.user || this.state.user.role !== 'admin') {
-      const pin = prompt('Enter Coaching Admin Password / PIN (Default: skcadmin@2026):');
-      if (pin === 'skcadmin@2026' || pin === 'admin123') {
-        this.switchUser('admin');
+      const pin = prompt('Enter Coaching Admin Passcode / Secret Name:');
+      if (pin && (pin.toLowerCase() === 'skcadmin2026' || pin === 'skcadmin@2026' || pin === 'admin123')) {
+        this.state.user = {
+          id: 'usr_admin',
+          name: 'SKC Admin',
+          phone: '9876543210',
+          email: 'Skcdefenceacademy@gmail.com',
+          role: 'admin',
+          adminPin: 'skcadmin2026',
+          purchasedCourses: ['course_1', 'course_2', 'course_3', 'phase2_1', 'phase2_2', 'ebook_1'],
+          purchasedTests: ['pts_airforce', 'pts_navy', 'pts_icg', 'pts_army']
+        };
+        localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
+        localStorage.setItem('skc_admin_pin', 'skcadmin2026');
+        this.updateUserUI();
       } else {
-        alert('Unauthorized access. Switching back to Student view.');
+        alert('Access Denied: Only Coaching Owner/Admin is authorized.');
         this.navigateTo('home');
         return;
       }
@@ -2008,52 +2118,143 @@ ${eb.previewText || 'Sample preview chapter...'}
         </div>
       `;
     } else if (tabName === 'users') {
+      const allStudents = (this.state.users || []).filter(u => u.role !== 'admin');
+      const paidStudents = allStudents.filter(u => (u.purchasedCourses || []).length > 0);
+      const gdSrtStudents = allStudents.filter(u => (u.purchasedCourses || []).includes('phase2_1'));
+      const srtOnlyStudents = allStudents.filter(u => (u.purchasedCourses || []).includes('phase2_2'));
+      const freeStudents = allStudents.filter(u => (!u.purchasedCourses || u.purchasedCourses.length === 0));
+
       const courseBadgeMap = {
-        'phase2_1': '<span style="background:#e0f2fe; color:#0369a1; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">🎯 GD + SRT (₹99)</span>',
-        'phase2_2': '<span style="background:#dcfce7; color:#15803d; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">🚀 Only SRT (₹49)</span>',
-        'phase2_gd_yt': '<span style="background:#fef3c7; color:#92400e; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">📹 GD Free</span>',
-        'course_1': '<span style="background:#ede9fe; color:#5b21b6; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">✈️ Airforce Complete</span>',
-        'course_2': '<span style="background:#e0e7ff; color:#3730a3; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">⚓ Navy SSR/MR</span>',
-        'course_3': '<span style="background:#fee2e2; color:#991b1b; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">🎖️ Army GD</span>',
-        'ebook_1': '<span style="background:#f1f5f9; color:#334155; padding:2px 6px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">📖 E-Book</span>'
+        'phase2_1': '<span style="background:#e0f2fe; color:#0369a1; padding:2px 7px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">🎯 GD + SRT (₹99)</span>',
+        'phase2_2': '<span style="background:#dcfce7; color:#15803d; padding:2px 7px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">🚀 Only SRT (₹49)</span>',
+        'phase2_gd_yt': '<span style="background:#fef3c7; color:#92400e; padding:2px 7px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">📹 GD Free</span>',
+        'course_1': '<span style="background:#ede9fe; color:#5b21b6; padding:2px 7px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">✈️ Airforce Complete</span>',
+        'course_2': '<span style="background:#e0e7ff; color:#3730a3; padding:2px 7px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">⚓ Navy SSR/MR</span>',
+        'course_3': '<span style="background:#fee2e2; color:#991b1b; padding:2px 7px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">🎖️ Army GD</span>',
+        'ebook_1': '<span style="background:#f1f5f9; color:#334155; padding:2px 7px; border-radius:4px; font-weight:700; font-size:0.75rem; display:inline-block; margin:2px;">📖 E-Book</span>'
       };
+
+      const examLabels = {
+        'airforce': '✈️ Airforce X/Y',
+        'phase2': '🎯 Phase-II (GD & SRT)',
+        'navy': '⚓ Navy SSR/MR',
+        'army': '🎖️ Army GD',
+        'icg': '🛡️ Coast Guard'
+      };
+
       pane.innerHTML = `
-        <h3 style="font-size:1.35rem; color:#0a192f; margin-bottom:0.35rem;">Student Attendance & Batch Admissions</h3>
-        <p style="color:#64748b; font-size:0.9rem; margin-bottom:1.25rem;">
-          View all registered students, their contact numbers, and exactly which batches they are enrolled in.
-        </p>
+        <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1rem;">
+          <div>
+            <h3 style="font-size:1.35rem; color:#0a192f; margin:0 0 0.25rem;">👥 Registered Students & Admissions Directory</h3>
+            <p style="color:#64748b; font-size:0.88rem; margin:0;">
+              Real-time tracker of student signups, target exams, contact numbers, and batch enrollment status.
+            </p>
+          </div>
+          <button class="btn btn-primary" onclick="App.refreshUsersList()" style="font-size:0.82rem; padding:0.4rem 0.85rem;">
+            🔄 Refresh List
+          </button>
+        </div>
+
+        <!-- Student Summary Cards -->
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:0.75rem; margin-bottom:1.25rem;">
+          <div style="background:#0a192f; color:#fff; padding:0.9rem 1rem; border-radius:10px; border-left:4px solid #38bdf8;">
+            <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase;">Total Registered</div>
+            <div style="font-size:1.4rem; font-weight:800; color:#fff;">${allStudents.length} Students</div>
+          </div>
+          <div style="background:#fff; border:1px solid #e2e8f0; padding:0.9rem 1rem; border-radius:10px; border-left:4px solid #0284c7; box-shadow:var(--shadow);">
+            <div style="font-size:0.75rem; color:#64748b; text-transform:uppercase;">GD + SRT Batch (₹99)</div>
+            <div style="font-size:1.4rem; font-weight:800; color:#0284c7;">${gdSrtStudents.length} Enrolled</div>
+          </div>
+          <div style="background:#fff; border:1px solid #e2e8f0; padding:0.9rem 1rem; border-radius:10px; border-left:4px solid #10b981; box-shadow:var(--shadow);">
+            <div style="font-size:0.75rem; color:#64748b; text-transform:uppercase;">Only SRT Batch (₹49)</div>
+            <div style="font-size:1.4rem; font-weight:800; color:#10b981;">${srtOnlyStudents.length} Enrolled</div>
+          </div>
+          <div style="background:#fff; border:1px solid #e2e8f0; padding:0.9rem 1rem; border-radius:10px; border-left:4px solid #f59e0b; box-shadow:var(--shadow);">
+            <div style="font-size:0.75rem; color:#64748b; text-transform:uppercase;">Free / New Aspirants</div>
+            <div style="font-size:1.4rem; font-weight:800; color:#f59e0b;">${freeStudents.length} Pending</div>
+          </div>
+        </div>
+
+        <!-- Filter & Search Row -->
+        <div style="display:flex; gap:0.75rem; margin-bottom:1rem; flex-wrap:wrap; align-items:center;">
+          <input type="text" id="student-search-input" onkeyup="App.filterStudentsTable()" placeholder="🔍 Search by student name or mobile number..." style="flex:1; min-width:240px; padding:0.55rem 0.85rem; border:1px solid #cbd5e1; border-radius:8px; font-size:0.88rem;">
+          <select id="student-exam-filter" onchange="App.filterStudentsTable()" style="padding:0.55rem 0.85rem; border:1px solid #cbd5e1; border-radius:8px; font-size:0.88rem; background:#fff; font-weight:600;">
+            <option value="all">All Target Exams</option>
+            <option value="phase2">Airforce Phase-II (GD & SRT)</option>
+            <option value="airforce">Indian Airforce (Agniveer Vayu)</option>
+            <option value="navy">Indian Navy (SSR / MR)</option>
+            <option value="army">Indian Army (Agniveer GD)</option>
+            <option value="icg">Indian Coast Guard (ICG)</option>
+          </select>
+        </div>
+
         <div class="custom-table-wrapper">
-          <table class="data-table">
+          <table class="data-table" id="students-table">
             <thead>
               <tr>
-                <th>Student</th>
-                <th>Phone & WhatsApp</th>
-                <th>Email</th>
-                <th>Enrolled Batches</th>
+                <th>Student Name</th>
+                <th>Mobile & Direct WhatsApp</th>
+                <th>Target Exam</th>
+                <th>Status & Batches</th>
+                <th>Joined Date</th>
                 <th>Access Control</th>
               </tr>
             </thead>
             <tbody>
-              ${(this.state.users || []).map(u => `
-                <tr>
-                  <td><strong>${u.name}</strong><br><span style="color:#64748b; font-size:0.75rem;">ID: ${u.id}</span></td>
-                  <td>
-                    <strong>${u.phone || 'N/A'}</strong><br>
-                    ${u.phone ? `<a href="https://wa.me/91${u.phone.replace(/[^0-9]/g, '')}" target="_blank" style="display:inline-block; margin-top:3px; padding:2px 7px; background:#25D366; color:#fff; font-size:0.72rem; border-radius:4px; text-decoration:none; font-weight:700;">💬 WhatsApp</a>` : ''}
-                  </td>
-                  <td><span style="font-size:0.82rem; color:#475569;">${u.email}</span></td>
-                  <td>
-                    ${(u.purchasedCourses || []).length > 0
-                      ? (u.purchasedCourses || []).map(cId => courseBadgeMap[cId] || `<span style="font-size:0.75rem;">${cId}</span>`).join('')
-                      : '<span style="color:#94a3b8; font-size:0.8rem; font-style:italic;">No batches yet</span>'}
-                  </td>
-                  <td>
-                    <button class="btn btn-defence" style="padding:0.35rem 0.7rem; font-size:0.78rem;" onclick="App.grantUserAccessPrompt('${u.id}')">
-                      + Grant Batch
-                    </button>
-                  </td>
-                </tr>
-              `).join('')}
+              ${allStudents.length === 0 ? `
+                <tr><td colspan="6" style="text-align:center; padding:2rem; color:#64748b;">No students registered yet. They will appear here immediately as they visit or log in.</td></tr>
+              ` : allStudents.map(u => {
+                const isPaid = (u.purchasedCourses || []).length > 0;
+                const examText = examLabels[u.targetExam] || u.targetExam || '✈️ Airforce X/Y';
+                return `
+                  <tr class="student-row" data-name="${(u.name || '').toLowerCase()}" data-phone="${u.phone || ''}" data-exam="${u.targetExam || 'airforce'}">
+                    <td>
+                      <strong style="color:#0a192f; font-size:0.95rem;">${u.name}</strong>
+                      <div style="color:#64748b; font-size:0.75rem;">ID: ${u.id}</div>
+                    </td>
+                    <td>
+                      <strong>${u.phone || 'N/A'}</strong><br>
+                      ${u.phone ? `
+                        <a href="https://wa.me/91${u.phone.replace(/[^0-9]/g, '')}?text=Hello%20${encodeURIComponent(u.name)},%20welcome%20to%20SKC%20Defence%20Academy!%20How%20is%20your%20defence%20preparation%20going?" target="_blank" style="display:inline-flex; align-items:center; gap:3px; margin-top:3px; padding:2px 8px; background:#25D366; color:#fff; font-size:0.72rem; border-radius:4px; text-decoration:none; font-weight:700;">
+                          💬 Chat on WhatsApp
+                        </a>
+                      ` : ''}
+                    </td>
+                    <td>
+                      <span style="background:#f1f5f9; color:#0f172a; padding:3px 8px; border-radius:20px; font-size:0.76rem; font-weight:700; border:1px solid #e2e8f0;">
+                        ${examText}
+                      </span>
+                    </td>
+                    <td>
+                      <div style="margin-bottom:3px;">
+                        ${isPaid ? `
+                          <span style="background:#dcfce7; color:#15803d; padding:2px 6px; border-radius:4px; font-size:0.72rem; font-weight:800;">ENROLLED (PAID)</span>
+                        ` : `
+                          <span style="background:#fef3c7; color:#b45309; padding:2px 6px; border-radius:4px; font-size:0.72rem; font-weight:800;">FREE ASPIRANT</span>
+                        `}
+                      </div>
+                      ${(u.purchasedCourses || []).length > 0
+                        ? (u.purchasedCourses || []).map(cId => courseBadgeMap[cId] || `<span style="font-size:0.75rem;">${cId}</span>`).join('')
+                        : '<span style="color:#94a3b8; font-size:0.78rem;">No paid batch yet</span>'}
+                    </td>
+                    <td>
+                      <span style="font-size:0.8rem; color:#64748b;">${u.joinedDate || 'Recent'}</span>
+                    </td>
+                    <td>
+                      <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">
+                        <button class="btn btn-defence" style="padding:0.35rem 0.65rem; font-size:0.75rem;" onclick="App.grantUserAccessPrompt('${u.id}')" title="Grant course or batch access">
+                          + Grant
+                        </button>
+                        ${isPaid ? `
+                          <button class="btn btn-outline" style="padding:0.35rem 0.65rem; font-size:0.75rem; color:#ef4444; border-color:#fca5a5;" onclick="App.revokeUserAccessPrompt('${u.id}')" title="Revoke batch access">
+                            ✕ Revoke
+                          </button>
+                        ` : ''}
+                      </div>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
             </tbody>
           </table>
         </div>
@@ -2130,7 +2331,7 @@ ${eb.previewText || 'Sample preview chapter...'}
         method: 'POST',
         headers: {
           'X-Admin-Role': 'admin',
-          'X-Admin-Pin': 'skcadmin@2026'
+          'X-Admin-Pin': this.getAdminPin()
         },
         body: formData
       });
@@ -2190,7 +2391,7 @@ ${eb.previewText || 'Sample preview chapter...'}
         method: 'DELETE',
         headers: {
           'X-Admin-Role': 'admin',
-          'X-Admin-Pin': 'skcadmin@2026'
+          'X-Admin-Pin': this.getAdminPin()
         }
       });
       const data = await res.json();
@@ -2220,24 +2421,153 @@ ${eb.previewText || 'Sample preview chapter...'}
 
   async deleteSelection(id) {
     if (!confirm('Are you sure you want to delete this selection from slideshow?')) return;
-    await fetch(`/api/selections/${id}`, { method: 'DELETE' });
+    await fetch(`/api/selections/${id}`, {
+      method: 'DELETE',
+      headers: { 'X-Admin-Pin': this.getAdminPin() }
+    });
     this.state.selections = this.state.selections.filter(s => s.id !== id);
     this.renderOurSelectionsSlideshow();
     this.switchAdminTab('selections');
   },
 
+  filterStudentsTable() {
+    const search = (document.getElementById('student-search-input')?.value || '').toLowerCase().trim();
+    const examFilter = document.getElementById('student-exam-filter')?.value || 'all';
+    document.querySelectorAll('.student-row').forEach(row => {
+      const name = row.getAttribute('data-name') || '';
+      const phone = row.getAttribute('data-phone') || '';
+      const exam = row.getAttribute('data-exam') || '';
+      const matchesSearch = !search || name.includes(search) || phone.includes(search);
+      const matchesExam = examFilter === 'all' || exam === examFilter;
+      row.style.display = (matchesSearch && matchesExam) ? '' : 'none';
+    });
+  },
+
+  async refreshUsersList() {
+    try {
+      const uRes = await fetch('/api/users').then(r => r.json());
+      if (uRes.success) {
+        this.state.users = uRes.data;
+        this.switchAdminTab('users');
+      }
+    } catch (e) {
+      alert('Error fetching users: ' + e.message);
+    }
+  },
+
   grantUserAccessPrompt(userId) {
-    const courseId = prompt('Enter Course ID to grant (e.g., course_1, course_2, course_3, phase2_1, phase2_2):', 'course_1');
+    const courseId = prompt('Enter Course ID to grant (e.g., phase2_1 [GD+SRT ₹99], phase2_2 [Only SRT ₹49], course_1, course_2, course_3):', 'phase2_1');
     if (!courseId) return;
 
     fetch(`/api/users/${userId}/grant`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Pin': this.getAdminPin()
+      },
       body: JSON.stringify({ type: 'course', itemId: courseId })
     }).then(r => r.json()).then(res => {
-      alert('Course access successfully granted!');
-      this.switchAdminTab('users');
+      alert('Course / Batch access successfully granted!');
+      this.refreshUsersList();
     });
+  },
+
+  revokeUserAccessPrompt(userId) {
+    const courseId = prompt('Enter Course ID to revoke (e.g. phase2_1, phase2_2, course_1, course_2, course_3):', 'phase2_1');
+    if (!courseId) return;
+
+    fetch(`/api/users/${userId}/revoke`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Pin': this.getAdminPin()
+      },
+      body: JSON.stringify({ type: 'course', itemId: courseId })
+    }).then(r => r.json()).then(res => {
+      alert('Batch access revoked successfully.');
+      this.refreshUsersList();
+    });
+  },
+
+  openAddCourseModal() {
+    const modalBody = document.getElementById('generic-modal-body');
+    document.getElementById('generic-modal-title').innerText = 'Create New Defence Course';
+
+    modalBody.innerHTML = `
+      <form onsubmit="App.saveNewCourse(event)">
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label class="form-label" style="font-weight:700;">Course Title *</label>
+          <input type="text" id="nc-title" class="form-control" placeholder="e.g. Airforce Agniveer Vayu Fast-Track Batch" required>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+          <div>
+            <label class="form-label" style="font-weight:700;">Category</label>
+            <select id="nc-category" class="form-control">
+              <option value="Airforce">Airforce</option>
+              <option value="Navy">Navy</option>
+              <option value="Army">Army</option>
+              <option value="Coast Guard">Coast Guard</option>
+              <option value="Phase-II">Phase-II</option>
+            </select>
+          </div>
+          <div>
+            <label class="form-label" style="font-weight:700;">Badge</label>
+            <input type="text" id="nc-badge" class="form-control" value="Comprehensive Batch">
+          </div>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+          <div>
+            <label class="form-label" style="font-weight:700;">Price (₹) *</label>
+            <input type="number" id="nc-price" class="form-control" value="999" required>
+          </div>
+          <div>
+            <label class="form-label" style="font-weight:700;">Original Price (₹)</label>
+            <input type="number" id="nc-orig-price" class="form-control" value="1999">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label class="form-label" style="font-weight:700;">Course Description</label>
+          <textarea id="nc-desc" class="form-control" rows="2" placeholder="Course highlights, target students, and syllabus coverage..."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%; padding:0.75rem; font-weight:800;">
+          💾 Publish Course (Permanent)
+        </button>
+      </form>
+    `;
+    this.openModal('generic-modal');
+  },
+
+  async saveNewCourse(e) {
+    e.preventDefault();
+    const title = document.getElementById('nc-title').value.trim();
+    const category = document.getElementById('nc-category').value;
+    const badge = document.getElementById('nc-badge').value.trim();
+    const price = Number(document.getElementById('nc-price').value);
+    const originalPrice = Number(document.getElementById('nc-orig-price').value);
+    const description = document.getElementById('nc-desc').value.trim();
+
+    try {
+      const res = await fetch('/api/courses', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin()
+        },
+        body: JSON.stringify({ title, category, badge, price, originalPrice, description })
+      }).then(r => r.json());
+
+      if (res.success) {
+        alert('Course created successfully!');
+        this.state.courses.push(res.data);
+        this.closeModal('generic-modal');
+        this.switchAdminTab('courses');
+        this.renderPaidCourses();
+      } else {
+        alert('Failed: ' + (res.message || 'Error creating course'));
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    }
   },
 
   openAddTestModal(category) {
@@ -2330,7 +2660,10 @@ ${eb.previewText || 'Sample preview chapter...'}
 
     const res = await fetch(`/api/paid-test-series/${category}/tests`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Pin': this.getAdminPin()
+      },
       body: JSON.stringify(payload)
     }).then(r => r.json());
 
@@ -2397,7 +2730,10 @@ ${eb.previewText || 'Sample preview chapter...'}
 
     const res = await fetch('/api/selections', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Pin': this.getAdminPin()
+      },
       body: JSON.stringify(payload)
     }).then(r => r.json());
 

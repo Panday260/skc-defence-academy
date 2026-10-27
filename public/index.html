@@ -32,10 +32,6 @@
           <div id="user-header-area">
             <!-- Populated dynamically by app.js -->
           </div>
-
-          <button class="btn btn-secondary btn-admin-nav" onclick="App.navigateTo('admin-panel')" title="Admin Management Panel">
-            <span class="admin-icon">🛡️</span> <span class="admin-btn-label">Admin</span>
-          </button>
         </div>
       </div>
     </div>
@@ -74,6 +70,20 @@
           </div>
         </div>
       </section>
+
+      <!-- Target Exam Personalized Banner -->
+      <div id="target-exam-bar" style="display:none; background:#0a192f; color:#fff; border-radius:10px; padding:0.85rem 1.25rem; margin-bottom:1.5rem; border-left:4px solid #f59e0b; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:0.75rem;">
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <span style="font-size:1.4rem;">🎯</span>
+          <div>
+            <div style="font-size:0.75rem; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px;">Your Selected Target Exam</div>
+            <strong id="target-exam-label" style="font-size:1.05rem; color:#f59e0b;">Indian Airforce (Agniveer Vayu)</strong>
+          </div>
+        </div>
+        <button class="btn btn-outline" style="border-color:#f59e0b; color:#f59e0b; padding:0.35rem 0.8rem; font-size:0.8rem;" onclick="App.openOnboardingModal()">
+          Change Exam 🔄
+        </button>
+      </div>
 
       <!-- =========================================================
            10 DASHBOARD BUTTONS (ONLY ON MAIN SCREEN AS SPECIFIED)
@@ -470,33 +480,46 @@
     </div>
   </div>
 
-  <!-- Login Modal -->
+  <!-- Student Onboarding & Login Modal -->
   <div id="login-modal" class="modal-backdrop">
-    <div class="modal-card" style="max-width:420px;">
+    <div class="modal-card" style="max-width:440px;">
       <div class="modal-header">
-        <h3>Student Login</h3>
+        <div style="display:flex; align-items:center; gap:0.5rem;">
+          <span style="font-size:1.4rem;">🎓</span>
+          <div>
+            <h3 style="margin:0; font-size:1.15rem; color:#0a192f;">SKC Defence Academy</h3>
+            <p style="margin:0; font-size:0.78rem; color:#64748b;">Student Registration & Portal Entry</p>
+          </div>
+        </div>
         <button class="modal-close-btn" onclick="App.closeModal('login-modal')">×</button>
       </div>
       <div class="modal-body">
-        <button class="btn btn-outline" style="width:100%; margin-bottom:1.25rem; display:flex; align-items:center; justify-content:center; gap:0.5rem;" onclick="App.switchUser('student1'); App.closeModal('login-modal');">
-          <span style="font-weight:bold; color:#ea4335;">G</span> Continue with Google
-        </button>
+        <form onsubmit="App.handleUserAuthSubmit(event)">
+          <div class="form-group" style="margin-bottom:0.9rem;">
+            <label class="form-label" style="font-weight:700;">Full Name / छात्र का पूरा नाम *</label>
+            <input type="text" id="auth-name-input" class="form-control" placeholder="Enter your full name" required autocomplete="name">
+          </div>
 
-        <div style="text-align:center; color:#94a3b8; font-size:0.8rem; margin-bottom:1.25rem;">OR MOBILE NUMBER (OTP)</div>
+          <div class="form-group" style="margin-bottom:0.9rem;">
+            <label class="form-label" style="font-weight:700;">Mobile Number / मोबाइल नंबर *</label>
+            <input type="tel" id="auth-phone-input" class="form-control" placeholder="10-digit mobile number" autocomplete="tel">
+          </div>
 
-        <div class="form-group">
-          <label class="form-label">Mobile Number</label>
-          <input type="tel" id="login-mobile-input" class="form-control" placeholder="10-digit mobile number" value="9812345678">
-        </div>
-        <button class="btn btn-primary" style="width:100%; margin-bottom:1rem;" onclick="alert('OTP sent to your mobile: 2026'); App.switchUser('student1'); App.closeModal('login-modal');">
-          Send OTP & Login
-        </button>
+          <div class="form-group" style="margin-bottom:1.25rem;">
+            <label class="form-label" style="font-weight:700;">Target Defence Exam / तैयारी का लक्ष्य *</label>
+            <select id="auth-exam-select" class="form-control" style="font-weight:600; padding:0.6rem;" required>
+              <option value="airforce" selected>✈️ Indian Airforce (Agniveer Vayu X/Y)</option>
+              <option value="phase2">🎯 Airforce Phase-II (GD & SRT Special)</option>
+              <option value="navy">⚓ Indian Navy (SSR / MR)</option>
+              <option value="army">🎖️ Indian Army (Agniveer GD / Tech)</option>
+              <option value="icg">🛡️ Indian Coast Guard (ICG Navik)</option>
+            </select>
+          </div>
 
-        <div style="text-align:center; margin-top:1rem; border-top:1px solid #e2e8f0; padding-top:0.75rem;">
-          <a href="javascript:void(0)" style="font-size:0.85rem; color:#0284c7; text-decoration:none;" onclick="App.switchUser('admin'); App.closeModal('login-modal');">
-            Coaching Staff? Login as Admin
-          </a>
-        </div>
+          <button type="submit" class="btn btn-primary" style="width:100%; padding:0.8rem; font-size:1rem; font-weight:800; background:linear-gradient(135deg, #0284c7 0%, #0369a1 100%); border:none; box-shadow:0 4px 12px rgba(2,132,199,0.35);">
+            Continue & Explore Portal 🚀
+          </button>
+        </form>
       </div>
     </div>
   </div>
