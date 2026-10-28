@@ -6,7 +6,7 @@
   <title>SKC DEFENCE ACADEMY | Official Portal - IAF, Navy, Army, ICG</title>
   <meta name="description" content="Official learning and test portal of SKC Defence Academy. Comprehensive preparation for Airforce Agniveer Vayu, Navy SSR/MR, ICG, Army GD and Phase-II GD & SRT.">
   <link rel="icon" type="image/png" href="/uploads/logo.png">
-  <link rel="stylesheet" href="/css/style.css?v=20261027_5">
+  <link rel="stylesheet" href="/css/style.css?v=20261028_1">
 </head>
 <body>
 
@@ -199,6 +199,8 @@
         <h2>🎓 Paid Courses (HTML Mock & Video Classes Enabled)</h2>
         <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
       </div>
+      <div id="courses-folder-nav" class="folder-nav-tabs"></div>
+      <div id="courses-folder-breadcrumb"></div>
       <div id="paid-courses-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
         <!-- Populated dynamically -->
       </div>
@@ -210,6 +212,8 @@
         <h2>📝 Free Test Series (Online CBT + PDF Enabled)</h2>
         <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
       </div>
+      <div id="free-tests-folder-nav" class="folder-nav-tabs"></div>
+      <div id="free-tests-folder-breadcrumb"></div>
       <div id="free-tests-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
         <!-- Populated dynamically -->
       </div>
@@ -267,6 +271,8 @@
         <h2>📄 Previous Year Question Papers (PYQ PDFs)</h2>
         <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
       </div>
+      <div id="pyqs-folder-nav" class="folder-nav-tabs"></div>
+      <div id="pyqs-folder-breadcrumb"></div>
       <div id="pyqs-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:1.25rem;">
         <!-- Populated dynamically -->
       </div>
@@ -278,6 +284,8 @@
         <h2>📋 Official Syllabus & Exam Pattern PDFs</h2>
         <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
       </div>
+      <div id="syllabus-folder-nav" class="folder-nav-tabs"></div>
+      <div id="syllabus-folder-breadcrumb"></div>
       <div id="syllabus-list" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:1.25rem;">
         <!-- Populated dynamically -->
       </div>
@@ -311,20 +319,23 @@
         <h2>📰 Defence Current Affairs (Weekly & Monthly)</h2>
         <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
       </div>
-      
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.5rem; margin-bottom:2.5rem;">
-        <div>
-          <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #0284c7; padding-bottom:0.4rem;">
-            📅 Weekly Defence Capsules
-          </h3>
-          <div id="ca-weekly-list"></div>
-        </div>
+      <div id="ca-folder-nav" class="folder-nav-tabs"></div>
+      <div id="ca-folder-breadcrumb"></div>
+      <div id="ca-content-area">
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
+          <div>
+            <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #0284c7; padding-bottom:0.4rem;">
+              📅 Weekly Defence Capsules
+            </h3>
+            <div id="ca-weekly-list"></div>
+          </div>
 
-        <div>
-          <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #f59e0b; padding-bottom:0.4rem;">
-            📖 Monthly Defence Digests
-          </h3>
-          <div id="ca-monthly-list"></div>
+          <div>
+            <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #f59e0b; padding-bottom:0.4rem;">
+              📖 Monthly Defence Digests
+            </h3>
+            <div id="ca-monthly-list"></div>
+          </div>
         </div>
       </div>
     </div>
@@ -510,8 +521,8 @@
   </div>
 
   <!-- Scripts with Cache Buster for Instant Live Updates -->
-  <script src="/js/test-engine.js?v=20261027_5"></script>
-  <script src="/js/srt-engine.js?v=20261027_5"></script>
-  <script src="/js/app.js?v=20261027_5"></script>
+  <script src="/js/test-engine.js?v=20261028_1"></script>
+  <script src="/js/srt-engine.js?v=20261028_1"></script>
+  <script src="/js/app.js?v=20261028_1"></script>
 </body>
 </html>

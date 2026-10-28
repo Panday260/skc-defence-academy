@@ -21,6 +21,12 @@ const App = {
     users: [],
     orders: [],
     activeView: 'home',
+    selectedPyqCategory: 'all',
+    selectedSyllabusCategory: 'all',
+    selectedFreeTestCategory: 'all',
+    selectedPaidCourseCategory: 'all',
+    selectedCaCategory: 'all',
+    courseViewActiveFolders: {},
     slideshowIndex: 0,
     slideshowInterval: null,
     digitalBoardMode: false,
@@ -32,6 +38,13 @@ const App = {
     await this.fetchAppData();
     this.restoreSession();
     this.initSlideshow();
+
+    // Direct section link via hash
+    const initialHash = window.location.hash.replace('#', '').trim();
+    if (initialHash && document.getElementById(`view-${initialHash}`)) {
+      this.state.activeView = initialHash;
+    }
+
     this.renderActiveView();
   },
 
@@ -319,6 +332,11 @@ const App = {
   // 3. Navigation between Views
   navigateTo(viewName) {
     this.state.activeView = viewName;
+    try {
+      if (window.location.hash.replace('#', '') !== viewName) {
+        window.history.pushState(null, '', `#${viewName}`);
+      }
+    } catch (_) {}
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     // Highlight button in 10-button grid if applicable
@@ -445,11 +463,87 @@ const App = {
   // 6. Section Renderers
 
   // 1. Paid Courses
+  selectPaidCourseCategory(cat) {
+    this.state.selectedPaidCourseCategory = cat;
+    this.renderPaidCourses();
+  },
+
   renderPaidCourses() {
+    const navContainer = document.getElementById('courses-folder-nav');
+    const crumbContainer = document.getElementById('courses-folder-breadcrumb');
     const container = document.getElementById('paid-courses-list');
     if (!container) return;
 
-    container.innerHTML = this.state.courses.map(course => {
+    const allCourses = this.state.courses || [];
+    const afCourses = allCourses.filter(c => (c.title || '').toLowerCase().includes('airforce') || (c.category || '').toLowerCase().includes('airforce'));
+    const navyCourses = allCourses.filter(c => (c.title || '').toLowerCase().includes('navy') || (c.category || '').toLowerCase().includes('navy'));
+    const armyCourses = allCourses.filter(c => (c.title || '').toLowerCase().includes('army') || (c.category || '').toLowerCase().includes('army'));
+
+    const activeCat = this.state.selectedPaidCourseCategory || 'all';
+
+    let filtered = allCourses;
+    let folderLabel = 'All Defence Batches';
+    let folderIcon = '📁';
+
+    if (activeCat === 'airforce') {
+      filtered = afCourses;
+      folderLabel = 'Airforce Agniveer Vayu Batches Folder';
+      folderIcon = '✈️';
+    } else if (activeCat === 'navy') {
+      filtered = navyCourses;
+      folderLabel = 'Indian Navy SSR / MR Batches Folder';
+      folderIcon = '⚓';
+    } else if (activeCat === 'army') {
+      filtered = armyCourses;
+      folderLabel = 'Indian Army Agniveer Batches Folder';
+      folderIcon = '🎖️';
+    }
+
+    if (navContainer) {
+      navContainer.innerHTML = `
+        <button class="folder-tab-btn ${activeCat === 'all' ? 'active' : ''}" onclick="App.selectPaidCourseCategory('all')">
+          📁 All Batches Folder <span class="folder-tab-badge">${allCourses.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'airforce' ? 'active' : ''}" onclick="App.selectPaidCourseCategory('airforce')">
+          ✈️ Airforce Folder <span class="folder-tab-badge">${afCourses.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'navy' ? 'active' : ''}" onclick="App.selectPaidCourseCategory('navy')">
+          ⚓ Navy Folder <span class="folder-tab-badge">${navyCourses.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'army' ? 'active' : ''}" onclick="App.selectPaidCourseCategory('army')">
+          🎖️ Army Folder <span class="folder-tab-badge">${armyCourses.length}</span>
+        </button>
+      `;
+    }
+
+    if (crumbContainer) {
+      crumbContainer.innerHTML = `
+        <div class="folder-breadcrumb">
+          <span class="crumb-root">📁 Course_Vault</span>
+          <span class="crumb-sep">›</span>
+          <span>Online_Batches</span>
+          <span class="crumb-sep">›</span>
+          <span class="crumb-current">${folderIcon} ${folderLabel}/</span>
+          <span class="crumb-count">${filtered.length} Complete Programs</span>
+        </div>
+      `;
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="empty-folder-box" style="grid-column: 1 / -1;">
+          <div style="font-size:2.5rem; margin-bottom:0.5rem;">📁</div>
+          <h4 style="font-size:1.15rem; color:#0a192f; margin-bottom:0.35rem;">No Batches In This Folder Yet</h4>
+          <p style="color:#64748b; font-size:0.88rem; max-width:440px; margin:0 auto 1.25rem;">
+            New target batches will be launched soon. Explore all defence courses.
+          </p>
+          <button class="btn btn-outline" onclick="App.selectPaidCourseCategory('all')">View All Batches</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = filtered.map(course => {
       const isEnrolled = this.state.user && (this.state.user.purchasedCourses || []).includes(course.id);
       return `
         <div class="content-card">
@@ -470,7 +564,7 @@ const App = {
               </div>
               ${isEnrolled ? `
                 <button class="btn btn-defence" onclick="App.openCourseViewer('${course.id}')">
-                  ▶ Open Course
+                  ▶ Open Course Folders
                 </button>
               ` : `
                 <button class="btn btn-primary" onclick="App.openCheckoutModal('course', '${course.id}', '${course.title}', ${course.price})">
@@ -484,72 +578,136 @@ const App = {
     }).join('');
   },
 
-  openCourseViewer(courseId) {
+  openCourseViewer(courseId, activeFolder = 'videos') {
     const course = this.state.courses.find(c => c.id === courseId);
     if (!course) return;
 
+    this.state.courseViewActiveFolders[courseId] = activeFolder;
+
     const modalBody = document.getElementById('generic-modal-body');
-    document.getElementById('generic-modal-title').innerText = course.title;
+    document.getElementById('generic-modal-title').innerText = `${course.title} • Course Library`;
+
+    const videos = course.videos || [];
+    const pdfs = course.pdfs || [];
+    const mocks = course.htmlMocks || [];
+
+    let folderTitle = 'Video Lectures';
+    let folderIcon = '🎥';
+    let countText = `${videos.length} Lectures`;
+
+    if (activeFolder === 'pdfs') {
+      folderTitle = 'Class Notes & Formula PDFs';
+      folderIcon = '📑';
+      countText = `${pdfs.length} Documents`;
+    } else if (activeFolder === 'tests') {
+      folderTitle = 'Interactive HTML Practice Tests';
+      folderIcon = '🖥️';
+      countText = `${mocks.length} CBT Tests`;
+    }
 
     modalBody.innerHTML = `
       <div>
-        <p style="color:#64748b; font-size:0.9rem; margin-bottom:1.5rem;">${course.description}</p>
-        
-        <h4 style="font-size:1.05rem; color:#0a192f; margin-bottom:0.75rem; border-bottom:2px solid #e2e8f0; padding-bottom:0.5rem;">
-          🎥 Video Lessons (YouTube High Quality)
-        </h4>
-        <div style="display:flex; flex-direction:column; gap:0.75rem; margin-bottom:1.75rem;">
-          ${(course.videos || []).map(v => `
-            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:0.85rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
-              <div>
-                <strong style="color:#0f172a; font-size:0.95rem; display:block;">${v.title}</strong>
-                <span style="font-size:0.8rem; color:#64748b;">Duration: ${v.duration || '45 mins'}</span>
-              </div>
-              <button class="btn btn-primary" style="padding:0.35rem 0.85rem; font-size:0.8rem;" onclick="App.playVideoModal('${v.youtubeId || 'ysz5S6PUM-U'}', '${v.title}')">
-                ▶ Watch Lecture
-              </button>
-            </div>
-          `).join('')}
+        <div style="background:linear-gradient(135deg, #0a192f 0%, #1e3a8a 100%); color:#fff; padding:1.15rem; border-radius:10px; margin-bottom:1.25rem; border:1.5px solid #0284c7;">
+          <h4 style="font-size:1.15rem; margin:0 0 0.35rem; color:#fff;">${course.title}</h4>
+          <p style="color:#cbd5e1; font-size:0.85rem; margin:0;">${course.description}</p>
         </div>
 
-        <h4 style="font-size:1.05rem; color:#0a192f; margin-bottom:0.75rem; border-bottom:2px solid #e2e8f0; padding-bottom:0.5rem;">
-          📑 Class Notes & Formula PDFs (Watermark Enabled)
-        </h4>
-        <div style="display:flex; flex-direction:column; gap:0.75rem; margin-bottom:1.75rem;">
-          ${(course.pdfs || []).map(p => `
-            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:0.85rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
-              <div>
-                <strong style="color:#0f172a; font-size:0.95rem; display:block;">📄 ${p.title}</strong>
-                <span style="font-size:0.8rem; color:#64748b;">Pages: ${p.pages || 30} • Size: ${p.size || '3.2 MB'}</span>
-              </div>
-              <div style="display:flex; gap:0.4rem;">
-                <button class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.8rem;" onclick="App.previewPdf('${p.url}')">
-                  Preview
-                </button>
-                <button class="btn btn-defence" style="padding:0.35rem 0.75rem; font-size:0.8rem;" onclick="App.downloadWatermarkedPdf('${p.url}')">
-                  ⬇ Download (Watermarked)
-                </button>
-              </div>
-            </div>
-          `).join('')}
+        <!-- Course Folder Tabs -->
+        <div class="folder-nav-tabs">
+          <button class="folder-tab-btn ${activeFolder === 'videos' ? 'active' : ''}" onclick="App.openCourseViewer('${course.id}', 'videos')">
+            🎥 Video Lectures Folder <span class="folder-tab-badge">${videos.length}</span>
+          </button>
+          <button class="folder-tab-btn ${activeFolder === 'pdfs' ? 'active' : ''}" onclick="App.openCourseViewer('${course.id}', 'pdfs')">
+            📑 Class Notes PDFs Folder <span class="folder-tab-badge">${pdfs.length}</span>
+          </button>
+          <button class="folder-tab-btn ${activeFolder === 'tests' ? 'active' : ''}" onclick="App.openCourseViewer('${course.id}', 'tests')">
+            🖥️ HTML Practice Tests Folder <span class="folder-tab-badge">${mocks.length}</span>
+          </button>
         </div>
 
-        <h4 style="font-size:1.05rem; color:#0a192f; margin-bottom:0.75rem; border-bottom:2px solid #e2e8f0; padding-bottom:0.5rem;">
-          🖥️ Interactive HTML Mock Tests
-        </h4>
-        <div style="display:flex; flex-direction:column; gap:0.75rem;">
-          ${(course.htmlMocks || []).map(hm => `
-            <div style="background:#fffbeb; border:1px solid #fef08a; border-radius:8px; padding:0.85rem; display:flex; justify-content:space-between; align-items:center;">
-              <div>
-                <strong style="color:#713f12; font-size:0.95rem; display:block;">📝 ${hm.title}</strong>
-                <span style="font-size:0.8rem; color:#854d0e;">Questions: ${hm.questions} • Time: ${hm.timeMinutes} Mins</span>
-              </div>
-              <button class="btn btn-primary" style="padding:0.35rem 0.85rem; font-size:0.8rem;" onclick="App.startHtmlMock('${hm.title}')">
-                Start Test
-              </button>
-            </div>
-          `).join('')}
+        <!-- Breadcrumb -->
+        <div class="folder-breadcrumb">
+          <span class="crumb-root">📁 Course_Root</span>
+          <span class="crumb-sep">›</span>
+          <span>${course.category || 'Batch'}</span>
+          <span class="crumb-sep">›</span>
+          <span class="crumb-current">${folderIcon} ${folderTitle}/</span>
+          <span class="crumb-count">${countText}</span>
         </div>
+
+        <!-- FOLDER CONTENT: VIDEOS -->
+        ${activeFolder === 'videos' ? `
+          <div style="display:flex; flex-direction:column; gap:0.75rem;">
+            ${videos.length === 0 ? `
+              <div class="empty-folder-box">
+                <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎥</div>
+                <h4 style="font-size:1.1rem; color:#0a192f; margin-bottom:0.35rem;">No Video Lectures in this Folder</h4>
+                <p style="color:#64748b; font-size:0.85rem;">New video lectures will appear here once published by faculty.</p>
+              </div>
+            ` : videos.map(v => `
+              <div class="folder-item-card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem;">
+                <div>
+                  <strong style="color:#0f172a; font-size:0.95rem; display:block;">🎥 ${v.title}</strong>
+                  <span style="font-size:0.8rem; color:#64748b;">Duration: ${v.duration || '45 mins'} • Full HD YouTube Stream</span>
+                </div>
+                <button class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.82rem;" onclick="App.playVideoModal('${v.youtubeId || 'ysz5S6PUM-U'}', '${v.title.replace(/'/g, "\\'")}')">
+                  ▶ Watch Lecture
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+
+        <!-- FOLDER CONTENT: PDFS -->
+        ${activeFolder === 'pdfs' ? `
+          <div style="display:flex; flex-direction:column; gap:0.75rem;">
+            ${pdfs.length === 0 ? `
+              <div class="empty-folder-box">
+                <div style="font-size:2.5rem; margin-bottom:0.5rem;">📑</div>
+                <h4 style="font-size:1.1rem; color:#0a192f; margin-bottom:0.35rem;">No PDFs in this Folder</h4>
+                <p style="color:#64748b; font-size:0.85rem;">Class notes and formula sheets will be uploaded soon.</p>
+              </div>
+            ` : pdfs.map(p => `
+              <div class="folder-item-card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem;">
+                <div>
+                  <strong style="color:#0f172a; font-size:0.95rem; display:block;">📄 ${p.title}</strong>
+                  <span style="font-size:0.8rem; color:#64748b;">Pages: ${p.pages || 30} • Size: ${p.size || '3.2 MB'} • Watermark Protected</span>
+                </div>
+                <div style="display:flex; gap:0.4rem;">
+                  <button class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.8rem;" onclick="App.previewPdf('${p.url}')">
+                    Preview
+                  </button>
+                  <button class="btn btn-defence" style="padding:0.35rem 0.75rem; font-size:0.8rem;" onclick="App.downloadWatermarkedPdf('${p.url}')">
+                    ⬇ Download PDF
+                  </button>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
+
+        <!-- FOLDER CONTENT: HTML MOCKS -->
+        ${activeFolder === 'tests' ? `
+          <div style="display:flex; flex-direction:column; gap:0.75rem;">
+            ${mocks.length === 0 ? `
+              <div class="empty-folder-box">
+                <div style="font-size:2.5rem; margin-bottom:0.5rem;">🖥️</div>
+                <h4 style="font-size:1.1rem; color:#0a192f; margin-bottom:0.35rem;">No CBT Tests in this Folder</h4>
+                <p style="color:#64748b; font-size:0.85rem;">Practice tests will be assigned during course progression.</p>
+              </div>
+            ` : mocks.map(hm => `
+              <div class="folder-item-card" style="background:#fffdf5; border-color:#fef08a; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem;">
+                <div>
+                  <strong style="color:#713f12; font-size:0.95rem; display:block;">📝 ${hm.title}</strong>
+                  <span style="font-size:0.8rem; color:#854d0e;">Questions: ${hm.questions} • Time Limit: ${hm.timeMinutes} Mins • Instant Result</span>
+                </div>
+                <button class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.82rem;" onclick="App.startHtmlMock('${hm.title}')">
+                  Start Test
+                </button>
+              </div>
+            `).join('')}
+          </div>
+        ` : ''}
       </div>
     `;
 
@@ -557,11 +715,87 @@ const App = {
   },
 
   // 2. Free Test Series
+  selectFreeTestCategory(cat) {
+    this.state.selectedFreeTestCategory = cat;
+    this.renderFreeTests();
+  },
+
   renderFreeTests() {
+    const navContainer = document.getElementById('free-tests-folder-nav');
+    const crumbContainer = document.getElementById('free-tests-folder-breadcrumb');
     const container = document.getElementById('free-tests-list');
     if (!container) return;
 
-    container.innerHTML = this.state.freeTests.map(test => `
+    const allTests = this.state.freeTests || [];
+    const afTests = allTests.filter(t => (t.exam || '').toLowerCase().includes('airforce'));
+    const navyTests = allTests.filter(t => (t.exam || '').toLowerCase().includes('navy'));
+    const armyTests = allTests.filter(t => (t.exam || '').toLowerCase().includes('army'));
+
+    const activeCat = this.state.selectedFreeTestCategory || 'all';
+
+    let filtered = allTests;
+    let folderLabel = 'All Free CBT Tests';
+    let folderIcon = '📁';
+
+    if (activeCat === 'airforce') {
+      filtered = afTests;
+      folderLabel = 'Airforce Agniveer Vayu Free Mocks Folder';
+      folderIcon = '✈️';
+    } else if (activeCat === 'navy') {
+      filtered = navyTests;
+      folderLabel = 'Indian Navy SSR / MR Free Mocks Folder';
+      folderIcon = '⚓';
+    } else if (activeCat === 'army') {
+      filtered = armyTests;
+      folderLabel = 'Indian Army Agniveer Free Mocks Folder';
+      folderIcon = '🎖️';
+    }
+
+    if (navContainer) {
+      navContainer.innerHTML = `
+        <button class="folder-tab-btn ${activeCat === 'all' ? 'active' : ''}" onclick="App.selectFreeTestCategory('all')">
+          📁 All Free Tests Folder <span class="folder-tab-badge">${allTests.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'airforce' ? 'active' : ''}" onclick="App.selectFreeTestCategory('airforce')">
+          ✈️ Airforce Folder <span class="folder-tab-badge">${afTests.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'navy' ? 'active' : ''}" onclick="App.selectFreeTestCategory('navy')">
+          ⚓ Navy Folder <span class="folder-tab-badge">${navyTests.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'army' ? 'active' : ''}" onclick="App.selectFreeTestCategory('army')">
+          🎖️ Army Folder <span class="folder-tab-badge">${armyTests.length}</span>
+        </button>
+      `;
+    }
+
+    if (crumbContainer) {
+      crumbContainer.innerHTML = `
+        <div class="folder-breadcrumb">
+          <span class="crumb-root">📁 CBT_Platform</span>
+          <span class="crumb-sep">›</span>
+          <span>Free_Mock_Series</span>
+          <span class="crumb-sep">›</span>
+          <span class="crumb-current">${folderIcon} ${folderLabel}/</span>
+          <span class="crumb-count">${filtered.length} Online Tests Ready</span>
+        </div>
+      `;
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="empty-folder-box" style="grid-column: 1 / -1;">
+          <div style="font-size:2.5rem; margin-bottom:0.5rem;">📝</div>
+          <h4 style="font-size:1.15rem; color:#0a192f; margin-bottom:0.35rem;">No Free Tests In This Folder Yet</h4>
+          <p style="color:#64748b; font-size:0.88rem; max-width:440px; margin:0 auto 1.25rem;">
+            New mock tests are uploaded weekly by SKC faculty.
+          </p>
+          <button class="btn btn-outline" onclick="App.selectFreeTestCategory('all')">View All Tests</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = filtered.map(test => `
       <div class="content-card">
         <div class="content-card-body">
           <span class="batch-badge" style="background:#dcfce7; color:#15803d;">Free Access • ${test.exam}</span>
@@ -705,11 +939,16 @@ const App = {
 
     const categories = ['Airforce', 'Navy', 'ICG', 'Army'];
 
-    tabsContainer.innerHTML = categories.map(cat => `
-      <button class="pts-tab-btn ${this.state.selectedPtsCategory === cat ? 'active' : ''}" onclick="App.selectPtsCategory('${cat}')">
-        ${cat === 'Airforce' ? '✈️ Indian Airforce' : (cat === 'Navy' ? '⚓ Indian Navy' : (cat === 'ICG' ? '🛡️ Coast Guard' : '🎖️ Indian Army'))}
-      </button>
-    `).join('');
+    tabsContainer.innerHTML = categories.map(cat => {
+      const s = this.state.paidTestSeries.find(item => item.name.toLowerCase() === cat.toLowerCase());
+      const count = s && s.tests ? s.tests.length : 0;
+      return `
+        <button class="pts-tab-btn ${this.state.selectedPtsCategory === cat ? 'active' : ''}" onclick="App.selectPtsCategory('${cat}')">
+          ${cat === 'Airforce' ? '✈️ Indian Airforce' : (cat === 'Navy' ? '⚓ Indian Navy' : (cat === 'ICG' ? '🛡️ Coast Guard' : '🎖️ Indian Army'))}
+          <span class="folder-tab-badge" style="margin-left:0.35rem;">${count}</span>
+        </button>
+      `;
+    }).join('');
 
     const currentSeries = this.state.paidTestSeries.find(s => s.name.toLowerCase() === this.state.selectedPtsCategory.toLowerCase()) || {
       name: this.state.selectedPtsCategory,
@@ -723,6 +962,15 @@ const App = {
     const isPurchased = this.state.user && (this.state.user.purchasedTests || []).includes(currentSeries.id || `pts_${this.state.selectedPtsCategory.toLowerCase()}`);
 
     contentContainer.innerHTML = `
+      <div class="folder-breadcrumb">
+        <span class="crumb-root">📁 CBT_Vault</span>
+        <span class="crumb-sep">›</span>
+        <span>Paid_Test_Series</span>
+        <span class="crumb-sep">›</span>
+        <span class="crumb-current">${this.state.selectedPtsCategory} Paid Series Folder/</span>
+        <span class="crumb-count">${currentSeries.tests ? currentSeries.tests.length : 0} Mocks Ready</span>
+      </div>
+
       <div class="content-card" style="margin-bottom:1.5rem;">
         <div class="content-card-body">
           <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem;">
@@ -813,7 +1061,18 @@ const App = {
     const container = document.getElementById('ebooks-list');
     if (!container) return;
 
-    container.innerHTML = this.state.ebooks.map(eb => {
+    const breadcrumbHtml = `
+      <div class="folder-breadcrumb" style="max-width:880px; margin:0 auto 1.25rem;">
+        <span class="crumb-root">📁 Library_Vault</span>
+        <span class="crumb-sep">›</span>
+        <span>Official_Publications</span>
+        <span class="crumb-sep">›</span>
+        <span class="crumb-current">📚 Defence_Ebooks_Folder/</span>
+        <span class="crumb-count">${(this.state.ebooks || []).length} Exclusive Titles</span>
+      </div>
+    `;
+
+    container.innerHTML = breadcrumbHtml + this.state.ebooks.map(eb => {
       const isPurchased = this.state.user && (this.state.user.purchasedEbooks || []).includes(eb.id);
       return `
         <div class="content-card" style="max-width:880px; margin:0 auto; flex-direction:row; flex-wrap:wrap;">
@@ -874,11 +1133,95 @@ ${eb.previewText || 'Sample preview chapter...'}
 
   // 6. PYQ PDFs
   // "PYQ PDFs: (also pdf upload enable)"
+  selectPyqCategory(cat) {
+    this.state.selectedPyqCategory = cat;
+    this.renderPyqs();
+  },
+
   renderPyqs() {
+    const navContainer = document.getElementById('pyqs-folder-nav');
+    const crumbContainer = document.getElementById('pyqs-folder-breadcrumb');
     const container = document.getElementById('pyqs-list');
     if (!container) return;
 
-    container.innerHTML = this.state.pyqs.map(p => `
+    const allPyqs = this.state.pyqs || [];
+    const afPyqs = allPyqs.filter(p => (p.exam || '').toLowerCase().includes('airforce'));
+    const navyPyqs = allPyqs.filter(p => (p.exam || '').toLowerCase().includes('navy'));
+    const icgPyqs = allPyqs.filter(p => (p.exam || '').toLowerCase().includes('coast guard') || (p.exam || '').toLowerCase().includes('icg'));
+    const armyPyqs = allPyqs.filter(p => (p.exam || '').toLowerCase().includes('army'));
+
+    const activeCat = this.state.selectedPyqCategory || 'all';
+
+    let filtered = allPyqs;
+    let folderLabel = 'All Previous Year Papers';
+    let folderIcon = '📁';
+
+    if (activeCat === 'airforce') {
+      filtered = afPyqs;
+      folderLabel = 'Indian Airforce Agniveer Vayu Folder';
+      folderIcon = '✈️';
+    } else if (activeCat === 'navy') {
+      filtered = navyPyqs;
+      folderLabel = 'Indian Navy SSR / MR Folder';
+      folderIcon = '⚓';
+    } else if (activeCat === 'icg') {
+      filtered = icgPyqs;
+      folderLabel = 'Indian Coast Guard (ICG) Folder';
+      folderIcon = '🛡️';
+    } else if (activeCat === 'army') {
+      filtered = armyPyqs;
+      folderLabel = 'Indian Army Agniveer GD Folder';
+      folderIcon = '🎖️';
+    }
+
+    if (navContainer) {
+      navContainer.innerHTML = `
+        <button class="folder-tab-btn ${activeCat === 'all' ? 'active' : ''}" onclick="App.selectPyqCategory('all')">
+          📁 All PYQs Folder <span class="folder-tab-badge">${allPyqs.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'airforce' ? 'active' : ''}" onclick="App.selectPyqCategory('airforce')">
+          ✈️ Airforce Folder <span class="folder-tab-badge">${afPyqs.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'navy' ? 'active' : ''}" onclick="App.selectPyqCategory('navy')">
+          ⚓ Navy Folder <span class="folder-tab-badge">${navyPyqs.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'icg' ? 'active' : ''}" onclick="App.selectPyqCategory('icg')">
+          🛡️ Coast Guard Folder <span class="folder-tab-badge">${icgPyqs.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'army' ? 'active' : ''}" onclick="App.selectPyqCategory('army')">
+          🎖️ Army Folder <span class="folder-tab-badge">${armyPyqs.length}</span>
+        </button>
+      `;
+    }
+
+    if (crumbContainer) {
+      crumbContainer.innerHTML = `
+        <div class="folder-breadcrumb">
+          <span class="crumb-root">📁 Vault_Archive</span>
+          <span class="crumb-sep">›</span>
+          <span>Previous_Year_Question_Papers</span>
+          <span class="crumb-sep">›</span>
+          <span class="crumb-current">${folderIcon} ${folderLabel}/</span>
+          <span class="crumb-count">${filtered.length} Question Papers Available</span>
+        </div>
+      `;
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="empty-folder-box" style="grid-column: 1 / -1;">
+          <div style="font-size:2.5rem; margin-bottom:0.5rem;">📁</div>
+          <h4 style="font-size:1.15rem; color:#0a192f; margin-bottom:0.35rem;">This PYQ Folder is Currently Empty</h4>
+          <p style="color:#64748b; font-size:0.88rem; max-width:440px; margin:0 auto 1.25rem;">
+            Official question papers for this defence exam category will be updated soon.
+          </p>
+          <button class="btn btn-outline" onclick="App.selectPyqCategory('all')">View All PYQs</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = filtered.map(p => `
       <div class="content-card">
         <div class="content-card-body">
           <span class="batch-badge" style="background:#ffedd5; color:#c2410c;">${p.exam} • Year ${p.year}</span>
@@ -904,11 +1247,95 @@ ${eb.previewText || 'Sample preview chapter...'}
 
   // 7. Syllabus
   // "Syllabus: this section pdf enable (i have syllabus pdfs)"
+  selectSyllabusCategory(cat) {
+    this.state.selectedSyllabusCategory = cat;
+    this.renderSyllabus();
+  },
+
   renderSyllabus() {
+    const navContainer = document.getElementById('syllabus-folder-nav');
+    const crumbContainer = document.getElementById('syllabus-folder-breadcrumb');
     const container = document.getElementById('syllabus-list');
     if (!container) return;
 
-    container.innerHTML = this.state.syllabus.map(s => `
+    const allSyllabus = this.state.syllabus || [];
+    const afSyllabus = allSyllabus.filter(s => (s.exam || '').toLowerCase().includes('airforce'));
+    const navySyllabus = allSyllabus.filter(s => (s.exam || '').toLowerCase().includes('navy'));
+    const icgSyllabus = allSyllabus.filter(s => (s.exam || '').toLowerCase().includes('coast guard') || (s.exam || '').toLowerCase().includes('icg'));
+    const armySyllabus = allSyllabus.filter(s => (s.exam || '').toLowerCase().includes('army'));
+
+    const activeCat = this.state.selectedSyllabusCategory || 'all';
+
+    let filtered = allSyllabus;
+    let folderLabel = 'All Official Syllabus';
+    let folderIcon = '📁';
+
+    if (activeCat === 'airforce') {
+      filtered = afSyllabus;
+      folderLabel = 'Indian Airforce Official Syllabus Folder';
+      folderIcon = '✈️';
+    } else if (activeCat === 'navy') {
+      filtered = navySyllabus;
+      folderLabel = 'Indian Navy Official Syllabus Folder';
+      folderIcon = '⚓';
+    } else if (activeCat === 'icg') {
+      filtered = icgSyllabus;
+      folderLabel = 'Indian Coast Guard Official Syllabus Folder';
+      folderIcon = '🛡️';
+    } else if (activeCat === 'army') {
+      filtered = armySyllabus;
+      folderLabel = 'Indian Army Official Syllabus Folder';
+      folderIcon = '🎖️';
+    }
+
+    if (navContainer) {
+      navContainer.innerHTML = `
+        <button class="folder-tab-btn ${activeCat === 'all' ? 'active' : ''}" onclick="App.selectSyllabusCategory('all')">
+          📁 All Syllabus Folder <span class="folder-tab-badge">${allSyllabus.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'airforce' ? 'active' : ''}" onclick="App.selectSyllabusCategory('airforce')">
+          ✈️ Airforce Folder <span class="folder-tab-badge">${afSyllabus.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'navy' ? 'active' : ''}" onclick="App.selectSyllabusCategory('navy')">
+          ⚓ Navy Folder <span class="folder-tab-badge">${navySyllabus.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'icg' ? 'active' : ''}" onclick="App.selectSyllabusCategory('icg')">
+          🛡️ Coast Guard Folder <span class="folder-tab-badge">${icgSyllabus.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'army' ? 'active' : ''}" onclick="App.selectSyllabusCategory('army')">
+          🎖️ Army Folder <span class="folder-tab-badge">${armySyllabus.length}</span>
+        </button>
+      `;
+    }
+
+    if (crumbContainer) {
+      crumbContainer.innerHTML = `
+        <div class="folder-breadcrumb">
+          <span class="crumb-root">📁 Vault_Archive</span>
+          <span class="crumb-sep">›</span>
+          <span>Official_Exam_Syllabus</span>
+          <span class="crumb-sep">›</span>
+          <span class="crumb-current">${folderIcon} ${folderLabel}/</span>
+          <span class="crumb-count">${filtered.length} Official Documents</span>
+        </div>
+      `;
+    }
+
+    if (filtered.length === 0) {
+      container.innerHTML = `
+        <div class="empty-folder-box" style="grid-column: 1 / -1;">
+          <div style="font-size:2.5rem; margin-bottom:0.5rem;">📋</div>
+          <h4 style="font-size:1.15rem; color:#0a192f; margin-bottom:0.35rem;">This Syllabus Folder is Currently Empty</h4>
+          <p style="color:#64748b; font-size:0.88rem; max-width:440px; margin:0 auto 1.25rem;">
+            Official syllabus notifications and criteria will be added soon.
+          </p>
+          <button class="btn btn-outline" onclick="App.selectSyllabusCategory('all')">View All Syllabus</button>
+        </div>
+      `;
+      return;
+    }
+
+    container.innerHTML = filtered.map(s => `
       <div class="content-card">
         <div class="content-card-body">
           <span class="batch-badge" style="background:#e0e7ff; color:#3730a3;">${s.exam} Official</span>
@@ -938,6 +1365,14 @@ ${eb.previewText || 'Sample preview chapter...'}
     if (!container) return;
 
     container.innerHTML = `
+      <div class="folder-breadcrumb" style="margin-bottom:1.25rem;">
+        <span class="crumb-root">📁 Directory</span>
+        <span class="crumb-sep">›</span>
+        <span>Official_Channels</span>
+        <span class="crumb-sep">›</span>
+        <span class="crumb-current">🌐 Social_Media_&_Registration_Portals/</span>
+        <span class="crumb-count">Direct Links</span>
+      </div>
       <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1.25rem; margin-bottom:2.5rem;">
         <!-- YouTube -->
         <a href="https://www.youtube.com/@skcdefenceacademy" target="_blank" class="home-btn-card" style="text-decoration:none; border-color:#fee2e2;">
@@ -1160,6 +1595,16 @@ ${eb.previewText || 'Sample preview chapter...'}
           </div>
         </div>
 
+        <!-- Folder Breadcrumb -->
+        <div class="folder-breadcrumb">
+          <span class="crumb-root">📁 Phase2_Vault</span>
+          <span class="crumb-sep">›</span>
+          <span>Airforce_GD_Special_Batch</span>
+          <span class="crumb-sep">›</span>
+          <span class="crumb-current">📹 Daily_YouTube_Classes_&_PDFs/</span>
+          <span class="crumb-count">${classes.length} Published Classes</span>
+        </div>
+
         <!-- Published Classes List or Clean Empty State -->
         <div style="display:flex; flex-direction:column; gap:1.15rem;">
           ${classes.length === 0 ? `
@@ -1336,16 +1781,16 @@ ${eb.previewText || 'Sample preview chapter...'}
         <!-- Folder Navigation Tabs -->
         <div class="folder-nav-tabs">
           <button class="folder-tab-btn ${activeFolder === 'youtube' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'youtube')">
-            📁 YouTube Video Classes Folder (${videos.length})
+            📹 YouTube Video Classes Folder <span class="folder-tab-badge">${videos.length}</span>
           </button>
           <button class="folder-tab-btn ${activeFolder === 'pdf' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'pdf')">
-            📁 Class PDFs & Study Materials Folder (${pdfs.length})
+            📑 Class PDFs & Notes Folder <span class="folder-tab-badge">${pdfs.length}</span>
           </button>
           <button class="folder-tab-btn ${activeFolder === 'srt' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'srt')">
             🎯 Interactive HTML SRT Simulator
           </button>
           <button class="folder-tab-btn ${activeFolder === 'topics' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'topics')">
-            🗣️ Top GD Topics & Scripts (${topics.length})
+            🗣️ GD Topics & Scripts Folder <span class="folder-tab-badge">${topics.length}</span>
           </button>
         </div>
 
@@ -1794,49 +2239,130 @@ ${eb.previewText || 'Sample preview chapter...'}
 
   // 10. Current Affairs
   // "Current Affairs: In this we have 02 section First :weekly Second: Monthly"
-  renderCurrentAffairs() {
-    const weeklyContainer = document.getElementById('ca-weekly-list');
-    const monthlyContainer = document.getElementById('ca-monthly-list');
+  selectCaCategory(cat) {
+    this.state.selectedCaCategory = cat;
+    this.renderCurrentAffairs();
+  },
 
-    if (weeklyContainer) {
-      weeklyContainer.innerHTML = (this.state.currentAffairs.weekly || []).map(w => `
-        <div class="content-card" style="margin-bottom:1rem;">
-          <div class="content-card-body">
-            <span class="batch-badge" style="background:#ccfbf1; color:#0f766e;">Weekly Defence Capsule • ${w.date}</span>
-            <h3>${w.title}</h3>
-            <p>${w.summary}</p>
-            <div style="background:#f8fafc; border-radius:8px; padding:0.75rem; margin-bottom:1rem;">
-              <strong style="font-size:0.85rem; color:#0f172a;">Key Defence Highlights:</strong>
-              <ul style="font-size:0.82rem; color:#475569; margin-left:1.25rem; margin-top:0.35rem;">
-                ${(w.highlights || []).map(h => `<li>${h}</li>`).join('')}
-              </ul>
-            </div>
-            <div style="display:flex; gap:0.5rem;">
-              <button class="btn btn-defence" style="flex:1;" onclick="App.downloadWatermarkedPdf('${w.pdfUrl}')">
-                ⬇ Download Weekly PDF (Watermarked)
-              </button>
-            </div>
-          </div>
-        </div>
-      `).join('');
+  renderCurrentAffairs() {
+    const navContainer = document.getElementById('ca-folder-nav');
+    const crumbContainer = document.getElementById('ca-folder-breadcrumb');
+    const contentArea = document.getElementById('ca-content-area');
+    if (!contentArea) return;
+
+    const weekly = (this.state.currentAffairs && this.state.currentAffairs.weekly) || [];
+    const monthly = (this.state.currentAffairs && this.state.currentAffairs.monthly) || [];
+    const totalCount = weekly.length + monthly.length;
+
+    const activeCat = this.state.selectedCaCategory || 'all';
+
+    let folderLabel = 'All Defence Current Affairs';
+    let folderIcon = '📁';
+
+    if (activeCat === 'weekly') {
+      folderLabel = 'Weekly Defence Capsules Folder';
+      folderIcon = '📅';
+    } else if (activeCat === 'monthly') {
+      folderLabel = 'Monthly Defence Digests Folder';
+      folderIcon = '📖';
     }
 
-    if (monthlyContainer) {
-      monthlyContainer.innerHTML = (this.state.currentAffairs.monthly || []).map(m => `
-        <div class="content-card" style="margin-bottom:1rem;">
-          <div class="content-card-body">
-            <span class="batch-badge" style="background:#e0f2fe; color:#0369a1;">Monthly E-Magazine • ${m.pages} Pages</span>
-            <h3>${m.title}</h3>
-            <p>${m.summary}</p>
-            <div class="card-pricing-row" style="margin-top:auto;">
-              <span style="font-size:0.85rem; color:#64748b;">Includes 200+ Practice MCQs</span>
-              <button class="btn btn-primary" onclick="App.downloadWatermarkedPdf('${m.pdfUrl}')">
-                ⬇ Download Magazine
-              </button>
-            </div>
+    if (navContainer) {
+      navContainer.innerHTML = `
+        <button class="folder-tab-btn ${activeCat === 'all' ? 'active' : ''}" onclick="App.selectCaCategory('all')">
+          📁 All Current Affairs Folder <span class="folder-tab-badge">${totalCount}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'weekly' ? 'active' : ''}" onclick="App.selectCaCategory('weekly')">
+          📅 Weekly Capsules Folder <span class="folder-tab-badge">${weekly.length}</span>
+        </button>
+        <button class="folder-tab-btn ${activeCat === 'monthly' ? 'active' : ''}" onclick="App.selectCaCategory('monthly')">
+          📖 Monthly Digests Folder <span class="folder-tab-badge">${monthly.length}</span>
+        </button>
+      `;
+    }
+
+    if (crumbContainer) {
+      crumbContainer.innerHTML = `
+        <div class="folder-breadcrumb">
+          <span class="crumb-root">📁 Defence_Intelligence</span>
+          <span class="crumb-sep">›</span>
+          <span>Current_Affairs_Vault</span>
+          <span class="crumb-sep">›</span>
+          <span class="crumb-current">${folderIcon} ${folderLabel}/</span>
+          <span class="crumb-count">${activeCat === 'all' ? totalCount : (activeCat === 'weekly' ? weekly.length : monthly.length)} Items</span>
+        </div>
+      `;
+    }
+
+    const renderWeeklyCards = () => weekly.map(w => `
+      <div class="content-card" style="margin-bottom:1rem;">
+        <div class="content-card-body">
+          <span class="batch-badge" style="background:#ccfbf1; color:#0f766e;">Weekly Defence Capsule • ${w.date}</span>
+          <h3>${w.title}</h3>
+          <p>${w.summary}</p>
+          <div style="background:#f8fafc; border-radius:8px; padding:0.75rem; margin-bottom:1rem;">
+            <strong style="font-size:0.85rem; color:#0f172a;">Key Defence Highlights:</strong>
+            <ul style="font-size:0.82rem; color:#475569; margin-left:1.25rem; margin-top:0.35rem;">
+              ${(w.highlights || []).map(h => `<li>${h}</li>`).join('')}
+            </ul>
+          </div>
+          <div style="display:flex; gap:0.5rem; margin-top:auto;">
+            <button class="btn btn-defence" style="flex:1;" onclick="App.downloadWatermarkedPdf('${w.pdfUrl}')">
+              ⬇ Download Weekly PDF (Watermarked)
+            </button>
           </div>
         </div>
-      `).join('');
+      </div>
+    `).join('');
+
+    const renderMonthlyCards = () => monthly.map(m => `
+      <div class="content-card" style="margin-bottom:1rem;">
+        <div class="content-card-body">
+          <span class="batch-badge" style="background:#e0f2fe; color:#0369a1;">Monthly E-Magazine • ${m.pages} Pages</span>
+          <h3>${m.title}</h3>
+          <p>${m.summary}</p>
+          <div class="card-pricing-row" style="margin-top:auto;">
+            <span style="font-size:0.85rem; color:#64748b;">Includes 200+ Practice MCQs</span>
+            <button class="btn btn-primary" onclick="App.downloadWatermarkedPdf('${m.pdfUrl}')">
+              ⬇ Download Magazine
+            </button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    if (activeCat === 'weekly') {
+      contentArea.innerHTML = `
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:2.5rem;">
+          ${weekly.length === 0 ? '<div class="empty-folder-box" style="grid-column:1/-1;">No Weekly capsules found.</div>' : renderWeeklyCards()}
+        </div>
+      `;
+    } else if (activeCat === 'monthly') {
+      contentArea.innerHTML = `
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:2.5rem;">
+          ${monthly.length === 0 ? '<div class="empty-folder-box" style="grid-column:1/-1;">No Monthly digests found.</div>' : renderMonthlyCards()}
+        </div>
+      `;
+    } else {
+      contentArea.innerHTML = `
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
+          <div>
+            <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #0284c7; padding-bottom:0.4rem; display:flex; justify-content:space-between; align-items:center;">
+              <span>📅 Weekly Defence Capsules</span>
+              <span style="font-size:0.75rem; background:#e0f2fe; color:#0284c7; padding:0.15rem 0.5rem; border-radius:12px;">${weekly.length} items</span>
+            </h3>
+            <div id="ca-weekly-list">${renderWeeklyCards()}</div>
+          </div>
+
+          <div>
+            <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #f59e0b; padding-bottom:0.4rem; display:flex; justify-content:space-between; align-items:center;">
+              <span>📖 Monthly Defence Digests</span>
+              <span style="font-size:0.75rem; background:#fef3c7; color:#b45309; padding:0.15rem 0.5rem; border-radius:12px;">${monthly.length} items</span>
+            </h3>
+            <div id="ca-monthly-list">${renderMonthlyCards()}</div>
+          </div>
+        </div>
+      `;
     }
   },
 
@@ -3216,6 +3742,14 @@ ${eb.previewText || 'Sample preview chapter...'}
     // Handle resize for slideshow
     window.addEventListener('resize', () => {
       this.updateSlideshowPosition();
+    });
+
+    // Handle back/forward navigation
+    window.addEventListener('popstate', () => {
+      const target = window.location.hash.replace('#', '').trim() || 'home';
+      if (target !== this.state.activeView && document.getElementById(`view-${target}`)) {
+        this.navigateTo(target);
+      }
     });
   }
 };
