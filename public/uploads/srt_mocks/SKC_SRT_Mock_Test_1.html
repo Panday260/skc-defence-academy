@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test 1</title>
+<style>
+:root{--navy:#0b2a5b;--navy2:#143d86;--saf:#ff9933;--grn:#138808;--bg:#f2f5fa;--card:#fff;--tx:#1b2433;--mut:#6b7686;--bd:#d9e0ec;--red:#d32f2f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal","Nirmala UI",Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5;-webkit-text-size-adjust:100%}
+header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saf);padding:8px 12px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+.hin{display:flex;align-items:center;gap:10px;max-width:1100px;margin:0 auto;flex-wrap:wrap}
+.logo{width:42px;height:42px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;border:3px solid var(--saf);flex:none}
+.brand{flex:1;min-width:150px}
+.brand b{display:block;font-size:18px;letter-spacing:.5px}
+.brand span{font-size:12px;opacity:.85}
+.tools{display:flex;align-items:center;gap:8px}
+.timer{background:#fff;color:var(--navy);font-weight:800;font-size:18px;padding:5px 12px;border-radius:8px;font-variant-numeric:tabular-nums;min-width:84px;text-align:center}
+.timer.low{background:var(--red);color:#fff}
+.btn{border:0;border-radius:8px;padding:10px 16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;touch-action:manipulation}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.b-pri{background:var(--navy2);color:#fff}
+.b-grn{background:var(--grn);color:#fff}
+.b-saf{background:var(--saf);color:#222}
+.b-out{background:#fff;color:var(--navy2);border:2px solid var(--navy2)}
+.lang{display:flex;border-radius:8px;overflow:hidden;border:2px solid var(--saf)}
+.lang button{border:0;background:transparent;color:#fff;padding:6px 10px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.lang button.on{background:var(--saf);color:#222}
+main{max-width:1100px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.hide{display:none!important}
+.start{max-width:640px;margin:20px auto;text-align:center}
+.start h1{color:var(--navy);margin:6px 0}
+.start ul{text-align:left;padding-left:20px}
+.start input{width:100%;padding:12px;font-size:16px;border:2px solid var(--bd);border-radius:8px;margin:8px 0 14px;font-family:inherit}
+.grid{display:grid;grid-template-columns:1fr 300px;gap:12px;align-items:start}
+.qhead{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:8px;font-weight:600}
+.qtext{font-size:18px;font-weight:600;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:10px;font-size:16px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.opt .l{flex:none;width:28px;height:28px;border-radius:50%;background:#e8edf6;color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.opt.sel{border-color:var(--navy2);background:#e9f0ff}
+.opt.sel .l{background:var(--navy2);color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.nav .sp{flex:1}
+.pal h3{margin:0 0 8px;font-size:15px;color:var(--navy)}
+.pg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pg button{height:40px;border-radius:8px;border:2px solid var(--bd);background:#fff;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.pg button.ans{background:var(--grn);border-color:var(--grn);color:#fff}
+.pg button.vis{background:#ffe5e5;border-color:var(--red)}
+.pg button.cur{outline:3px solid var(--saf);outline-offset:1px}
+.leg{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:12px;margin-top:12px;color:var(--mut)}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid var(--bd)}
+.ptog{display:none;width:100%;margin-bottom:10px}
+.res{max-width:760px;margin:10px auto}
+.res h2{text-align:center;color:var(--navy);margin:4px 0}
+.score{text-align:center;font-size:46px;font-weight:800;color:var(--navy2);margin:6px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.st{border-radius:10px;padding:12px;text-align:center;background:#f2f5fa;border:1px solid var(--bd)}
+.st b{display:block;font-size:24px}
+.st span{font-size:12px;color:var(--mut)}
+.rv{border-top:1px solid var(--bd);padding:12px 0}
+.rv .q{font-weight:600;margin-bottom:6px}
+.rv .o{padding:6px 10px;border-radius:6px;margin:4px 0;font-size:15px;border:1px solid var(--bd)}
+.rv .o.ok{background:#e3f5e1;border-color:var(--grn)}
+.rv .o.no{background:#ffe5e5;border-color:var(--red)}
+.tag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;color:#fff;margin-left:6px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal .card{max-width:380px;width:100%;text-align:center}
+footer{text-align:center;font-size:12px;color:var(--mut);padding:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.ptog{display:block}.pal{display:none}.pal.open{display:block}.qtext{font-size:17px}.brand b{font-size:15px}}
+</style>
+</head>
+<body>
+<header><div class="hin">
+ <div class="logo">SKC</div>
+ <div class="brand"><b>SKC DEFENCE ACADEMY</b><span id="ttl">SRT Test Series – Mock Test 1</span></div>
+ <div class="tools">
+  <div class="lang"><button id="bEn" class="on" onclick="setLang('en')">English</button><button id="bHi" onclick="setLang('hi')">हिन्दी</button></div>
+  <div class="timer hide" id="timer">30:00</div>
+ </div>
+</div></header>
+
+<main>
+<section id="start" class="card start">
+ <div class="logo" style="margin:0 auto;width:64px;height:64px;font-size:20px;background:var(--navy);color:#fff">SKC</div>
+ <h1 id="sT">SRT Mock Test 1</h1>
+ <p id="sSub" style="color:var(--mut);margin:0 0 10px">SKC DEFENCE ACADEMY</p>
+ <ul id="sIns"></ul>
+ <input id="nm" type="text" maxlength="40" autocomplete="name">
+ <button class="btn b-grn" id="sBtn" onclick="startTest()" style="width:100%;font-size:17px"></button>
+</section>
+
+<section id="test" class="hide">
+ <button class="btn b-out ptog" id="ptog" onclick="togPal()"></button>
+ <div class="grid">
+  <div class="card">
+   <div class="qhead"><span id="qno"></span><span id="qsts"></span></div>
+   <div class="qtext" id="qtext"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button class="btn b-out" id="prev" onclick="go(-1)"></button>
+    <button class="btn b-saf" id="clr" onclick="clearAns()"></button>
+    <span class="sp"></span>
+    <button class="btn b-pri" id="next" onclick="go(1)"></button>
+   </div>
+   <div style="margin-top:14px"><button class="btn b-grn" id="sub" onclick="askSubmit()" style="width:100%"></button></div>
+  </div>
+  <div class="card pal" id="pal">
+   <h3 id="palT"></h3>
+   <div class="pg" id="pg"></div>
+   <div class="leg">
+    <span><i style="background:var(--grn)"></i><b id="lA"></b></span>
+    <span><i style="background:#ffe5e5;border-color:var(--red)"></i><b id="lN"></b></span>
+    <span><i style="background:#fff"></i><b id="lU"></b></span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="result" class="hide"><div class="card res">
+ <h2 id="rT"></h2>
+ <div style="text-align:center;color:var(--mut)" id="rName"></div>
+ <div class="score" id="rScore"></div>
+ <div style="text-align:center;color:var(--mut);font-size:13px" id="rMark"></div>
+ <div class="stats" id="rStats"></div>
+ <div style="text-align:center"><button class="btn b-pri" id="rvBtn" onclick="toggleRev()"></button> <button class="btn b-out" onclick="location.reload()" id="rtBtn"></button></div>
+ <div id="rev" class="hide" style="margin-top:12px"></div>
+</div></section>
+</main>
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<div class="modal hide" id="modal"><div class="card">
+ <h3 id="mT" style="margin-top:0;color:var(--navy)"></h3>
+ <p id="mB"></p>
+ <div style="display:flex;gap:10px;justify-content:center"><button class="btn b-out" id="mNo" onclick="closeM()"></button><button class="btn b-grn" id="mYes" onclick="finish()"></button></div>
+</div></div>
+
+<script>
+var TITLE_EN="SRT Test Series – Mock Test 1", TITLE_HI="एसआरटी टेस्ट सीरीज़ – मॉक टेस्ट 1";
+var DURATION=30*60, PLUS=1, MINUS=0.25;
+// [question EN, question HI, [A en, A hi], [B], [C], [D], correct index 0-3]
+var Q=[
+["You are going for a final selection interview and suddenly you see an old man falling off his scooter and bleeding profusely.","आप अंतिम चयन साक्षात्कार (इंटरव्यू) के लिए जा रहे हैं और अचानक आप देखते हैं कि एक बूढ़ा व्यक्ति अपने स्कूटर से गिर जाता है और उसे बहुत खून बह रहा है।",
+["You will take him to the hospital, stay with him, and miss the interview.","आप उसे अस्पताल ले जाएंगे, उसके साथ रहेंगे और इंटरव्यू छोड़ देंगे।"],
+["You will quickly give him first aid, arrange a vehicle to send him to the hospital, and rush for your interview.","आप तुरंत उसे प्राथमिक उपचार देंगे, उसे अस्पताल भेजने के लिए वाहन की व्यवस्था करेंगे और अपने इंटरव्यू के लिए दौड़ेंगे।"],
+["You will call an ambulance and wait until it arrives before leaving.","आप एम्बुलेंस बुलाएंगे और उसके आने तक वहीं प्रतीक्षा करेंगे।"],
+["You will inform the traffic police nearby and proceed to your interview.","आप पास के ट्रैफिक पुलिस को सूचित करेंगे और अपने इंटरव्यू के लिए आगे बढ़ेंगे।"],1],
+["You are travelling in a train at night and suddenly you notice that a few armed robbers have entered your coach.","आप रात में ट्रेन में यात्रा कर रहे हैं और अचानक आप देखते हैं कि कुछ सशस्त्र लुटेरे आपके डिब्बे में घुस आए हैं।",
+["You will hide your valuables and pretend to be asleep.","आप अपना कीमती सामान छिपा लेंगे और सोने का नाटक करेंगे।"],
+["You will immediately attack them single-handedly to show courage.","साहस दिखाने के लिए आप तुरंत उन पर अकेले ही हमला कर देंगे।"],
+["You will pull the alarm chain, quietly wake up fellow passengers, and tackle them collectively.","आप अलार्म चेन खींचेंगे, चुपचाप सहयात्रियों को जगाएंगे और सामूहिक रूप से उनका मुकाबला करेंगे।"],
+["You will strictly order them to leave the train immediately.","आप उन्हें तुरंत ट्रेन से उतरने का सख्त आदेश देंगे।"],2],
+["During a group task, your team members get into a heated argument and refuse to work together.","एक समूह कार्य (ग्रुप टास्क) के दौरान, आपके टीम के सदस्यों के बीच तीखी बहस हो जाती है और वे एक साथ काम करने से मना कर देते हैं।",
+["You will complain to the assessing officer about their indiscipline.","आप उनके अनुशासनहीनता के बारे में मूल्यांकन अधिकारी (असेसिंग ऑफिसर) से शिकायत करेंगे।"],
+["You will intervene, calm them down, remind them of the common goal, and distribute tasks effectively.","आप बीच-बचाव करेंगे, उन्हें शांत करेंगे, उन्हें सामान्य लक्ष्य की याद दिलाएंगे और कार्यों को प्रभावी ढंग से बांटेंगे।"],
+["You will let them argue and complete the task alone to show your capability.","आप उन्हें बहस करने देंगे और अपनी क्षमता दिखाने के लिए अकेले ही कार्य पूरा करेंगे।"],
+["You will take the side of the most logical person and force the others to agree.","आप सबसे तार्किक व्यक्ति का पक्ष लेंगे और दूसरों को सहमत होने के लिए मजबूर करेंगे।"],1],
+["You are walking down a deserted street at night and see three men harassing a girl.","आप रात में एक सुनसान सड़क पर चल रहे हैं और देखते हैं कि तीन आदमी एक लड़की को परेशान कर रहे हैं।",
+["You will ignore it as it is a personal matter and keep walking.","आप इसे व्यक्तिगत मामला मानकर नजरअंदाज करेंगे और चलते रहेंगे।"],
+["You will call the police from a safe distance and wait for them.","आप सुरक्षित दूरी से पुलिस को फोन करेंगे और उनका इंतजार करेंगे।"],
+["You will challenge them aggressively, gather locals if any, rescue the girl, and then call the police.","आप आक्रामकता से उन्हें चुनौती देंगे, यदि कोई स्थानीय लोग हों तो उन्हें इकट्ठा करेंगे, लड़की को बचाएंगे, और फिर पुलिस को बुलाएंगे।"],
+["You will start recording a video on your phone to get evidence.","आप सबूत जुटाने के लिए अपने फोन पर वीडियो रिकॉर्ड करना शुरू कर देंगे।"],2],
+["You are the captain of your college football team. Your star player gets severely injured just one hour before the final match.","आप अपनी कॉलेज फुटबॉल टीम के कप्तान हैं। फाइनल मैच से ठीक एक घंटे पहले आपका स्टार खिलाड़ी गंभीर रूप से घायल हो जाता है।",
+["You will request the organizers to postpone the match.","आप आयोजकों से मैच स्थगित करने का अनुरोध करेंगे।"],
+["You will motivate the team, alter the playing strategy, bring in the best substitute, and play to win.","आप टीम को प्रेरित करेंगे, खेलने की रणनीति बदलेंगे, सर्वश्रेष्ठ स्थानापन्न (सब्सटीट्यूट) खिलाड़ी को लाएंगे और जीतने के लिए खेलेंगे।"],
+["You will play defensively to avoid a heavy defeat.","आप भारी हार से बचने के लिए रक्षात्मक रूप से (डिफेंसिव) खेलेंगे।"],
+["You will forfeit the match to focus on the injured player's health.","आप घायल खिलाड़ी के स्वास्थ्य पर ध्यान केंद्रित करने के लिए मैच छोड़ देंगे।"],1],
+["You are preparing for your final exams and your neighbors are playing very loud music late at night.","आप अपनी अंतिम परीक्षा की तैयारी कर रहे हैं और आपके पड़ोसी देर रात बहुत तेज आवाज में संगीत बजा रहे हैं।",
+["You will aggressively confront them and break their music system.","आप आक्रामक रूप से उनका सामना करेंगे और उनका म्यूजिक सिस्टम तोड़ देंगे।"],
+["You will immediately call the police to file a noise complaint.","आप शोर की शिकायत दर्ज करने के लिए तुरंत पुलिस को फोन करेंगे।"],
+["You will politely go to them, explain your situation, and request them to lower the volume.","आप विनम्रता से उनके पास जाएंगे, अपनी स्थिति बताएंगे और उनसे आवाज कम करने का अनुरोध करेंगे।"],
+["You will put on earphones and try to adjust without saying anything.","आप इयरफ़ोन लगा लेंगे और बिना कुछ कहे तालमेल बिठाने की कोशिश करेंगे।"],2],
+["You have been newly appointed as a team leader, but your senior subordinates do not listen to your orders.","आपको हाल ही में टीम लीडर नियुक्त किया गया है, लेकिन आपके वरिष्ठ अधीनस्थ (सीनियर सबोर्डिनेट) आपके आदेशों को नहीं सुनते हैं।",
+["You will strictly punish them to establish your authority.","आप अपना अधिकार स्थापित करने के लिए उन्हें कड़ी सजा देंगे।"],
+["You will talk to them personally, understand their concerns, and win their confidence through your work.","आप उनसे व्यक्तिगत रूप से बात करेंगे, उनकी चिंताओं को समझेंगे और अपने काम के माध्यम से उनका विश्वास जीतेंगे।"],
+["You will report their insubordination to the higher management immediately.","आप तुरंत उच्च प्रबंधन को उनकी अवज्ञा की रिपोर्ट करेंगे।"],
+["You will ignore their behavior and do their part of the work yourself.","आप उनके व्यवहार को नजरअंदाज करेंगे और उनके हिस्से का काम खुद करेंगे।"],1],
+["While trekking in a dense forest, you and your friend lose your way, and your mobile phone has no network.","घने जंगल में ट्रैकिंग करते समय, आप और आपका दोस्त रास्ता भटक जाते हैं, और आपके मोबाइल फोन में कोई नेटवर्क नहीं है।",
+["You will panic and wait in one spot hoping someone will find you.","आप घबरा जाएंगे और एक ही जगह पर इस उम्मीद में इंतजार करेंगे कि कोई आपको ढूंढ लेगा।"],
+["You will climb a tree to get a network signal to call for help.","आप मदद के लिए कॉल करने हेतु नेटवर्क सिग्नल पाने के लिए एक पेड़ पर चढ़ेंगे।"],
+["You will use the sun/stars for direction, look for a water stream to follow downwards, and keep moving cautiously.","आप दिशा के लिए सूर्य/तारों का उपयोग करेंगे, नीचे की ओर बहने वाली जलधारा की तलाश करेंगे और सावधानी से आगे बढ़ते रहेंगे।"],
+["You will split up from your friend to search in two different directions.","आप दो अलग-अलग दिशाओं में खोजने के लिए अपने दोस्त से अलग हो जाएंगे।"],2],
+["You find a briefcase full of money on a vacant seat in a bus.","आपको बस की एक खाली सीट पर पैसों से भरा एक सूटकेस मिलता है।",
+["You will quietly take the briefcase and leave the bus at the next stop.","आप चुपचाप सूटकेस लेंगे और अगले स्टॉप पर बस से उतर जाएंगे।"],
+["You will ask the passengers nearby and if unclaimed, hand it over to the nearest police station.","आप आस-पास के यात्रियों से पूछेंगे और कोई दावा न होने पर इसे नजदीकी पुलिस स्टेशन को सौंप देंगे।"],
+["You will hand it over to the bus conductor immediately.","आप इसे तुरंत बस कंडक्टर को सौंप देंगे।"],
+["You will leave it exactly where it is and ignore it.","आप इसे वहीं छोड़ देंगे और नजरअंदाज कर देंगे।"],1],
+["Fire breaks out in your neighbor's house while they are away on vacation.","आपके पड़ोसी के घर में आग लग जाती है जब वे छुट्टी पर बाहर गए हुए हैं।",
+["You will call the fire brigade and wait for them to arrive.","आप फायर ब्रिगेड को बुलाएंगे और उनके आने का इंतजार करेंगे।"],
+["You will break the door, try to extinguish the fire with available resources while asking others to call the fire brigade.","आप दरवाजा तोड़ेंगे, दूसरों को फायर ब्रिगेड बुलाने के लिए कहते हुए उपलब्ध संसाधनों से आग बुझाने की कोशिश करेंगे।"],
+["You will call the neighbors to inform them about the fire first.","आप सबसे पहले पड़ोसियों को फोन करके आग के बारे में सूचित करेंगे।"],
+["You will secure your own house first to ensure the fire doesn't spread.","आप सबसे पहले अपना घर सुरक्षित करेंगे ताकि आग न फैले।"],1],
+["You are riding a bike and suddenly a child runs across the road.","आप बाइक चला रहे हैं और अचानक एक बच्चा दौड़कर सड़क पार करने लगता है।",
+["You will brake hard, swerve to avoid the child, check if he is safe, and gently warn his parents.","आप जोर से ब्रेक लगाएंगे, बच्चे को बचाने के लिए बाइक मोड़ेंगे, जांचेंगे कि वह सुरक्षित है, और उसके माता-पिता को विनम्रता से चेतावनी देंगे।"],
+["You will sound the horn loudly and expect the child to stop.","आप जोर से हॉर्न बजाएंगे और उम्मीद करेंगे कि बच्चा रुक जाएगा।"],
+["You will lose balance, fall to save the child, and then scold the child.","आप संतुलन खो देंगे, बच्चे को बचाने के लिए गिर जाएंगे, और फिर बच्चे को डांटेंगे।"],
+["You will shout at the child from the moving bike and drive away.","आप चलती बाइक से बच्चे पर चिल्लाएंगे और चले जाएंगे।"],0],
+["You are assigned a very difficult task by your commanding officer which you have never done before.","आपके कमांडिंग ऑफिसर द्वारा आपको एक बहुत ही कठिन कार्य सौंपा गया है जो आपने पहले कभी नहीं किया है।",
+["You will politely decline the task citing lack of experience.","आप अनुभव की कमी का हवाला देते हुए विनम्रतापूर्वक कार्य को अस्वीकार कर देंगे।"],
+["You will accept the task, study the requirements, seek guidance from experienced colleagues, and complete it successfully.","आप कार्य स्वीकार करेंगे, आवश्यकताओं का अध्ययन करेंगे, अनुभवी सहयोगियों से मार्गदर्शन लेंगे, और इसे सफलतापूर्वक पूरा करेंगे।"],
+["You will accept it but pass the actual work to your juniors.","आप इसे स्वीकार कर लेंगे लेकिन वास्तविक काम अपने जूनियर्स को सौंप देंगे।"],
+["You will tell the officer that you will try but cannot guarantee success.","आप अधिकारी से कहेंगे कि आप कोशिश करेंगे लेकिन सफलता की गारंटी नहीं दे सकते।"],1],
+["You are short of money and you urgently need to pay your college fees tomorrow.","आपके पास पैसे कम हैं और आपको कल ही अपनी कॉलेज की फीस जमा करनी है।",
+["You will borrow the required amount from a close friend or relative and repay it soon.","आप किसी करीबी दोस्त या रिश्तेदार से आवश्यक राशि उधार लेंगे और उसे जल्द चुका देंगे।"],
+["You will secretly take money from your father's wallet.","आप अपने पिता के बटुए से चुपके से पैसे ले लेंगे।"],
+["You will drop out of the semester and look for a job.","आप सेमेस्टर छोड़ देंगे और नौकरी की तलाश करेंगे।"],
+["You will argue with the college administration to extend the deadline.","आप समय सीमा बढ़ाने के लिए कॉलेज प्रशासन से बहस करेंगे।"],0],
+["You notice that your best friend has started smoking and taking drugs.","आप देखते हैं कि आपके सबसे अच्छे दोस्त ने धूम्रपान और नशीली दवाओं का सेवन शुरू कर दिया है।",
+["You will break your friendship with him to protect your own image.","आप अपनी छवि बचाने के लिए उससे दोस्ती तोड़ लेंगे।"],
+["You will physically force him to stop and threaten him.","आप उसे रोकने के लिए शारीरिक रूप से मजबूर करेंगे और धमकी देंगे।"],
+["You will counsel him, inform his parents in confidence, and take him to a rehabilitation counselor.","आप उसे समझाएंगे, उसके माता-पिता को विश्वास में लेकर सूचित करेंगे, और उसे नशामुक्ति काउंसलर के पास ले जाएंगे।"],
+["You will start spending less time with him.","आप उसके साथ कम समय बिताना शुरू कर देंगे।"],2],
+["You reach the railway station and realize you have forgotten your wallet at home, and the train is about to depart.","आप रेलवे स्टेशन पहुंचते हैं और आपको एहसास होता है कि आप अपना बटुआ घर भूल गए हैं, और ट्रेन छूटने वाली है।",
+["You will travel without a ticket and hide from the Ticket Checker.","आप बिना टिकट यात्रा करेंगे और टिकट चेकर से छिपेंगे।"],
+["You will quickly ask your family to digitally transfer money, buy a digital ticket, and board the train.","आप जल्दी से अपने परिवार को डिजिटल रूप से पैसे ट्रांसफर करने के लिए कहेंगे, डिजिटल टिकट खरीदेंगे और ट्रेन में चढ़ेंगे।"],
+["You will go back home, miss the train, and cancel the trip.","आप घर वापस जाएंगे, ट्रेन छोड़ देंगे और यात्रा रद्द कर देंगे।"],
+["You will beg the station master to let you travel for free.","आप स्टेशन मास्टर से मुफ्त में यात्रा करने देने की भीख मांगेंगे।"],1],
+["Your room partner in the hostel is extremely messy and does not clean the room, causing you discomfort.","हॉस्टल में आपका रूम पार्टनर बहुत गंदा रहता है और कमरा साफ नहीं करता, जिससे आपको परेशानी होती है।",
+["You will complain to the hostel warden immediately.","आप तुरंत हॉस्टल वार्डन से शिकायत करेंगे।"],
+["You will clean the entire room yourself every day without saying a word.","आप बिना कुछ कहे हर दिन खुद पूरा कमरा साफ करेंगे।"],
+["You will talk to him amicably, divide the chores, and set a cleaning routine together.","आप उससे सौहार्दपूर्ण ढंग से बात करेंगे, काम बांटेंगे और एक साथ सफाई की दिनचर्या तय करेंगे।"],
+["You will throw his messy things out of the window in anger.","आप गुस्से में उसका बिखरा हुआ सामान खिड़की से बाहर फेंक देंगे।"],2],
+["You are delivering an important presentation and suddenly there is a power cut.","आप एक महत्वपूर्ण प्रेजेंटेशन दे रहे हैं और अचानक बिजली चली जाती है।",
+["You will apologize and stop the presentation until power is restored.","आप माफी मांगेंगे और बिजली आने तक प्रेजेंटेशन रोक देंगे।"],
+["You will use a whiteboard or verbal explanation to continue the presentation seamlessly.","आप प्रेजेंटेशन को निर्बाध रूप से जारी रखने के लिए व्हाइटबोर्ड या मौखिक स्पष्टीकरण का उपयोग करेंगे।"],
+["You will panic and leave the stage.","आप घबरा जाएंगे और मंच छोड़ देंगे।"],
+["You will blame the management for poor electrical backup.","आप खराब इलेक्ट्रिकल बैकअप के लिए प्रबंधन को दोष देंगे।"],1],
+["You overhear a group of people making a plan to vandalize public property during a protest.","आप कुछ लोगों को विरोध प्रदर्शन के दौरान सार्वजनिक संपत्ति में तोड़फोड़ करने की योजना बनाते हुए सुनते हैं।",
+["You will quietly leave the place to ensure your own safety.","आप अपनी सुरक्षा सुनिश्चित करने के लिए चुपचाप वहां से चले जाएंगे।"],
+["You will confront the mob single-handedly and try to stop them.","आप अकेले भीड़ का सामना करेंगे और उन्हें रोकने की कोशिश करेंगे।"],
+["You will immediately inform the local police control room with the exact details.","आप तुरंत स्थानीय पुलिस नियंत्रण कक्ष को सटीक विवरण के साथ सूचित करेंगे।"],
+["You will join the protest but refrain from vandalizing.","आप विरोध में शामिल होंगे लेकिन तोड़फोड़ से बचेंगे।"],2],
+["You are swimming in a river and suddenly see a boy drowning. You do not know him.","आप एक नदी में तैर रहे हैं और अचानक एक लड़के को डूबते हुए देखते हैं। आप उसे नहीं जानते हैं।",
+["You will shout for a lifeguard and wait for them to act.","आप लाइफगार्ड के लिए चिल्लाएंगे और उनके कार्रवाई करने का इंतजार करेंगे।"],
+["You will immediately swim towards him, pull him out using life-saving techniques, and administer CPR if needed.","आप तुरंत उसकी ओर तैरेंगे, जीवन रक्षक तकनीकों का उपयोग करके उसे बाहर निकालेंगे, और यदि आवश्यक हो तो सीपीआर देंगे।"],
+["You will ignore it as you are not an expert swimmer.","आप इसे नजरअंदाज कर देंगे क्योंकि आप विशेषज्ञ तैराक नहीं हैं।"],
+["You will throw a rope from the bank and hope he catches it.","आप किनारे से रस्सी फेंकेंगे और उम्मीद करेंगे कि वह इसे पकड़ ले।"],1],
+["Your junior makes a severe mistake in a project, and your senior manager blames you for it.","आपका जूनियर एक प्रोजेक्ट में गंभीर गलती करता है, और आपका वरिष्ठ प्रबंधक (सीनियर मैनेजर) इसके लिए आपको दोषी ठहराता है।",
+["You will immediately blame the junior in front of the manager.","आप मैनेजर के सामने तुरंत जूनियर को दोष देंगे।"],
+["You will take responsibility as a team leader, rectify the mistake quickly, and privately guide the junior to ensure it doesn't happen again.","आप एक टीम लीडर के रूप में जिम्मेदारी लेंगे, गलती को जल्दी सुधारेंगे, और जूनियर को अकेले में समझाएंगे ताकि यह दोबारा न हो।"],
+["You will resign from the project out of insult.","आप अपमान के कारण प्रोजेक्ट से इस्तीफा दे देंगे।"],
+["You will argue aggressively with the manager to prove your innocence.","आप अपनी बेगुनाही साबित करने के लिए मैनेजर से आक्रामक रूप से बहस करेंगे।"],1],
+["You get selected for the Armed Forces, but your parents want you to join the family business instead.","आपका चयन सशस्त्र बलों में हो जाता है, लेकिन आपके माता-पिता चाहते हैं कि आप इसके बजाय पारिवारिक व्यवसाय में शामिल हों।",
+["You will run away from home and join the academy.","आप घर से भागकर अकादमी में शामिल हो जाएंगे।"],
+["You will give up your dream and respectfully join the family business.","आप अपना सपना छोड़ देंगे और सम्मानपूर्वक पारिवारिक व्यवसाय में शामिल हो जाएंगे।"],
+["You will logically convince them about your passion for serving the nation, assure them of a bright future, and join the forces with their blessing.","आप राष्ट्र की सेवा करने के अपने जुनून के बारे में तार्किक रूप से उन्हें मनाएंगे, उन्हें उज्ज्वल भविष्य का आश्वासन देंगे, और उनके आशीर्वाद के साथ सेना में शामिल होंगे।"],
+["You will fight with them and stop talking to them until they agree.","आप उनसे लड़ेंगे और जब तक वे सहमत नहीं होते, उनसे बात करना बंद कर देंगे।"],2],
+["While returning home from a late-night movie, your car's tire gets punctured on a lonely highway.","देर रात फिल्म देखकर घर लौटते समय, एक सुनसान राजमार्ग पर आपकी कार का टायर पंचर हो जाता है।",
+["You will lock yourself inside the car and wait for morning.","आप खुद को कार के अंदर बंद कर लेंगे और सुबह होने का इंतजार करेंगे।"],
+["You will step out, quickly change the tire using the stepney and tools, and drive home safely.","आप बाहर निकलेंगे, स्टेपनी और टूल्स का उपयोग करके जल्दी से टायर बदलेंगे, और सुरक्षित घर ड्राइव करेंगे।"],
+["You will try to stop a passing vehicle to ask for a lift, leaving the car behind.","आप कार को वहीं छोड़कर लिफ्ट मांगने के लिए किसी गुजरते वाहन को रोकने की कोशिश करेंगे।"],
+["You will call a mechanic and wait on the highway.","आप एक मैकेनिक को बुलाएंगे और हाईवे पर इंतजार करेंगे।"],1],
+["You have an important exam tomorrow, and a close relative passes away in another city.","कल आपकी महत्वपूर्ण परीक्षा है, और दूसरे शहर में एक करीबी रिश्तेदार का निधन हो जाता है।",
+["You will skip the exam and immediately leave for the funeral.","आप परीक्षा छोड़ देंगे और तुरंत अंतिम संस्कार के लिए निकल जाएंगे।"],
+["You will express your condolences to the family, stay back to give the exam with focus, and visit them immediately after the exam.","आप परिवार के प्रति संवेदना व्यक्त करेंगे, पूरे ध्यान के साथ परीक्षा देने के लिए रुकेंगे, और परीक्षा के तुरंत बाद उनसे मिलने जाएंगे।"],
+["You will go to the funeral and try to study while travelling.","आप अंतिम संस्कार में जाएंगे और यात्रा के दौरान पढ़ने की कोशिश करेंगे।"],
+["You will not tell anyone in your house so they don't force you to go.","आप अपने घर में किसी को नहीं बताएंगे ताकि वे आपको जाने के लिए मजबूर न करें।"],1],
+["During a cross-country race, you see a competitor fall down and sprain his ankle.","क्रॉस-कंट्री दौड़ के दौरान, आप देखते हैं कि एक प्रतियोगी गिर जाता है और उसके टखने में मोच आ जाती है।",
+["You will ignore him and run faster to win the race.","आप उसे नजरअंदाज करेंगे और दौड़ जीतने के लिए तेज दौड़ेंगे।"],
+["You will help him up, assist him to the medical team, and then finish the race with maximum effort.","आप उसे उठने में मदद करेंगे, उसे मेडिकल टीम तक पहुंचाएंगे, और फिर पूरी कोशिश के साथ दौड़ पूरी करेंगे।"],
+["You will stop racing and stay with him in the hospital.","आप दौड़ना बंद कर देंगे और उसके साथ अस्पताल में रहेंगे।"],
+["You will shout for someone else to help him and continue running.","आप किसी और को उसकी मदद करने के लिए चिल्लाएंगे और दौड़ना जारी रखेंगे।"],1],
+["You are managing a blood donation camp, but the turnout is very low on the day of the event.","आप एक रक्तदान शिविर का प्रबंधन कर रहे हैं, लेकिन आयोजन के दिन बहुत कम लोग आते हैं।",
+["You will close the camp early and go home.","आप शिविर जल्दी बंद कर देंगे और घर चले जाएंगे।"],
+["You will get angry at the volunteers for poor marketing.","आप खराब मार्केटिंग के लिए स्वयंसेवकों पर क्रोधित होंगे।"],
+["You will quickly organize volunteers to make announcements in nearby areas, use social media, and personally motivate bystanders to donate.","आप तुरंत स्वयंसेवकों को आस-पास के क्षेत्रों में घोषणाएं करने के लिए संगठित करेंगे, सोशल मीडिया का उपयोग करेंगे, और व्यक्तिगत रूप से राहगीरों को दान करने के लिए प्रेरित करेंगे।"],
+["You will force your friends and family members to donate multiple times.","आप अपने दोस्तों और परिवार के सदस्यों को कई बार दान करने के लिए मजबूर करेंगे।"],2],
+["You are the second-in-command. During a critical mission, your commander falls unconscious.","आप सेकंड-इन-कमांड हैं। एक महत्वपूर्ण मिशन के दौरान, आपका कमांडर बेहोश हो जाता है।",
+["You will immediately cancel the mission and return to base.","आप तुरंत मिशन रद्द कर देंगे और बेस पर लौट आएंगे।"],
+["You will take command of the unit, ensure medical help for the commander, and successfully complete the mission.","आप यूनिट की कमान संभालेंगे, कमांडर के लिए चिकित्सा सहायता सुनिश्चित करेंगे, और मिशन को सफलतापूर्वक पूरा करेंगे।"],
+["You will panic and wait for the commander to wake up.","आप घबरा जाएंगे और कमांडर के जागने का इंतजार करेंगे।"],
+["You will ask the headquarters to send a replacement commander.","आप मुख्यालय से एक प्रतिस्थापन (रिप्लेसमेंट) कमांडर भेजने के लिए कहेंगे।"],1],
+["You find out that the shopkeeper has accidentally given you Rs. 500 extra in change.","आपको पता चलता है कि दुकानदार ने गलती से आपको छुट्टे में 500 रुपये ज्यादा दे दिए हैं।",
+["You will keep the money thinking it's your lucky day.","आप यह सोचकर पैसे रख लेंगे कि यह आपका भाग्यशाली दिन है।"],
+["You will donate the extra money to a beggar.","आप अतिरिक्त पैसे किसी भिखारी को दान कर देंगे।"],
+["You will immediately return to the shop and give the extra money back to the shopkeeper.","आप तुरंत दुकान पर लौटेंगे और अतिरिक्त पैसे दुकानदार को वापस कर देंगे।"],
+["You will keep the money but vow to buy from him next time.","आप पैसे रख लेंगे लेकिन अगली बार उसी से खरीदारी करने की कसम खाएंगे।"],2],
+["Your younger brother has failed in his board exams and is severely depressed, locking himself in his room.","आपका छोटा भाई अपनी बोर्ड परीक्षा में फेल हो गया है और गंभीर रूप से उदास है, उसने खुद को अपने कमरे में बंद कर लिया है।",
+["You will scold him for not studying hard enough.","आप उसे पर्याप्त मेहनत न करने के लिए डांटेंगे।"],
+["You will break the door, sit with him, motivate him with stories of great people who failed initially, and help him prepare for the re-exam.","आप दरवाजा तोड़ेंगे (या खुलवाएंगे), उसके साथ बैठेंगे, उसे उन महान लोगों की कहानियों से प्रेरित करेंगे जो शुरुआत में असफल हुए, और उसे फिर से परीक्षा की तैयारी करने में मदद करेंगे।"],
+["You will leave him alone thinking he will get over it with time.","आप उसे अकेला छोड़ देंगे यह सोचकर कि समय के साथ वह ठीक हो जाएगा।"],
+["You will ask your parents to handle him.","आप अपने माता-पिता से उसे संभालने के लिए कहेंगे।"],1],
+["You are given a glass of milk at a relative's house, but you notice a dead fly in it.","एक रिश्तेदार के घर पर आपको दूध का गिलास दिया जाता है, लेकिन आप उसमें एक मरी हुई मक्खी देखते हैं।",
+["You will throw a tantrum and insult their hygiene.","आप नखरे दिखाएंगे और उनकी साफ-सफाई का अपमान करेंगे।"],
+["You will quietly take out the fly and drink the milk to avoid offending them.","आप उन्हें नाराज न करने के लिए चुपचाप मक्खी निकाल लेंगे और दूध पी लेंगे।"],
+["You will discreetly throw the milk in a sink and say you drank it.","आप चुपके से दूध को सिंक में फेंक देंगे और कहेंगे कि आपने इसे पी लिया।"],
+["You will politely excuse yourself, say you do not wish to drink milk at the moment, or politely point it out without making a scene.","आप विनम्रतापूर्वक बहाना बनाएंगे कि आप अभी दूध नहीं पीना चाहते, या बिना कोई तमाशा किए विनम्रता से उन्हें इसके बारे में बता देंगे।"],3],
+["You are walking and suddenly a stray dog aggressively charges towards you to bite.","आप चल रहे हैं और अचानक एक आवारा कुत्ता आक्रामक रूप से आपको काटने के लिए आपकी ओर दौड़ता है।",
+["You will run away as fast as possible.","आप जितनी जल्दी हो सके दूर भाग जाएंगे।"],
+["You will stand your ground, shout commandingly, pick up a stone or stick to scare it away, and calmly walk back.","आप अपनी जगह पर खड़े रहेंगे, अधिकारपूर्वक चिल्लाएंगे, उसे डराने के लिए पत्थर या डंडा उठाएंगे, और शांति से वापस चले जाएंगे।"],
+["You will immediately lie down on the ground and play dead.","आप तुरंत जमीन पर लेट जाएंगे और मरने का नाटक करेंगे।"],
+["You will kick the dog brutally even before it reaches you.","आप कुत्ते के आप तक पहुंचने से पहले ही उसे बेरहमी से लात मारेंगे।"],1],
+["You are the organizer of a cultural fest. Minutes before the chief guest arrives, the main stage decoration collapses.","आप एक सांस्कृतिक उत्सव के आयोजक हैं। मुख्य अतिथि के आने से कुछ मिनट पहले, मुख्य मंच की सजावट गिर जाती है।",
+["You will blame the decoration team in front of the chief guest.","आप मुख्य अतिथि के सामने सजावट टीम को दोष देंगे।"],
+["You will quickly rally your team, rapidly clear the debris, set up a minimal elegant background, and welcome the guest confidently.","आप जल्दी से अपनी टीम को इकट्ठा करेंगे, तेजी से मलबा हटाएंगे, एक न्यूनतम सुंदर पृष्ठभूमि (बैकग्राउंड) तैयार करेंगे, और आत्मविश्वास के साथ अतिथि का स्वागत करेंगे।"],
+["You will delay the chief guest's entry by locking the main gate.","आप मुख्य गेट पर ताला लगाकर मुख्य अतिथि की एंट्री में देरी करेंगे।"],
+["You will panic and hide in the green room.","आप घबरा जाएंगे और ग्रीन रूम में छिप जाएंगे।"],1],
+["During a trekking trip, a girl in your group faints due to dehydration, and you are 5 km away from the base camp.","एक ट्रैकिंग यात्रा के दौरान, आपके समूह की एक लड़की डिहाइड्रेशन के कारण बेहोश हो जाती है, और आप बेस कैंप से 5 किमी दूर हैं।",
+["You will leave her with one person and run down to get a stretcher.","आप उसे एक व्यक्ति के साथ छोड़ देंगे और स्ट्रेचर लाने के लिए दौड़ेंगे।"],
+["You will make her rest in the shade, give her ORS/water slowly as she regains consciousness, carry her if needed, and safely bring her to base.","आप उसे छाया में आराम कराएंगे, होश में आने पर धीरे-धीरे ओआरएस/पानी देंगे, आवश्यकता पड़ने पर उसे उठाकर चलेंगे, और सुरक्षित रूप से बेस पर लाएंगे।"],
+["You will force her to walk immediately to reach early.","आप जल्दी पहुंचने के लिए उसे तुरंत चलने के लिए मजबूर करेंगे।"],
+["You will call a helicopter rescue service.","आप हेलीकॉप्टर बचाव सेवा को कॉल करेंगे।"],1],
+["You find that someone has created a fake social media profile in your name and is posting abusive content.","आप पाते हैं कि किसी ने आपके नाम से एक फर्जी सोशल मीडिया प्रोफाइल बनाया है और आपत्तिजनक सामग्री पोस्ट कर रहा है।",
+["You will ignore it as people will eventually know it's fake.","आप इसे नजरअंदाज कर देंगे क्योंकि लोग अंततः जान जाएंगे कि यह नकली है।"],
+["You will abuse the person on their posts from your real account.","आप अपने असली अकाउंट से उनके पोस्ट पर उस व्यक्ति को गाली देंगे।"],
+["You will immediately report the profile to the platform, inform your friends to report it, and file a cybercrime complaint if necessary.","आप तुरंत प्लेटफॉर्म पर प्रोफाइल की रिपोर्ट करेंगे, अपने दोस्तों को रिपोर्ट करने के लिए सूचित करेंगे, और यदि आवश्यक हो तो साइबर अपराध की शिकायत दर्ज करेंगे।"],
+["You will delete your own real account out of fear.","आप डर के मारे अपना असली अकाउंट डिलीट कर देंगे।"],2],
+["You are waiting at a bus stop, and two people on a motorcycle snatch a lady’s gold chain and speed away.","आप बस स्टॉप पर इंतजार कर रहे हैं, और मोटरसाइकिल सवार दो लोग एक महिला की सोने की जंजीर (चेन) छीनकर भाग जाते हैं।",
+["You will run after the speeding motorcycle on foot.","आप तेज रफ्तार मोटरसाइकिल के पीछे पैदल दौड़ेंगे।"],
+["You will immediately note down the bike's license plate number, comfort the lady, and help her file an FIR with the police.","आप तुरंत बाइक का नंबर नोट करेंगे, महिला को सांत्वना देंगे, और पुलिस में एफआईआर दर्ज कराने में उसकी मदद करेंगे।"],
+["You will blame the lady for wearing expensive jewelry in public.","आप महिला को सार्वजनिक रूप से महंगे आभूषण पहनने के लिए दोषी ठहराएंगे।"],
+["You will silently leave the bus stop to avoid becoming a police witness.","आप पुलिस का गवाह बनने से बचने के लिए चुपचाप बस स्टॉप से चले जाएंगे।"],1],
+["Your SSB interview is scheduled in another city, but a nationwide transport strike is declared on your travel date.","आपका एसएसबी (SSB) इंटरव्यू दूसरे शहर में निर्धारित है, लेकिन आपकी यात्रा की तारीख पर देशव्यापी परिवहन हड़ताल की घोषणा कर दी जाती है।",
+["You will skip the interview and request a new date via email.","आप इंटरव्यू छोड़ देंगे और ईमेल के माध्यम से नई तारीख का अनुरोध करेंगे।"],
+["You will anticipate the issue, leave a day earlier, or arrange for alternative private/shared transport to ensure you reach on time.","आप समस्या का अनुमान लगाएंगे, एक दिन पहले निकल जाएंगे, या समय पर पहुंचना सुनिश्चित करने के लिए वैकल्पिक निजी/साझा परिवहन की व्यवस्था करेंगे।"],
+["You will wait at the bus stand hoping the strike gets called off.","आप इस उम्मीद में बस स्टैंड पर इंतजार करेंगे कि हड़ताल वापस ले ली जाएगी।"],
+["You will blame the government for ruining your career opportunity.","आप अपने करियर का अवसर बर्बाद करने के लिए सरकार को दोष देंगे।"],1]
+];
+
+var T={
+en:{sT:"SRT Mock Test 1",ins:["Total questions: 35 | Time: 30 minutes","Correct answer: +1 mark | Wrong answer: −0.25 mark | Unanswered: 0","Click a question number in the palette to jump to any question","You can switch between English and Hindi anytime","You can submit the test anytime; it auto-submits when time ends"],name:"Enter your name (optional)",start:"Start Test",q:"Question",of:"of",prev:"« Previous",next:"Next »",clr:"Clear",sub:"Submit Test",pal:"Question Console",pg:"Show / Hide Question Console",lA:"Answered",lN:"Not answered",lU:"Not visited",mT:"Submit Test?",mB:function(a,s){return "You have answered "+a+" and left "+s+" unanswered. Do you want to submit?"},mNo:"Cancel",mYes:"Yes, Submit",rT:"Test Result",tot:"Total Score",mk:"Marking: +1 correct, −0.25 wrong",att:"Attempted",skp:"Skipped",cor:"Correct",wro:"Wrong",tq:"Total Questions",neg:"Negative Marks",rv:"View Answers",hv:"Hide Answers",rt:"Retake Test",ok:"Correct",no:"Wrong",sk:"Skipped",ca:"Correct answer",ya:"Your answer"},
+hi:{sT:"एसआरटी मॉक टेस्ट 1",ins:["कुल प्रश्न: 35 | समय: 30 मिनट","सही उत्तर: +1 अंक | गलत उत्तर: −0.25 अंक | बिना उत्तर: 0","किसी भी प्रश्न पर जाने के लिए पैलेट में प्रश्न संख्या दबाएँ","आप कभी भी अंग्रेज़ी और हिन्दी भाषा बदल सकते हैं","आप कभी भी टेस्ट सबमिट कर सकते हैं; समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा"],name:"अपना नाम लिखें (वैकल्पिक)",start:"टेस्ट शुरू करें",q:"प्रश्न",of:"/",prev:"« पिछला",next:"अगला »",clr:"उत्तर हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न कंसोल",pg:"प्रश्न कंसोल दिखाएँ / छिपाएँ",lA:"उत्तर दिया",lN:"उत्तर नहीं दिया",lU:"देखा नहीं",mT:"टेस्ट सबमिट करें?",mB:function(a,s){return "आपने "+a+" प्रश्नों के उत्तर दिए हैं और "+s+" प्रश्न छोड़े हैं। क्या आप सबमिट करना चाहते हैं?"},mNo:"रद्द करें",mYes:"हाँ, सबमिट करें",rT:"टेस्ट परिणाम",tot:"कुल स्कोर",mk:"अंकन: सही +1, गलत −0.25",att:"प्रयास किए",skp:"छोड़े गए",cor:"सही",wro:"गलत",tq:"कुल प्रश्न",neg:"ऋणात्मक अंक",rv:"उत्तर देखें",hv:"उत्तर छिपाएँ",rt:"दोबारा टेस्ट दें",ok:"सही",no:"गलत",sk:"छोड़ा गया",ca:"सही उत्तर",ya:"आपका उत्तर"}
+};
+var lang="en",cur=0,ans=[],vis=[],endAt=0,tick=null,done=false,L="ABCD";
+function $(id){return document.getElementById(id)}
+function t(k){return T[lang][k]}
+function pad(n){return n<10?"0"+n:""+n}
+function fmt(n){return (Math.round(n*100)/100).toString()}
+
+function applyStatic(){
+ $("ttl").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sT").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sIns").innerHTML=t("ins").map(function(x){return "<li>"+x+"</li>"}).join("");
+ $("nm").placeholder=t("name");$("sBtn").textContent=t("start");
+ $("prev").textContent=t("prev");$("next").textContent=t("next");$("clr").textContent=t("clr");$("sub").textContent=t("sub");
+ $("palT").textContent=t("pal");$("ptog").textContent=t("pg");
+ $("lA").textContent=t("lA");$("lN").textContent=t("lN");$("lU").textContent=t("lU");
+ $("mNo").textContent=t("mNo");$("mYes").textContent=t("mYes");$("mT").textContent=t("mT");
+ document.documentElement.lang=lang==="en"?"en":"hi";
+ $("bEn").className=lang==="en"?"on":"";$("bHi").className=lang==="hi"?"on":"";
+}
+function setLang(l){
+ lang=l;applyStatic();
+ if(!$("test").classList.contains("hide"))render();
+ if(!$("result").classList.contains("hide"))showResult();
+ if(!$("modal").classList.contains("hide"))openM();
+}
+function startTest(){
+ for(var i=0;i<Q.length;i++){ans[i]=-1;vis[i]=false}
+ $("start").classList.add("hide");$("test").classList.remove("hide");$("timer").classList.remove("hide");
+ endAt=Date.now()+DURATION*1000;
+ tick=setInterval(upd,500);upd();render();
+ window.scrollTo(0,0);
+}
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(s/60))+":"+pad(s%60);
+ if(s<=300)$("timer").className="timer low";
+ if(s<=0&&!done)finish();
+}
+function render(){
+ vis[cur]=true;var q=Q[cur],i=lang==="en"?0:1;
+ $("qno").textContent=t("q")+" "+(cur+1)+" "+t("of")+" "+Q.length;
+ $("qsts").textContent=ans[cur]>=0?"✔ "+t("lA"):"";
+ $("qtext").textContent=(cur+1)+". "+q[i];
+ var h="";
+ for(var k=0;k<4;k++){h+='<button class="opt'+(ans[cur]===k?" sel":"")+'" onclick="pick('+k+')"><span class="l">'+L[k]+'</span><span>'+esc(q[2+k][i])+'</span></button>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===Q.length-1;
+ pal();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function pal(){
+ var h="";
+ for(var i=0;i<Q.length;i++){
+  var c=ans[i]>=0?"ans":(vis[i]?"vis":"");
+  if(i===cur)c+=" cur";
+  h+='<button class="'+c+'" onclick="jump('+i+')">'+(i+1)+'</button>';
+ }
+ $("pg").innerHTML=h;
+}
+function pick(k){ans[cur]=k;render()}
+function clearAns(){ans[cur]=-1;render()}
+function go(d){var n=cur+d;if(n>=0&&n<Q.length){cur=n;render();window.scrollTo(0,0)}}
+function jump(i){cur=i;render();$("pal").classList.remove("open");window.scrollTo(0,0)}
+function togPal(){$("pal").classList.toggle("open")}
+function counts(){var a=0;for(var i=0;i<ans.length;i++)if(ans[i]>=0)a++;return {a:a,s:Q.length-a}}
+function openM(){var c=counts();$("mB").textContent=t("mB")(c.a,c.s);$("modal").classList.remove("hide")}
+function askSubmit(){openM()}
+function closeM(){$("modal").classList.add("hide")}
+function finish(){
+ if(done&&arguments.length===0&&$("test").classList.contains("hide"))return;
+ done=true;clearInterval(tick);closeM();
+ $("test").classList.add("hide");$("timer").classList.add("hide");$("result").classList.remove("hide");
+ showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var cor=0,wro=0,i;
+ for(i=0;i<Q.length;i++){if(ans[i]>=0){if(ans[i]===Q[i][6])cor++;else wro++}}
+ var att=cor+wro,skp=Q.length-att,neg=wro*MINUS,sc=cor*PLUS-neg;
+ $("rT").textContent=t("rT");
+ var nm=$("nm").value.replace(/^\s+|\s+$/g,"");
+ $("rName").textContent=nm?nm:"";
+ $("rScore").textContent=fmt(sc)+" / "+Q.length;
+ $("rMark").textContent=t("mk");
+ var items=[[t("tq"),Q.length,""],[t("att"),att,""],[t("skp"),skp,""],[t("cor"),cor,"color:#138808"],[t("wro"),wro,"color:#d32f2f"],[t("neg"),"−"+fmt(neg),"color:#d32f2f"]];
+ $("rStats").innerHTML=items.map(function(x){return '<div class="st"><b style="'+x[2]+'">'+x[1]+'</b><span>'+x[0]+'</span></div>'}).join("");
+ $("rvBtn").textContent=$("rev").classList.contains("hide")?t("rv"):t("hv");
+ $("rtBtn").textContent=t("rt");
+ var li=lang==="en"?0:1,h="";
+ for(i=0;i<Q.length;i++){
+  var q=Q[i],st=ans[i]<0?["sk","#6b7686"]:(ans[i]===q[6]?["ok","#138808"]:["no","#d32f2f"]);
+  h+='<div class="rv"><div class="q">'+(i+1)+'. '+esc(q[li])+'<span class="tag" style="background:'+st[1]+'">'+t(st[0])+'</span></div>';
+  for(var k=0;k<4;k++){
+   var c="o";if(k===q[6])c+=" ok";else if(k===ans[i])c+=" no";
+   var m=k===q[6]?" ✔":(k===ans[i]?" ✘ ("+t("ya")+")":"");
+   h+='<div class="'+c+'"><b>'+L[k]+'.</b> '+esc(q[2+k][li])+m+'</div>';
+  }
+  h+='</div>';
+ }
+ $("rev").innerHTML=h;
+}
+function toggleRev(){$("rev").classList.toggle("hide");showResult()}
+window.addEventListener("beforeunload",function(e){if(!done&&!$("test").classList.contains("hide")){e.preventDefault();e.returnValue=""}});
+applyStatic();
+</script>
+</body>
+</html>

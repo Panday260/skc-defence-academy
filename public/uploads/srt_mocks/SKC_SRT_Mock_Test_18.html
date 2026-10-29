@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test (Q561-595)</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal",Arial,sans-serif;background:#eef1f6;color:#1b2430}
+header{background:#0b2447;color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+.brand{font-weight:800;letter-spacing:.5px;font-size:17px;color:#ffc933}
+.brand small{display:block;color:#cfd8e8;font-weight:500;font-size:11px;letter-spacing:0}
+.tools{display:flex;gap:8px;align-items:center}
+#timer{background:#fff;color:#0b2447;font-weight:800;padding:6px 10px;border-radius:6px;font-size:16px;min-width:72px;text-align:center}
+#timer.low{background:#d62828;color:#fff}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:6px;font-size:15px;padding:10px 16px;font-weight:600}
+#lang{background:#ffc933;color:#0b2447}
+.wrap{max-width:1000px;margin:0 auto;padding:12px;display:flex;gap:12px;flex-wrap:wrap}
+.main{flex:1 1 560px;background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px #0002}
+.side{flex:0 0 260px;background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 4px #0002;height:fit-content}
+.qno{color:#0b2447;font-weight:700;margin-bottom:8px}
+.qtext{font-size:18px;line-height:1.5;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:2px solid #d5dbe6;border-radius:8px;padding:11px;margin-bottom:10px;cursor:pointer;line-height:1.45;font-size:16px}
+.opt b{min-width:24px;height:24px;border-radius:50%;background:#e6ebf4;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.opt.sel{border-color:#0b2447;background:#e8f0ff}.opt.sel b{background:#0b2447;color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.nav button{flex:1 1 90px}
+#prev,#next{background:#0b2447;color:#fff}
+#clear{background:#e6ebf4;color:#0b2447}
+#submit{background:#d62828;color:#fff}
+#prev:disabled,#next:disabled{opacity:.4}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:10px 0}
+.grid button{padding:9px 0;background:#e6ebf4;color:#1b2430;font-size:14px}
+.grid .ans{background:#2a9d4a;color:#fff}.grid .cur{outline:3px solid #ffc933}
+.leg{font-size:12px;color:#555;line-height:1.8}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:middle}
+.ov{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:10;padding:14px}
+.box{background:#fff;border-radius:10px;padding:20px;max-width:420px;width:100%;text-align:center}
+.box .row{display:flex;gap:8px;margin-top:14px}.box .row button{flex:1}
+#result{display:none;max-width:800px;margin:14px auto;padding:0 12px}
+.card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 4px #0002;margin-bottom:12px}
+.score{font-size:42px;font-weight:800;color:#0b2447;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}
+.stats div{background:#eef1f6;border-radius:8px;padding:10px;text-align:center;font-size:14px}.stats b{display:block;font-size:22px}
+.rv{border-left:5px solid #ccc;padding:8px 10px;margin:10px 0;font-size:15px;line-height:1.5}
+.rv.c{border-color:#2a9d4a}.rv.w{border-color:#d62828}.rv.s{border-color:#999}
+footer{text-align:center;font-size:12px;color:#667;padding:10px}
+@media(max-width:700px){.side{flex:1 1 100%}.qtext{font-size:17px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">SKC DEFENCE ACADEMY<small>SRT Mock Test | Q561 – Q595 | 35 Questions | 30 Min</small></div>
+ <div class="tools"><button id="lang" onclick="toggleLang()">हिन्दी</button><div id="timer">30:00</div></div>
+</header>
+
+<div id="test" class="wrap">
+ <div class="main">
+  <div class="qno" id="qno"></div>
+  <div class="qtext" id="qtext"></div>
+  <div id="opts"></div>
+  <div class="nav">
+   <button id="prev" onclick="go(-1)">&laquo; <span class="t-prev">Previous</span></button>
+   <button id="clear" onclick="clr()"><span class="t-clear">Clear</span></button>
+   <button id="next" onclick="go(1)"><span class="t-next">Next</span> &raquo;</button>
+  </div>
+  <div class="nav"><button id="submit" onclick="askSubmit()"><span class="t-sub">Submit Test</span></button></div>
+ </div>
+ <div class="side">
+  <b class="t-pal">Question Palette</b>
+  <div class="grid" id="grid"></div>
+  <div class="leg"><i style="background:#2a9d4a"></i><span class="t-ans">Answered</span> &nbsp; <i style="background:#e6ebf4;border:1px solid #bbb"></i><span class="t-unans">Not Answered</span></div>
+  <div class="leg" style="margin-top:6px">+1 Correct &nbsp;|&nbsp; −0.25 Wrong</div>
+ </div>
+</div>
+
+<div id="result"></div>
+
+<div class="ov" id="ov"><div class="box">
+ <h3 id="ovt">Submit Test?</h3>
+ <p id="ovp"></p>
+ <div class="row"><button style="background:#e6ebf4" onclick="closeOv()" id="ovno">Cancel</button><button style="background:#d62828;color:#fff" onclick="finish()" id="ovyes">Submit</button></div>
+</div></div>
+
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<script>
+var IG=["You will completely ignore the highly annoying situation entirely, silently walk away perfectly totally fast, and strictly mind your business.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप पूरी तरह से बिल्कुल तेजी से चले जाएंगे, और सख्ती से अपने काम से काम रखेंगे।"];
+var AG=["You will aggressively attack the annoying targeted people entirely, violently break the heavy physical objects, and loudly start massive fighting.","आप आक्रामक रूप से कष्टप्रद लक्षित लोगों पर पूरी तरह हमला करेंगे, हिंसक रूप से भारी भौतिक वस्तुओं को तोड़ेंगे, और जोर-जोर से भारी लड़ाई शुरू करेंगे।"];
+var CR=["You will instantly start crying in deep extreme panic, completely freeze perfectly exactly right there, and blindly wait perfectly strictly.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, पूरी तरह से बिल्कुल वहीं सुन्न हो जाएंगे, और आंख मूंदकर बिल्कुल सख्ती से इंतजार करेंगे।"];
+var Q=[
+["A heavy steel pipe accidentally falls deeply exactly onto your close coworker's leg completely during factory duty.","फैक्ट्री ड्यूटी के दौरान एक भारी स्टील का पाइप गलती से पूरी तरह से आपके करीबी सहकर्मी के पैर पर बिल्कुल गिर जाता है।",[IG,["You will calmly lift the heavy steel pipe safely, safely apply a tight emergency tourniquet quickly, and firmly rush the injured coworker perfectly immediately.","आप शांति से भारी स्टील पाइप को सुरक्षित रूप से उठाएंगे, सुरक्षित रूप से जल्दी से एक तंग आपातकालीन टूनिकेट लगाएंगे, और दृढ़ता से घायल सहकर्मी को तुरंत बिल्कुल ले जाएंगे।"],AG,CR],1],
+["A completely huge bright decorative wedding tent suddenly perfectly strictly catches a massive rapid dangerous fire perfectly.","एक पूरी तरह से विशाल उज्ज्वल सजावटी शादी का तंबू अचानक पूरी तरह से सख्ती से एक भारी तेज खतरनाक आग पकड़ लेता है।",[["You will safely direct the trapped panicked wedding guests, firmly use the available fire extinguishers quickly, and promptly inform the main local fire brigade.","आप सुरक्षित रूप से फंसे हुए घबराए हुए शादी के मेहमानों को निर्देशित करेंगे, दृढ़ता से उपलब्ध अग्निशामक यंत्रों का जल्दी उपयोग करेंगे, और तुरंत मुख्य स्थानीय फायर ब्रिगेड को सूचित करेंगे।"],IG,CR,AG],0],
+["You clearly see a highly heavily drunk guest perfectly blindly slipping entirely completely down the high marble stairs.","आप स्पष्ट रूप से देखते हैं कि एक अत्यधिक भारी नशे में धुत मेहमान पूरी तरह से ऊंचे संगमरमर की सीढ़ियों से पूरी तरह से नीचे फिसल रहा है।",[CR,AG,["You will calmly rush towards the fallen injured guest, safely secure his completely broken heavy neck, and firmly call a professional medical ambulance instantly.","आप शांति से गिरे हुए घायल मेहमान की ओर दौड़ेंगे, सुरक्षित रूप से उसकी पूरी तरह टूटी हुई भारी गर्दन को सुरक्षित करेंगे, और दृढ़ता से तुरंत एक पेशेवर मेडिकल एम्बुलेंस बुलाएंगे।"],IG],2],
+["A highly unstable chemical solution unexpectedly strongly splashes perfectly exactly directly deeply strictly into your eyes entirely.","एक अत्यधिक अस्थिर रासायनिक घोल अप्रत्याशित रूप से पूरी तरह से सीधे गहराई से आपकी आंखों में छलक जाता है।",[IG,CR,AG,["You will safely rush perfectly to the eyewash station, calmly rinse your burning eyes continuously deeply, and firmly visit the main duty doctor instantly.","आप सुरक्षित रूप से आईवॉश स्टेशन की ओर बिल्कुल दौड़ेंगे, शांति से अपनी जलती हुई आंखों को लगातार गहराई से धोएंगे, और दृढ़ता से तुरंत मुख्य ड्यूटी डॉक्टर के पास जाएंगे।"]],3],
+["A completely sharp kite glass string totally strongly heavily cuts the neck completely of a fast moving biker.","एक पूरी तरह से तेज पतंग की कांच की डोरी तेजी से चलते बाइकर की गर्दन को पूरी तरह से भारी रूप से काट देती है।",[IG,["You will safely stop the heavily bleeding fast biker, calmly wrap a completely clean tight cloth, and firmly transport him perfectly to local hospitals.","आप सुरक्षित रूप से भारी खून बह रहे तेज बाइकर को रोकेंगे, शांति से एक पूरी तरह से साफ तंग कपड़े को लपेटेंगे, और दृढ़ता से उसे बिल्कुल स्थानीय अस्पतालों में ले जाएंगे।"],CR,AG],1],
+["The heavy main wedding catering food completely perfectly strongly entirely strictly causes severe sudden deep mass food poisoning.","भारी मुख्य विवाह खानपान का भोजन पूरी तरह से बिल्कुल दृढ़ता से पूरी तरह से गंभीर अचानक भारी सामूहिक फूड पॉइजनिंग का कारण बनता है।",[CR,AG,IG,["You will safely stop everyone completely from eating perfectly, calmly organize emergency medical transport quickly securely, and firmly report the strict catering staff exactly.","आप सुरक्षित रूप से सभी को बिल्कुल खाने से पूरी तरह रोकेंगे, शांति से जल्दी से आपातकालीन चिकित्सा परिवहन की सुरक्षित व्यवस्था करेंगे, और दृढ़ता से सख्त खानपान कर्मचारियों की सटीक रिपोर्ट करेंगे।"]],3],
+["A deeply sharp heavy broken glass perfectly exactly strictly pierces entirely through your bare right walking foot perfectly.","एक गहरा तेज भारी टूटा हुआ कांच आपके नंगे दाहिने चलते पैर के आर-पार बिल्कुल सख्ती से पूरी तरह से चुभ जाता है।",[["You will calmly sit perfectly entirely safely exactly firmly, safely remove the sharp broken glass smoothly, and firmly clean the deep bloody wound securely.","आप शांति से बिल्कुल पूरी तरह से सुरक्षित रूप से बिल्कुल दृढ़ता से बैठेंगे, सुरक्षित रूप से तेज टूटे कांच को आसानी से निकालेंगे, और दृढ़ता से गहरे खून वाले घाव को सुरक्षित रूप से साफ करेंगे।"],IG,CR,AG],0],
+["A heavily speeding forklift entirely perfectly strongly severely completely strictly directly fully completely crashes completely into your working desk.","एक भारी तेज गति वाला फोर्कलिफ्ट पूरी तरह से बिल्कुल दृढ़ता से गंभीर रूप से आपके काम करने वाले डेस्क से सीधे पूरी तरह टकरा जाता है।",[AG,IG,CR,["You will safely jump perfectly backwards instantly highly exactly, calmly check perfectly completely for deep injuries, and firmly secure the highly dangerous heavy machine.","आप सुरक्षित रूप से तुरंत अत्यधिक सटीक रूप से बिल्कुल पीछे कूद जाएंगे, शांति से गहरी चोटों के लिए पूरी तरह बिल्कुल जांच करेंगे, और दृढ़ता से अत्यधिक खतरनाक भारी मशीन को सुरक्षित करेंगे।"]],3],
+["You clearly find a heavily lost crying small child perfectly completely totally trapped inside a completely locked hot car.","आप स्पष्ट रूप से देखते हैं कि एक भारी रूप से खोया हुआ रोता हुआ छोटा बच्चा पूरी तरह से बंद गर्म कार के अंदर पूरी तरह फंसा हुआ है।",[["You will calmly assess the completely exact secure situation, firmly break the hard side glass perfectly, and safely rescue the crying trapped child instantly.","आप शांति से पूरी तरह सटीक सुरक्षित स्थिति का आकलन करेंगे, दृढ़ता से कठोर साइड ग्लास को बिल्कुल तोड़ेंगे, और सुरक्षित रूप से रोते हुए फंसे बच्चे को तुरंत बचाएंगे।"],CR,AG,IG],0],
+["A highly excited completely perfectly fully drunk wedding guest totally actively completely fires a loaded heavy gun entirely strictly perfectly smoothly completely inside the hall blindly.","एक अत्यधिक उत्साहित पूरी तरह से बिल्कुल पूरी तरह से नशे में धुत शादी का मेहमान पूरी तरह से सक्रिय रूप से पूरी तरह से हॉल के अंदर बिल्कुल अंधाधुंध पूरी तरह से सख्ती से बिल्कुल आसानी से पूरी तरह से एक भरी हुई भारी बंदूक चलाता है।",[IG,CR,["You will safely take complete strict solid ground cover, firmly push the nearby panicking guests safely, and promptly call the official local police instantly.","आप सुरक्षित रूप से पूर्ण सख्त ठोस जमीनी आड़ लेंगे, दृढ़ता से आस-पास के घबराए हुए मेहमानों को सुरक्षित रूप से धक्का देंगे, और तुरंत आधिकारिक स्थानीय पुलिस को बुलाएंगे।"],AG],2],
+["A completely heavy sharp iron rod strongly directly completely fiercely perfectly pierces fully actively entirely straight into your shoulder safely.","एक पूरी तरह से भारी तेज लोहे की छड़ मजबूती से सीधे पूरी तरह से बिल्कुल पूरी तरह से आपके कंधे में सुरक्षित रूप से बिल्कुल सीधी घुस जाती है।",[IG,["You will safely sit exactly completely perfectly calmly securely, firmly stop the heavy thick hot bleeding, and promptly call an emergency highly secure ambulance.","आप सुरक्षित रूप से बिल्कुल पूरी तरह से बिल्कुल शांति से सुरक्षित रूप से बैठेंगे, दृढ़ता से भारी गाढ़े गर्म खून को रोकेंगे, और तुरंत एक आपातकालीन अत्यधिक सुरक्षित एम्बुलेंस बुलाएंगे।"],AG,CR],1],
+["A heavily deeply drunk completely wild furious man strictly strongly perfectly randomly deeply violently stabs entirely a fully innocent person.","एक भारी गहराई से नशे में पूरी तरह से जंगली क्रुद्ध आदमी सख्ती से मजबूती से बिल्कुल बेतरतीब ढंग से गहराई से हिंसक रूप से एक पूरी तरह से निर्दोष व्यक्ति को छुरा घोंपता है।",[["You will safely run completely heavily perfectly away entirely, firmly call the strong completely local police, and calmly request a fully perfectly heavy medical help.","आप सुरक्षित रूप से पूरी तरह से भारी रूप से बिल्कुल दूर भाग जाएंगे, दृढ़ता से मजबूत पूरी तरह से स्थानीय पुलिस को बुलाएंगे, और शांति से पूरी तरह बिल्कुल भारी चिकित्सा सहायता का अनुरोध करेंगे।"],IG,CR,AG],0],
+["A heavily boiling extremely completely perfectly fully totally hot coffee cup completely strictly fiercely perfectly entirely exactly spills deeply.","एक भारी उबलता हुआ अत्यंत पूरी तरह से बिल्कुल पूरी तरह से बहुत गर्म कॉफी कप पूरी तरह से सख्ती से भयंकर रूप से बिल्कुल पूरी तरह से बिल्कुल गहराई से गिर जाता है।",[IG,["You will safely clean the completely completely wet perfectly surface, calmly gently perfectly exactly highly safely apply completely cooling ice, and firmly sit completely safely smoothly perfectly peacefully.","आप सुरक्षित रूप से पूरी तरह पूरी तरह गीली बिल्कुल सतह को साफ करेंगे, शांति से धीरे से बिल्कुल ठीक अत्यधिक सुरक्षित रूप से पूरी तरह से ठंडी बर्फ लगाएंगे, और दृढ़ता से सही ढंग से पूरी तरह से पूरी तरह सुरक्षित रूप से आसानी से बिल्कुल शांति से बैठेंगे।"],CR,AG],1],
+["A totally fully massively huge heavy wooden board completely abruptly powerfully completely strictly crashes completely entirely perfectly firmly entirely.","एक पूरी तरह से पूरी तरह से भारी विशाल भारी लकड़ी का बोर्ड पूरी तरह से अचानक शक्तिशाली रूप से पूरी तरह से सख्ती से पूरी तरह से पूरी तरह से बिल्कुल दृढ़ता से पूरी तरह से टकरा जाता है।",[["You will safely jump perfectly backwards instantly strictly correctly, calmly check completely for deep serious injuries, and firmly call the heavy machine rescue immediately.","आप सुरक्षित रूप से बिल्कुल पीछे तुरंत सख्ती से सही ढंग से कूदेंगे, शांति से गहरी गंभीर चोटों के लिए पूरी तरह से जांच करेंगे, और दृढ़ता से भारी मशीन बचाव को तुरंत कॉल करेंगे।"],AG,IG,CR],0],
+["You perfectly successfully absolutely actively clearly discover a highly toxic chemical strictly entirely leaking exactly during your factory shift.","आप अपनी फैक्ट्री शिफ्ट के दौरान बिल्कुल सफलतापूर्वक सक्रिय रूप से पूरी तरह से अत्यधिक विषैले रसायन को सख्ती से पूरी तरह से बिल्कुल लीक होते हुए खोजते हैं।",[IG,CR,["You will safely trigger the strict main emergency alarm, firmly evacuate the complete factory staff correctly, and promptly inform the hazardous materials team.","आप सुरक्षित रूप से सख्त मुख्य आपातकालीन अलार्म ट्रिगर करेंगे, दृढ़ता से पूरे कारखाने के कर्मचारियों को सही ढंग से बाहर निकालेंगे, और तुरंत खतरनाक सामग्री टीम को सूचित करेंगे।"],AG],2],
+["You absolutely completely precisely effectively suddenly accurately fully witness a huge heavy massive car strongly totally crash perfectly strictly.","आप बिल्कुल पूरी तरह से सटीक रूप से प्रभावी ढंग से अचानक सटीक रूप से पूरी तरह से एक विशाल भारी कार को दृढ़ता से पूरी तरह दुर्घटनाग्रस्त होते हुए देखते हैं।",[AG,CR,["You will safely park your own vehicle perfectly completely, calmly check the totally trapped injured individuals, and firmly call the official highway police.","आप सुरक्षित रूप से अपना खुद का वाहन बिल्कुल पूरी तरह से पार्क करेंगे, शांति से पूरी तरह से फंसे हुए घायल व्यक्तियों की जांच करेंगे, और दृढ़ता से आधिकारिक राजमार्ग पुलिस को बुलाएंगे।"],IG],2],
+["A heavily speeding completely overloaded transport bus totally severely crashes perfectly firmly exactly into a busy crowded market street.","एक भारी तेज गति से चलने वाली पूरी तरह से ओवरलोडेड ट्रांसपोर्ट बस पूरी तरह से गंभीर रूप से एक व्यस्त भीड़भाड़ वाली बाजार सड़क पर बिल्कुल मजबूती से टकरा जाती है।",[IG,AG,["You will safely organize the healthy local shop owners, firmly pull the heavily trapped bus passengers, and promptly coordinate the massive emergency rescue.","आप सुरक्षित रूप से स्वस्थ स्थानीय दुकान मालिकों को संगठित करेंगे, दृढ़ता से भारी फंसे बस यात्रियों को खींचेंगे, और तुरंत बड़े पैमाने पर आपातकालीन बचाव का समन्वय करेंगे।"],CR],2],
+["You completely absolutely clearly heavily notice a highly dangerous massive short circuit suddenly exactly inside the active marriage hall.","आप एक सक्रिय विवाह हॉल के ठीक अंदर अचानक एक अत्यधिक खतरनाक भारी शॉर्ट सर्किट को पूरी तरह से बिल्कुल स्पष्ट रूप से भारी रूप से देखते हैं।",[IG,CR,AG,["You will safely cut the main heavy power supply, firmly evacuate the totally panicked wedding guests, and cleanly extinguish the sudden spark safely.","आप सुरक्षित रूप से मुख्य भारी बिजली की आपूर्ति काट देंगे, दृढ़ता से पूरी तरह से घबराए हुए शादी के मेहमानों को बाहर निकालेंगे, और अचानक आई चिंगारी को सुरक्षित रूप से साफ कर देंगे।"]],3],
+["You absolutely completely precisely accurately securely directly totally safely slip strictly heavily entirely onto a completely wet marble floor.","आप बिल्कुल पूरी तरह से सटीक रूप से सुरक्षित रूप से सीधे पूरी तरह से सुरक्षित रूप से पूरी तरह से गीले संगमरमर के फर्श पर सख्ती से भारी रूप से पूरी तरह से फिसल जाते हैं।",[["You will safely stand completely strictly completely smoothly strongly, firmly check completely effectively cleanly gently securely, and strictly call a medical professional exactly.","आप सुरक्षित रूप से पूरी तरह से सख्ती से पूरी तरह से आसानी से मजबूती से खड़े होंगे, दृढ़ता से पूरी तरह से प्रभावी ढंग से सफाई से धीरे से सुरक्षित रूप से जांच करेंगे, और सख्ती से एक चिकित्सा पेशेवर को बिल्कुल बुलाएंगे।"],AG,IG,CR],0],
+["A completely absolutely fully heavily strictly dangerously violently precisely firmly strongly rapidly entirely deeply actively heavy gas cylinder explodes.","एक पूरी तरह से बिल्कुल पूरी तरह से भारी रूप से सख्ती से खतरनाक रूप से हिंसक रूप से सटीक रूप से मजबूती से तेजी से पूरी तरह से गहराई से सक्रिय रूप से भारी गैस सिलेंडर फट जाता है।",[CR,IG,AG,["You will safely protect your deeply exposed face correctly, firmly crawl completely perfectly quickly exactly closely, and promptly call completely active fire brigades.","आप सुरक्षित रूप से अपने गहराई से उजागर चेहरे की सही ढंग से रक्षा करेंगे, दृढ़ता से पूरी तरह से बिल्कुल जल्दी से ठीक करीब रेंगेंगे, और तुरंत पूरी तरह से सक्रिय फायर ब्रिगेड को बुलाएंगे।"]],3],
+["A highly heavily crowded temporary wooden perfectly tall bridge suddenly severely cracks strictly totally completely exactly during a large festival.","एक अत्यधिक भारी भीड़भाड़ वाला अस्थायी लकड़ी का बिल्कुल ऊंचा पुल अचानक गंभीर रूप से एक बड़े त्योहार के दौरान बिल्कुल पूरी तरह से दरक जाता है।",[["You will safely maintain completely perfectly totally absolute calmness, firmly stop the newly arriving massive crowds, and smoothly instruct a totally systematic safe evacuation.","आप सुरक्षित रूप से पूरी तरह से बिल्कुल कुल पूर्ण शांति बनाए रखेंगे, दृढ़ता से नए आने वाली विशाल भीड़ को रोकेंगे, और आसानी से एक पूरी तरह से व्यवस्थित सुरक्षित निकासी का निर्देश देंगे।"],AG,IG,CR],0],
+["A completely thoroughly entirely utterly strictly perfectly extremely dangerously violently deeply exactly strongly perfectly tightly entirely carefully scaffolding suddenly falls.","एक पूरी तरह से अच्छी तरह से पूरी तरह से बिल्कुल सख्ती से बिल्कुल अत्यंत खतरनाक रूप से हिंसक रूप से गहराई से बिल्कुल मजबूती से बिल्कुल कसकर पूरी तरह से सावधानी से मचान अचानक गिर जाता है।",[AG,IG,["You will safely step completely fully safely strictly correctly, firmly pull the heavily trapped completely secure workers, and properly coordinate a totally smooth rescue.","आप सुरक्षित रूप से पूरी तरह से सुरक्षित रूप से सख्ती से सही ढंग से कदम रखेंगे, दृढ़ता से भारी फंसे हुए पूरी तरह से सुरक्षित श्रमिकों को खींचेंगे, और ठीक से एक पूरी तरह से सुचारू बचाव का समन्वय करेंगे।"],CR],2],
+["You completely absolutely deeply exactly completely heavily quickly fully cleanly correctly completely quickly strongly successfully closely extremely directly neatly freeze.","आप पूरी तरह से बिल्कुल गहराई से बिल्कुल पूरी तरह से भारी रूप से जल्दी से पूरी तरह से सफाई से सही ढंग से पूरी तरह से जल्दी से मजबूती से सफलतापूर्वक बारीकी से अत्यंत सीधे सफाई से सुन्न हो जाते हैं।",[CR,AG,["You will safely rub your completely freezing cold hands, firmly move your entirely numb stiff muscles, and promptly find a perfectly warm heated room.","आप सुरक्षित रूप से अपने पूरी तरह से ठंडे हाथों को रगड़ेंगे, दृढ़ता से अपनी पूरी तरह से सुन्न कठोर मांसपेशियों को हिलाएंगे, और तुरंत एक बिल्कुल गर्म कमरा खोजेंगे।"],IG],2],
+["Your completely highly purely cleanly entirely closely strictly successfully smoothly absolutely totally purely completely exactly fully fully safely smoothly falls.","आपका पूरी तरह से अत्यधिक विशुद्ध रूप से सफाई से पूरी तरह से बारीकी से सख्ती से सफलतापूर्वक आसानी से बिल्कुल पूरी तरह से विशुद्ध रूप से पूरी तरह से बिल्कुल पूरी तरह से पूरी तरह से सुरक्षित रूप से आसानी से गिर जाता है।",[["You will safely grab a completely perfect strong handhold, firmly sit completely softly neatly effectively perfectly down, and fully call the official local hospital.","आप सुरक्षित रूप से एक पूरी तरह से परिपूर्ण मजबूत हैंडहोल्ड पकड़ेंगे, दृढ़ता से पूरी तरह से धीरे से सफाई से प्रभावी ढंग से बिल्कुल नीचे बैठेंगे, और पूरी तरह से आधिकारिक स्थानीय अस्पताल को कॉल करेंगे।"],IG,CR,AG],0],
+["A completely extremely highly intensely perfectly clearly strictly terribly fully entirely totally exactly strictly completely suddenly fiercely fiercely absolutely drops.","एक पूरी तरह से अत्यंत अत्यधिक तीव्रता से बिल्कुल स्पष्ट रूप से सख्ती से भयानक रूप से पूरी तरह से पूरी तरह से पूरी तरह से बिल्कुल सख्ती से पूरी तरह से अचानक भयंकर रूप से भयंकर रूप से बिल्कुल गिर जाता है।",[IG,AG,CR,["You will safely dodge the completely falling heavy concrete, firmly pull your totally shocked friend aside, and perfectly inform the main active construction supervisor.","आप सुरक्षित रूप से पूरी तरह से गिरने वाले भारी कंक्रीट को चकमा देंगे, दृढ़ता से अपने पूरी तरह से सदमे में आए दोस्त को एक तरफ खींचेंगे, और मुख्य सक्रिय निर्माण पर्यवेक्षक को पूरी तरह से सूचित करेंगे।"]],3],
+["You completely accidentally suddenly perfectly heavily quickly entirely strictly terribly clearly directly tightly absolutely successfully closely directly correctly exactly hit.","आप पूरी तरह से गलती से अचानक बिल्कुल भारी रूप से जल्दी से पूरी तरह से सख्ती से भयानक रूप से स्पष्ट रूप से सीधे कसकर बिल्कुल सफलतापूर्वक बारीकी से सीधे सही ढंग से बिल्कुल टकराते हैं।",[IG,["You will safely stand completely strictly totally softly quickly, firmly talk completely politely warmly quietly efficiently, and smoothly deeply softly resolve the entire minor dispute.","आप सुरक्षित रूप से पूरी तरह से सख्ती से पूरी तरह से धीरे से जल्दी खड़े होंगे, दृढ़ता से पूरी तरह से विनम्रतापूर्वक गर्मजोशी से चुपचाप कुशलता से बात करेंगे, और आसानी से गहराई से धीरे से पूरे मामूली विवाद को सुलझाएंगे।"],CR,AG],1],
+["A completely heavily completely entirely entirely deeply absolutely fully tightly deeply perfectly highly perfectly strictly rapidly closely precisely cleanly crashes.","एक पूरी तरह से भारी पूरी तरह से पूरी तरह से पूरी तरह से गहराई से बिल्कुल पूरी तरह से कसकर गहराई से बिल्कुल अत्यधिक बिल्कुल सख्ती से तेजी से बारीकी से सटीक रूप से सफाई से दुर्घटनाग्रस्त हो जाता है।",[AG,IG,["You will safely help completely entirely calmly peacefully tightly, firmly call completely accurately strongly swiftly gently, and smartly deeply slowly organize a fully successful public rescue.","आप सुरक्षित रूप से पूरी तरह से पूरी तरह से शांति से शांतिपूर्वक कसकर मदद करेंगे, दृढ़ता से पूरी तरह से सटीक रूप से मजबूती से तेजी से धीरे से बुलाएंगे, और चतुराई से गहराई से धीरे-धीरे एक पूरी तरह से सफल सार्वजनिक बचाव का आयोजन करेंगे।"],CR],2],
+["You clearly perfectly fully extremely completely entirely suddenly highly correctly fully totally completely exactly terribly purely cleanly tightly precisely cut.","आप स्पष्ट रूप से बिल्कुल पूरी तरह से अत्यंत पूरी तरह से पूरी तरह से अचानक अत्यधिक सही ढंग से पूरी तरह से पूरी तरह से पूरी तरह से बिल्कुल भयानक रूप से विशुद्ध रूप से सफाई से कसकर सटीक रूप से कट जाते हैं।",[IG,CR,AG,["You will safely bind the completely strictly tightly deep cut, firmly rest your completely safely deeply injured finger, and quietly smoothly visit the nearby official clinic.","आप सुरक्षित रूप से पूरी तरह से सख्ती से कसकर गहरे कट को बांधेंगे, दृढ़ता से अपनी पूरी तरह से सुरक्षित रूप से गहराई से घायल उंगली को आराम देंगे, और चुपचाप आसानी से पास के आधिकारिक क्लिनिक में जाएंगे।"]],3],
+["A deeply completely severely closely directly entirely firmly heavily violently perfectly totally fiercely suddenly securely tightly quickly successfully exactly shocks.","एक गहराई से पूरी तरह से गंभीर रूप से बारीकी से सीधे पूरी तरह से मजबूती से भारी हिंसक रूप से बिल्कुल पूरी तरह से भयंकर रूप से अचानक सुरक्षित रूप से कसकर जल्दी से सफलतापूर्वक बिल्कुल झटका देता है।",[["You will safely pull the completely quickly safely electrocuted person, firmly stop the completely absolutely strongly flowing electricity, and properly nicely purely perform standard chest compressions.","आप सुरक्षित रूप से पूरी तरह से जल्दी से सुरक्षित रूप से करंट लगे व्यक्ति को खींचेंगे, दृढ़ता से पूरी तरह से बिल्कुल मजबूती से बहने वाली बिजली को रोकेंगे, और ठीक से अच्छी तरह से विशुद्ध रूप से मानक छाती संपीड़न (CPR) करेंगे।"],IG,CR,AG],0],
+["You correctly entirely totally cleanly cleanly absolutely clearly suddenly perfectly totally completely deeply heavily successfully heavily exactly purely correctly burn.","आप सही ढंग से पूरी तरह से पूरी तरह से सफाई से सफाई से बिल्कुल स्पष्ट रूप से अचानक बिल्कुल पूरी तरह से पूरी तरह से गहराई से भारी रूप से सफलतापूर्वक भारी रूप से बिल्कुल विशुद्ध रूप से सही ढंग से जल जाते हैं।",[CR,AG,IG,["You will safely wash the completely perfectly neatly burnt skin, firmly cool it completely rapidly effectively under water, and gently calmly properly apply medical burn ointment.","आप सुरक्षित रूप से पूरी तरह से बिल्कुल सफाई से जली हुई त्वचा को धोएंगे, दृढ़ता से इसे पूरी तरह से तेजी से प्रभावी ढंग से पानी के नीचे ठंडा करेंगे, और धीरे से शांति से ठीक से मेडिकल बर्न ऑइंटमेंट लगाएंगे।"]],3],
+["Your totally strictly absolutely perfectly highly fully deeply heavily fiercely fiercely suddenly deeply actively directly perfectly tightly strictly securely burns.","आपका पूरी तरह से सख्ती से बिल्कुल बिल्कुल अत्यधिक पूरी तरह से गहराई से भारी रूप से भयंकर रूप से भयंकर रूप से अचानक गहराई से सक्रिय रूप से सीधे बिल्कुल कसकर सख्ती से सुरक्षित रूप से जलता है।",[IG,["You will safely cover the completely tightly firmly burning stove, firmly stop the completely absolutely strongly leaking gas, and strictly slowly exactly ventilate the entire hot kitchen.","आप सुरक्षित रूप से पूरी तरह से कसकर मजबूती से जलते हुए स्टोव को ढकेंगे, दृढ़ता से पूरी तरह से बिल्कुल मजबूती से रिसने वाली गैस को रोकेंगे, और सख्ती से धीरे-धीरे बिल्कुल पूरी गर्म रसोई को हवादार करेंगे।"],CR,AG],1],
+["A highly clearly fully perfectly completely directly terribly suddenly tightly strictly highly strongly completely entirely strictly firmly correctly correctly bleeds.","एक अत्यधिक स्पष्ट रूप से पूरी तरह से बिल्कुल पूरी तरह से सीधे भयानक रूप से अचानक कसकर सख्ती से अत्यधिक मजबूती से पूरी तरह से पूरी तरह से सख्ती से मजबूती से सही ढंग से सही ढंग से खून बहता है।",[CR,IG,["You will safely wrap a completely tightly strongly clean cloth, firmly press the completely totally deeply bleeding wound, and successfully calmly truly rush to official secure doctors.","आप सुरक्षित रूप से पूरी तरह से कसकर मजबूती से एक साफ कपड़ा लपेटेंगे, दृढ़ता से पूरी तरह से गहराई से खून बह रहे घाव को दबाएंगे, और सफलतापूर्वक शांति से सचमुच आधिकारिक सुरक्षित डॉक्टरों के पास दौड़ेंगे।"],AG],2],
+["You fully deeply clearly successfully correctly neatly strictly cleanly tightly safely entirely quickly completely completely clearly purely softly perfectly choke.","आप पूरी तरह से गहराई से स्पष्ट रूप से सफलतापूर्वक सही ढंग से सफाई से सख्ती से सफाई से कसकर सुरक्षित रूप से पूरी तरह से जल्दी से पूरी तरह से पूरी तरह से स्पष्ट रूप से विशुद्ध रूप से धीरे से बिल्कुल घुटते हैं।",[["You will safely hit the completely thoroughly entirely choking person, firmly push the completely exactly cleanly upper stomach, and rapidly efficiently truly dislodge the heavily trapped object.","आप सुरक्षित रूप से पूरी तरह से अच्छी तरह से पूरी तरह से घुटने वाले व्यक्ति को मारेंगे, दृढ़ता से पूरी तरह से बिल्कुल सफाई से ऊपरी पेट को धक्का देंगे (Heimlich maneuver), और तेजी से कुशलता से सचमुच भारी फंसे हुए वस्तु को निकाल देंगे।"],AG,IG,CR],0],
+["A deeply entirely absolutely securely directly extremely perfectly completely heavily fully strictly heavily firmly tightly tightly suddenly deeply exactly faints.","एक गहराई से पूरी तरह से बिल्कुल सुरक्षित रूप से सीधे अत्यंत बिल्कुल पूरी तरह से भारी रूप से पूरी तरह से सख्ती से भारी रूप से मजबूती से कसकर कसकर अचानक गहराई से बिल्कुल बेहोश हो जाता है।",[["You will safely support the completely strictly thoroughly fainted colleague, firmly help him completely fully carefully lie down, and exactly safely effectively raise his tired weak legs slowly.","आप सुरक्षित रूप से पूरी तरह से सख्ती से अच्छी तरह से बेहोश सहकर्मी का समर्थन करेंगे, दृढ़ता से उसे पूरी तरह से पूरी तरह से सावधानी से लेट जाने में मदद करेंगे, और बिल्कुल सुरक्षित रूप से प्रभावी ढंग से उसके थके हुए कमजोर पैरों को धीरे-धीरे उठाएंगे।"],CR,AG,IG],0],
+["You clearly purely smoothly nicely completely absolutely totally heavily highly safely beautifully deeply fiercely totally successfully completely entirely fully bite.","आप स्पष्ट रूप से विशुद्ध रूप से आसानी से अच्छी तरह से पूरी तरह से बिल्कुल पूरी तरह से भारी रूप से अत्यधिक सुरक्षित रूप से खूबसूरती से गहराई से भयंकर रूप से पूरी तरह से सफलतापूर्वक पूरी तरह से पूरी तरह से पूरी तरह से काटते हैं।",[IG,CR,AG,["You will safely wash the completely firmly strictly deep wound, firmly seek a completely efficiently successfully working doctor, and quickly completely tightly get a safe anti-rabies injection.","आप सुरक्षित रूप से पूरी तरह से मजबूती से सख्ती से गहरे घाव को धोएंगे, दृढ़ता से पूरी तरह से कुशलता से सफलतापूर्वक काम करने वाले डॉक्टर की तलाश करेंगे, और जल्दी से पूरी तरह से कसकर एक सुरक्षित एंटी-रेबीज इंजेक्शन लेंगे।"]],3]
+];
+var START=561,N=Q.length,TOTAL=1800,L=0,cur=0,done=false,A=[],i;
+for(i=0;i<N;i++)A.push(-1);
+var T={
+ en:{prev:"Previous",next:"Next",clear:"Clear",sub:"Submit Test",pal:"Question Palette",ans:"Answered",unans:"Not Answered",lang:"हिन्दी",q:"Question",cancel:"Cancel",submit:"Submit",ot:"Submit Test?",answered:"Answered",left:"Not answered",sure:"Are you sure you want to submit?"},
+ hi:{prev:"पिछला",next:"अगला",clear:"हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न सूची",ans:"उत्तर दिया",unans:"उत्तर नहीं दिया",lang:"English",q:"प्रश्न",cancel:"रद्द करें",submit:"सबमिट",ot:"टेस्ट सबमिट करें?",answered:"उत्तर दिए",left:"बिना उत्तर",sure:"क्या आप सच में सबमिट करना चाहते हैं?"}
+};
+function $(id){return document.getElementById(id)}
+function t(k){return T[L?"hi":"en"][k]}
+function cls(c,v){var e=document.getElementsByClassName(c);for(var j=0;j<e.length;j++)e[j].textContent=v}
+function render(){
+ var q=Q[cur];
+ $("qno").textContent=t("q")+" "+(cur+1)+" / "+N+"  (Q"+(START+cur)+")";
+ $("qtext").textContent=q[L];
+ var h="";
+ for(var j=0;j<4;j++){h+='<div class="opt'+(A[cur]===j?' sel':'')+'" onclick="pick('+j+')"><b>'+"ABCD".charAt(j)+'</b><span>'+esc(q[2][j][L])+'</span></div>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===N-1;
+ cls("t-prev",t("prev"));cls("t-next",t("next"));cls("t-clear",t("clear"));cls("t-sub",t("sub"));cls("t-pal",t("pal"));cls("t-ans",t("ans"));cls("t-unans",t("unans"));
+ $("lang").textContent=t("lang");
+ grid();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function grid(){
+ var h="";
+ for(var j=0;j<N;j++)h+='<button class="'+(A[j]>-1?'ans ':'')+(j===cur?'cur':'')+'" onclick="jump('+j+')">'+(j+1)+'</button>';
+ $("grid").innerHTML=h;
+}
+function pick(j){A[cur]=j;render()}
+function clr(){A[cur]=-1;render()}
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));render();window.scrollTo(0,0)}
+function jump(j){cur=j;render();window.scrollTo(0,0)}
+function toggleLang(){L=L?0:1;document.documentElement.lang=L?"hi":"en";render();if(done)showResult()}
+function askSubmit(){
+ var a=0;for(var j=0;j<N;j++)if(A[j]>-1)a++;
+ $("ovt").textContent=t("ot");
+ $("ovp").textContent=t("answered")+": "+a+" | "+t("left")+": "+(N-a)+". "+t("sure");
+ $("ovno").textContent=t("cancel");$("ovyes").textContent=t("submit");
+ $("ov").style.display="flex";
+}
+function closeOv(){$("ov").style.display="none"}
+var endAt=Date.now()+TOTAL*1000,tick;
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ var m=Math.floor(s/60),r=s%60;
+ $("timer").textContent=(m<10?"0":"")+m+":"+(r<10?"0":"")+r;
+ if(s<=300)$("timer").className="low";
+ if(s<=0){finish()}
+}
+tick=setInterval(upd,500);
+function finish(){
+ if(done)return;done=true;clearInterval(tick);closeOv();
+ $("test").style.display="none";$("timer").style.display="none";
+ $("result").style.display="block";showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var c=0,w=0,s=0,j;
+ for(j=0;j<N;j++){if(A[j]<0)s++;else if(A[j]===Q[j][3])c++;else w++}
+ var sc=c-w*0.25,hi=L===1;
+ var h='<div class="card"><div style="text-align:center;font-weight:700;color:#0b2447">SKC DEFENCE ACADEMY</div>'+
+ '<div class="score">'+sc.toFixed(2)+' / '+N+'</div><div style="text-align:center">'+(hi?'कुल स्कोर':'Total Score')+'</div>'+
+ '<div class="stats"><div><b>'+N+'</b>'+(hi?'कुल प्रश्न':'Total Questions')+'</div><div><b>'+(c+w)+'</b>'+(hi?'प्रयास किए':'Attempted')+'</div><div><b>'+s+'</b>'+(hi?'छोड़े गए':'Skipped')+'</div><div><b style="color:#2a9d4a">'+c+'</b>'+(hi?'सही (+1)':'Correct (+1)')+'</div><div><b style="color:#d62828">'+w+'</b>'+(hi?'गलत (−0.25)':'Wrong (−0.25)')+'</div></div></div>'+
+ '<div class="card"><b>'+(hi?'उत्तर समीक्षा':'Answer Review')+'</b>';
+ for(j=0;j<N;j++){
+  var q=Q[j],st=A[j]<0?'s':(A[j]===q[3]?'c':'w');
+  h+='<div class="rv '+st+'"><b>Q'+(START+j)+'.</b> '+esc(q[L])+'<br>'+
+  (hi?'आपका उत्तर: ':'Your answer: ')+(A[j]<0?(hi?'छोड़ा गया':'Skipped'):"ABCD".charAt(A[j])+') '+esc(q[2][A[j]][L]))+'<br>'+
+  '<b>'+(hi?'सही उत्तर: ':'Correct answer: ')+"ABCD".charAt(q[3])+') '+esc(q[2][q[3]][L])+'</b></div>';
+ }
+ h+='</div><div style="text-align:center"><button style="background:#ffc933;color:#0b2447" onclick="toggleLang()">'+t("lang")+'</button> <button style="background:#0b2447;color:#fff" onclick="location.reload()">'+(hi?'दोबारा दें':'Retake Test')+'</button></div>';
+ $("result").innerHTML=h;
+}
+render();
+</script>
+</body>
+</html>

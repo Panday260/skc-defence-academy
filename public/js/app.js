@@ -1496,21 +1496,21 @@ ${eb.previewText || 'Sample preview chapter...'}
         <div class="batch-box highlight" style="border: 2px solid #0284c7; background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
             <span class="batch-badge" style="background:#0284c7; color:#fff; font-weight:800;">
-              ⭐ Flagship Program • Dual Folders
+              ⭐ Flagship Program • Dual Mastery
             </span>
             <span style="font-size:0.75rem; background:#e0f2fe; color:#0369a1; font-weight:700; padding:0.15rem 0.5rem; border-radius:12px;">
-              📁 ${(b1 && b1.youtubeVideos ? b1.youtubeVideos.length : 3)} Videos • ${(b1 && b1.classPdfs ? b1.classPdfs.length : 2)} PDFs
+              📁 17 CBT Mocks • 27 Lecture PDFs
             </span>
           </div>
           <h3 style="font-size:1.3rem; color:#0a192f; margin:0.35rem 0;">Airforce GD + SRT Special Batch</h3>
           <p style="color:#475569; font-size:0.88rem; margin-bottom:1rem;">
-            Comprehensive Phase-II master program organized into dedicated folders: daily YouTube video classes, lecture PDF notes, top GD scripts, and interactive SRT simulator.
+            Comprehensive Phase-II master program organized into PW-style dedicated sections: 17 full-length CBT HTML mock tests, 27 official lecture notes PDFs, YouTube classes, and top GD speaking scripts.
           </p>
           <ul class="card-meta-list" style="margin-bottom:1.5rem;">
-            <li><span>✓</span> 📁 Separate Folder: Daily YouTube Video Classes & Strategy</li>
-            <li><span>✓</span> 📁 Separate Folder: Downloadable Class Notes & Speaking PDFs</li>
-            <li><span>✓</span> 🎯 Interactive HTML SRT Simulator (45 Situations in 30 Mins)</li>
+            <li><span>✓</span> 🖥️ 17 Full-Length CBT SRT Mock Tests (45 Qs / 30 Mins Bilingual)</li>
+            <li><span>✓</span> 📑 27 Official SRT Class PDFs (Classes 01 to 27 with Solved Examples)</li>
             <li><span>✓</span> 🗣️ Top 30+ Trending Defence GD Topics with English Scripts</li>
+            <li><span>✓</span> 📹 Video Classes & Officer-Like-Qualities (OLQ) Evaluation</li>
           </ul>
           <div class="card-pricing-row">
             <div class="price-box">
@@ -1518,11 +1518,11 @@ ${eb.previewText || 'Sample preview chapter...'}
               <span class="original-price">₹${b1 ? b1.originalPrice : 499}</span>
             </div>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <button class="btn btn-primary" style="background:#0284c7; border:none; font-weight:800;" onclick="App.openPhase2Viewer('phase2_1')">
-                📁 Open GD + SRT Folders
+              <button class="btn btn-primary" style="background:#0284c7; border:none; font-weight:800;" onclick="App.openPhase2Viewer('phase2_1', 'srt-mocks')">
+                📁 Open GD + SRT Classroom
               </button>
               ${isB1Purchased ? `
-                <button class="btn btn-defence" onclick="App.openPhase2Viewer('phase2_1')">
+                <button class="btn btn-defence" onclick="App.openPhase2Viewer('phase2_1', 'srt-mocks')">
                   ▶ Enrolled
                 </button>
               ` : `
@@ -1535,28 +1535,39 @@ ${eb.previewText || 'Sample preview chapter...'}
         </div>
 
         <!-- Batch 2: AIRFORCE SRT Batch -->
-        <div class="batch-box">
-          <span class="batch-badge" style="background:#e0f2fe; color:#0369a1;">Batch 02 • HTML Enabled</span>
-          <h3 style="font-size:1.3rem; color:#0a192f; margin:0.35rem 0;">AIRFORCE SRT Batch (Situation Reaction Test)</h3>
-          <p style="color:#64748b; font-size:0.88rem; margin-bottom:1rem;">
-            Dedicated interactive HTML SRT simulator. Complete 45 Situations in 30 minutes with instant psychological score and OLQ rating.
+        <div class="batch-box highlight" style="border: 2px solid #10b981; background: linear-gradient(180deg, #f0fdf4 0%, #ffffff 100%);">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+            <span class="batch-badge" style="background:#10b981; color:#fff; font-weight:800;">
+              ⭐ SRT Special • 17 CBTs + 27 PDFs
+            </span>
+            <span style="font-size:0.75rem; background:#dcfce7; color:#15803d; font-weight:700; padding:0.15rem 0.5rem; border-radius:12px;">
+              📁 17 CBT Mocks • 27 PDFs
+            </span>
+          </div>
+          <h3 style="font-size:1.3rem; color:#0a192f; margin:0.35rem 0;">AIRFORCE SRT Special Batch</h3>
+          <p style="color:#475569; font-size:0.88rem; margin-bottom:1rem;">
+            Dedicated Situation Reaction Test (SRT) specialization batch. Features 17 full-length CBT simulation tests, 27 official lecture notes PDFs, and psychological score assessment under 30-min time limits.
           </p>
           <ul class="card-meta-list" style="margin-bottom:1.5rem;">
-            <li><span>✓</span> Interactive HTML SRT Simulator (Time-Pressure Mode)</li>
-            <li><span>✓</span> Psychological Scoring & Officer-Like-Qualities Analysis</li>
-            <li><span>✓</span> Class PDFs: SRT 100 Solved Situations & Golden Rules</li>
-            <li><span>✓</span> YouTube Strategy Videos for Fast Response Formulation</li>
+            <li><span>✓</span> 🖥️ 17 Full-Length CBT SRT Mock Tests with Bilingual Engine</li>
+            <li><span>✓</span> 📑 27 Official SRT Class PDFs (Classes 01 to 27 Solved Scenarios)</li>
+            <li><span>✓</span> ⏱️ Strict 30-Minute Real Exam Environment & Instant Result</li>
+            <li><span>✓</span> 🧠 Psychological Recommendation & 15 OLQ Assessment</li>
           </ul>
           <div class="card-pricing-row">
             <div class="price-box">
               <span class="current-price">₹${b2 ? b2.price : 49}</span>
               <span class="original-price">₹${b2 ? b2.originalPrice : 199}</span>
             </div>
-            <div style="display:flex; gap:0.5rem;">
-              <button class="btn btn-primary" onclick="App.launchSrtSimulator()">
-                🚀 Launch SRT
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <button class="btn btn-primary" style="background:#10b981; border:none; font-weight:800;" onclick="App.openPhase2Viewer('phase2_2', 'srt-mocks')">
+                📁 Open SRT Classroom
               </button>
-              ${isB2Purchased || isB1Purchased ? '' : `
+              ${isB2Purchased || isB1Purchased ? `
+                <button class="btn btn-defence" onclick="App.openPhase2Viewer('phase2_2', 'srt-mocks')">
+                  ▶ Enrolled
+                </button>
+              ` : `
                 <button class="btn btn-outline" onclick="App.openCheckoutModal('course', 'phase2_2', 'AIRFORCE SRT Batch', ${b2 ? b2.price : 49})">
                   Enroll
                 </button>
@@ -1679,45 +1690,76 @@ ${eb.previewText || 'Sample preview chapter...'}
     this.openModal('generic-modal');
   },
 
-  openPhase2Viewer(batchId = 'phase2_1', activeFolder = 'youtube') {
+  openPhase2Viewer(batchId = 'phase2_1', activeFolder = 'srt-mocks') {
     const batch = (this.state.phase2Batches || []).find(b => b.id === batchId) || (this.state.phase2Batches || [])[0];
     if (!batch) return;
     const modalBody = document.getElementById('generic-modal-body');
     const isAdmin = this.state.user && this.state.user.role === 'admin';
-    document.getElementById('generic-modal-title').innerText = `${batch.title} • Batch Folders`;
+    document.getElementById('generic-modal-title').innerText = `${batch.title} • Classroom`;
 
     const videos = batch.youtubeVideos || [];
     const pdfs = batch.classPdfs || [];
     const topics = batch.gdTopics || [];
+    const srtPdfs = batch.srtClassPdfs || [];
+    const srtMocks = batch.srtMockTests || [];
+
+    if (!activeFolder) activeFolder = 'srt-mocks';
+
+    const isPhase2_1 = batch.id === 'phase2_1';
+    const isPhase2_2 = batch.id === 'phase2_2';
 
     modalBody.innerHTML = `
       <div class="phase2-folder-viewer">
-        <!-- Banner Header -->
-        <div style="background:linear-gradient(135deg, #0a192f 0%, #1e3a8a 100%); color:#fff; padding:1.25rem; border-radius:12px; margin-bottom:1.25rem; border:1.5px solid #38bdf8;">
+        <!-- Banner Header (PhysicsWallah Batch Classroom Style) -->
+        <div style="background:linear-gradient(135deg, #0a192f 0%, #1e3a8a 100%); color:#fff; padding:1.25rem 1.4rem; border-radius:12px; margin-bottom:1.25rem; border:1.5px solid ${isPhase2_2 ? '#10b981' : '#38bdf8'};">
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
             <div>
-              <span style="background:#38bdf8; color:#0a192f; font-weight:800; font-size:0.72rem; padding:0.2rem 0.55rem; border-radius:4px; text-transform:uppercase;">
-                OFFICIAL GD + SRT SPECIAL BATCH
-              </span>
-              <h3 style="font-size:1.25rem; margin:0.35rem 0 0.2rem; color:#fff;">${batch.title}</h3>
-              <p style="font-size:0.85rem; color:#cbd5e1; margin:0;">
-                Organized separate folders for YouTube video classes, lecture PDF notes, SRT simulator, and GD speaking scripts.
+              <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.35rem; flex-wrap:wrap;">
+                <span style="background:${isPhase2_2 ? '#10b981' : '#38bdf8'}; color:#0a192f; font-weight:800; font-size:0.72rem; padding:0.2rem 0.55rem; border-radius:4px; text-transform:uppercase;">
+                  ${isPhase2_2 ? '🎯 AIRFORCE SRT SPECIAL BATCH' : '⭐ AIRFORCE GD + SRT MASTER BATCH'}
+                </span>
+                <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.72rem; font-weight:700; padding:0.2rem 0.5rem; border-radius:4px;">
+                  PW-Style Smart Classroom
+                </span>
+              </div>
+              <h3 style="font-size:1.3rem; margin:0 0 0.35rem; color:#fff; font-weight:800;">${batch.title}</h3>
+              <p style="font-size:0.85rem; color:#cbd5e1; margin:0 0 0.6rem; max-width:650px;">
+                ${batch.description || 'Complete Phase-II preparation with 17 CBT simulation tests, 27 lecture notes PDFs, and structured discussion frameworks.'}
               </p>
+              <div style="display:flex; gap:0.5rem; flex-wrap:wrap; font-size:0.78rem;">
+                <span style="background:rgba(56,189,248,0.2); color:#7dd3fc; padding:0.2rem 0.55rem; border-radius:6px; font-weight:700;">
+                  🖥️ ${srtMocks.length} CBT Mocks
+                </span>
+                <span style="background:rgba(245,158,11,0.2); color:#fcd34d; padding:0.2rem 0.55rem; border-radius:6px; font-weight:700;">
+                  📑 ${srtPdfs.length} Lecture PDFs
+                </span>
+                ${videos.length > 0 ? `
+                  <span style="background:rgba(239,68,68,0.2); color:#fca5a5; padding:0.2rem 0.55rem; border-radius:6px; font-weight:700;">
+                    📹 ${videos.length} Video Classes
+                  </span>
+                ` : ''}
+                ${topics.length > 0 ? `
+                  <span style="background:rgba(16,185,129,0.2); color:#6ee7b7; padding:0.2rem 0.55rem; border-radius:6px; font-weight:700;">
+                    🗣️ ${topics.length} GD Scripts
+                  </span>
+                ` : ''}
+              </div>
             </div>
+
             ${isAdmin ? `
               <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
                 <button class="btn btn-primary" style="font-size:0.8rem; background:#38bdf8; color:#0a192f; font-weight:800;" onclick="App.toggleBatchUpload('video')">
-                  + 📹 Add Video to YouTube Folder
+                  + 📹 Add Video
                 </button>
                 <button class="btn btn-primary" style="font-size:0.8rem; background:#f59e0b; color:#0a192f; font-weight:800;" onclick="App.toggleBatchUpload('pdf')">
-                  + 📑 Upload to PDF Folder
+                  + 📑 Upload PDF
                 </button>
               </div>
             ` : ''}
           </div>
         </div>
 
-        <!-- Admin Inline Upload Container for Video (Only rendered for Admin) -->
+        <!-- Admin Inline Upload Container for Video -->
         ${isAdmin ? `
           <div id="batch-yt-upload-panel" style="display:none; background:#ffffff; border:1.5px solid #38bdf8; border-radius:10px; padding:1.25rem; margin-bottom:1.25rem; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
@@ -1748,8 +1790,10 @@ ${eb.previewText || 'Sample preview chapter...'}
               </button>
             </form>
           </div>
+        ` : ''}
 
-          <!-- Admin Inline Upload Container for PDF (Only rendered for Admin) -->
+        <!-- Admin Inline Upload Container for PDF -->
+        ${isAdmin ? `
           <div id="batch-pdf-upload-panel" style="display:none; background:#ffffff; border:1.5px solid #f59e0b; border-radius:10px; padding:1.25rem; margin-bottom:1.25rem; box-shadow:0 4px 12px rgba(0,0,0,0.08);">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
               <h4 style="color:#0a192f; margin:0; font-size:1.05rem;">📑 Upload New Notes PDF to Study Materials Folder</h4>
@@ -1778,44 +1822,153 @@ ${eb.previewText || 'Sample preview chapter...'}
           </div>
         ` : ''}
 
-        <!-- Folder Navigation Tabs -->
+        <!-- PW-Style Classroom Navigation Tabs -->
         <div class="folder-nav-tabs">
+          <button class="folder-tab-btn ${activeFolder === 'srt-mocks' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'srt-mocks')">
+            🖥️ SRT CBT Mock Tests <span class="folder-tab-badge">${srtMocks.length}</span>
+          </button>
+          <button class="folder-tab-btn ${activeFolder === 'srt-pdfs' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'srt-pdfs')">
+            📑 SRT Class PDFs (01-27) <span class="folder-tab-badge">${srtPdfs.length}</span>
+          </button>
           <button class="folder-tab-btn ${activeFolder === 'youtube' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'youtube')">
-            📹 YouTube Video Classes Folder <span class="folder-tab-badge">${videos.length}</span>
+            📹 Video Lectures <span class="folder-tab-badge">${videos.length}</span>
           </button>
-          <button class="folder-tab-btn ${activeFolder === 'pdf' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'pdf')">
-            📑 Class PDFs & Notes Folder <span class="folder-tab-badge">${pdfs.length}</span>
-          </button>
-          <button class="folder-tab-btn ${activeFolder === 'srt' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'srt')">
-            🎯 Interactive HTML SRT Simulator
-          </button>
-          <button class="folder-tab-btn ${activeFolder === 'topics' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'topics')">
-            🗣️ GD Topics & Scripts Folder <span class="folder-tab-badge">${topics.length}</span>
+          ${topics.length > 0 ? `
+            <button class="folder-tab-btn ${activeFolder === 'topics' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'topics')">
+              🗣️ GD Master Scripts <span class="folder-tab-badge">${topics.length}</span>
+            </button>
+          ` : ''}
+          <button class="folder-tab-btn ${activeFolder === 'srt-engine' ? 'active' : ''}" onclick="App.openPhase2Viewer('${batch.id}', 'srt-engine')">
+            🎯 Quick SRT Simulator
           </button>
         </div>
 
-        <!-- FOLDER CONTENT: YOUTUBE VIDEO CLASSES -->
+        <!-- 1. TAB: SRT CBT MOCK TESTS (PW TEST SERIES FORMAT) -->
+        ${activeFolder === 'srt-mocks' ? `
+          <div class="folder-view-pane">
+            <div class="folder-breadcrumb">
+              <span>📁 Classroom_Vault</span>
+              <span>›</span>
+              <span>${batch.title.replace(/\s+/g, '_')}</span>
+              <span>›</span>
+              <span style="color:#0284c7; font-weight:700;">🖥️ SRT_CBT_Mock_Tests/</span>
+              <span class="crumb-count">${srtMocks.length} Online Tests Available</span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="pw-search-box">
+              <span>🔍</span>
+              <input type="text" placeholder="Search SRT Mock Tests by number or keyword (e.g. Mock 01, Mock 10)..." oninput="App.filterCards(this.value, 'srt-mocks-grid')">
+            </div>
+
+            <div id="srt-mocks-grid" style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.15rem;">
+              ${srtMocks.map(m => `
+                <div class="pw-test-card" data-title="${m.title.toLowerCase()} mock ${m.testNo} cbt">
+                  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.4rem;">
+                    <span class="test-num-badge">
+                      🎯 MOCK TEST ${String(m.testNo).padStart(2, '0')}
+                    </span>
+                    <span class="pw-meta-pill pw-pill-green">🟢 Live CBT</span>
+                  </div>
+
+                  <h4 style="font-size:1.08rem; color:#0f172a; margin:0.15rem 0; font-weight:800; line-height:1.35;">
+                    ${m.title}
+                  </h4>
+
+                  <div style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-bottom:0.25rem;">
+                    <span class="pw-meta-pill pw-pill-blue">⏱️ ${m.duration} Mins</span>
+                    <span class="pw-meta-pill pw-pill-purple">❓ ${m.questions} Scenarios</span>
+                    <span class="pw-meta-pill pw-pill-amber">🎯 Marking: ${m.marking}</span>
+                    <span class="pw-meta-pill pw-pill-rose">🌐 Bilingual (Hindi/Eng)</span>
+                  </div>
+
+                  <div style="display:flex; gap:0.5rem; flex-wrap:wrap; margin-top:auto; padding-top:0.65rem; border-top:1px solid #f1f5f9;">
+                    <button class="btn btn-primary" style="flex:1; min-width:140px; font-size:0.85rem; font-weight:800; background:#0284c7; border:none; padding:0.55rem 0.9rem;" onclick="App.launchCbtMockTest('${m.url}', '${m.title.replace(/'/g, "\\'")}')">
+                      🚀 Start CBT Simulation
+                    </button>
+                    <a href="${m.url}" target="_blank" class="btn btn-secondary" style="font-size:0.82rem; padding:0.55rem 0.85rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.25rem;" title="Open in Dedicated Tab">
+                      ⛶ Fullscreen
+                    </a>
+                    <a href="${m.url}" download="${m.title.replace(/\s+/g, '_')}.html" class="btn btn-outline" style="font-size:0.82rem; padding:0.55rem 0.75rem; text-decoration:none;" title="Download HTML for offline use">
+                      📥 Save
+                    </a>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- 2. TAB: SRT CLASS LECTURE PDFS (PW NOTES REPOSITORY FORMAT) -->
+        ${activeFolder === 'srt-pdfs' ? `
+          <div class="folder-view-pane">
+            <div class="folder-breadcrumb">
+              <span>📁 Classroom_Vault</span>
+              <span>›</span>
+              <span>${batch.title.replace(/\s+/g, '_')}</span>
+              <span>›</span>
+              <span style="color:#f59e0b; font-weight:700;">📑 SRT_Class_Lecture_PDFs/</span>
+              <span class="crumb-count">${srtPdfs.length} Official PDF Notes</span>
+            </div>
+
+            <!-- Search Bar -->
+            <div class="pw-search-box">
+              <span>🔍</span>
+              <input type="text" placeholder="Search 27 SRT Classes (e.g. Class 05, Fire, Disaster, Weapon, Leadership)..." oninput="App.filterCards(this.value, 'srt-pdfs-list')">
+            </div>
+
+            <div id="srt-pdfs-list" style="display:flex; flex-direction:column; gap:0.85rem;">
+              ${srtPdfs.map(p => `
+                <div class="pw-lecture-card" data-title="${p.title.toLowerCase()} class ${p.classNo}">
+                  <div style="display:flex; align-items:center; gap:0.85rem; flex:1; min-width:240px;">
+                    <span class="pw-class-index-tag">CLASS ${String(p.classNo).padStart(2, '0')}</span>
+                    <div style="overflow:hidden;">
+                      <strong style="color:#0f172a; font-size:0.95rem; display:block; line-height:1.4;">${p.title}</strong>
+                      <div style="display:flex; gap:0.4rem; font-size:0.75rem; color:#64748b; margin-top:0.25rem; flex-wrap:wrap;">
+                        <span class="pw-meta-pill pw-pill-rose">📄 Class Note</span>
+                        <span class="pw-meta-pill pw-pill-blue">📊 ${p.size}</span>
+                        <span class="pw-meta-pill pw-pill-amber">📑 ${p.pages} Pages</span>
+                        <span class="pw-meta-pill pw-pill-green">🛡️ Anti-Piracy Watermark</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div style="display:flex; gap:0.5rem; flex-wrap:wrap; align-items:center;">
+                    <button class="btn btn-outline" style="padding:0.45rem 0.85rem; font-size:0.82rem;" onclick="App.previewPdf('${p.url}')">
+                      👁️ Preview
+                    </button>
+                    <button class="btn btn-defence" style="padding:0.45rem 0.95rem; font-size:0.82rem; font-weight:700;" onclick="App.downloadWatermarkedPdf('${p.url}')">
+                      📥 Download PDF
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        ` : ''}
+
+        <!-- 3. TAB: YOUTUBE VIDEO CLASSES -->
         ${activeFolder === 'youtube' ? `
           <div class="folder-view-pane">
             <div class="folder-breadcrumb">
-              <span>📁 Batch_Root</span>
+              <span>📁 Classroom_Vault</span>
               <span>›</span>
-              <span>Airforce_GD_SRT_Batch</span>
+              <span>${batch.title.replace(/\s+/g, '_')}</span>
               <span>›</span>
-              <span style="color:#0284c7; font-weight:700;">📹 YouTube_Video_Classes/</span>
-              <span style="margin-left:auto; font-size:0.75rem; color:#64748b;">${videos.length} videos stored</span>
+              <span style="color:#ef4444; font-weight:700;">📹 Video_Lectures/</span>
+              <span class="crumb-count">${videos.length} Lectures</span>
             </div>
 
             ${videos.length === 0 ? `
               <div class="empty-folder-box">
                 <div style="font-size:2.5rem; margin-bottom:0.5rem;">📹</div>
-                <h4 style="font-size:1.15rem; color:#0a192f; margin-bottom:0.35rem;">YouTube Video Classes Folder is Empty</h4>
+                <h4 style="font-size:1.15rem; color:#0a192f; margin-bottom:0.35rem;">No Video Lectures Uploaded Yet</h4>
                 <p style="color:#64748b; font-size:0.88rem; max-width:440px; margin:0 auto 1.25rem;">
-                  No video classes added yet. Coaching Admin can click "+ Add Video to YouTube Folder" above to add official class links.
+                  Daily YouTube video classes by SKC Defence Academy instructors will appear here.
                 </p>
                 ${isAdmin ? `
                   <button class="btn btn-primary" style="padding:0.6rem 1.25rem; font-weight:700;" onclick="App.toggleBatchUpload('video')">
-                    + Add Video to YouTube Folder
+                    + Add Video Link
                   </button>
                 ` : ''}
               </div>
@@ -1824,14 +1977,12 @@ ${eb.previewText || 'Sample preview chapter...'}
                 ${videos.map(v => `
                   <div class="folder-item-card">
                     <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem; flex-wrap:wrap;">
-                      <span style="background:#ef4444; color:#fff; font-size:0.72rem; font-weight:800; padding:0.15rem 0.45rem; border-radius:4px;">▶ YouTube Class</span>
-                      <span style="background:#e0f2fe; color:#0369a1; font-size:0.72rem; font-weight:700; padding:0.15rem 0.45rem; border-radius:4px;">${v.topic || 'GD Strategy'}</span>
-                      <span style="font-size:0.75rem; color:#64748b; margin-left:auto;">📅 ${v.date || 'Official Lecture'}</span>
+                      <span style="background:#ef4444; color:#fff; font-size:0.72rem; font-weight:800; padding:0.15rem 0.45rem; border-radius:4px;">▶ Lecture Video</span>
+                      <span style="background:#e0f2fe; color:#0369a1; font-size:0.72rem; font-weight:700; padding:0.15rem 0.45rem; border-radius:4px;">${v.topic || 'Strategy'}</span>
+                      <span style="font-size:0.75rem; color:#64748b; margin-left:auto;">📅 ${v.date || 'Official Class'}</span>
                     </div>
 
-                    <!-- Responsive Media Layout (210px on desktop, 1-col on mobile) -->
                     <div class="gd-card-media-layout">
-                      <!-- Thumbnail -->
                       <div class="gd-card-thumb-container" onclick="App.playVideoModal('${v.youtubeId}', '${v.title.replace(/'/g, "\\'")}')">
                         <img src="https://img.youtube.com/vi/${v.youtubeId}/mqdefault.jpg" onerror="this.src='/uploads/banner.png'">
                         <div class="gd-card-thumb-overlay">
@@ -1839,17 +1990,15 @@ ${eb.previewText || 'Sample preview chapter...'}
                         </div>
                       </div>
 
-                      <!-- Details -->
                       <div style="width:100%;">
                         <h4 style="font-size:1.02rem; color:#0a192f; margin-bottom:0.35rem; font-weight:700; line-height:1.35;">${v.title}</h4>
-                        <p style="font-size:0.83rem; color:#475569; margin-bottom:0.65rem; line-height:1.4;">${v.notes || 'Official discussion points, speaking framework, and arguments.'}</p>
+                        <p style="font-size:0.83rem; color:#475569; margin-bottom:0.65rem; line-height:1.4;">${v.notes || 'Official discussion points, speaking framework, and psychological breakdown.'}</p>
                       </div>
                     </div>
 
-                    <!-- Action Buttons -->
                     <div class="gd-card-actions-row">
                       <button class="btn btn-secondary" style="background:#fee2e2; color:#dc2626; border:1px solid #fca5a5; font-size:0.8rem; padding:0.45rem 0.85rem;" onclick="App.playVideoModal('${v.youtubeId}', '${v.title.replace(/'/g, "\\'")}')">
-                        ▶ Watch Class Video
+                        ▶ Watch Video Class
                       </button>
                       ${isAdmin ? `
                         <button class="btn btn-outline" style="color:#ef4444; border-color:#fca5a5; font-size:0.8rem; padding:0.45rem 0.75rem;" onclick="App.deleteBatchVideo('${batch.id}', '${v.id}')">
@@ -1864,72 +2013,53 @@ ${eb.previewText || 'Sample preview chapter...'}
           </div>
         ` : ''}
 
-        <!-- FOLDER CONTENT: PDF NOTES & MATERIALS -->
-        ${activeFolder === 'pdf' ? `
+        <!-- 4. TAB: GD TOPICS & SCRIPTS (ONLY IN GD+SRT) -->
+        ${activeFolder === 'topics' ? `
           <div class="folder-view-pane">
             <div class="folder-breadcrumb">
-              <span>📁 Batch_Root</span>
+              <span>📁 Classroom_Vault</span>
               <span>›</span>
-              <span>Airforce_GD_SRT_Batch</span>
+              <span>${batch.title.replace(/\s+/g, '_')}</span>
               <span>›</span>
-              <span style="color:#0284c7; font-weight:700;">📑 PDF_Study_Materials/</span>
-              <span style="margin-left:auto; font-size:0.75rem; color:#64748b;">${pdfs.length} files stored</span>
+              <span style="color:#0284c7; font-weight:700;">🗣️ Top_GD_Topics_and_Scripts/</span>
+              <span class="crumb-count">${topics.length} Defence Topics</span>
             </div>
 
-            ${pdfs.length === 0 ? `
-              <div class="empty-folder-box">
-                <div style="font-size:2.5rem; margin-bottom:0.5rem;">📄</div>
-                <h4 style="font-size:1.15rem; color:#0a192f; margin-bottom:0.35rem;">PDF Study Materials Folder is Empty</h4>
-                <p style="color:#64748b; font-size:0.88rem; max-width:440px; margin:0 auto 1.25rem;">
-                  No PDF files uploaded yet. Coaching Admin can click "+ Upload to PDF Folder" above to add official notes.
-                </p>
-                ${isAdmin ? `
-                  <button class="btn btn-primary" style="padding:0.6rem 1.25rem; font-weight:700;" onclick="App.toggleBatchUpload('pdf')">+ Upload to PDF Folder</button>
-                ` : ''}
-              </div>
-            ` : `
-              <div style="display:flex; flex-direction:column; gap:0.85rem;">
-                ${pdfs.map(p => `
-                  <div class="folder-item-card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
-                    <div style="display:flex; align-items:center; gap:0.85rem; flex:1; min-width:220px;">
-                      <div style="width:42px; height:42px; border-radius:8px; background:#fee2e2; color:#dc2626; display:flex; align-items:center; justify-content:center; font-size:1.3rem; font-weight:800; flex-shrink:0;">
-                        📄
-                      </div>
-                      <div style="overflow:hidden;">
-                        <strong style="color:#0f172a; font-size:0.95rem; display:block; word-break:break-word;">${p.title}</strong>
-                        <div style="display:flex; gap:0.5rem; font-size:0.76rem; color:#64748b; margin-top:0.2rem; flex-wrap:wrap;">
-                          <span>📊 ${p.size || '3.5 MB'}</span>
-                          <span>•</span>
-                          <span>📑 ${p.pages || 25} Pages</span>
-                          <span>•</span>
-                          <span>🏷️ ${p.topic || 'Study Notes'}</span>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <div class="gd-card-actions-row" style="border:none; padding:0; margin:0;">
-                      <button class="btn btn-defence" style="padding:0.45rem 0.9rem; font-size:0.82rem;" onclick="App.downloadWatermarkedPdf('${p.url}')">
-                        📥 Download PDF
-                      </button>
-                      ${isAdmin ? `
-                        <button class="btn btn-outline" style="color:#ef4444; border-color:#fca5a5; padding:0.45rem 0.75rem; font-size:0.82rem;" onclick="App.deleteBatchPdf('${batch.id}', '${p.id}')">
-                          🗑️ Delete
-                        </button>
-                      ` : ''}
-                    </div>
+            <div style="display:flex; flex-direction:column; gap:0.85rem;">
+              ${topics.map(g => `
+                <div style="background:#ffffff; border:1.5px solid #e2e8f0; border-radius:10px; padding:1.15rem; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
+                    <span style="font-size:0.72rem; font-weight:800; color:#0284c7; background:#e0f2fe; padding:0.15rem 0.45rem; border-radius:4px; text-transform:uppercase;">
+                      ${g.category || 'Defence Policy'}
+                    </span>
                   </div>
-                `).join('')}
-              </div>
-            `}
+                  <h4 style="color:#0f172a; margin:0 0 0.45rem; font-size:1.05rem;">${g.title}</h4>
+                  <p style="font-size:0.86rem; color:#475569; margin-bottom:0.5rem; background:#f8fafc; padding:0.6rem; border-left:3px solid #0284c7; border-radius:4px;">
+                    <strong>Opening Speech Script:</strong> "${g.introduction}"
+                  </p>
+                  <div style="font-size:0.82rem; color:#1e293b; margin-bottom:0.5rem;">
+                    <strong style="color:#16a34a;">Key Arguments FOR:</strong>
+                    <ul style="margin-left:1.25rem; margin-top:0.25rem;">
+                      ${(g.pros || []).map(p => `<li>${p}</li>`).join('')}
+                    </ul>
+                  </div>
+                  ${g.conclusion ? `
+                    <p style="font-size:0.82rem; color:#334155; margin:0;">
+                      <strong style="color:#0284c7;">Balanced Conclusion:</strong> ${g.conclusion}
+                    </p>
+                  ` : ''}
+                </div>
+              `).join('')}
+            </div>
           </div>
         ` : ''}
 
-        <!-- FOLDER CONTENT: SRT SIMULATOR -->
-        ${activeFolder === 'srt' ? `
+        <!-- 5. TAB: QUICK SRT SIMULATOR -->
+        ${activeFolder === 'srt-engine' ? `
           <div class="folder-view-pane" style="background:#f8fafc; border:1px solid #cbd5e1; border-radius:10px; padding:1.5rem; text-align:center;">
             <div style="max-width:620px; margin:0 auto;">
               <span style="font-size:2.5rem; display:block; margin-bottom:0.5rem;">🎯</span>
-              <h3 style="font-size:1.35rem; color:#0a192f; margin-bottom:0.5rem;">Situation Reaction Test (SRT) Simulator</h3>
+              <h3 style="font-size:1.35rem; color:#0a192f; margin-bottom:0.5rem;">Airforce SRT Interactive Practice Engine</h3>
               <p style="color:#475569; font-size:0.9rem; line-height:1.5; margin-bottom:1.25rem;">
                 Simulate the real IAF Airmen selection test under strict 30-minute exam pressure. Solve 45 military & everyday emergency situations with instant Psychological Profiling and OLQ Assessment.
               </p>
@@ -1948,49 +2078,8 @@ ${eb.previewText || 'Sample preview chapter...'}
                 </div>
               </div>
               <button class="btn btn-primary" style="font-size:1rem; padding:0.75rem 2rem; font-weight:800; background:#0284c7; border:none; box-shadow:0 4px 14px rgba(2, 132, 199, 0.35);" onclick="App.launchSrtSimulator()">
-                🚀 Launch Interactive HTML SRT Simulator
+                🚀 Launch Interactive SRT Simulator
               </button>
-            </div>
-          </div>
-        ` : ''}
-
-        <!-- FOLDER CONTENT: GD TOPICS & SCRIPTS -->
-        ${activeFolder === 'topics' ? `
-          <div class="folder-view-pane">
-            <div class="folder-breadcrumb">
-              <span>📁 Batch_Root</span>
-              <span>›</span>
-              <span>Airforce_GD_SRT_Batch</span>
-              <span>›</span>
-              <span style="color:#0284c7; font-weight:700;">🗣️ Top_GD_Topics_and_Scripts/</span>
-              <span style="margin-left:auto; font-size:0.75rem; color:#64748b;">${topics.length} topics</span>
-            </div>
-
-            <div style="display:flex; flex-direction:column; gap:0.85rem;">
-              ${topics.map(g => `
-                <div style="background:#ffffff; border:1.5px solid #e2e8f0; border-radius:10px; padding:1.15rem; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
-                  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem;">
-                    <span style="font-size:0.72rem; font-weight:800; color:#0284c7; background:#e0f2fe; padding:0.15rem 0.45rem; border-radius:4px; text-transform:uppercase;">
-                      ${g.category || 'Defence Policy'}
-                    </span>
-                  </div>
-                  <h4 style="color:#0f172a; margin:0 0 0.45rem; font-size:1.05rem;">${g.title}</h4>
-                  <p style="font-size:0.86rem; color:#475569; margin-bottom:0.5rem; background:#f8fafc; padding:0.6rem; border-left:3px solid #0284c7; border-radius:4px;">
-                    <strong>Opening Speech Script:</strong> "${g.introduction}"
-                  </p>
-                  <div style="font-size:0.82rem; color:#1e293b; margin-bottom:0.5rem;">
-                    <strong style="color:#16a34a;">Key Points FOR:</strong>
-                    <ul style="margin-left:1.25rem; margin-top:0.25rem;">
-                      ${(g.pros || []).map(p => `<li>${p}</li>`).join('')}
-                    </ul>
-                  </div>
-                  ${g.conclusion ? `
-                    <p style="font-size:0.82rem; color:#334155; margin:0;">
-                      <strong style="color:#0284c7;">Balanced Conclusion:</strong> ${g.conclusion}
-                    </p>
-                  ` : ''}
-                </div>
-              `).join('')}
             </div>
           </div>
         ` : ''}
@@ -1998,6 +2087,49 @@ ${eb.previewText || 'Sample preview chapter...'}
     `;
 
     this.openModal('generic-modal');
+  },
+
+  launchCbtMockTest(testUrl, testTitle) {
+    const modalBody = document.getElementById('generic-modal-body');
+    document.getElementById('generic-modal-title').innerText = testTitle || 'SKC Defence CBT Portal';
+
+    modalBody.innerHTML = `
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#0b2a5b; color:#fff; padding:0.6rem 1rem; border-radius:8px 8px 0 0; border-bottom:3px solid #ff9933; flex-wrap:wrap; gap:0.5rem;">
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <span style="font-size:1.2rem;">🖥️</span>
+          <div>
+            <strong style="font-size:0.95rem; display:block;">${testTitle}</strong>
+            <span style="font-size:0.75rem; color:#cbd5e1;">Airforce Phase-II CBT Simulation Engine</span>
+          </div>
+        </div>
+        <div style="display:flex; gap:0.5rem; align-items:center;">
+          <span style="background:#138808; color:#fff; font-size:0.7rem; font-weight:800; padding:0.2rem 0.5rem; border-radius:4px;">CBT LIVE</span>
+          <a href="${testUrl}" target="_blank" class="btn btn-primary" style="padding:0.35rem 0.85rem; font-size:0.78rem; background:#ff9933; color:#1e293b; text-decoration:none; font-weight:800; border:none;">
+            ⛶ Open Fullscreen Window
+          </a>
+        </div>
+      </div>
+      <div style="width:100%; height:75vh; min-height:480px; max-height:820px; background:#f2f5fa; border:1px solid #cbd5e1; border-top:none; border-radius:0 0 8px 8px; overflow:hidden;">
+        <iframe src="${testUrl}" style="width:100%; height:100%; border:none; display:block;" title="${testTitle}"></iframe>
+      </div>
+    `;
+    this.openModal('generic-modal');
+  },
+
+  filterCards(query, containerId) {
+    const q = (query || '').toLowerCase().trim();
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const cards = container.children;
+    for (let i = 0; i < cards.length; i++) {
+      const card = cards[i];
+      const title = card.getAttribute('data-title') || card.textContent.toLowerCase();
+      if (!q || title.includes(q)) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    }
   },
 
   toggleBatchUpload(type) {

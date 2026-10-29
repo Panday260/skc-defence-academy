@@ -939,7 +939,10 @@ app.get('/api/pdf/download', async (req, res) => {
     if (!file) return res.status(400).send('File parameter missing');
 
     const cleanFilename = path.basename(file);
-    const filePath = path.join(UPLOADS_DIR, 'pdfs', cleanFilename);
+    let filePath = path.join(UPLOADS_DIR, 'pdfs', cleanFilename);
+    if (!fs.existsSync(filePath)) {
+      filePath = path.join(UPLOADS_DIR, 'srt_pdfs', cleanFilename);
+    }
 
     if (!fs.existsSync(filePath)) {
       return res.status(404).send('PDF file not found');

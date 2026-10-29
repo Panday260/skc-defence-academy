@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test (Q526-560)</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal",Arial,sans-serif;background:#eef1f6;color:#1b2430}
+header{background:#0b2447;color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+.brand{font-weight:800;letter-spacing:.5px;font-size:17px;color:#ffc933}
+.brand small{display:block;color:#cfd8e8;font-weight:500;font-size:11px;letter-spacing:0}
+.tools{display:flex;gap:8px;align-items:center}
+#timer{background:#fff;color:#0b2447;font-weight:800;padding:6px 10px;border-radius:6px;font-size:16px;min-width:72px;text-align:center}
+#timer.low{background:#d62828;color:#fff}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:6px;font-size:15px;padding:10px 16px;font-weight:600}
+#lang{background:#ffc933;color:#0b2447}
+.wrap{max-width:1000px;margin:0 auto;padding:12px;display:flex;gap:12px;flex-wrap:wrap}
+.main{flex:1 1 560px;background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px #0002}
+.side{flex:0 0 260px;background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 4px #0002;height:fit-content}
+.qno{color:#0b2447;font-weight:700;margin-bottom:8px}
+.qtext{font-size:18px;line-height:1.5;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:2px solid #d5dbe6;border-radius:8px;padding:11px;margin-bottom:10px;cursor:pointer;line-height:1.45;font-size:16px}
+.opt b{min-width:24px;height:24px;border-radius:50%;background:#e6ebf4;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.opt.sel{border-color:#0b2447;background:#e8f0ff}.opt.sel b{background:#0b2447;color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.nav button{flex:1 1 90px}
+#prev,#next{background:#0b2447;color:#fff}
+#clear{background:#e6ebf4;color:#0b2447}
+#submit{background:#d62828;color:#fff}
+#prev:disabled,#next:disabled{opacity:.4}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:10px 0}
+.grid button{padding:9px 0;background:#e6ebf4;color:#1b2430;font-size:14px}
+.grid .ans{background:#2a9d4a;color:#fff}.grid .cur{outline:3px solid #ffc933}
+.leg{font-size:12px;color:#555;line-height:1.8}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:middle}
+.ov{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:10;padding:14px}
+.box{background:#fff;border-radius:10px;padding:20px;max-width:420px;width:100%;text-align:center}
+.box .row{display:flex;gap:8px;margin-top:14px}.box .row button{flex:1}
+#result{display:none;max-width:800px;margin:14px auto;padding:0 12px}
+.card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 4px #0002;margin-bottom:12px}
+.score{font-size:42px;font-weight:800;color:#0b2447;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}
+.stats div{background:#eef1f6;border-radius:8px;padding:10px;text-align:center;font-size:14px}.stats b{display:block;font-size:22px}
+.rv{border-left:5px solid #ccc;padding:8px 10px;margin:10px 0;font-size:15px;line-height:1.5}
+.rv.c{border-color:#2a9d4a}.rv.w{border-color:#d62828}.rv.s{border-color:#999}
+footer{text-align:center;font-size:12px;color:#667;padding:10px}
+@media(max-width:700px){.side{flex:1 1 100%}.qtext{font-size:17px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">SKC DEFENCE ACADEMY<small>SRT Mock Test | Q526 – Q560 | 35 Questions | 30 Min</small></div>
+ <div class="tools"><button id="lang" onclick="toggleLang()">हिन्दी</button><div id="timer">30:00</div></div>
+</header>
+
+<div id="test" class="wrap">
+ <div class="main">
+  <div class="qno" id="qno"></div>
+  <div class="qtext" id="qtext"></div>
+  <div id="opts"></div>
+  <div class="nav">
+   <button id="prev" onclick="go(-1)">&laquo; <span class="t-prev">Previous</span></button>
+   <button id="clear" onclick="clr()"><span class="t-clear">Clear</span></button>
+   <button id="next" onclick="go(1)"><span class="t-next">Next</span> &raquo;</button>
+  </div>
+  <div class="nav"><button id="submit" onclick="askSubmit()"><span class="t-sub">Submit Test</span></button></div>
+ </div>
+ <div class="side">
+  <b class="t-pal">Question Palette</b>
+  <div class="grid" id="grid"></div>
+  <div class="leg"><i style="background:#2a9d4a"></i><span class="t-ans">Answered</span> &nbsp; <i style="background:#e6ebf4;border:1px solid #bbb"></i><span class="t-unans">Not Answered</span></div>
+  <div class="leg" style="margin-top:6px">+1 Correct &nbsp;|&nbsp; −0.25 Wrong</div>
+ </div>
+</div>
+
+<div id="result"></div>
+
+<div class="ov" id="ov"><div class="box">
+ <h3 id="ovt">Submit Test?</h3>
+ <p id="ovp"></p>
+ <div class="row"><button style="background:#e6ebf4" onclick="closeOv()" id="ovno">Cancel</button><button style="background:#d62828;color:#fff" onclick="finish()" id="ovyes">Submit</button></div>
+</div></div>
+
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<script>
+var IG=["You will completely ignore the highly annoying situation entirely, silently walk away perfectly totally fast, and strictly mind your business.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप पूरी तरह से बिल्कुल तेजी से चले जाएंगे, और सख्ती से अपने काम से काम रखेंगे।"];
+var AG=["You will aggressively attack the annoying targeted people entirely, violently break the heavy physical objects, and loudly start massive fighting.","आप आक्रामक रूप से कष्टप्रद लक्षित लोगों पर पूरी तरह हमला करेंगे, हिंसक रूप से भारी भौतिक वस्तुओं को तोड़ेंगे, और जोर-जोर से भारी लड़ाई शुरू करेंगे।"];
+var CR=["You will instantly start crying in deep extreme panic, completely freeze perfectly exactly right there, and blindly wait perfectly strictly.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, पूरी तरह से बिल्कुल वहीं सुन्न हो जाएंगे, और आंख मूंदकर बिल्कुल सख्ती से इंतजार करेंगे।"];
+var Q=[
+["A family member constantly interrupts you strictly while you are speaking actively in serious discussions.","एक परिवार का सदस्य गंभीर चर्चाओं में सक्रिय रूप से बोलते समय आपको लगातार सख्ती से टोकता है।",[AG,["You will calmly pause your current active speech peacefully, politely request your proper speaking turn directly, and firmly express your complete valid thoughts clearly.","आप शांति से अपने वर्तमान सक्रिय भाषण को शांतिपूर्वक रोकेंगे, विनम्रतापूर्वक सीधे अपनी उचित बोलने की बारी का अनुरोध करेंगे, और दृढ़ता से अपने पूर्ण वैध विचारों को स्पष्ट रूप से व्यक्त करेंगे।"],CR,IG],1],
+["You find out your favorite local street food vendor actively uses highly unhygienic dirty water.","आपको पता चलता है कि आपका पसंदीदा स्थानीय स्ट्रीट फूड विक्रेता सक्रिय रूप से अत्यधिक अस्वच्छ गंदे पानी का उपयोग करता है।",[AG,IG,["You will firmly stop eating his unhygienic food completely, calmly warn the other regular customers directly, and safely report the severe health hazard officially.","आप दृढ़ता से उसका अस्वच्छ भोजन खाना पूरी तरह बंद कर देंगे, शांति से अन्य नियमित ग्राहकों को सीधे चेतावनी देंगे, और सुरक्षित रूप से गंभीर स्वास्थ्य खतरे की आधिकारिक रिपोर्ट करेंगे।"],CR],2],
+["A coworker regularly takes your personal stationery items perfectly without asking properly or returning them.","एक सहकर्मी नियमित रूप से बिना ठीक से पूछे या लौटाए आपकी व्यक्तिगत स्टेशनरी वस्तुओं को ले लेता है।",[["You will calmly secure your personal desk items safely, politely confront the careless office coworker directly, and firmly demand the immediate safe return properly.","आप शांति से अपने व्यक्तिगत डेस्क आइटम सुरक्षित करेंगे, विनम्रतापूर्वक सीधे लापरवाह कार्यालय सहकर्मी का सामना करेंगे, और दृढ़ता से तत्काल सुरक्षित वापसी की ठीक से मांग करेंगे।"],IG,AG,CR],0],
+["Your close friend strictly demands that you fully support them exactly in a wrong argument.","आपका करीबी दोस्त सख्ती से मांग करता है कि आप गलत बहस में उनका पूरी तरह समर्थन करें।",[IG,CR,AG,["You will calmly analyze the exact current situation properly, firmly refuse to support illegal actions strictly, and politely explain the correct ethical path clearly.","आप शांति से सटीक वर्तमान स्थिति का ठीक से विश्लेषण करेंगे, दृढ़ता से अवैध कार्यों का समर्थन करने से सख्ती से इंकार करेंगे, और विनम्रतापूर्वक सही नैतिक मार्ग को स्पष्ट रूप से समझाएंगे।"]],3],
+["You are waiting for a bus and a passing car heavily splashes muddy puddle water.","आप बस का इंतजार कर रहे हैं और एक गुजरती कार भारी मटमैला पानी उछाल देती है।",[AG,["You will calmly wipe the dirty muddy water safely, safely note the fast car number properly, and firmly return to change your clothes completely.","आप शांति से गंदे मटमैले पानी को सुरक्षित रूप से पोंछेंगे, सुरक्षित रूप से तेज कार का नंबर ठीक से नोट करेंगे, और दृढ़ता से अपने कपड़े पूरी तरह बदलने के लिए लौटेंगे।"],CR,IG],1],
+["An aggressive stray monkey suddenly steals your grocery bag containing highly expensive fresh juicy fruits.","एक आक्रामक आवारा बंदर अचानक अत्यधिक महंगे ताजे रसीले फलों वाली आपकी किराने की थैली चुरा लेता है।",[AG,IG,CR,["You will safely maintain a perfectly secure distance entirely, calmly let the aggressive wild animal pass, and firmly protect your remaining heavy bags properly.","आप सुरक्षित रूप से पूरी तरह एक सुरक्षित दूरी बनाए रखेंगे, शांति से आक्रामक जंगली जानवर को गुजरने देंगे, और दृढ़ता से अपने शेष भारी बैग की ठीक से रक्षा करेंगे।"]],3],
+["You accidentally step on someone's foot heavily precisely inside a highly crowded local metro train.","आप गलती से एक अत्यधिक भीड़भाड़ वाली लोकल मेट्रो ट्रेन के अंदर किसी के पैर पर भारी कदम रख देते हैं।",[AG,CR,["You will instantly offer a highly sincere apology politely, calmly ensure the injured passenger feels alright, and safely stand carefully holding the strong rails.","आप तुरंत विनम्रतापूर्वक एक अत्यधिक ईमानदार माफी की पेशकश करेंगे, शांति से सुनिश्चित करेंगे कि घायल यात्री ठीक महसूस कर रहा है, और सुरक्षित रूप से मजबूत रेलिंग को पकड़कर सावधानी से खड़े होंगे।"],IG],2],
+["Your booked cab driver forcefully demands extra heavy cash directly above the app's estimated fare.","आपका बुक किया गया कैब ड्राइवर ऐप के अनुमानित किराए से सीधे ऊपर अतिरिक्त भारी नकदी की बलपूर्वक मांग करता है।",[["You will firmly refuse the illegal extra payment strictly, calmly pay the exact digital fare properly, and safely report the rude driver officially instantly.","आप दृढ़ता से अवैध अतिरिक्त भुगतान से सख्ती से इंकार करेंगे, शांति से सटीक डिजिटल किराया ठीक से चुकाएंगे, और सुरक्षित रूप से असभ्य ड्राइवर की तुरंत आधिकारिक रिपोर्ट करेंगे।"],AG,CR,IG],0],
+["A distant relative unexpectedly visits your private house perfectly for a week without prior notice.","एक दूर का रिश्तेदार बिना किसी पूर्व सूचना के एक सप्ताह के लिए अप्रत्याशित रूप से आपके निजी घर आता है।",[CR,IG,["You will calmly welcome the visiting distant relative politely, safely adjust the daily household routines properly, and firmly discuss the future prior notices clearly.","आप शांति से आने वाले दूर के रिश्तेदार का विनम्रतापूर्वक स्वागत करेंगे, सुरक्षित रूप से दैनिक घरेलू दिनचर्या को ठीक से समायोजित करेंगे, और दृढ़ता से भविष्य के पूर्व नोटिस पर स्पष्ट रूप से चर्चा करेंगे।"],AG],2],
+["You notice a local shopkeeper physically beating a small innocent child for allegedly stealing candy.","आप एक स्थानीय दुकानदार को कथित तौर पर कैंडी चुराने के आरोप में एक छोटे मासूम बच्चे को शारीरिक रूप से पीटते हुए देखते हैं।",[AG,IG,["You will firmly stop the brutal physical abuse instantly, safely rescue the small crying child completely, and promptly inform the local police authorities strictly.","आप दृढ़ता से क्रूर शारीरिक शोषण को तुरंत रोकेंगे, सुरक्षित रूप से छोटे रोते हुए बच्चे को पूरी तरह बचाएंगे, और तुरंत स्थानीय पुलिस अधिकारियों को सख्ती से सूचित करेंगे।"],CR],2],
+["A gym trainer heavily forces you to buy highly expensive unverified health supplements from him.","एक जिम ट्रेनर आपको उससे अत्यधिक महंगे असत्यापित स्वास्थ्य सप्लीमेंट खरीदने के लिए भारी मजबूर करता है।",[CR,AG,IG,["You will firmly decline the illegal health supplements strictly, calmly consult a certified medical doctor properly, and safely complain to the main gym manager.","आप दृढ़ता से अवैध स्वास्थ्य सप्लीमेंट को सख्ती से अस्वीकार करेंगे, शांति से प्रमाणित चिकित्सक से ठीक से परामर्श करेंगे, और सुरक्षित रूप से मुख्य जिम प्रबंधक से शिकायत करेंगे।"]],3],
+["Your younger sibling secretly takes your expensive fast bike and heavily gets a traffic challan.","आपका छोटा भाई/बहन चुपके से आपकी महंगी तेज बाइक ले जाता है और उसे भारी ट्रैफिक चालान मिलता है।",[CR,AG,IG,["You will calmly confiscate the original bike keys safely, firmly demand the complete challan payment strictly, and politely counsel about severe legal safety rules.","आप शांति से मूल बाइक की चाबियां सुरक्षित रूप से जब्त करेंगे, दृढ़ता से पूर्ण चालान भुगतान की सख्ती से मांग करेंगे, और विनम्रतापूर्वक गंभीर कानूनी सुरक्षा नियमों के बारे में सलाह देंगे।"]],3],
+["A noisy neighbor constantly throws their dirty house garbage right next to your boundary wall.","एक शोर करने वाला पड़ोसी लगातार अपने घर का गंदा कचरा आपकी चारदीवारी के ठीक बगल में फेंकता है।",[AG,IG,CR,["You will calmly gather the strong photographic evidence properly, politely confront the highly careless neighbor directly, and firmly involve the local municipal authorities strictly.","आप शांति से मजबूत फोटोग्राफिक साक्ष्य ठीक से इकट्ठा करेंगे, विनम्रतापूर्वक अत्यधिक लापरवाह पड़ोसी का सीधे सामना करेंगे, और दृढ़ता से स्थानीय नगर निगम अधिकारियों को सख्ती से शामिल करेंगे।"]],3],
+["You find an injured severely bleeding stray puppy hiding perfectly under your securely parked car.","आपको अपनी सुरक्षित खड़ी कार के नीचे एक घायल गंभीर रूप से खून बह रहा आवारा पिल्ला पूरी तरह छिपा हुआ मिलता है।",[AG,IG,["You will safely pull the injured puppy outside gently, calmly provide the basic emergency first aid, and promptly take the poor animal to hospitals.","आप सुरक्षित रूप से घायल पिल्ले को धीरे से बाहर निकालेंगे, शांति से बुनियादी आपातकालीन प्राथमिक उपचार प्रदान करेंगे, और तुरंत गरीब जानवर को अस्पतालों में ले जाएंगे।"],CR],2],
+["A friend constantly makes extremely negative depressing comments directly about your bright future career prospects.","एक दोस्त लगातार आपके उज्ज्वल भविष्य के करियर की संभावनाओं के बारे में सीधे अत्यधिक नकारात्मक निराशाजनक टिप्पणियां करता है।",[IG,AG,CR,["You will calmly ignore the highly toxic comments entirely, firmly maintain your absolute strong confidence safely, and politely distance yourself from negative energy strictly.","आप शांति से अत्यधिक विषैली टिप्पणियों को पूरी तरह नजरअंदाज करेंगे, दृढ़ता से अपना पूर्ण मजबूत आत्मविश्वास सुरक्षित रूप से बनाए रखेंगे, और विनम्रतापूर्वक नकारात्मक ऊर्जा से खुद को सख्ती से दूर करेंगे।"]],3],
+["You book a costly movie ticket but someone is stubbornly sitting strictly in your seat.","आप एक महंगा मूवी टिकट बुक करते हैं लेकिन कोई हठपूर्वक आपकी सीट पर सख्ती से बैठा है।",[CR,["You will calmly show your valid confirmed ticket directly, politely ask the rude person to move, and firmly call the official cinema hall security.","आप शांति से अपना वैध कन्फर्म टिकट सीधे दिखाएंगे, विनम्रतापूर्वक असभ्य व्यक्ति को हटने के लिए कहेंगे, और दृढ़ता से आधिकारिक सिनेमा हॉल सुरक्षा को बुलाएंगे।"],AG,IG],1],
+["Your main house plumbing pipe bursts suddenly heavily flooding the entire living room at midnight.","आपके मुख्य घर का प्लंबिंग पाइप अचानक फट जाता है जिससे आधी रात को पूरे लिविंग रूम में भारी पानी भर जाता है।",[CR,IG,AG,["You will safely turn off the main water valve, calmly secure the expensive electronic items instantly, and firmly call the emergency professional plumber quickly.","आप सुरक्षित रूप से मुख्य जल वाल्व को बंद कर देंगे, शांति से महंगे इलेक्ट्रॉनिक उपकरणों को तुरंत सुरक्षित करेंगे, और दृढ़ता से आपातकालीन पेशेवर प्लंबर को जल्दी बुलाएंगे।"]],3],
+["A senior colleague frequently makes highly inappropriate uncomfortable toxic jokes directly in the main office.","एक वरिष्ठ सहकर्मी अक्सर मुख्य कार्यालय में सीधे अत्यधिक अनुचित असुविधाजनक विषैले चुटकुले बनाता है।",[IG,["You will firmly object to the inappropriate jokes strictly, calmly document the exact toxic incidents properly, and safely report the severe harassment to HR.","आप दृढ़ता से अनुचित चुटकुलों पर सख्ती से आपत्ति जताएंगे, शांति से सटीक विषैली घटनाओं का ठीक से दस्तावेजीकरण करेंगे, और सुरक्षित रूप से गंभीर उत्पीड़न की एचआर (HR) को रिपोर्ट करेंगे।"],AG,CR],1],
+["You strictly receive a very high electricity bill that is clearly a huge technical mistake.","आपको सख्ती से एक बहुत अधिक बिजली बिल प्राप्त होता है जो स्पष्ट रूप से एक बड़ी तकनीकी गलती है।",[["You will calmly crosscheck the exact original meter reading, firmly visit the official electricity board directly, and safely resolve the huge billing error successfully.","आप शांति से सटीक मूल मीटर रीडिंग की जांच करेंगे, दृढ़ता से सीधे आधिकारिक बिजली बोर्ड का दौरा करेंगे, और सुरक्षित रूप से बड़ी बिलिंग त्रुटि को सफलतापूर्वक हल करेंगे।"],AG,IG,CR],0],
+["A local shopkeeper gives you torn taped currency notes perfectly and completely refuses taking back.","एक स्थानीय दुकानदार आपको फटे हुए टेप लगे करेंसी नोट बिल्कुल देता है और वापस लेने से पूरी तरह इंकार करता है।",[IG,CR,AG,["You will firmly refuse the heavily torn notes strictly, calmly demand the fresh crisp currency directly, and safely complete the original financial transaction properly.","आप दृढ़ता से भारी फटे नोटों को सख्ती से अस्वीकार करेंगे, शांति से सीधे ताजी कुरकुरी मुद्रा की मांग करेंगे, और सुरक्षित रूप से मूल वित्तीय लेनदेन को ठीक से पूरा करेंगे।"]],3],
+["Your apartment roommate constantly heavily uses your expensive personal toiletries perfectly without any prior permission.","आपके अपार्टमेंट का रूममेट बिना किसी पूर्व अनुमति के आपके महंगे व्यक्तिगत प्रसाधनों का लगातार भारी उपयोग करता है।",[IG,["You will calmly secure your expensive personal items safely, politely confront the careless roommate directly instantly, and firmly establish the strict personal boundaries properly.","आप शांति से अपने महंगे निजी सामान को सुरक्षित करेंगे, विनम्रतापूर्वक सीधे लापरवाह रूममेट का तुरंत सामना करेंगे, और दृढ़ता से सख्त व्यक्तिगत सीमाएं ठीक से स्थापित करेंगे।"],AG,CR],1],
+["You clearly witness a local teenager dangerously performing risky bike stunts on a busy road.","आप स्पष्ट रूप से एक स्थानीय किशोर को व्यस्त सड़क पर खतरनाक रूप से जोखिम भरे बाइक स्टंट करते हुए देखते हैं।",[["You will safely record the exact bike number properly, calmly move perfectly to a secure footpath, and firmly report the highly dangerous driving strictly.","आप सुरक्षित रूप से सटीक बाइक नंबर ठीक से रिकॉर्ड करेंगे, शांति से बिल्कुल एक सुरक्षित फुटपाथ पर चले जाएंगे, और दृढ़ता से अत्यधिक खतरनाक ड्राइविंग की सख्ती से रिपोर्ट करेंगे।"],CR,IG,AG],0],
+["A distant friend calls strictly after years only to heavily pressure you into pyramid schemes.","एक दूर का दोस्त सालों बाद सख्ती से कॉल करता है केवल आपको पिरामिड योजनाओं में भारी दबाव डालने के लिए।",[["You will calmly listen to the entire fake scheme, firmly reject the illegal financial fraud strictly, and politely disconnect the highly toxic call safely.","आप शांति से पूरी फर्जी योजना को सुनेंगे, दृढ़ता से अवैध वित्तीय धोखाधड़ी को सख्ती से अस्वीकार करेंगे, और विनम्रतापूर्वक अत्यधिक विषैले कॉल को सुरक्षित रूप से काट देंगे।"],IG,CR,AG],0],
+["You perfectly ordered a vegetarian meal but strictly discover hidden meat pieces directly inside food.","आपने बिल्कुल शाकाहारी भोजन का ऑर्डर दिया था लेकिन भोजन के अंदर सीधे छिपे हुए मांस के टुकड़े सख्ती से पाते हैं।",[AG,IG,["You will firmly stop eating the delivered food instantly, safely capture the exact photographic proofs properly, and calmly process a complete strict refund successfully.","आप दृढ़ता से डिलीवर किया गया भोजन खाना तुरंत बंद कर देंगे, सुरक्षित रूप से सटीक फोटोग्राफिक प्रमाण ठीक से लेंगे, और शांति से एक पूर्ण सख्त धनवापसी सफलतापूर्वक संसाधित करेंगे।"],CR],2],
+["Your neighborhood public park is entirely actively taken over by bad anti-social elements drinking nightly.","आपके पड़ोस के सार्वजनिक पार्क पर पूरी तरह से सक्रिय रूप से रात में शराब पीने वाले बुरे असामाजिक तत्वों का कब्जा है।",[AG,IG,["You will calmly gather the strict residential society members, safely file a strong joint police complaint, and firmly restore the peaceful public park securely.","आप शांति से सख्त आवासीय सोसायटी के सदस्यों को इकट्ठा करेंगे, सुरक्षित रूप से एक मजबूत संयुक्त पुलिस शिकायत दर्ज करेंगे, और दृढ़ता से शांतिपूर्ण सार्वजनिक पार्क को सुरक्षित रूप से बहाल करेंगे।"],CR],2],
+["A famous tailor stitches your expensive formal clothes completely wrong strictly and denies his mistake.","एक प्रसिद्ध दर्जी आपके महंगे औपचारिक कपड़ों को पूरी तरह से गलत सिलता है और अपनी गलती से इंकार करता है।",[CR,AG,["You will calmly show the original exact design proofs, firmly demand the complete proper alterations strictly, and safely refuse paying the pending heavy amount.","आप शांति से मूल सटीक डिज़ाइन प्रमाण दिखाएंगे, दृढ़ता से पूर्ण उचित परिवर्तन की सख्ती से मांग करेंगे, और सुरक्षित रूप से लंबित भारी राशि का भुगतान करने से इंकार करेंगे।"],IG],2],
+["You accidentally strictly break a very expensive delicate antique showpiece perfectly at a friend's house.","आप गलती से एक दोस्त के घर पर एक बहुत महंगा नाजुक प्राचीन शोपीस बिल्कुल तोड़ देते हैं।",[AG,CR,["You will instantly offer a highly sincere apology politely, calmly clean the broken fragile pieces safely, and firmly offer to completely pay replacements strictly.","आप तुरंत विनम्रतापूर्वक एक अत्यधिक ईमानदार माफी की पेशकश करेंगे, शांति से टूटे हुए नाजुक टुकड़ों को सुरक्षित रूप से साफ करेंगे, और दृढ़ता से पूरी तरह से रिप्लेसमेंट का भुगतान करने की सख्ती से पेशकश करेंगे।"],IG],2],
+["A fellow passenger actively plays extremely loud videos heavily on speakerphone during a night bus.","एक साथी यात्री रात की बस के दौरान सक्रिय रूप से स्पीकरफोन पर अत्यधिक तेज वीडियो भारी रूप से चलाता है।",[IG,["You will calmly request the rude passenger very politely, firmly ask to use proper earphones strictly, and safely involve the official bus conductor instantly.","आप शांति से असभ्य यात्री से बहुत विनम्रतापूर्वक अनुरोध करेंगे, दृढ़ता से उचित इयरफ़ोन का उपयोग करने के लिए सख्ती से कहेंगे, और सुरक्षित रूप से आधिकारिक बस कंडक्टर को तुरंत शामिल करेंगे।"],CR,AG],1],
+["You accidentally find your trusted domestic worker secretly taking small amounts of expensive dry rations.","आप गलती से पाते हैं कि आपका विश्वसनीय घरेलू कर्मचारी चुपके से थोड़ी मात्रा में महंगे सूखे राशन ले रहा है।",[IG,CR,AG,["You will calmly confront the domestic worker privately securely, firmly issue a strict final warning properly, and politely understand their actual genuine financial needs.","आप शांति से निजी तौर पर सुरक्षित रूप से घरेलू कर्मचारी का सामना करेंगे, दृढ़ता से एक सख्त अंतिम चेतावनी ठीक से जारी करेंगे, और विनम्रतापूर्वक उनकी वास्तविक वास्तविक वित्तीय आवश्यकताओं को समझेंगे।"]],3],
+["A highly aggressive stray dog violently attacks your small pet dog strictly during evening walks.","एक अत्यधिक आक्रामक आवारा कुत्ता शाम की सैर के दौरान सख्ती से आपके छोटे पालतू कुत्ते पर हिंसक हमला करता है।",[CR,IG,["You will safely pull your small pet dog backwards, firmly scare the aggressive stray dog loudly, and calmly check your pet for deep injuries.","आप सुरक्षित रूप से अपने छोटे पालतू कुत्ते को पीछे खींचेंगे, दृढ़ता से आक्रामक आवारा कुत्ते को जोर से डराएंगे, और शांति से अपने पालतू जानवर की गहरी चोटों की जांच करेंगे।"],AG],2],
+["Your main internet provider completely ignores your severe deep connection downtime complaints directly filed online.","आपका मुख्य इंटरनेट प्रदाता ऑनलाइन दर्ज की गई आपकी गंभीर गहरी कनेक्शन डाउनटाइम शिकायतों को पूरी तरह से अनदेखा करता है।",[AG,CR,["You will calmly visit the main regional office directly, firmly demand a strict clear resolution instantly, and safely shift to a highly reliable provider.","आप शांति से मुख्य क्षेत्रीय कार्यालय का सीधे दौरा करेंगे, दृढ़ता से एक सख्त स्पष्ट संकल्प की तुरंत मांग करेंगे, और सुरक्षित रूप से एक अत्यधिक विश्वसनीय प्रदाता पर शिफ्ट होंगे।"],IG],2],
+["You clearly see a physically disabled poor person heavily struggling to cross a flooded street.","आप स्पष्ट रूप से एक शारीरिक रूप से अक्षम गरीब व्यक्ति को बाढ़ वाली सड़क पार करने के लिए भारी संघर्ष करते देखते हैं।",[AG,CR,IG,["You will safely approach the disabled poor person calmly, politely offer your strong physical support properly, and firmly guide them across the flooded street.","आप सुरक्षित रूप से अक्षम गरीब व्यक्ति के पास शांति से जाएंगे, विनम्रतापूर्वक अपना मजबूत शारीरिक समर्थन ठीक से देंगे, और दृढ़ता से बाढ़ वाली सड़क के पार उनका मार्गदर्शन करेंगे।"]],3],
+["A known close relative heavily asks to strictly use your credit card for risky purchases.","एक ज्ञात करीबी रिश्तेदार जोखिम भरी खरीदारी के लिए सख्ती से आपके क्रेडिट कार्ड का उपयोग करने के लिए भारी मांग करता है।",[CR,IG,["You will calmly listen to the urgent financial request, firmly decline the highly risky usage strictly, and politely preserve your deep close relationship safely.","आप शांति से तत्काल वित्तीय अनुरोध को सुनेंगे, दृढ़ता से अत्यधिक जोखिम भरे उपयोग को सख्ती से अस्वीकार करेंगे, और विनम्रतापूर्वक अपने गहरे करीबी रिश्ते को सुरक्षित रखेंगे।"],AG],2],
+["You accidentally purely receive a highly sensitive personal banking email strictly meant for someone completely.","आप गलती से विशुद्ध रूप से एक अत्यधिक संवेदनशील व्यक्तिगत बैंकिंग ईमेल प्राप्त करते हैं जो सख्ती से किसी और के लिए है।",[["You will strictly avoid reading the highly sensitive details, calmly reply to the original sender promptly, and firmly delete the wrongly delivered email completely.","आप सख्ती से अत्यधिक संवेदनशील विवरण पढ़ने से बचेंगे, शांति से मूल प्रेषक को तुरंत उत्तर देंगे, और दृढ़ता से गलत तरीके से वितरित ईमेल को पूरी तरह हटा देंगे।"],AG,CR,IG],0],
+["A powerful local politician's huge convoy completely blocks the main hospital road during serious emergency.","एक शक्तिशाली स्थानीय राजनेता का विशाल काफिला गंभीर आपातकाल के दौरान मुख्य अस्पताल की सड़क को पूरी तरह अवरुद्ध कर देता है।",[IG,["You will calmly request the strict security guards directly, firmly explain the highly critical medical emergency, and safely secure a clear quick path successfully.","आप शांति से सख्त सुरक्षा गार्डों से सीधे अनुरोध करेंगे, दृढ़ता से अत्यधिक महत्वपूर्ण चिकित्सा आपातकाल की व्याख्या करेंगे, और सुरक्षित रूप से एक स्पष्ट त्वरित मार्ग सफलतापूर्वक सुरक्षित करेंगे।"],CR,AG],1]
+];
+var START=526,N=Q.length,TOTAL=1800,L=0,cur=0,done=false,A=[],i;
+for(i=0;i<N;i++)A.push(-1);
+var T={
+ en:{prev:"Previous",next:"Next",clear:"Clear",sub:"Submit Test",pal:"Question Palette",ans:"Answered",unans:"Not Answered",lang:"हिन्दी",q:"Question",cancel:"Cancel",submit:"Submit",ot:"Submit Test?",answered:"Answered",left:"Not answered",sure:"Are you sure you want to submit?"},
+ hi:{prev:"पिछला",next:"अगला",clear:"हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न सूची",ans:"उत्तर दिया",unans:"उत्तर नहीं दिया",lang:"English",q:"प्रश्न",cancel:"रद्द करें",submit:"सबमिट",ot:"टेस्ट सबमिट करें?",answered:"उत्तर दिए",left:"बिना उत्तर",sure:"क्या आप सच में सबमिट करना चाहते हैं?"}
+};
+function $(id){return document.getElementById(id)}
+function t(k){return T[L?"hi":"en"][k]}
+function cls(c,v){var e=document.getElementsByClassName(c);for(var j=0;j<e.length;j++)e[j].textContent=v}
+function render(){
+ var q=Q[cur];
+ $("qno").textContent=t("q")+" "+(cur+1)+" / "+N+"  (Q"+(START+cur)+")";
+ $("qtext").textContent=q[L];
+ var h="";
+ for(var j=0;j<4;j++){h+='<div class="opt'+(A[cur]===j?' sel':'')+'" onclick="pick('+j+')"><b>'+"ABCD".charAt(j)+'</b><span>'+esc(q[2][j][L])+'</span></div>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===N-1;
+ cls("t-prev",t("prev"));cls("t-next",t("next"));cls("t-clear",t("clear"));cls("t-sub",t("sub"));cls("t-pal",t("pal"));cls("t-ans",t("ans"));cls("t-unans",t("unans"));
+ $("lang").textContent=t("lang");
+ grid();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function grid(){
+ var h="";
+ for(var j=0;j<N;j++)h+='<button class="'+(A[j]>-1?'ans ':'')+(j===cur?'cur':'')+'" onclick="jump('+j+')">'+(j+1)+'</button>';
+ $("grid").innerHTML=h;
+}
+function pick(j){A[cur]=j;render()}
+function clr(){A[cur]=-1;render()}
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));render();window.scrollTo(0,0)}
+function jump(j){cur=j;render();window.scrollTo(0,0)}
+function toggleLang(){L=L?0:1;document.documentElement.lang=L?"hi":"en";render();if(done)showResult()}
+function askSubmit(){
+ var a=0;for(var j=0;j<N;j++)if(A[j]>-1)a++;
+ $("ovt").textContent=t("ot");
+ $("ovp").textContent=t("answered")+": "+a+" | "+t("left")+": "+(N-a)+". "+t("sure");
+ $("ovno").textContent=t("cancel");$("ovyes").textContent=t("submit");
+ $("ov").style.display="flex";
+}
+function closeOv(){$("ov").style.display="none"}
+var endAt=Date.now()+TOTAL*1000,tick;
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ var m=Math.floor(s/60),r=s%60;
+ $("timer").textContent=(m<10?"0":"")+m+":"+(r<10?"0":"")+r;
+ if(s<=300)$("timer").className="low";
+ if(s<=0){finish()}
+}
+tick=setInterval(upd,500);
+function finish(){
+ if(done)return;done=true;clearInterval(tick);closeOv();
+ $("test").style.display="none";$("timer").style.display="none";
+ $("result").style.display="block";showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var c=0,w=0,s=0,j;
+ for(j=0;j<N;j++){if(A[j]<0)s++;else if(A[j]===Q[j][3])c++;else w++}
+ var sc=c-w*0.25,hi=L===1;
+ var h='<div class="card"><div style="text-align:center;font-weight:700;color:#0b2447">SKC DEFENCE ACADEMY</div>'+
+ '<div class="score">'+sc.toFixed(2)+' / '+N+'</div><div style="text-align:center">'+(hi?'कुल स्कोर':'Total Score')+'</div>'+
+ '<div class="stats"><div><b>'+N+'</b>'+(hi?'कुल प्रश्न':'Total Questions')+'</div><div><b>'+(c+w)+'</b>'+(hi?'प्रयास किए':'Attempted')+'</div><div><b>'+s+'</b>'+(hi?'छोड़े गए':'Skipped')+'</div><div><b style="color:#2a9d4a">'+c+'</b>'+(hi?'सही (+1)':'Correct (+1)')+'</div><div><b style="color:#d62828">'+w+'</b>'+(hi?'गलत (−0.25)':'Wrong (−0.25)')+'</div></div></div>'+
+ '<div class="card"><b>'+(hi?'उत्तर समीक्षा':'Answer Review')+'</b>';
+ for(j=0;j<N;j++){
+  var q=Q[j],st=A[j]<0?'s':(A[j]===q[3]?'c':'w');
+  h+='<div class="rv '+st+'"><b>Q'+(START+j)+'.</b> '+esc(q[L])+'<br>'+
+  (hi?'आपका उत्तर: ':'Your answer: ')+(A[j]<0?(hi?'छोड़ा गया':'Skipped'):"ABCD".charAt(A[j])+') '+esc(q[2][A[j]][L]))+'<br>'+
+  '<b>'+(hi?'सही उत्तर: ':'Correct answer: ')+"ABCD".charAt(q[3])+') '+esc(q[2][q[3]][L])+'</b></div>';
+ }
+ h+='</div><div style="text-align:center"><button style="background:#ffc933;color:#0b2447" onclick="toggleLang()">'+t("lang")+'</button> <button style="background:#0b2447;color:#fff" onclick="location.reload()">'+(hi?'दोबारा दें':'Retake Test')+'</button></div>';
+ $("result").innerHTML=h;
+}
+render();
+</script>
+</body>
+</html>

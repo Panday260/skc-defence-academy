@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test (Q491-525)</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal",Arial,sans-serif;background:#eef1f6;color:#1b2430}
+header{background:#0b2447;color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+.brand{font-weight:800;letter-spacing:.5px;font-size:17px;color:#ffc933}
+.brand small{display:block;color:#cfd8e8;font-weight:500;font-size:11px;letter-spacing:0}
+.tools{display:flex;gap:8px;align-items:center}
+#timer{background:#fff;color:#0b2447;font-weight:800;padding:6px 10px;border-radius:6px;font-size:16px;min-width:72px;text-align:center}
+#timer.low{background:#d62828;color:#fff}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:6px;font-size:15px;padding:10px 16px;font-weight:600}
+#lang{background:#ffc933;color:#0b2447}
+.wrap{max-width:1000px;margin:0 auto;padding:12px;display:flex;gap:12px;flex-wrap:wrap}
+.main{flex:1 1 560px;background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px #0002}
+.side{flex:0 0 260px;background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 4px #0002;height:fit-content}
+.qno{color:#0b2447;font-weight:700;margin-bottom:8px}
+.qtext{font-size:18px;line-height:1.5;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:2px solid #d5dbe6;border-radius:8px;padding:11px;margin-bottom:10px;cursor:pointer;line-height:1.45;font-size:16px}
+.opt b{min-width:24px;height:24px;border-radius:50%;background:#e6ebf4;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.opt.sel{border-color:#0b2447;background:#e8f0ff}.opt.sel b{background:#0b2447;color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.nav button{flex:1 1 90px}
+#prev,#next{background:#0b2447;color:#fff}
+#clear{background:#e6ebf4;color:#0b2447}
+#submit{background:#d62828;color:#fff}
+#prev:disabled,#next:disabled{opacity:.4}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:10px 0}
+.grid button{padding:9px 0;background:#e6ebf4;color:#1b2430;font-size:14px}
+.grid .ans{background:#2a9d4a;color:#fff}.grid .cur{outline:3px solid #ffc933}
+.leg{font-size:12px;color:#555;line-height:1.8}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:middle}
+.ov{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:10;padding:14px}
+.box{background:#fff;border-radius:10px;padding:20px;max-width:420px;width:100%;text-align:center}
+.box .row{display:flex;gap:8px;margin-top:14px}.box .row button{flex:1}
+#result{display:none;max-width:800px;margin:14px auto;padding:0 12px}
+.card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 4px #0002;margin-bottom:12px}
+.score{font-size:42px;font-weight:800;color:#0b2447;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}
+.stats div{background:#eef1f6;border-radius:8px;padding:10px;text-align:center;font-size:14px}.stats b{display:block;font-size:22px}
+.rv{border-left:5px solid #ccc;padding:8px 10px;margin:10px 0;font-size:15px;line-height:1.5}
+.rv.c{border-color:#2a9d4a}.rv.w{border-color:#d62828}.rv.s{border-color:#999}
+footer{text-align:center;font-size:12px;color:#667;padding:10px}
+@media(max-width:700px){.side{flex:1 1 100%}.qtext{font-size:17px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">SKC DEFENCE ACADEMY<small>SRT Mock Test | Q491 – Q525 | 35 Questions | 30 Min</small></div>
+ <div class="tools"><button id="lang" onclick="toggleLang()">हिन्दी</button><div id="timer">30:00</div></div>
+</header>
+
+<div id="test" class="wrap">
+ <div class="main">
+  <div class="qno" id="qno"></div>
+  <div class="qtext" id="qtext"></div>
+  <div id="opts"></div>
+  <div class="nav">
+   <button id="prev" onclick="go(-1)">&laquo; <span class="t-prev">Previous</span></button>
+   <button id="clear" onclick="clr()"><span class="t-clear">Clear</span></button>
+   <button id="next" onclick="go(1)"><span class="t-next">Next</span> &raquo;</button>
+  </div>
+  <div class="nav"><button id="submit" onclick="askSubmit()"><span class="t-sub">Submit Test</span></button></div>
+ </div>
+ <div class="side">
+  <b class="t-pal">Question Palette</b>
+  <div class="grid" id="grid"></div>
+  <div class="leg"><i style="background:#2a9d4a"></i><span class="t-ans">Answered</span> &nbsp; <i style="background:#e6ebf4;border:1px solid #bbb"></i><span class="t-unans">Not Answered</span></div>
+  <div class="leg" style="margin-top:6px">+1 Correct &nbsp;|&nbsp; −0.25 Wrong</div>
+ </div>
+</div>
+
+<div id="result"></div>
+
+<div class="ov" id="ov"><div class="box">
+ <h3 id="ovt">Submit Test?</h3>
+ <p id="ovp"></p>
+ <div class="row"><button style="background:#e6ebf4" onclick="closeOv()" id="ovno">Cancel</button><button style="background:#d62828;color:#fff" onclick="finish()" id="ovyes">Submit</button></div>
+</div></div>
+
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<script>
+var IG=["You will completely ignore the highly annoying situation entirely, silently walk away perfectly totally fast, and strictly mind your business.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप पूरी तरह से बिल्कुल तेजी से चले जाएंगे, और सख्ती से अपने काम से काम रखेंगे।"];
+var AG=["You will aggressively attack the annoying targeted person entirely, violently break the heavy physical objects, and loudly start massive fighting.","आप आक्रामक रूप से कष्टप्रद लक्षित व्यक्ति पर पूरी तरह हमला करेंगे, हिंसक रूप से भारी भौतिक वस्तुओं को तोड़ेंगे, और जोर-जोर से भारी लड़ाई शुरू करेंगे।"];
+var CR=["You will instantly start crying in deep extreme panic, completely freeze perfectly exactly right there, and blindly wait perfectly strictly.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, पूरी तरह से बिल्कुल वहीं सुन्न हो जाएंगे, और आंख मूंदकर बिल्कुल सख्ती से इंतजार करेंगे।"];
+var Q=[
+["A close friend strictly borrows your expensive digital camera and returns it heavily damaged completely.","एक करीबी दोस्त सख्ती से आपका महंगा डिजिटल कैमरा उधार लेता है और इसे पूरी तरह से भारी क्षतिग्रस्त लौटाता है।",[IG,AG,["You will calmly discuss the heavy physical damages peacefully, politely request the required repair costs properly, and firmly preserve the deep close friendship safely.","आप शांति से भारी भौतिक नुकसान पर शांतिपूर्वक चर्चा करेंगे, विनम्रतापूर्वक आवश्यक मरम्मत लागत का ठीक से अनुरोध करेंगे, और दृढ़ता से गहरी करीबी दोस्ती को सुरक्षित रखेंगे।"],CR],2],
+["A local mechanic intentionally strictly overcharges you heavily for a completely minor car repair.","एक स्थानीय मैकेनिक जानबूझकर एक पूरी तरह से मामूली कार मरम्मत के लिए सख्ती से आपसे भारी कीमत वसूलता है।",[["You will firmly verify the actual market prices properly, calmly negotiate the highly unfair bill strictly, and safely pay the exact correct amount perfectly.","आप दृढ़ता से वास्तविक बाजार कीमतों को ठीक से सत्यापित करेंगे, शांति से अत्यधिक अनुचित बिल पर सख्ती से बातचीत करेंगे, और सुरक्षित रूप से सटीक सही राशि का बिल्कुल भुगतान करेंगे।"],CR,IG,AG],0],
+["You clearly see a teenage student secretly cheating perfectly during a final board examination.","आप स्पष्ट रूप से एक किशोर छात्र को अंतिम बोर्ड परीक्षा के दौरान चुपके से बिल्कुल नकल करते हुए देखते हैं।",[AG,IG,CR,["You will firmly approach the strict exam invigilator quietly, safely report the bad illegal cheating confidentially, and calmly focus upon your own examination completely.","आप दृढ़ता से सख्त परीक्षा निरीक्षक के पास चुपचाप जाएंगे, सुरक्षित रूप से बुरी अवैध नकल की गोपनीय रिपोर्ट करेंगे, और शांति से अपनी खुद की परीक्षा पर पूरी तरह ध्यान केंद्रित करेंगे।"]],3],
+["A distant relative constantly compares your career salary strictly with their highly rich son.","एक दूर का रिश्तेदार लगातार आपके करियर के वेतन की तुलना सख्ती से अपने अत्यधिक अमीर बेटे से करता है।",[AG,IG,["You will calmly listen to the harsh unfair words, politely explain your clear personal goals confidently, and firmly maintain your absolute strong confidence perfectly.","आप शांति से कठोर अनुचित शब्दों को सुनेंगे, विनम्रतापूर्वक अपने स्पष्ट व्यक्तिगत लक्ष्यों को आत्मविश्वास से समझाएंगे, और दृढ़ता से अपना पूर्ण मजबूत आत्मविश्वास बिल्कुल बनाए रखेंगे।"],CR],2],
+["Your pre-booked hotel room is completely extremely dirty and highly unhygienic upon late arrival.","देर से पहुंचने पर आपका पूर्व-बुक किया गया होटल का कमरा पूरी तरह से बेहद गंदा और अत्यधिक अस्वच्छ है।",[CR,["You will firmly contact the main hotel reception instantly, politely demand a clean fresh room promptly, and safely ensure the proper hygienic stay completely.","आप दृढ़ता से मुख्य होटल रिसेप्शन से तुरंत संपर्क करेंगे, विनम्रतापूर्वक एक साफ ताजे कमरे की तुरंत मांग करेंगे, और सुरक्षित रूप से उचित स्वच्छ प्रवास पूरी तरह सुनिश्चित करेंगे।"],IG,AG],1],
+["A completely unknown stranger perfectly claims your reserved train seat and strictly refuses moving.","एक पूरी तरह से अज्ञात अजनबी बिल्कुल आपकी आरक्षित ट्रेन सीट का दावा करता है और सख्ती से हटने से इंकार करता है।",[CR,["You will calmly show your valid confirmed ticket directly, politely request the rude passenger twice formally, and firmly involve the official ticket examiner immediately.","आप शांति से अपना वैध कन्फर्म टिकट सीधे दिखाएंगे, विनम्रतापूर्वक असभ्य यात्री से दो बार औपचारिक रूप से अनुरोध करेंगे, और दृढ़ता से आधिकारिक टिकट परीक्षक को तुरंत शामिल करेंगे।"],AG,IG],1],
+["Your local laundry man completely totally loses your highly expensive brand new formal suit.","आपका स्थानीय कपड़े धोने वाला (लॉन्ड्री मैन) आपके अत्यधिक महंगे बिल्कुल नए फॉर्मल सूट को पूरी तरह खो देता है।",[AG,CR,IG,["You will calmly check the original booking receipt securely, firmly demand the proper financial compensation strictly, and safely resolve the huge unfortunate issue legally.","आप शांति से मूल बुकिंग रसीद को सुरक्षित रूप से जांचेंगे, दृढ़ता से उचित वित्तीय मुआवजे की सख्ती से मांग करेंगे, और सुरक्षित रूप से बड़े दुर्भाग्यपूर्ण मुद्दे को कानूनी रूप से सुलझाएंगे।"]],3],
+["You accidentally discover your much younger cousin secretly vaping perfectly inside the house bathroom.","आप गलती से अपने बहुत छोटे चचेरे भाई को घर के बाथरूम के अंदर चुपके से बिल्कुल वेपिंग (धूम्रपान) करते हुए पाते हैं।",[AG,CR,IG,["You will calmly confiscate the highly harmful toxic device, politely counsel about severe health risks deeply, and firmly inform the strict elder parents confidentially.","आप शांति से अत्यधिक हानिकारक विषैले उपकरण को जब्त करेंगे, विनम्रतापूर्वक गंभीर स्वास्थ्य जोखिमों के बारे में गहराई से सलाह देंगे, और दृढ़ता से सख्त बड़े माता-पिता को गोपनीय रूप से सूचित करेंगे।"]],3],
+["A neighborhood street vendor strictly deliberately refuses to completely return the exact correct change.","एक पड़ोस का सड़क विक्रेता सख्ती से जानबूझकर सटीक सही छुट्टे पूरी तरह से वापस करने से इंकार करता है।",[["You will calmly calculate the exact pending money properly, firmly demand the complete correct change strictly, and safely take your fully exact amount successfully.","आप शांति से सटीक लंबित धन की ठीक से गणना करेंगे, दृढ़ता से पूर्ण सही छुट्टे की सख्ती से मांग करेंगे, और सुरक्षित रूप से अपनी पूरी सटीक राशि सफलतापूर्वक ले लेंगे।"],AG,CR,IG],0],
+["Your ordered food delivery arrives heavily completely opened and partially eaten perfectly extremely late.","आपकी ऑर्डर की गई फूड डिलीवरी भारी रूप से पूरी तरह खुली हुई और आंशिक रूप से खाई हुई बिल्कुल अत्यधिक देर से आती है।",[IG,["You will firmly refuse to blindly accept the food, safely capture the exact photographic proofs properly, and promptly register a strict formal complaint digitally.","आप दृढ़ता से भोजन को आंख मूंदकर स्वीकार करने से इंकार करेंगे, सुरक्षित रूप से सटीक फोटोग्राफिक प्रमाण ठीक से लेंगे, और तुरंत एक सख्त औपचारिक शिकायत डिजिटल रूप से दर्ज करेंगे।"],CR,AG],1],
+["A known trusted colleague spreads completely false nasty rumors about your personal life strictly.","एक ज्ञात विश्वसनीय सहकर्मी आपके निजी जीवन के बारे में पूरी तरह से झूठी गंदी अफवाहें सख्ती से फैलाता है।",[CR,["You will calmly gather the solid concrete proofs discreetly, firmly confront the fake toxic colleague privately, and politely issue a strict final warning properly.","आप शांति से ठोस पक्के सबूतों को गुप्त रूप से इकट्ठा करेंगे, दृढ़ता से अकेले में नकली विषैले सहकर्मी का सामना करेंगे, और विनम्रतापूर्वक एक सख्त अंतिम चेतावनी ठीक से जारी करेंगे।"],IG,AG],1],
+["You clearly witness a well-educated person throwing heavy plastic garbage perfectly into a clean river.","आप स्पष्ट रूप से एक सुशिक्षित व्यक्ति को एक साफ नदी में भारी प्लास्टिक कचरा बिल्कुल फेंकते हुए देखते हैं।",[["You will calmly approach the highly careless person directly, politely explain the severe environmental risks deeply, and firmly request to safely dispose it properly.","आप शांति से अत्यधिक लापरवाह व्यक्ति के पास सीधे जाएंगे, विनम्रतापूर्वक गंभीर पर्यावरणीय जोखिमों को गहराई से समझाएंगे, और दृढ़ता से इसे सुरक्षित रूप से ठीक से निपटाने का अनुरोध करेंगे।"],AG,CR,IG],0],
+["A stray street dog completely aggressively scatters your outdoor dustbin perfectly across the entire street.","एक आवारा सड़क का कुत्ता पूरी तरह आक्रामक रूप से आपके बाहरी कूड़ेदान को पूरी सड़क पर बिल्कुल फैला देता है।",[IG,CR,["You will safely chase the poor stray animal away, calmly clean the dirty scattered garbage properly, and firmly secure the heavy dustbin lid tightly.","आप सुरक्षित रूप से गरीब आवारा जानवर को दूर भगाएंगे, शांति से गंदे बिखरे हुए कचरे को ठीक से साफ करेंगे, और दृढ़ता से भारी कूड़ेदान के ढक्कन को कसकर सुरक्षित करेंगे।"],AG],2],
+["You mistakenly transfer a huge massive amount perfectly to an completely unknown digital payment number.","आप गलती से एक विशाल भारी राशि एक पूरी तरह से अज्ञात डिजिटल भुगतान नंबर पर बिल्कुल ट्रांसफर कर देते हैं।",[["You will calmly note the exact transaction details perfectly, firmly contact the official bank helpline instantly, and safely register a strict formal dispute successfully.","आप शांति से सटीक लेनदेन विवरण बिल्कुल नोट करेंगे, दृढ़ता से आधिकारिक बैंक हेल्पलाइन से तुरंत संपर्क करेंगे, और सुरक्षित रूप से एक सख्त औपचारिक विवाद सफलतापूर्वक दर्ज करेंगे।"],CR,AG,IG],0],
+["Your new arrogant landlord heavily completely hikes the room rent perfectly without prior legal notice.","आपका नया अभिमानी मकान मालिक बिना पूर्व कानूनी नोटिस के कमरे का किराया पूरी तरह से भारी रूप से बिल्कुल बढ़ा देता है।",[["You will calmly read the exact rental agreement properly, politely discuss the unfair illegal hike strictly, and firmly negotiate a highly reasonable rent successfully.","आप शांति से सटीक किराये के समझौते को ठीक से पढ़ेंगे, विनम्रतापूर्वक अनुचित अवैध बढ़ोतरी पर सख्ती से चर्चा करेंगे, और दृढ़ता से अत्यधिक उचित किराए पर सफलतापूर्वक बातचीत करेंगे।"],CR,IG,AG],0],
+["You accidentally completely drop your highly expensive smartphone perfectly into a deep public water fountain.","आप गलती से अपना अत्यधिक महंगा स्मार्टफोन पूरी तरह से एक गहरे सार्वजनिक पानी के फव्वारे में बिल्कुल गिरा देते हैं।",[["You will safely retrieve the wet electronic device instantly, calmly wipe the entire outer surface completely, and firmly visit a professional repair shop promptly.","आप सुरक्षित रूप से गीले इलेक्ट्रॉनिक उपकरण को तुरंत वापस निकालेंगे, शांति से पूरी बाहरी सतह को पूरी तरह पोंछेंगे, और दृढ़ता से तुरंत एक पेशेवर मरम्मत की दुकान पर जाएंगे।"],CR,AG,IG],0],
+["A close trusted friend perfectly heavily forces you to strictly consume alcohol at a party.","एक करीबी विश्वसनीय दोस्त बिल्कुल भारी रूप से आपको एक पार्टी में शराब का सेवन करने के लिए सख्ती से मजबूर करता है।",[CR,IG,AG,["You will firmly decline the bad illegal offer strictly, politely explain your strong personal principles clearly, and safely leave the highly toxic environment entirely.","आप दृढ़ता से बुरे अवैध प्रस्ताव को सख्ती से अस्वीकार करेंगे, विनम्रतापूर्वक अपने मजबूत व्यक्तिगत सिद्धांतों को स्पष्ट रूप से समझाएंगे, और सुरक्षित रूप से अत्यधिक विषैले वातावरण को पूरी तरह छोड़ देंगे।"]],3],
+["Your shared apartment roommate strictly totally avoids paying his exact half of the electricity bill.","आपका साझा अपार्टमेंट का रूममेट बिजली के बिल का अपना सटीक आधा हिस्सा चुकाने से सख्ती से पूरी तरह बचता है।",[["You will calmly show the original pending bill clearly, politely demand the exact half payment directly, and firmly set a strict final deadline successfully.","आप शांति से मूल लंबित बिल स्पष्ट रूप से दिखाएंगे, विनम्रतापूर्वक सटीक आधे भुगतान की सीधे मांग करेंगे, और दृढ़ता से एक सख्त अंतिम समय सीमा सफलतापूर्वक निर्धारित करेंगे।"],IG,CR,AG],0],
+["A highly fake customer care executive strictly actively asks for your secret bank OTP perfectly.","एक अत्यधिक फर्जी कस्टमर केयर कार्यकारी सख्ती से सक्रिय रूप से आपके गुप्त बैंक ओटीपी (OTP) को बिल्कुल मांगता है।",[AG,IG,["You will firmly refuse to share sensitive details strictly, calmly disconnect the highly suspicious call instantly, and safely block the fake scammer number completely.","आप दृढ़ता से संवेदनशील विवरण साझा करने से सख्ती से इंकार करेंगे, शांति से अत्यधिक संदिग्ध कॉल को तुरंत काट देंगे, और सुरक्षित रूप से फर्जी स्कैमर नंबर को पूरी तरह ब्लॉक कर देंगे।"],CR],2],
+["You clearly exactly notice a highly corrupt traffic policeman actively perfectly taking illegal cash bribes.","आप स्पष्ट रूप से बिल्कुल देखते हैं कि एक अत्यधिक भ्रष्ट ट्रैफिक पुलिसकर्मी सक्रिय रूप से बिल्कुल अवैध नकद रिश्वत ले रहा है।",[["You will safely capture the exact visual evidence discreetly, calmly leave the highly corrupt spot entirely, and firmly report to senior vigilance officers properly.","आप सुरक्षित रूप से सटीक दृश्य साक्ष्य को गुप्त रूप से रिकॉर्ड करेंगे, शांति से अत्यधिक भ्रष्ट स्थान को पूरी तरह छोड़ देंगे, और दृढ़ता से वरिष्ठ सतर्कता अधिकारियों को ठीक से रिपोर्ट करेंगे।"],AG,IG,CR],0],
+["A fellow arrogant gym member strictly completely refuses to safely share the highly crowded machine.","एक साथी अभिमानी जिम सदस्य अत्यधिक भीड़भाड़ वाली मशीन को सुरक्षित रूप से साझा करने से सख्ती से पूरी तरह इंकार करता है।",[CR,AG,["You will politely ask the rude gym member again, calmly wait for your exact proper turn, and firmly inform the official gym trainer promptly.","आप विनम्रतापूर्वक असभ्य जिम सदस्य से फिर पूछेंगे, शांति से अपनी सटीक उचित बारी का इंतजार करेंगे, और दृढ़ता से आधिकारिक जिम ट्रेनर को तुरंत सूचित करेंगे।"],IG],2],
+["Your local trusted grocery shop secretly strictly sells completely expired milk perfectly hiding printed dates.","आपकी स्थानीय विश्वसनीय किराने की दुकान चुपके से छपी हुई तारीखों को बिल्कुल छिपाकर पूरी तरह से एक्सपायर हो चुका दूध सख्ती से बेचती है।",[IG,AG,["You will calmly confront the bad dishonest shopkeeper directly, firmly demand the exact full refund strictly, and safely alert the local neighborhood people completely.","आप शांति से बुरे बेईमान दुकानदार का सीधे सामना करेंगे, दृढ़ता से सटीक पूर्ण धनवापसी की सख्ती से मांग करेंगे, और सुरक्षित रूप से स्थानीय पड़ोस के लोगों को पूरी तरह सतर्क करेंगे।"],CR],2],
+["A highly loud group of rowdy teenagers heavily totally disturbs the quiet peaceful public library.","उपद्रवी किशोरों का एक अत्यधिक शोर करने वाला समूह शांत शांतिपूर्ण सार्वजनिक पुस्तकालय को भारी रूप से पूरी तरह परेशान करता है।",[["You will calmly request the loud teenager group politely, firmly ask to maintain absolute silence properly, and safely inform the strict head librarian instantly.","आप शांति से शोर करने वाले किशोर समूह से विनम्रतापूर्वक अनुरोध करेंगे, दृढ़ता से पूर्ण मौन ठीक से बनाए रखने के लिए कहेंगे, और सुरक्षित रूप से सख्त मुख्य लाइब्रेरियन को तुरंत सूचित करेंगे।"],CR,AG,IG],0],
+["You accidentally perfectly highly scratch a heavily parked luxury car while carefully parking yours entirely.","आप अपना वाहन सावधानी से पूरी तरह पार्क करते समय गलती से एक भारी पार्क की गई लग्जरी कार को बिल्कुल अत्यधिक खरोंच देते हैं।",[CR,IG,["You will calmly park your own vehicle perfectly safely, politely write a genuine apology note strictly, and firmly leave your correct contact details properly.","आप शांति से अपना खुद का वाहन बिल्कुल सुरक्षित रूप से पार्क करेंगे, विनम्रतापूर्वक एक वास्तविक माफी पत्र सख्ती से लिखेंगे, और दृढ़ता से अपना सही संपर्क विवरण ठीक से छोड़ेंगे।"],AG],2],
+["A highly close relative constantly perfectly totally ignores your poor family perfectly during a huge wedding.","एक अत्यधिक करीबी रिश्तेदार एक बड़ी शादी के दौरान लगातार बिल्कुल पूरी तरह से आपके गरीब परिवार को बिल्कुल नजरअंदाज करता है।",[["You will calmly ignore the bad toxic behavior entirely, politely enjoy the huge family function gracefully, and firmly maintain your strong absolute dignity perfectly.","आप शांति से बुरे विषैले व्यवहार को पूरी तरह नजरअंदाज करेंगे, विनम्रतापूर्वक बड़े पारिवारिक समारोह का शालीनता से आनंद लेंगे, और दृढ़ता से अपनी मजबूत पूर्ण गरिमा बिल्कुल बनाए रखेंगे।"],IG,AG,CR],0],
+["Your highly expensive ordered courier parcel gets completely completely delivered perfectly to a wrong address.","आपका अत्यधिक महंगा ऑर्डर किया गया कूरियर पार्सल पूरी तरह से बिल्कुल एक गलत पते पर पूरी तरह से डिलीवर हो जाता है।",[CR,AG,IG,["You will calmly check the exact delivery status properly, firmly contact the official courier company instantly, and safely retrieve the highly expensive parcel successfully.","आप शांति से सटीक डिलीवरी स्थिति की ठीक से जांच करेंगे, दृढ़ता से आधिकारिक कूरियर कंपनी से तुरंत संपर्क करेंगे, और सुरक्षित रूप से अत्यधिक महंगा पार्सल सफलतापूर्वक वापस प्राप्त करेंगे।"]],3],
+["You clearly highly see a perfectly young boy deliberately violently scratching a newly painted wall.","आप स्पष्ट रूप से अत्यधिक देखते हैं कि एक बिल्कुल युवा लड़का जानबूझकर एक नई रंगी हुई दीवार को हिंसक रूप से खरोंच रहा है।",[IG,CR,["You will safely approach the careless young boy calmly, politely explain the bad civic damage firmly, and firmly inform his strictly elder parents properly.","आप सुरक्षित रूप से लापरवाह युवा लड़के के पास शांति से जाएंगे, विनम्रतापूर्वक बुरे नागरिक नुकसान को दृढ़ता से समझाएंगे, और दृढ़ता से उसके सख्त बड़े माता-पिता को ठीक से सूचित करेंगे।"],AG],2],
+["A completely unknown arrogant stranger deeply perfectly insults your sacred religious beliefs strictly online perfectly.","एक पूरी तरह से अज्ञात अभिमानी अजनबी आपके पवित्र धार्मिक विश्वासों का पूरी तरह से सख्ती से ऑनलाइन बिल्कुल अत्यधिक अपमान करता है।",[CR,IG,AG,["You will calmly ignore the highly toxic comment entirely, safely block the fake online troll strictly, and firmly protect your absolute mental peace perfectly.","आप शांति से अत्यधिक विषैली टिप्पणी को पूरी तरह नजरअंदाज करेंगे, सुरक्षित रूप से नकली ऑनलाइन ट्रोल को सख्ती से ब्लॉक करेंगे, और दृढ़ता से अपनी पूर्ण मानसिक शांति की बिल्कुल रक्षा करेंगे।"]],3],
+["Your perfectly highly trusted mechanic strictly strictly replaces original car parts entirely with cheap duplicates.","आपका बिल्कुल अत्यधिक विश्वसनीय मैकेनिक मूल कार के पुर्जों को सख्ती से पूरी तरह से सस्ते डुप्लिकेट से बदल देता है।",[AG,["You will calmly verify the replaced duplicate parts securely, firmly confront the highly dishonest mechanic strictly, and safely demand the original genuine parts successfully.","आप शांति से बदले गए डुप्लिकेट पुर्जों को सुरक्षित रूप से सत्यापित करेंगे, दृढ़ता से अत्यधिक बेईमान मैकेनिक का सख्ती से सामना करेंगे, और सुरक्षित रूप से मूल वास्तविक पुर्जों की सफलतापूर्वक मांग करेंगे।"],IG,CR],1],
+["A highly aggressive street beggar forcefully strictly heavily grabs your clean clothes perfectly demanding huge money.","एक अत्यधिक आक्रामक सड़क का भिखारी भारी पैसे की मांग करते हुए बलपूर्वक सख्ती से भारी रूप से आपके साफ कपड़े बिल्कुल पकड़ लेता है।",[AG,CR,["You will calmly detach his dirty strong hands safely, firmly refuse to blindly give cash entirely, and safely offer him clean fresh food politely.","आप शांति से उसके गंदे मजबूत हाथों को सुरक्षित रूप से अलग करेंगे, दृढ़ता से आंख मूंदकर पूरी तरह नकद देने से इंकार करेंगे, और सुरक्षित रूप से उसे विनम्रतापूर्वक साफ ताजा भोजन देंगे।"],IG],2],
+["Your ordered highly extremely expensive electronics package perfectly entirely arrives completely totally empty entirely upon delivery.","आपका ऑर्डर किया गया अत्यधिक अत्यंत महंगा इलेक्ट्रॉनिक्स पैकेज डिलीवरी पर बिल्कुल पूरी तरह से पूरी तरह से बिल्कुल खाली आता है।",[AG,CR,IG,["You will calmly record an exact unboxing video properly, firmly contact the official seller support instantly, and safely process the complete strict refund successfully.","आप शांति से एक सटीक अनबॉक्सिंग वीडियो ठीक से रिकॉर्ड करेंगे, दृढ़ता से आधिकारिक विक्रेता समर्थन से तुरंत संपर्क करेंगे, और सुरक्षित रूप से पूर्ण सख्त धनवापसी सफलतापूर्वक संसाधित (प्रोसेस) करेंगे।"]],3],
+["A completely highly random person strictly heavily spits heavily red paan perfectly onto your clean white shirt.","एक पूरी तरह से अत्यधिक यादृच्छिक (रैंडम) व्यक्ति सख्ती से भारी रूप से आपके साफ सफेद शर्ट पर बिल्कुल लाल पान थूकता है।",[["You will calmly control your sudden extreme anger completely, firmly scold the highly careless person strictly, and safely clean your stained white shirt properly.","आप शांति से अपने अचानक अत्यधिक क्रोध को पूरी तरह नियंत्रित करेंगे, दृढ़ता से अत्यधिक लापरवाह व्यक्ति को सख्ती से डांटेंगे, और सुरक्षित रूप से अपनी दागदार सफेद शर्ट को ठीक से साफ करेंगे।"],AG,IG,CR],0],
+["You clearly safely find a perfectly fully lost expensive diamond ring strictly inside a crowded public mall.","आप स्पष्ट रूप से सुरक्षित रूप से एक भीड़भाड़ वाले सार्वजनिक मॉल के अंदर सख्ती से पूरी तरह से खोई हुई महंगी हीरे की अंगूठी पाते हैं।",[CR,["You will safely pick the expensive shiny ring securely, calmly locate the main security desk instantly, and firmly deposit the precious expensive item properly.","आप सुरक्षित रूप से महंगी चमकदार अंगूठी को सुरक्षित रूप से उठाएंगे, शांति से मुख्य सुरक्षा डेस्क का तुरंत पता लगाएंगे, और दृढ़ता से कीमती महंगी वस्तु को ठीक से जमा करेंगे।"],AG,IG],1],
+["A highly overly aggressive neighbor completely perfectly heavily throws dirty water entirely onto your clean dry balcony.","एक अत्यधिक आक्रामक पड़ोसी पूरी तरह से बिल्कुल भारी रूप से गंदा पानी पूरी तरह से आपकी साफ सूखी बालकनी पर फेंकता है।",[CR,IG,["You will calmly clean the dirty wet balcony properly, politely visit the highly aggressive neighbor directly, and firmly warn strictly against completely repeating it.","आप शांति से गंदी गीली बालकनी को ठीक से साफ करेंगे, विनम्रतापूर्वक अत्यधिक आक्रामक पड़ोसी से सीधे मिलेंगे, और दृढ़ता से इसे पूरी तरह दोहराने के खिलाफ सख्ती से चेतावनी देंगे।"],AG],2],
+["Your highly absolutely close trusted friend entirely perfectly leaks your highly heavily personal private secret perfectly online.","आपका अत्यधिक बिल्कुल करीबी विश्वसनीय मित्र आपके अत्यधिक भारी व्यक्तिगत निजी रहस्य को बिल्कुल ऑनलाइन पूरी तरह से बिल्कुल लीक कर देता है।",[IG,AG,CR,["You will calmly delete the exact online post promptly, firmly confront the fake toxic friend strictly, and safely cut the deep close ties completely.","आप शांति से सटीक ऑनलाइन पोस्ट को तुरंत हटा देंगे, दृढ़ता से नकली विषैले मित्र का सख्ती से सामना करेंगे, और सुरक्षित रूप से गहरे करीबी संबंधों को पूरी तरह काट देंगे।"]],3]
+];
+var START=491,N=Q.length,TOTAL=1800,L=0,cur=0,done=false,A=[],i;
+for(i=0;i<N;i++)A.push(-1);
+var T={
+ en:{prev:"Previous",next:"Next",clear:"Clear",sub:"Submit Test",pal:"Question Palette",ans:"Answered",unans:"Not Answered",lang:"हिन्दी",q:"Question",cancel:"Cancel",submit:"Submit",ot:"Submit Test?",answered:"Answered",left:"Not answered",sure:"Are you sure you want to submit?"},
+ hi:{prev:"पिछला",next:"अगला",clear:"हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न सूची",ans:"उत्तर दिया",unans:"उत्तर नहीं दिया",lang:"English",q:"प्रश्न",cancel:"रद्द करें",submit:"सबमिट",ot:"टेस्ट सबमिट करें?",answered:"उत्तर दिए",left:"बिना उत्तर",sure:"क्या आप सच में सबमिट करना चाहते हैं?"}
+};
+function $(id){return document.getElementById(id)}
+function t(k){return T[L?"hi":"en"][k]}
+function cls(c,v){var e=document.getElementsByClassName(c);for(var j=0;j<e.length;j++)e[j].textContent=v}
+function render(){
+ var q=Q[cur];
+ $("qno").textContent=t("q")+" "+(cur+1)+" / "+N+"  (Q"+(START+cur)+")";
+ $("qtext").textContent=q[L];
+ var h="";
+ for(var j=0;j<4;j++){h+='<div class="opt'+(A[cur]===j?' sel':'')+'" onclick="pick('+j+')"><b>'+"ABCD".charAt(j)+'</b><span>'+esc(q[2][j][L])+'</span></div>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===N-1;
+ cls("t-prev",t("prev"));cls("t-next",t("next"));cls("t-clear",t("clear"));cls("t-sub",t("sub"));cls("t-pal",t("pal"));cls("t-ans",t("ans"));cls("t-unans",t("unans"));
+ $("lang").textContent=t("lang");
+ grid();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function grid(){
+ var h="";
+ for(var j=0;j<N;j++)h+='<button class="'+(A[j]>-1?'ans ':'')+(j===cur?'cur':'')+'" onclick="jump('+j+')">'+(j+1)+'</button>';
+ $("grid").innerHTML=h;
+}
+function pick(j){A[cur]=j;render()}
+function clr(){A[cur]=-1;render()}
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));render();window.scrollTo(0,0)}
+function jump(j){cur=j;render();window.scrollTo(0,0)}
+function toggleLang(){L=L?0:1;document.documentElement.lang=L?"hi":"en";render();if(done)showResult()}
+function askSubmit(){
+ var a=0;for(var j=0;j<N;j++)if(A[j]>-1)a++;
+ $("ovt").textContent=t("ot");
+ $("ovp").textContent=t("answered")+": "+a+" | "+t("left")+": "+(N-a)+". "+t("sure");
+ $("ovno").textContent=t("cancel");$("ovyes").textContent=t("submit");
+ $("ov").style.display="flex";
+}
+function closeOv(){$("ov").style.display="none"}
+var endAt=Date.now()+TOTAL*1000,tick;
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ var m=Math.floor(s/60),r=s%60;
+ $("timer").textContent=(m<10?"0":"")+m+":"+(r<10?"0":"")+r;
+ if(s<=300)$("timer").className="low";
+ if(s<=0){finish()}
+}
+tick=setInterval(upd,500);
+function finish(){
+ if(done)return;done=true;clearInterval(tick);closeOv();
+ $("test").style.display="none";$("timer").style.display="none";
+ $("result").style.display="block";showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var c=0,w=0,s=0,j;
+ for(j=0;j<N;j++){if(A[j]<0)s++;else if(A[j]===Q[j][3])c++;else w++}
+ var sc=c-w*0.25,hi=L===1;
+ var h='<div class="card"><div style="text-align:center;font-weight:700;color:#0b2447">SKC DEFENCE ACADEMY</div>'+
+ '<div class="score">'+sc.toFixed(2)+' / '+N+'</div><div style="text-align:center">'+(hi?'कुल स्कोर':'Total Score')+'</div>'+
+ '<div class="stats"><div><b>'+N+'</b>'+(hi?'कुल प्रश्न':'Total Questions')+'</div><div><b>'+(c+w)+'</b>'+(hi?'प्रयास किए':'Attempted')+'</div><div><b>'+s+'</b>'+(hi?'छोड़े गए':'Skipped')+'</div><div><b style="color:#2a9d4a">'+c+'</b>'+(hi?'सही (+1)':'Correct (+1)')+'</div><div><b style="color:#d62828">'+w+'</b>'+(hi?'गलत (−0.25)':'Wrong (−0.25)')+'</div></div></div>'+
+ '<div class="card"><b>'+(hi?'उत्तर समीक्षा':'Answer Review')+'</b>';
+ for(j=0;j<N;j++){
+  var q=Q[j],st=A[j]<0?'s':(A[j]===q[3]?'c':'w');
+  h+='<div class="rv '+st+'"><b>Q'+(START+j)+'.</b> '+esc(q[L])+'<br>'+
+  (hi?'आपका उत्तर: ':'Your answer: ')+(A[j]<0?(hi?'छोड़ा गया':'Skipped'):"ABCD".charAt(A[j])+') '+esc(q[2][A[j]][L]))+'<br>'+
+  '<b>'+(hi?'सही उत्तर: ':'Correct answer: ')+"ABCD".charAt(q[3])+') '+esc(q[2][q[3]][L])+'</b></div>';
+ }
+ h+='</div><div style="text-align:center"><button style="background:#ffc933;color:#0b2447" onclick="toggleLang()">'+t("lang")+'</button> <button style="background:#0b2447;color:#fff" onclick="location.reload()">'+(hi?'दोबारा दें':'Retake Test')+'</button></div>';
+ $("result").innerHTML=h;
+}
+render();
+</script>
+</body>
+</html>
