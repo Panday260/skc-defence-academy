@@ -27,6 +27,10 @@ const App = {
     selectedPaidCourseCategory: 'all',
     selectedCaCategory: 'all',
     courseViewActiveFolders: {},
+    activePhase2BatchId: 'phase2_1',
+    activePhase2Folder: 'srt-mocks',
+    activeCourseId: 'course_1',
+    activeCourseFolder: 'videos',
     slideshowIndex: 0,
     slideshowInterval: null,
     digitalBoardMode: false,
@@ -362,6 +366,7 @@ const App = {
 
     // Specific View Renderers
     if (view === 'paid-courses') this.renderPaidCourses();
+    if (view === 'course-classroom') this.renderCourseClassroom();
     if (view === 'free-test-series') this.renderFreeTests();
     if (view === 'paid-test-series') this.renderPaidTestSeries();
     if (view === 'ebooks') this.renderEbooks();
@@ -369,6 +374,8 @@ const App = {
     if (view === 'syllabus') this.renderSyllabus();
     if (view === 'social-links') this.renderSocialLinks();
     if (view === 'phase2') this.renderPhase2();
+    if (view === 'phase2-classroom') this.renderPhase2Classroom();
+    if (view === 'quiz-portal') this.renderQuizPortal();
     if (view === 'current-affairs') this.renderCurrentAffairs();
     if (view === 'my-courses') this.renderMyCourses();
     if (view === 'admin-panel') this.renderAdminPanel();
@@ -579,13 +586,23 @@ const App = {
   },
 
   openCourseViewer(courseId, activeFolder = 'videos') {
-    const course = this.state.courses.find(c => c.id === courseId);
-    if (!course) return;
+    this.closeModal('generic-modal');
+    this.state.activeCourseId = courseId;
+    this.state.activeCourseFolder = activeFolder;
+    this.navigateTo('course-classroom');
+  },
 
-    this.state.courseViewActiveFolders[courseId] = activeFolder;
+  renderCourseClassroom() {
+    const courseId = this.state.activeCourseId || 'course_1';
+    const activeFolder = this.state.activeCourseFolder || 'videos';
+    const course = (this.state.courses || []).find(c => c.id === courseId) || (this.state.courses || [])[0];
+    const container = document.getElementById('course-classroom-container');
+    if (!course || !container) return;
 
-    const modalBody = document.getElementById('generic-modal-body');
-    document.getElementById('generic-modal-title').innerText = `${course.title} • Course Library`;
+    const breadcrumbTag = document.getElementById('course-classroom-breadcrumb-tag');
+    if (breadcrumbTag) breadcrumbTag.textContent = `${course.title} • Classroom`;
+
+    this.state.courseViewActiveFolders[course.id] = activeFolder;
 
     const videos = course.videos || [];
     const pdfs = course.pdfs || [];
@@ -605,11 +622,29 @@ const App = {
       countText = `${mocks.length} CBT Tests`;
     }
 
-    modalBody.innerHTML = `
+    container.innerHTML = `
       <div>
-        <div style="background:linear-gradient(135deg, #0a192f 0%, #1e3a8a 100%); color:#fff; padding:1.15rem; border-radius:10px; margin-bottom:1.25rem; border:1.5px solid #0284c7;">
-          <h4 style="font-size:1.15rem; margin:0 0 0.35rem; color:#fff;">${course.title}</h4>
-          <p style="color:#cbd5e1; font-size:0.85rem; margin:0;">${course.description}</p>
+        <div style="background:linear-gradient(135deg, #0a192f 0%, #1e3a8a 100%); color:#fff; padding:1.25rem 1.4rem; border-radius:12px; margin-bottom:1.25rem; border:1.5px solid #0284c7;">
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+            <div>
+              <span style="background:#0284c7; color:#fff; font-weight:800; font-size:0.75rem; padding:0.2rem 0.55rem; border-radius:4px; text-transform:uppercase;">
+                🎓 ${course.category || 'DEFENCE BATCH'}
+              </span>
+              <h3 style="font-size:1.3rem; margin:0.35rem 0; color:#fff; font-weight:800;">${course.title}</h3>
+              <p style="color:#cbd5e1; font-size:0.85rem; margin:0; max-width:650px;">${course.description}</p>
+            </div>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.75rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:6px;">
+                🎥 ${videos.length} Lectures
+              </span>
+              <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.75rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:6px;">
+                📑 ${pdfs.length} PDFs
+              </span>
+              <span style="background:rgba(255,255,255,0.15); color:#fff; font-size:0.75rem; font-weight:700; padding:0.25rem 0.6rem; border-radius:6px;">
+                🖥️ ${mocks.length} Tests
+              </span>
+            </div>
+          </div>
         </div>
 
         <!-- Course Folder Tabs -->
@@ -710,8 +745,6 @@ const App = {
         ` : ''}
       </div>
     `;
-
-    this.openModal('generic-modal');
   },
 
   // 2. Free Test Series
@@ -1691,11 +1724,22 @@ ${eb.previewText || 'Sample preview chapter...'}
   },
 
   openPhase2Viewer(batchId = 'phase2_1', activeFolder = 'srt-mocks') {
+    this.closeModal('generic-modal');
+    this.state.activePhase2BatchId = batchId;
+    this.state.activePhase2Folder = activeFolder || 'srt-mocks';
+    this.navigateTo('phase2-classroom');
+  },
+
+  renderPhase2Classroom() {
+    const batchId = this.state.activePhase2BatchId || 'phase2_1';
+    let activeFolder = this.state.activePhase2Folder || 'srt-mocks';
     const batch = (this.state.phase2Batches || []).find(b => b.id === batchId) || (this.state.phase2Batches || [])[0];
-    if (!batch) return;
-    const modalBody = document.getElementById('generic-modal-body');
+    const container = document.getElementById('phase2-classroom-container');
+    if (!batch || !container) return;
+
+    const breadcrumbTag = document.getElementById('phase2-classroom-breadcrumb-tag');
+    if (breadcrumbTag) breadcrumbTag.innerText = `${batch.title} • Classroom`;
     const isAdmin = this.state.user && this.state.user.role === 'admin';
-    document.getElementById('generic-modal-title').innerText = `${batch.title} • Classroom`;
 
     const videos = batch.youtubeVideos || [];
     const pdfs = batch.classPdfs || [];
@@ -1703,12 +1747,10 @@ ${eb.previewText || 'Sample preview chapter...'}
     const srtPdfs = batch.srtClassPdfs || [];
     const srtMocks = batch.srtMockTests || [];
 
-    if (!activeFolder) activeFolder = 'srt-mocks';
-
     const isPhase2_1 = batch.id === 'phase2_1';
     const isPhase2_2 = batch.id === 'phase2_2';
 
-    modalBody.innerHTML = `
+    container.innerHTML = `
       <div class="phase2-folder-viewer">
         <!-- Banner Header (PhysicsWallah Batch Classroom Style) -->
         <div style="background:linear-gradient(135deg, #0a192f 0%, #1e3a8a 100%); color:#fff; padding:1.25rem 1.4rem; border-radius:12px; margin-bottom:1.25rem; border:1.5px solid ${isPhase2_2 ? '#10b981' : '#38bdf8'};">
@@ -2089,38 +2131,54 @@ ${eb.previewText || 'Sample preview chapter...'}
         ` : ''}
       </div>
     `;
-
-    this.openModal('generic-modal');
   },
 
-  launchCbtMockTest(testUrl, testTitle) {
-    const modalBody = document.getElementById('generic-modal-body');
-    document.getElementById('generic-modal-title').innerText = testTitle || 'SKC Defence CBT Portal';
+  // ==================== CBT MOCK TEST ENGINE (FULL PAGE) ====================
+  launchCbtMockTest(testUrl, testTitle, batchId) {
+    this.closeModal('generic-modal');
+    this.quizPortalMode = 'cbt-mock';
+    this.cbtMockState = {
+      url: testUrl,
+      title: testTitle || 'SKC Defence CBT Portal',
+      batchId: batchId || this.state.activePhase2BatchId || 'phase2_1'
+    };
+    this.navigateTo('quiz-portal');
+  },
 
-    modalBody.innerHTML = `
-      <div style="display:flex; justify-content:space-between; align-items:center; background:#0b2a5b; color:#fff; padding:0.6rem 1rem; border-radius:8px 8px 0 0; border-bottom:3px solid #ff9933; flex-wrap:wrap; gap:0.5rem;">
-        <div style="display:flex; align-items:center; gap:0.6rem;">
-          <span style="font-size:1.2rem;">🖥️</span>
-          <div>
-            <strong style="font-size:0.95rem; display:block;">${testTitle}</strong>
-            <span style="font-size:0.75rem; color:#cbd5e1;">Airforce Phase-II CBT Simulation Engine</span>
+  renderCbtMockView() {
+    const container = document.getElementById('quiz-portal-container');
+    if (!container || !this.cbtMockState) return;
+    const bId = this.cbtMockState.batchId || 'phase2_1';
+
+    container.innerHTML = `
+      <div style="background:#ffffff; border-radius:12px; overflow:hidden; border:1px solid #cbd5e1; box-shadow:0 4px 16px rgba(0,0,0,0.08); margin-bottom:2rem;">
+        <div style="display:flex; justify-content:space-between; align-items:center; background:#0b2a5b; color:#fff; padding:0.75rem 1.25rem; border-bottom:3px solid #ff9933; flex-wrap:wrap; gap:0.75rem;">
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <button class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.4); padding:0.4rem 0.85rem; font-size:0.82rem; font-weight:700;" onclick="App.openPhase2Viewer('${bId}', 'srt-mocks')">
+              ← Back to Classroom
+            </button>
+            <div>
+              <strong style="font-size:1.05rem; display:block; color:#fff;">${this.cbtMockState.title}</strong>
+              <span style="font-size:0.75rem; color:#cbd5e1;">Airforce Phase-II CBT Simulation Engine • 45 Scenarios / 30 Mins</span>
+            </div>
+          </div>
+          <div style="display:flex; gap:0.5rem; align-items:center;">
+            <span style="background:#138808; color:#fff; font-size:0.72rem; font-weight:800; padding:0.25rem 0.6rem; border-radius:4px;">🟢 CBT ACTIVE</span>
+            <a href="${this.cbtMockState.url}" target="_blank" class="btn btn-primary" style="padding:0.4rem 0.85rem; font-size:0.8rem; background:#ff9933; color:#1e293b; text-decoration:none; font-weight:800; border:none;">
+              ⛶ Open Dedicated Tab
+            </a>
           </div>
         </div>
-        <div style="display:flex; gap:0.5rem; align-items:center;">
-          <span style="background:#138808; color:#fff; font-size:0.7rem; font-weight:800; padding:0.2rem 0.5rem; border-radius:4px;">CBT LIVE</span>
-          <a href="${testUrl}" target="_blank" class="btn btn-primary" style="padding:0.35rem 0.85rem; font-size:0.78rem; background:#ff9933; color:#1e293b; text-decoration:none; font-weight:800; border:none;">
-            ⛶ Open Fullscreen Window
-          </a>
+        <div style="width:100%; height:calc(100vh - 170px); min-height:620px; background:#f8fafc;">
+          <iframe src="${this.cbtMockState.url}" style="width:100%; height:100%; border:none; display:block;" title="${this.cbtMockState.title}"></iframe>
         </div>
       </div>
-      <div style="width:100%; height:75vh; min-height:480px; max-height:820px; background:#f2f5fa; border:1px solid #cbd5e1; border-top:none; border-radius:0 0 8px 8px; overflow:hidden;">
-        <iframe src="${testUrl}" style="width:100%; height:100%; border:none; display:block;" title="${testTitle}"></iframe>
-      </div>
     `;
-    this.openModal('generic-modal');
   },
 
   // ==================== INTERACTIVE CLASS QUIZ ENGINE ====================
+  quizPortalMode: 'class-quiz',
+  cbtMockState: null,
   quizState: {
     batchId: null,
     classNo: null,
@@ -2134,6 +2192,7 @@ ${eb.previewText || 'Sample preview chapter...'}
   },
 
   launchClassQuiz(batchId, classNo) {
+    this.closeModal('generic-modal');
     const batch = (this.state.phase2Batches || []).find(b => b.id === batchId) || (this.state.phase2Batches || [])[0];
     if (!batch) return;
     const classItem = (batch.srtClassPdfs || []).find(p => p.classNo === classNo);
@@ -2158,6 +2217,8 @@ ${eb.previewText || 'Sample preview chapter...'}
       submitted: false
     };
 
+    this.quizPortalMode = 'class-quiz';
+
     // Start timer
     this.quizState.intervalId = setInterval(() => {
       if (this.quizState.timeRemaining > 0) {
@@ -2169,7 +2230,21 @@ ${eb.previewText || 'Sample preview chapter...'}
       }
     }, 1000);
 
-    this.renderClassQuizView();
+    this.navigateTo('quiz-portal');
+  },
+
+  renderQuizPortal() {
+    if (this.quizPortalMode === 'cbt-mock') {
+      this.renderCbtMockView();
+    } else {
+      if (this.quizState && this.quizState.submitted) {
+        this.renderQuizScorecardView();
+      } else if (this.quizState && this.quizState.quiz) {
+        this.renderClassQuizView();
+      } else {
+        this.navigateTo('phase2');
+      }
+    }
   },
 
   updateQuizTimerDisplay() {
@@ -2186,34 +2261,39 @@ ${eb.previewText || 'Sample preview chapter...'}
   },
 
   renderClassQuizView() {
-    const modalBody = document.getElementById('generic-modal-body');
+    const container = document.getElementById('quiz-portal-container');
+    if (!container) return;
     const qState = this.quizState;
+    if (!qState || !qState.quiz) return;
     const quiz = qState.quiz;
     const questions = quiz.questions || [];
     const q = questions[qState.currentQ];
     if (!q) return;
-
-    document.getElementById('generic-modal-title').innerText = `Class ${String(qState.classNo).padStart(2, '0')} Quiz: ${quiz.title}`;
 
     const m = Math.floor(qState.timeRemaining / 60);
     const s = qState.timeRemaining % 60;
     const isUrgent = qState.timeRemaining < 120;
     const selectedOpt = qState.answers[qState.currentQ];
 
-    modalBody.innerHTML = `
-      <div class="quiz-container">
+    container.innerHTML = `
+      <div class="quiz-container" style="border:1.5px solid #cbd5e1; box-shadow:0 4px 16px rgba(0,0,0,0.06); margin-bottom:2rem;">
         <!-- Header Bar -->
         <div class="quiz-header-bar">
-          <div>
-            <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.25rem;">
-              <span style="background:#ff9933; color:#0b2a5b; font-weight:800; font-size:0.75rem; padding:0.2rem 0.55rem; border-radius:4px; text-transform:uppercase;">
-                🎯 CLASS ${String(qState.classNo).padStart(2, '0')} QUIZ
-              </span>
-              <span style="background:rgba(255,255,255,0.18); color:#fff; font-size:0.75rem; font-weight:700; padding:0.2rem 0.5rem; border-radius:4px;">
-                Question ${qState.currentQ + 1} of ${questions.length}
-              </span>
+          <div style="display:flex; align-items:center; gap:0.75rem;">
+            <button type="button" class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.4); padding:0.35rem 0.75rem; font-size:0.8rem; font-weight:700;" onclick="App.exitQuizConfirm()">
+              ← Exit Test
+            </button>
+            <div>
+              <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.15rem;">
+                <span style="background:#ff9933; color:#0b2a5b; font-weight:800; font-size:0.75rem; padding:0.2rem 0.55rem; border-radius:4px; text-transform:uppercase;">
+                  🎯 CLASS ${String(qState.classNo).padStart(2, '0')} QUIZ
+                </span>
+                <span style="background:rgba(255,255,255,0.18); color:#fff; font-size:0.75rem; font-weight:700; padding:0.2rem 0.5rem; border-radius:4px;">
+                  Scenario ${qState.currentQ + 1} of ${questions.length}
+                </span>
+              </div>
+              <strong style="font-size:0.95rem; color:#fff; display:block;">${quiz.title}</strong>
             </div>
-            <strong style="font-size:0.95rem; color:#fff; display:block;">${quiz.title}</strong>
           </div>
 
           <div style="display:flex; align-items:center; gap:0.6rem; flex-wrap:wrap;">
@@ -2228,8 +2308,6 @@ ${eb.previewText || 'Sample preview chapter...'}
             <div id="class-quiz-timer" class="quiz-timer-pill ${isUrgent ? 'urgent' : ''}">
               ⏱️ ${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}
             </div>
-
-            <button type="button" class="btn btn-outline" style="color:#fca5a5; border-color:#fca5a5; padding:0.25rem 0.6rem; font-size:0.78rem;" onclick="App.exitQuizConfirm()">✕ Exit</button>
           </div>
         </div>
 
@@ -2246,25 +2324,25 @@ ${eb.previewText || 'Sample preview chapter...'}
         </div>
 
         <!-- Question & Options Body -->
-        <div class="quiz-card-body">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
-            <span style="font-weight:700; color:#0284c7; font-size:0.85rem;">
-              SCENARIO ${qState.currentQ + 1}
+        <div class="quiz-card-body" style="padding:1.5rem 1.75rem;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.85rem; flex-wrap:gap; gap:0.5rem;">
+            <span style="font-weight:800; color:#0284c7; font-size:0.9rem; letter-spacing:0.5px;">
+              ⚡ SITUATION ${qState.currentQ + 1}
             </span>
-            <span style="font-size:0.75rem; background:#e0f2fe; color:#0369a1; padding:0.15rem 0.45rem; border-radius:4px; font-weight:700;">
+            <span style="font-size:0.78rem; background:#e0f2fe; color:#0369a1; padding:0.25rem 0.6rem; border-radius:6px; font-weight:800;">
               OLQ Focus: ${q.olqAttribute || 'Crisis Reaction'}
             </span>
           </div>
 
           <!-- Situation Box -->
-          <div class="quiz-situation-box">
+          <div class="quiz-situation-box" style="padding:1.25rem 1.5rem;">
             ${qState.lang !== 'hi' ? `
-              <p style="font-size:1.05rem; font-weight:700; color:#0f172a; margin:0 0 0.5rem; line-height:1.45;">
+              <p style="font-size:1.1rem; font-weight:700; color:#0f172a; margin:0 0 0.6rem; line-height:1.5;">
                 ${q.situationEn}
               </p>
             ` : ''}
             ${qState.lang !== 'en' ? `
-              <p style="font-size:1rem; font-weight:600; color:#334155; margin:0; line-height:1.45;">
+              <p style="font-size:1.02rem; font-weight:600; color:#334155; margin:0; line-height:1.5;">
                 ${q.situationHi}
               </p>
             ` : ''}
@@ -2280,17 +2358,17 @@ ${eb.previewText || 'Sample preview chapter...'}
                   <div class="quiz-option-badge">${letter}</div>
                   <div style="flex:1;">
                     ${qState.lang !== 'hi' ? `
-                      <div style="font-size:0.95rem; font-weight:600; color:#0f172a; margin-bottom:0.25rem; line-height:1.4;">
+                      <div style="font-size:0.98rem; font-weight:600; color:#0f172a; margin-bottom:0.25rem; line-height:1.45;">
                         ${opt.textEn}
                       </div>
                     ` : ''}
                     ${qState.lang !== 'en' ? `
-                      <div style="font-size:0.9rem; color:#475569; line-height:1.4;">
+                      <div style="font-size:0.92rem; color:#475569; line-height:1.45;">
                         ${opt.textHi}
                       </div>
                     ` : ''}
                   </div>
-                  ${isSel ? '<span style="color:#0284c7; font-weight:800; font-size:1.2rem;">✔</span>' : ''}
+                  ${isSel ? '<span style="color:#0284c7; font-weight:800; font-size:1.3rem;">✔</span>' : ''}
                 </div>
               `;
             }).join('')}
@@ -2300,21 +2378,21 @@ ${eb.previewText || 'Sample preview chapter...'}
         <!-- Bottom Actions Footer -->
         <div class="quiz-actions-footer">
           <div style="display:flex; gap:0.5rem;">
-            <button class="btn btn-outline" style="padding:0.5rem 1rem; font-size:0.85rem;" ${qState.currentQ === 0 ? 'disabled' : ''} onclick="App.prevQuizQ()">
+            <button class="btn btn-outline" style="padding:0.55rem 1.15rem; font-size:0.85rem;" ${qState.currentQ === 0 ? 'disabled' : ''} onclick="App.prevQuizQ()">
               ⬅ Previous
             </button>
-            <button class="btn btn-secondary" style="padding:0.5rem 0.85rem; font-size:0.82rem; background:#f1f5f9; color:#475569;" onclick="App.clearQuizAnswer()">
+            <button class="btn btn-secondary" style="padding:0.55rem 0.95rem; font-size:0.82rem; background:#f1f5f9; color:#475569;" onclick="App.clearQuizAnswer()">
               🧹 Clear Choice
             </button>
           </div>
 
           <div style="display:flex; gap:0.5rem; align-items:center;">
             ${qState.currentQ < questions.length - 1 ? `
-              <button class="btn btn-primary" style="padding:0.5rem 1.25rem; font-size:0.88rem; font-weight:800;" onclick="App.nextQuizQ()">
+              <button class="btn btn-primary" style="padding:0.55rem 1.4rem; font-size:0.9rem; font-weight:800;" onclick="App.nextQuizQ()">
                 Next ➡
               </button>
             ` : `
-              <button class="btn btn-primary" style="padding:0.55rem 1.4rem; font-size:0.9rem; font-weight:800; background:#10b981; border:none; box-shadow:0 2px 10px rgba(16,185,129,0.35);" onclick="App.finishClassQuiz()">
+              <button class="btn btn-primary" style="padding:0.6rem 1.5rem; font-size:0.92rem; font-weight:800; background:#10b981; border:none; box-shadow:0 2px 10px rgba(16,185,129,0.35);" onclick="App.finishClassQuiz()">
                 🏁 Submit Quiz
               </button>
             `}
@@ -2322,8 +2400,6 @@ ${eb.previewText || 'Sample preview chapter...'}
         </div>
       </div>
     `;
-
-    this.openModal('generic-modal');
   },
 
   setQuizLang(lang) {
@@ -2380,6 +2456,12 @@ ${eb.previewText || 'Sample preview chapter...'}
 
     if (this.quizState.intervalId) clearInterval(this.quizState.intervalId);
     this.quizState.submitted = true;
+    this.renderQuizScorecardView();
+  },
+
+  renderQuizScorecardView() {
+    const container = document.getElementById('quiz-portal-container');
+    if (!container || !this.quizState || !this.quizState.quiz) return;
 
     // Calculate score
     const questions = this.quizState.quiz.questions;
@@ -2415,71 +2497,68 @@ ${eb.previewText || 'Sample preview chapter...'}
       assessmentMsg = 'Review the psychologist\'s explanations below and practice positive reaction formulation.';
     }
 
-    const modalBody = document.getElementById('generic-modal-body');
-    document.getElementById('generic-modal-title').innerText = `Result: Class ${this.quizState.classNo} Practice Quiz`;
-
-    modalBody.innerHTML = `
-      <div style="background:#ffffff; border-radius:12px; overflow:hidden;">
+    container.innerHTML = `
+      <div style="background:#ffffff; border-radius:12px; overflow:hidden; border:1.5px solid #cbd5e1; box-shadow:0 4px 16px rgba(0,0,0,0.06); margin-bottom:2rem;">
         <!-- Hero Score Banner -->
-        <div style="background:linear-gradient(135deg, #0b2a5b 0%, #1e3a8a 100%); color:#fff; padding:1.75rem 1.25rem; text-align:center; border-bottom:4px solid #ff9933;">
-          <span style="background:${badgeColor}; color:#fff; font-weight:800; font-size:0.8rem; padding:0.25rem 0.75rem; border-radius:20px; text-transform:uppercase; display:inline-block; margin-bottom:0.6rem;">
+        <div style="background:linear-gradient(135deg, #0b2a5b 0%, #1e3a8a 100%); color:#fff; padding:2rem 1.5rem; text-align:center; border-bottom:4px solid #ff9933;">
+          <span style="background:${badgeColor}; color:#fff; font-weight:800; font-size:0.82rem; padding:0.3rem 0.85rem; border-radius:20px; text-transform:uppercase; display:inline-block; margin-bottom:0.75rem;">
             ${olqRating}
           </span>
-          <h2 style="font-size:1.6rem; margin:0 0 0.5rem; color:#fff;">Psychological Response Scorecard</h2>
-          <div style="font-size:3rem; font-weight:900; color:#ff9933; margin:0.3rem 0; line-height:1;">
+          <h2 style="font-size:1.8rem; margin:0 0 0.5rem; color:#fff;">Psychological Response Scorecard</h2>
+          <div style="font-size:3.5rem; font-weight:900; color:#ff9933; margin:0.35rem 0; line-height:1;">
             ${scorePercent}%
           </div>
-          <p style="font-size:1rem; color:#cbd5e1; margin:0 auto; max-width:500px;">
+          <p style="font-size:1.05rem; color:#cbd5e1; margin:0 auto; max-width:550px;">
             ${assessmentMsg}
           </p>
         </div>
 
         <!-- Metrics Grid -->
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(110px, 1fr)); gap:0.75rem; padding:1.25rem; background:#f8fafc; border-bottom:1px solid #e2e8f0;">
-          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.65rem; text-align:center;">
-            <strong style="color:#0f172a; font-size:1.3rem; display:block;">${questions.length}</strong>
+        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:0.75rem; padding:1.25rem 1.5rem; background:#f8fafc; border-bottom:1px solid #e2e8f0;">
+          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.75rem; text-align:center;">
+            <strong style="color:#0f172a; font-size:1.4rem; display:block;">${questions.length}</strong>
             <span style="font-size:0.75rem; color:#64748b;">Total Scenarios</span>
           </div>
-          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.65rem; text-align:center;">
-            <strong style="color:#0284c7; font-size:1.3rem; display:block;">${attempted}</strong>
+          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.75rem; text-align:center;">
+            <strong style="color:#0284c7; font-size:1.4rem; display:block;">${attempted}</strong>
             <span style="font-size:0.75rem; color:#64748b;">Attempted</span>
           </div>
-          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.65rem; text-align:center;">
-            <strong style="color:#10b981; font-size:1.3rem; display:block;">${correct}</strong>
+          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.75rem; text-align:center;">
+            <strong style="color:#10b981; font-size:1.4rem; display:block;">${correct}</strong>
             <span style="font-size:0.75rem; color:#64748b;">Optimal OLQ (✔)</span>
           </div>
-          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.65rem; text-align:center;">
-            <strong style="color:#ef4444; font-size:1.3rem; display:block;">${wrong}</strong>
+          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.75rem; text-align:center;">
+            <strong style="color:#ef4444; font-size:1.4rem; display:block;">${wrong}</strong>
             <span style="font-size:0.75rem; color:#64748b;">Sub-Optimal (✘)</span>
           </div>
-          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.65rem; text-align:center;">
-            <strong style="color:#64748b; font-size:1.3rem; display:block;">${skipped}</strong>
+          <div style="background:#fff; border:1px solid #cbd5e1; border-radius:8px; padding:0.75rem; text-align:center;">
+            <strong style="color:#64748b; font-size:1.4rem; display:block;">${skipped}</strong>
             <span style="font-size:0.75rem; color:#64748b;">Skipped</span>
           </div>
         </div>
 
         <!-- Action Row -->
-        <div style="padding:1.25rem; display:flex; gap:0.6rem; flex-wrap:wrap; justify-content:center; background:#fff; border-bottom:1px solid #e2e8f0;">
-          <button class="btn btn-primary" style="padding:0.6rem 1.4rem; font-weight:800; background:#0284c7;" onclick="App.toggleQuizReview()">
+        <div style="padding:1.25rem 1.5rem; display:flex; gap:0.75rem; flex-wrap:wrap; justify-content:center; background:#fff; border-bottom:1px solid #e2e8f0;">
+          <button class="btn btn-primary" style="padding:0.65rem 1.4rem; font-weight:800; background:#0284c7;" onclick="App.toggleQuizReview()">
             📖 View Detailed Solutions & Explanations
           </button>
-          <button class="btn btn-outline" style="padding:0.6rem 1.25rem;" onclick="App.launchClassQuiz('${this.quizState.batchId}', ${this.quizState.classNo})">
+          <button class="btn btn-outline" style="padding:0.65rem 1.25rem; font-weight:700;" onclick="App.launchClassQuiz('${this.quizState.batchId}', ${this.quizState.classNo})">
             🔄 Retake Quiz
           </button>
-          <button class="btn btn-defence" style="padding:0.6rem 1.25rem;" onclick="App.downloadWatermarkedPdf('${this.quizState.classItem.url}')">
+          <button class="btn btn-defence" style="padding:0.65rem 1.25rem; font-weight:700;" onclick="App.downloadWatermarkedPdf('${this.quizState.classItem.url}')">
             📥 Download Class Notes PDF
           </button>
-          <button class="btn btn-secondary" style="padding:0.6rem 1.25rem; background:#f1f5f9;" onclick="App.openPhase2Viewer('${this.quizState.batchId}', 'srt-pdfs')">
-            🔙 Back to Classes
+          <button class="btn btn-secondary" style="padding:0.65rem 1.25rem; font-weight:700; background:#f1f5f9;" onclick="App.openPhase2Viewer('${this.quizState.batchId}', 'srt-pdfs')">
+            🔙 Back to Classroom
           </button>
         </div>
 
         <!-- Detailed Solutions Review (Collapsible) -->
-        <div id="quiz-review-container" style="display:none; padding:1.25rem; background:#f8fafc; max-height:480px; overflow-y:auto;">
-          <h4 style="color:#0f172a; margin:0 0 1rem; font-size:1.1rem; border-bottom:2px solid #0284c7; padding-bottom:0.4rem;">
+        <div id="quiz-review-container" style="display:none; padding:1.5rem; background:#f8fafc;">
+          <h4 style="color:#0f172a; margin:0 0 1rem; font-size:1.15rem; border-bottom:2px solid #0284c7; padding-bottom:0.4rem;">
             Psychological Breakdown of All 15 Situations
           </h4>
-          <div style="display:flex; flex-direction:column; gap:1rem;">
+          <div style="display:flex; flex-direction:column; gap:1.15rem;">
             ${questions.map((q, idx) => {
               const userAns = this.quizState.answers[idx];
               const isCorrect = userAns === q.correct;
@@ -2488,15 +2567,15 @@ ${eb.previewText || 'Sample preview chapter...'}
               const statusBadge = isCorrect ? '✔ Optimal Response' : (isSkipped ? '⚠️ Skipped' : '✘ Sub-Optimal Decision');
 
               return `
-                <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:8px; padding:1rem;">
+                <div style="background:#ffffff; border:1px solid #cbd5e1; border-radius:10px; padding:1.15rem;">
                   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.4rem;">
-                    <span style="font-weight:800; font-size:0.85rem; color:#0f172a;">Scenario ${idx + 1}</span>
-                    <span style="font-weight:800; font-size:0.78rem; ${statusCls}">${statusBadge}</span>
+                    <span style="font-weight:800; font-size:0.88rem; color:#0f172a;">Scenario ${idx + 1}</span>
+                    <span style="font-weight:800; font-size:0.8rem; ${statusCls}">${statusBadge}</span>
                   </div>
-                  <p style="font-size:0.95rem; font-weight:700; color:#1e293b; margin:0 0 0.35rem;">${q.situationEn}</p>
-                  <p style="font-size:0.88rem; color:#475569; margin:0 0 0.75rem;">${q.situationHi}</p>
+                  <p style="font-size:1rem; font-weight:700; color:#1e293b; margin:0 0 0.35rem; line-height:1.45;">${q.situationEn}</p>
+                  <p style="font-size:0.92rem; color:#475569; margin:0 0 0.85rem; line-height:1.45;">${q.situationHi}</p>
                   
-                  <div style="display:flex; flex-direction:column; gap:0.4rem; margin-bottom:0.75rem;">
+                  <div style="display:flex; flex-direction:column; gap:0.45rem; margin-bottom:0.85rem;">
                     ${q.options.map((opt, oIdx) => {
                       const isOptCorrect = oIdx === q.correct;
                       const isUserChoice = oIdx === userAns;
@@ -2506,19 +2585,20 @@ ${eb.previewText || 'Sample preview chapter...'}
                       else if (isUserChoice && !isOptCorrect) { bg = '#fee2e2'; bd = '#fca5a5'; }
 
                       return `
-                        <div style="padding:0.5rem 0.75rem; background:${bg}; border:1px solid ${bd}; border-radius:6px; font-size:0.85rem;">
+                        <div style="padding:0.6rem 0.85rem; background:${bg}; border:1.5px solid ${bd}; border-radius:6px; font-size:0.88rem;">
                           <strong>${['A','B','C','D'][oIdx]}.</strong> ${opt.textEn}
-                          ${isOptCorrect ? '<span style="color:#15803d; font-weight:800; margin-left:0.5rem;">(✔ Optimal Response)</span>' : ''}
-                          ${isUserChoice && !isOptCorrect ? '<span style="color:#dc2626; font-weight:800; margin-left:0.5rem;">(Your Choice)</span>' : ''}
+                          <div style="font-size:0.82rem; color:#64748b; margin-top:0.15rem;">${opt.textHi}</div>
+                          ${isOptCorrect ? '<span style="color:#15803d; font-weight:800; font-size:0.8rem; margin-top:0.25rem; display:block;">(✔ Recommended Psychological Choice)</span>' : ''}
+                          ${isUserChoice && !isOptCorrect ? '<span style="color:#dc2626; font-weight:800; font-size:0.8rem; margin-top:0.25rem; display:block;">(Your Choice)</span>' : ''}
                         </div>
                       `;
                     }).join('')}
                   </div>
 
-                  <div style="background:#eff6ff; border-left:3px solid #0284c7; padding:0.6rem 0.85rem; border-radius:4px; font-size:0.82rem; color:#1e3a8a;">
+                  <div style="background:#eff6ff; border-left:3px solid #0284c7; padding:0.75rem 1rem; border-radius:4px; font-size:0.85rem; color:#1e3a8a;">
                     <strong>🧠 Psychologist's Assessment (${q.olqAttribute}):</strong>
-                    <div>${q.explanationEn}</div>
-                    <div style="color:#3b82f6; margin-top:0.2rem;">${q.explanationHi}</div>
+                    <div style="margin-top:0.2rem;">${q.explanationEn}</div>
+                    <div style="color:#3b82f6; margin-top:0.25rem;">${q.explanationHi}</div>
                   </div>
                 </div>
               `;
@@ -2527,8 +2607,6 @@ ${eb.previewText || 'Sample preview chapter...'}
         </div>
       </div>
     `;
-
-    this.openModal('generic-modal');
   },
 
   toggleQuizReview() {
