@@ -208,9 +208,17 @@
 
     <!-- ======================== 2. FREE TEST SERIES VIEW ======================== -->
     <div id="view-free-test-series" class="view-section">
-      <div class="view-header">
-        <h2>📝 Free Test Series (Online CBT + PDF Enabled)</h2>
-        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <div>
+          <h2>📝 Free Test Series (Online CBT + PDF Enabled)</h2>
+          <p style="margin:0; font-size:0.85rem; color:#64748b;">Practice with authentic high-yield online mock tests</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="btn btn-secondary" style="background:#0a192f; color:#fff;" onclick="App.openUploadModal('free-test')">
+            + 📤 Upload Free Test
+          </button>
+          <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+        </div>
       </div>
       <div id="free-tests-folder-nav" class="folder-nav-tabs"></div>
       <div id="free-tests-folder-breadcrumb"></div>
@@ -239,9 +247,17 @@
 
     <!-- ======================== 4. PAID TEST SERIES VIEW ======================== -->
     <div id="view-paid-test-series" class="view-section">
-      <div class="view-header">
-        <h2>🎯 Paid Test Series (Airforce, Navy, ICG & Army)</h2>
-        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <div>
+          <h2>🎯 Paid Test Series (Airforce, Navy, ICG & Army)</h2>
+          <p style="margin:0; font-size:0.85rem; color:#64748b;">Full-length CBT mock series with detailed performance analytics</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="btn btn-secondary" style="background:#0a192f; color:#fff;" onclick="App.openUploadModal('paid-test', App.state.selectedPtsCategory)">
+            + 📤 Upload Mock Test
+          </button>
+          <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+        </div>
       </div>
       
       <!-- Category Tabs -->
@@ -256,9 +272,17 @@
 
     <!-- ======================== 5. E-BOOKS VIEW ======================== -->
     <div id="view-ebooks" class="view-section">
-      <div class="view-header">
-        <h2>📚 E-Books (SKC Defence Official Publications)</h2>
-        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <div>
+          <h2>📚 E-Books (SKC Defence Official Publications)</h2>
+          <p style="margin:0; font-size:0.85rem; color:#64748b;">Exclusive defence study guides & high-yield formula books</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="btn btn-secondary" style="background:#0a192f; color:#fff;" onclick="App.openUploadModal('ebook')">
+            + 📤 Upload E-Book
+          </button>
+          <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+        </div>
       </div>
       <div id="ebooks-list">
         <!-- Populated dynamically -->
@@ -267,9 +291,17 @@
 
     <!-- ======================== 6. PYQ PDFS VIEW ======================== -->
     <div id="view-pyq-pdfs" class="view-section">
-      <div class="view-header">
-        <h2>📄 Previous Year Question Papers (PYQ PDFs)</h2>
-        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <div>
+          <h2>📄 Previous Year Question Papers (PYQ PDFs)</h2>
+          <p style="margin:0; font-size:0.85rem; color:#64748b;">Verified solved memory-based question papers</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="btn btn-secondary" style="background:#0a192f; color:#fff;" onclick="App.openUploadModal('pyq')">
+            + 📤 Upload PYQ PDF
+          </button>
+          <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+        </div>
       </div>
       <div id="pyqs-folder-nav" class="folder-nav-tabs"></div>
       <div id="pyqs-folder-breadcrumb"></div>
@@ -280,9 +312,17 @@
 
     <!-- ======================== 7. SYLLABUS VIEW ======================== -->
     <div id="view-syllabus" class="view-section">
-      <div class="view-header">
-        <h2>📋 Official Syllabus & Exam Pattern PDFs</h2>
-        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <div>
+          <h2>📋 Official Syllabus & Exam Pattern PDFs</h2>
+          <p style="margin:0; font-size:0.85rem; color:#64748b;">Official syllabus documents, mark distribution & physical standards</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="btn btn-secondary" style="background:#0a192f; color:#fff;" onclick="App.openUploadModal('syllabus')">
+            + 📤 Upload Syllabus PDF
+          </button>
+          <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+        </div>
       </div>
       <div id="syllabus-folder-nav" class="folder-nav-tabs"></div>
       <div id="syllabus-folder-breadcrumb"></div>
@@ -362,9 +402,17 @@
 
     <!-- ======================== 10. CURRENT AFFAIRS VIEW ======================== -->
     <div id="view-current-affairs" class="view-section">
-      <div class="view-header">
-        <h2>📰 Defence Current Affairs (Weekly & Monthly)</h2>
-        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <div>
+          <h2>📰 Defence Current Affairs (Weekly & Monthly)</h2>
+          <p style="margin:0; font-size:0.85rem; color:#64748b;">Weekly high-yield capsules & monthly defence digests</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="btn btn-secondary" style="background:#0a192f; color:#fff;" onclick="App.openUploadModal('current-affairs')">
+            + 📤 Upload Current Affairs
+          </button>
+          <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+        </div>
       </div>
       <div id="ca-folder-nav" class="folder-nav-tabs"></div>
       <div id="ca-folder-breadcrumb"></div>

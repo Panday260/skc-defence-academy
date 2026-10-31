@@ -258,6 +258,26 @@ app.post('/api/free-tests', requireAdmin, (req, res) => {
   res.json({ success: true, data: newTest });
 });
 
+app.put('/api/free-tests/:id', requireAdmin, (req, res) => {
+  const db = readDb();
+  const index = (db.freeTests || []).findIndex(t => t.id === req.params.id);
+  if (index === -1) return res.status(404).json({ success: false, message: 'Test not found' });
+  db.freeTests[index] = {
+    ...db.freeTests[index],
+    ...req.body,
+    id: req.params.id
+  };
+  writeDb(db);
+  res.json({ success: true, data: db.freeTests[index] });
+});
+
+app.delete('/api/free-tests/:id', requireAdmin, (req, res) => {
+  const db = readDb();
+  db.freeTests = (db.freeTests || []).filter(t => t.id !== req.params.id);
+  writeDb(db);
+  res.json({ success: true });
+});
+
 // 5. Paid Test Series (Airforce, Navy, ICG, Army)
 app.get('/api/paid-test-series', (req, res) => {
   const db = readDb();
@@ -283,6 +303,35 @@ app.post('/api/paid-test-series/:category/tests', requireAdmin, (req, res) => {
   series.tests.push(newMock);
   writeDb(db);
   res.json({ success: true, data: newMock });
+});
+
+app.put('/api/paid-test-series/:category/tests/:testId', requireAdmin, (req, res) => {
+  const db = readDb();
+  const { category, testId } = req.params;
+  const series = (db.paidTestSeries || []).find(s => s.name.toLowerCase() === category.toLowerCase() || s.id === category);
+  if (!series) return res.status(404).json({ success: false, message: 'Series category not found' });
+  const index = (series.tests || []).findIndex(t => t.id === testId);
+  if (index === -1) return res.status(404).json({ success: false, message: 'Test not found' });
+  series.tests[index] = {
+    ...series.tests[index],
+    ...req.body,
+    id: testId
+  };
+  writeDb(db);
+  res.json({ success: true, data: series.tests[index] });
+});
+
+app.put('/api/paid-test-series/:category', requireAdmin, (req, res) => {
+  const db = readDb();
+  const { category } = req.params;
+  const series = (db.paidTestSeries || []).find(s => s.name.toLowerCase() === category.toLowerCase() || s.id === category);
+  if (!series) return res.status(404).json({ success: false, message: 'Series category not found' });
+  if (req.body.title !== undefined) series.title = req.body.title;
+  if (req.body.price !== undefined) series.price = Number(req.body.price);
+  if (req.body.originalPrice !== undefined) series.originalPrice = Number(req.body.originalPrice);
+  if (req.body.description !== undefined) series.description = req.body.description;
+  writeDb(db);
+  res.json({ success: true, data: series });
 });
 
 app.delete('/api/paid-test-series/:category/tests/:testId', requireAdmin, (req, res) => {
@@ -322,6 +371,26 @@ app.post('/api/ebooks', requireAdmin, (req, res) => {
   res.json({ success: true, data: newEbook });
 });
 
+app.put('/api/ebooks/:id', requireAdmin, (req, res) => {
+  const db = readDb();
+  const index = (db.ebooks || []).findIndex(e => e.id === req.params.id);
+  if (index === -1) return res.status(404).json({ success: false, message: 'E-Book not found' });
+  db.ebooks[index] = {
+    ...db.ebooks[index],
+    ...req.body,
+    id: req.params.id
+  };
+  writeDb(db);
+  res.json({ success: true, data: db.ebooks[index] });
+});
+
+app.delete('/api/ebooks/:id', requireAdmin, (req, res) => {
+  const db = readDb();
+  db.ebooks = (db.ebooks || []).filter(e => e.id !== req.params.id);
+  writeDb(db);
+  res.json({ success: true });
+});
+
 // 7. PYQ PDFs
 app.get('/api/pyqs', (req, res) => {
   const db = readDb();
@@ -345,6 +414,26 @@ app.post('/api/pyqs', requireAdmin, (req, res) => {
   res.json({ success: true, data: newPyq });
 });
 
+app.put('/api/pyqs/:id', requireAdmin, (req, res) => {
+  const db = readDb();
+  const index = (db.pyqs || []).findIndex(p => p.id === req.params.id);
+  if (index === -1) return res.status(404).json({ success: false, message: 'PYQ not found' });
+  db.pyqs[index] = {
+    ...db.pyqs[index],
+    ...req.body,
+    id: req.params.id
+  };
+  writeDb(db);
+  res.json({ success: true, data: db.pyqs[index] });
+});
+
+app.delete('/api/pyqs/:id', requireAdmin, (req, res) => {
+  const db = readDb();
+  db.pyqs = (db.pyqs || []).filter(p => p.id !== req.params.id);
+  writeDb(db);
+  res.json({ success: true });
+});
+
 // 8. Syllabus
 app.get('/api/syllabus', (req, res) => {
   const db = readDb();
@@ -365,6 +454,26 @@ app.post('/api/syllabus', requireAdmin, (req, res) => {
   db.syllabus.push(newSyl);
   writeDb(db);
   res.json({ success: true, data: newSyl });
+});
+
+app.put('/api/syllabus/:id', requireAdmin, (req, res) => {
+  const db = readDb();
+  const index = (db.syllabus || []).findIndex(s => s.id === req.params.id);
+  if (index === -1) return res.status(404).json({ success: false, message: 'Syllabus not found' });
+  db.syllabus[index] = {
+    ...db.syllabus[index],
+    ...req.body,
+    id: req.params.id
+  };
+  writeDb(db);
+  res.json({ success: true, data: db.syllabus[index] });
+});
+
+app.delete('/api/syllabus/:id', requireAdmin, (req, res) => {
+  const db = readDb();
+  db.syllabus = (db.syllabus || []).filter(s => s.id !== req.params.id);
+  writeDb(db);
+  res.json({ success: true });
 });
 
 // 9. Phase-II (GD & SRT) - Priority Section
@@ -750,6 +859,36 @@ app.post('/api/current-affairs', requireAdmin, (req, res) => {
     writeDb(db);
     return res.json({ success: true, data: item });
   }
+});
+
+app.put('/api/current-affairs/:type/:id', requireAdmin, (req, res) => {
+  const { type, id } = req.params;
+  const db = readDb();
+  db.currentAffairs = db.currentAffairs || { weekly: [], monthly: [] };
+  const list = type === 'monthly' ? db.currentAffairs.monthly : db.currentAffairs.weekly;
+  if (!list) return res.status(400).json({ success: false, message: 'Invalid current affairs type' });
+  const index = list.findIndex(item => item.id === id);
+  if (index === -1) return res.status(404).json({ success: false, message: 'Current affairs item not found' });
+  list[index] = {
+    ...list[index],
+    ...req.body,
+    id
+  };
+  writeDb(db);
+  res.json({ success: true, data: list[index] });
+});
+
+app.delete('/api/current-affairs/:type/:id', requireAdmin, (req, res) => {
+  const { type, id } = req.params;
+  const db = readDb();
+  db.currentAffairs = db.currentAffairs || { weekly: [], monthly: [] };
+  if (type === 'monthly') {
+    db.currentAffairs.monthly = (db.currentAffairs.monthly || []).filter(item => item.id !== id);
+  } else {
+    db.currentAffairs.weekly = (db.currentAffairs.weekly || []).filter(item => item.id !== id);
+  }
+  writeDb(db);
+  res.json({ success: true });
 });
 
 // 11. OUR Selections (Slideshow)

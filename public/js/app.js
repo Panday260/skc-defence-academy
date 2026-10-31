@@ -848,6 +848,14 @@ const App = {
               ⬇ PDF Paper
             </button>
           </div>
+          <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
+            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('free-test', '${test.id}')">
+              ✏️ Edit
+            </button>
+            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('free-test', '${test.id}')">
+              🗑️ Delete
+            </button>
+          </div>
         </div>
       </div>
     `).join('');
@@ -1017,29 +1025,32 @@ const App = {
                 <span class="current-price">₹${currentSeries.price}</span>
                 <span class="original-price">₹${currentSeries.originalPrice}</span>
               </div>
-              ${isPurchased ? `
-                <span style="background:#dcfce7; color:#15803d; font-weight:700; font-size:0.85rem; padding:0.35rem 0.85rem; border-radius:20px; display:inline-block; margin-top:0.5rem;">
-                  ✓ Series Unlocked
-                </span>
-              ` : `
-                <button class="btn btn-primary" style="margin-top:0.5rem;" onclick="App.openCheckoutModal('test', '${currentSeries.id || 'pts_' + this.state.selectedPtsCategory.toLowerCase()}', '${currentSeries.title}', ${currentSeries.price})">
-                  Unlock Test Series
+              <div style="display:flex; gap:0.4rem; justify-content:flex-end; flex-wrap:wrap; margin-top:0.5rem;">
+                <button class="btn btn-outline" style="font-size:0.78rem; padding:0.3rem 0.6rem;" onclick="App.openEditSeriesModal('${this.state.selectedPtsCategory}')">
+                  ✏️ Edit Series Info
                 </button>
-              `}
+                ${isPurchased ? `
+                  <span style="background:#dcfce7; color:#15803d; font-weight:700; font-size:0.85rem; padding:0.35rem 0.85rem; border-radius:20px; display:inline-block;">
+                    ✓ Series Unlocked
+                  </span>
+                ` : `
+                  <button class="btn btn-primary" onclick="App.openCheckoutModal('test', '${currentSeries.id || 'pts_' + this.state.selectedPtsCategory.toLowerCase()}', '${currentSeries.title}', ${currentSeries.price})">
+                    Unlock Test Series
+                  </button>
+                `}
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:1rem;">
         <h4 style="font-size:1.15rem; color:#0a192f; font-weight:700;">
           Available Full Length Mocks (${currentSeries.tests ? currentSeries.tests.length : 0})
         </h4>
-        ${this.state.user && this.state.user.role === 'admin' ? `
-          <button class="btn btn-secondary" style="background:#0a192f; color:#fff; font-size:0.82rem;" onclick="App.openAddTestModal('${this.state.selectedPtsCategory}')">
-            + Add New Mock Test (Admin)
-          </button>
-        ` : ''}
+        <button class="btn btn-secondary" style="background:#0a192f; color:#fff; font-size:0.85rem;" onclick="App.openUploadModal('paid-test', '${this.state.selectedPtsCategory}')">
+          + 📤 Upload Mock Test (${this.state.selectedPtsCategory})
+        </button>
       </div>
 
       ${(!currentSeries.tests || currentSeries.tests.length === 0) ? `
@@ -1047,17 +1058,11 @@ const App = {
           <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎯</div>
           <h4 style="color:#0f172a; margin-bottom:0.3rem;">No default mock tests in this section</h4>
           <p style="font-size:0.88rem; max-width:480px; margin:0 auto 1.25rem;">
-            As requested, by default mocks are not added. The coaching staff/admin can upload verified high-yield mock tests anytime.
+            As requested, by default mocks are not added. The coaching faculty/admin can upload verified high-yield mock tests anytime.
           </p>
-          ${this.state.user && this.state.user.role === 'admin' ? `
-            <button class="btn btn-primary" onclick="App.openAddTestModal('${this.state.selectedPtsCategory}')">
-              Create First ${this.state.selectedPtsCategory} Mock Test
-            </button>
-          ` : `
-            <span style="font-size:0.8rem; background:#f1f5f9; padding:0.35rem 0.85rem; border-radius:20px;">
-              Mock tests are scheduled and added regularly by faculty
-            </span>
-          `}
+          <button class="btn btn-primary" onclick="App.openUploadModal('paid-test', '${this.state.selectedPtsCategory}')">
+            + 📤 Upload First ${this.state.selectedPtsCategory} Mock Test
+          </button>
         </div>
       ` : `
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem;">
@@ -1066,15 +1071,25 @@ const App = {
               <div class="content-card-body">
                 <h4>${t.title}</h4>
                 <p>Total Questions: ${t.questions ? t.questions.length : 50} • ${t.durationMinutes} Mins</p>
-                ${isPurchased ? `
-                  <button class="btn btn-primary" onclick="App.launchTest('${t.id}')">
-                    Attempt Mock
-                  </button>
-                ` : `
-                  <button class="btn btn-outline" onclick="App.openCheckoutModal('test', '${currentSeries.id}', '${currentSeries.title}', ${currentSeries.price})">
-                    🔒 Locked (Buy Series)
-                  </button>
-                `}
+                <div style="margin-top:auto;">
+                  ${isPurchased ? `
+                    <button class="btn btn-primary" style="width:100%;" onclick="App.launchTest('${t.id}')">
+                      Attempt Mock
+                    </button>
+                  ` : `
+                    <button class="btn btn-outline" style="width:100%;" onclick="App.openCheckoutModal('test', '${currentSeries.id}', '${currentSeries.title}', ${currentSeries.price})">
+                      🔒 Locked (Buy Series)
+                    </button>
+                  `}
+                  <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
+                    <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('paid-test', '${t.id}', '${this.state.selectedPtsCategory}')">
+                      ✏️ Edit
+                    </button>
+                    <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('paid-test', '${t.id}', '${this.state.selectedPtsCategory}')">
+                      🗑️ Delete
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           `).join('')}
@@ -1123,7 +1138,7 @@ const App = {
                 <span class="current-price">₹${eb.price}</span>
                 <span class="original-price">₹${eb.originalPrice}</span>
               </div>
-              <div style="display:flex; gap:0.5rem;">
+              <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
                 <button class="btn btn-outline" onclick="App.readEbookPreview('${eb.id}')">
                   👁️ Read Free Sample
                 </button>
@@ -1137,6 +1152,14 @@ const App = {
                   </button>
                 `}
               </div>
+            </div>
+            <div style="display:flex; gap:0.5rem; margin-top:0.75rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem; width:100%;">
+              <button class="btn btn-outline" style="flex:1; font-size:0.82rem; padding:0.4rem;" onclick="App.openEditModal('ebook', '${eb.id}')">
+                ✏️ Edit E-Book
+              </button>
+              <button class="btn btn-outline" style="flex:1; font-size:0.82rem; padding:0.4rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('ebook', '${eb.id}')">
+                🗑️ Delete E-Book
+              </button>
             </div>
           </div>
         </div>
@@ -1273,6 +1296,14 @@ ${eb.previewText || 'Sample preview chapter...'}
               ⬇ Download
             </button>
           </div>
+          <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
+            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('pyq', '${p.id}')">
+              ✏️ Edit
+            </button>
+            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('pyq', '${p.id}')">
+              🗑️ Delete
+            </button>
+          </div>
         </div>
       </div>
     `).join('');
@@ -1384,6 +1415,14 @@ ${eb.previewText || 'Sample preview chapter...'}
             </button>
             <button class="btn btn-primary" style="flex:1;" onclick="App.downloadWatermarkedPdf('${s.url}')">
               ⬇ Download PDF
+            </button>
+          </div>
+          <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
+            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('syllabus', '${s.id}')">
+              ✏️ Edit
+            </button>
+            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('syllabus', '${s.id}')">
+              🗑️ Delete
             </button>
           </div>
         </div>
@@ -2946,6 +2985,14 @@ ${eb.previewText || 'Sample preview chapter...'}
               ⬇ Download Weekly PDF (Watermarked)
             </button>
           </div>
+          <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
+            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('current-affairs', '${w.id}', 'weekly')">
+              ✏️ Edit
+            </button>
+            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('current-affairs', '${w.id}', 'weekly')">
+              🗑️ Delete
+            </button>
+          </div>
         </div>
       </div>
     `).join('');
@@ -2960,6 +3007,14 @@ ${eb.previewText || 'Sample preview chapter...'}
             <span style="font-size:0.85rem; color:#64748b;">Includes 200+ Practice MCQs</span>
             <button class="btn btn-primary" onclick="App.downloadWatermarkedPdf('${m.pdfUrl}')">
               ⬇ Download Magazine
+            </button>
+          </div>
+          <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
+            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('current-affairs', '${m.id}', 'monthly')">
+              ✏️ Edit
+            </button>
+            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('current-affairs', '${m.id}', 'monthly')">
+              🗑️ Delete
             </button>
           </div>
         </div>
@@ -4240,52 +4295,84 @@ ${eb.previewText || 'Sample preview chapter...'}
   // "Payment Gateway Integration: Razorpay, PhonePe, या PayU का इंटीग्रेशन ताकि स्टूडेंट्स UPI, Credit/Debit Card या Net Banking से पेमेंट कर सकें"
   openCheckoutModal(itemType, itemId, itemTitle, amount) {
     const modalBody = document.getElementById('checkout-modal-body');
-    const user = this.state.user || { name: 'Aakash Verma', phone: '9812345678' };
-    const upiId = this.state.academy.upiId || 'skcdefenceacademy@okaxis';
+    const user = this.state.user || { name: 'Student Aspirant', phone: '9876543210' };
+    const upiId = (this.state.academy && this.state.academy.upiId) || 'skc8058@ptaxis';
+    const payeeName = 'Shubham Choudhary';
+    const qrSrc = (this.state.academy && this.state.academy.qrCode) || '/uploads/payment_qr.jpg';
+    const upiLink = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
 
     modalBody.innerHTML = `
-      <div style="margin-bottom:1.25rem;">
-        <span class="batch-badge" style="background:#e0f2fe; color:#0369a1;">Instant Access</span>
-        <h3 style="font-size:1.3rem; color:#0a192f; margin:0.35rem 0;">${itemTitle}</h3>
-        <div style="font-size:1.6rem; font-weight:800; color:#15803d; margin-bottom:1rem;">
+      <div style="margin-bottom:1rem; text-align:center;">
+        <span class="batch-badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">Instant Digital Access</span>
+        <h3 style="font-size:1.25rem; color:#0a192f; margin:0.35rem 0;">${itemTitle}</h3>
+        <div style="font-size:1.6rem; font-weight:800; color:#15803d;">
           Total Payable: ₹${amount}
         </div>
       </div>
 
-      <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:1.25rem; text-align:center; margin-bottom:1.5rem;">
-        <p style="font-weight:700; color:#0f172a; margin-bottom:0.75rem;">⚡ Scan & Pay with Any UPI App (PhonePe, GPay, Paytm)</p>
-        
-        <!-- Live Generated QR Code -->
-        <div style="display:inline-block; padding:10px; background:#fff; border-radius:8px; border:1.5px solid #cbd5e1; margin-bottom:0.75rem;">
-          <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=${encodeURIComponent(upiId)}%26pn=SKC%20DEFENCE%20ACADEMY%26am=${amount}%26cu=INR" alt="UPI QR Code" style="width:170px; height:170px; display:block;">
+      <!-- Verified Merchant QR & UPI Details -->
+      <div style="background:#f8fafc; border:1.5px solid #cbd5e1; border-radius:12px; padding:1.25rem; text-align:center; margin-bottom:1.25rem;">
+        <div style="display:inline-block; padding:8px; background:#fff; border-radius:12px; box-shadow:0 4px 14px rgba(0,0,0,0.08); margin-bottom:0.75rem;">
+          <img src="${qrSrc}" alt="SKC Defence Official Payment QR" style="width:200px; height:200px; object-fit:contain; border-radius:8px; display:block;" onerror="this.src='/uploads/payment_qr.jpg'">
         </div>
 
-        <p style="font-size:0.85rem; color:#475569;">
-          Official Coaching UPI ID: <strong style="color:#0a192f;">${upiId}</strong>
-        </p>
+        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:0.65rem 0.85rem; margin-bottom:0.75rem; text-align:left;">
+          <div style="font-size:0.75rem; color:#64748b; text-transform:uppercase; letter-spacing:0.5px;">Beneficiary Account Name</div>
+          <div style="font-size:0.95rem; font-weight:700; color:#0a192f;">${payeeName} <span style="font-size:0.78rem; font-weight:normal; color:#16a34a;">(Verified Merchant)</span></div>
+          <div style="margin-top:0.4rem; display:flex; justify-content:space-between; align-items:center; background:#f1f5f9; padding:0.35rem 0.6rem; border-radius:6px;">
+            <span style="font-family:monospace; font-weight:700; color:#0f172a; font-size:0.92rem;">${upiId}</span>
+            <button id="copy-upi-btn" class="btn btn-outline" style="padding:0.2rem 0.6rem; font-size:0.78rem;" onclick="App.copyUpiId('${upiId}')">📋 Copy</button>
+          </div>
+        </div>
+
+        <!-- Direct UPI App Button -->
+        <a href="${upiLink}" class="btn btn-primary" style="display:block; text-decoration:none; margin-bottom:0.5rem; background:#0a192f; color:#fff; font-weight:700; padding:0.75rem; border-radius:8px;">
+          ⚡ Open Any UPI App (PhonePe / GPay / Paytm)
+        </a>
+        <div style="font-size:0.75rem; color:#64748b;">Scan QR from any UPI App or click above on mobile</div>
       </div>
 
-      <div style="margin-bottom:1.5rem;">
-        <label class="form-label">Select Payment Method</label>
-        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.5rem;">
-          <button class="btn btn-outline" style="border-color:#5f259f; color:#5f259f;" onclick="App.simulatePayment('${itemType}', '${itemId}', '${itemTitle}', ${amount}, 'PhonePe (UPI)')">
-            🟣 PhonePe
-          </button>
-          <button class="btn btn-outline" style="border-color:#0284c7; color:#0284c7;" onclick="App.simulatePayment('${itemType}', '${itemId}', '${itemTitle}', ${amount}, 'Razorpay (Cards/UPI)')">
-            🔵 Razorpay
-          </button>
-          <button class="btn btn-outline" style="border-color:#16a34a; color:#16a34a;" onclick="App.simulatePayment('${itemType}', '${itemId}', '${itemTitle}', ${amount}, 'PayU (NetBanking)')">
-            🟢 PayU
-          </button>
+      <!-- Direct Verification / Reference Submission -->
+      <div style="margin-bottom:1.25rem;">
+        <label class="form-label" style="font-size:0.85rem;">Enter UPI Ref / UTR No. (Optional):</label>
+        <input type="text" id="checkout-utr-input" class="form-control" placeholder="12-digit UTR/Ref (e.g. 429812345678)" style="margin-bottom:0.75rem;">
+        <button class="btn btn-primary" style="width:100%; padding:0.85rem; font-size:1.02rem; background:#16a34a; border-color:#16a34a;" onclick="App.confirmDirectPayment('${itemType}', '${itemId}', '${itemTitle}', ${amount})">
+          ✓ I Have Paid — Unlock Instantly (₹${amount})
+        </button>
+      </div>
+
+      <!-- Quick Test Payment Simulator -->
+      <div style="border-top:1px solid #e2e8f0; padding-top:0.75rem; text-align:center;">
+        <span style="font-size:0.78rem; color:#64748b;">Instant Portal Simulator:</span>
+        <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.4rem; margin-top:0.35rem;">
+          <button class="btn btn-outline" style="font-size:0.75rem; padding:0.35rem;" onclick="App.simulatePayment('${itemType}', '${itemId}', '${itemTitle}', ${amount}, 'PhonePe')">🟣 PhonePe</button>
+          <button class="btn btn-outline" style="font-size:0.75rem; padding:0.35rem;" onclick="App.simulatePayment('${itemType}', '${itemId}', '${itemTitle}', ${amount}, 'Razorpay')">🔵 Razorpay</button>
+          <button class="btn btn-outline" style="font-size:0.75rem; padding:0.35rem;" onclick="App.simulatePayment('${itemType}', '${itemId}', '${itemTitle}', ${amount}, 'PayU')">🟢 PayU</button>
         </div>
       </div>
-
-      <button class="btn btn-primary" style="width:100%; padding:0.85rem; font-size:1.05rem;" onclick="App.simulatePayment('${itemType}', '${itemId}', '${itemTitle}', ${amount}, 'UPI QR Direct')">
-        ✓ Verify & Unlock Instantly (₹${amount})
-      </button>
     `;
 
     this.openModal('checkout-modal');
+  },
+
+  copyUpiId(upiId) {
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(upiId).then(() => {
+        const btn = document.getElementById('copy-upi-btn');
+        if (btn) btn.innerText = '✓ Copied!';
+        setTimeout(() => { if (btn) btn.innerText = '📋 Copy'; }, 2500);
+      }).catch(() => {
+        prompt('Copy UPI ID:', upiId);
+      });
+    } else {
+      prompt('Copy UPI ID:', upiId);
+    }
+  },
+
+  async confirmDirectPayment(itemType, itemId, itemTitle, amount) {
+    const utrInput = document.getElementById('checkout-utr-input');
+    const utr = (utrInput && utrInput.value.trim()) || ('TXN' + Date.now());
+    await this.simulatePayment(itemType, itemId, itemTitle, amount, `UPI (${utr})`);
   },
 
   async simulatePayment(itemType, itemId, itemTitle, amount, gateway) {
@@ -4315,6 +4402,1274 @@ ${eb.previewText || 'Sample preview chapter...'}
       }
     } catch (err) {
       alert('Payment processing error');
+    }
+  },
+
+  // 15. Admin Authentication & Content Management (Upload & Edit Controls)
+  ensureAdmin() {
+    if (this.state.user && this.state.user.role === 'admin') return true;
+    const storedPin = localStorage.getItem('skc_admin_pin');
+    if (storedPin && (storedPin.toLowerCase() === 'skcadmin2026' || storedPin === 'admin123' || storedPin === 'skcadmin@2026')) {
+      if (!this.state.user) {
+        this.state.user = { id: 'usr_admin', name: 'SKC Admin', role: 'admin', adminPin: storedPin };
+      } else {
+        this.state.user.role = 'admin';
+        this.state.user.adminPin = storedPin;
+      }
+      localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
+      return true;
+    }
+    const pin = prompt('Enter SKC Admin PIN (Default: skcadmin2026):', 'skcadmin2026');
+    if (pin && (pin.toLowerCase() === 'skcadmin2026' || pin === 'admin123' || pin === 'skcadmin@2026')) {
+      localStorage.setItem('skc_admin_pin', pin);
+      if (!this.state.user) {
+        this.state.user = { id: 'usr_admin', name: 'SKC Admin', role: 'admin', adminPin: pin };
+      } else {
+        this.state.user.role = 'admin';
+        this.state.user.adminPin = pin;
+      }
+      localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
+      return true;
+    }
+    alert('Access restricted: Invalid Admin PIN');
+    return false;
+  },
+
+  async uploadFile(file) {
+    const formData = new FormData();
+    formData.append('file', file);
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      headers: {
+        'X-Admin-Pin': this.getAdminPin(),
+        'X-Admin-Role': 'admin'
+      },
+      body: formData
+    }).then(r => r.json());
+    if (!res.success) throw new Error(res.message || 'File upload failed');
+    return res;
+  },
+
+  openUploadModal(section, subCategory) {
+    if (!this.ensureAdmin()) return;
+    const modalBody = document.getElementById('generic-modal-body');
+    const modalTitle = document.getElementById('generic-modal-title');
+
+    if (section === 'free-test') {
+      modalTitle.innerText = '📤 Upload / Add Free Mock Test';
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleUploadFreeTest(event)">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Mock Test Title</label>
+            <input type="text" id="uft-title" class="form-control" required placeholder="e.g. Airforce Agniveer Group X Full Mock 03">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Exam Category</label>
+              <select id="uft-exam" class="form-control">
+                <option value="Airforce Agniveer">Airforce Agniveer</option>
+                <option value="Indian Navy SSR / MR">Indian Navy SSR / MR</option>
+                <option value="Indian Army Agniveer">Indian Army Agniveer</option>
+                <option value="Indian Coast Guard">Indian Coast Guard</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Duration (Minutes)</label>
+              <input type="number" id="uft-duration" class="form-control" value="45" required>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Total Marks</label>
+              <input type="number" id="uft-marks" class="form-control" value="50" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Positive Mark</label>
+              <input type="number" step="0.25" id="uft-pos" class="form-control" value="1.0" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Negative Mark</label>
+              <input type="number" step="0.05" id="uft-neg" class="form-control" value="0.25" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Instructions / Exam Rules</label>
+            <textarea id="uft-instructions" class="form-control" rows="2" placeholder="Standard defence examination rules apply."></textarea>
+          </div>
+          <button type="submit" id="uft-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Save & Publish Free Test
+          </button>
+        </form>
+      `;
+    } else if (section === 'paid-test') {
+      const cat = subCategory || this.state.selectedPtsCategory || 'Airforce';
+      modalTitle.innerText = `📤 Upload Mock Test (${cat} Series)`;
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleUploadPaidTest(event, '${cat}')">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Mock Test Title</label>
+            <input type="text" id="upt-title" class="form-control" required placeholder="e.g. ${cat} Target Selection Mock Test 02">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+            <div class="form-group">
+              <label class="form-label">Duration (Mins)</label>
+              <input type="number" id="upt-duration" class="form-control" value="45" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Total Marks</label>
+              <input type="number" id="upt-marks" class="form-control" value="50" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Positive / Negative</label>
+              <input type="text" id="upt-marking" class="form-control" value="+1 / -0.25">
+            </div>
+          </div>
+          <button type="submit" id="upt-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Add Mock to ${cat} Series
+          </button>
+        </form>
+      `;
+    } else if (section === 'ebook') {
+      modalTitle.innerText = '📤 Upload New Defence E-Book';
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleUploadEbook(event)">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">E-Book Title</label>
+            <input type="text" id="ueb-title" class="form-control" required placeholder="e.g. Defence Golden Formula Book 2026">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Author / Faculty</label>
+              <input type="text" id="ueb-author" class="form-control" value="SKC Defence Faculty">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Total Pages</label>
+              <input type="number" id="ueb-pages" class="form-control" value="120">
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Price (₹)</label>
+              <input type="number" id="ueb-price" class="form-control" value="199" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Original Price (₹)</label>
+              <input type="number" id="ueb-orig-price" class="form-control" value="499">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Key Highlights / Features (comma-separated)</label>
+            <input type="text" id="ueb-features" class="form-control" value="Golden Grammar Rules, 500+ PYQs, Formula Sheets">
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Description</label>
+            <textarea id="ueb-desc" class="form-control" rows="2" placeholder="Brief book description..."></textarea>
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Upload E-Book PDF File</label>
+            <input type="file" id="ueb-file" class="form-control" accept=".pdf">
+            <span style="font-size:0.75rem; color:#64748b;">Or keep default/enter URL:</span>
+            <input type="text" id="ueb-url" class="form-control" placeholder="/uploads/pdfs/skc_defence_golden_ebook.pdf" style="margin-top:0.25rem;">
+          </div>
+          <button type="submit" id="ueb-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Save & Publish E-Book
+          </button>
+        </form>
+      `;
+    } else if (section === 'pyq') {
+      modalTitle.innerText = '📤 Upload Solved PYQ PDF';
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleUploadPyq(event)">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">PYQ Paper Title</label>
+            <input type="text" id="upyq-title" class="form-control" required placeholder="e.g. Airforce Intake 02/2025 Group X Memory Based Paper">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Exam Category</label>
+              <select id="upyq-exam" class="form-control">
+                <option value="Airforce">Airforce Agniveer Vayu</option>
+                <option value="Navy">Indian Navy SSR / MR</option>
+                <option value="ICG">Indian Coast Guard (ICG)</option>
+                <option value="Army">Indian Army Agniveer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Exam Year</label>
+              <input type="text" id="upyq-year" class="form-control" value="2025" required>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Pages</label>
+              <input type="number" id="upyq-pages" class="form-control" value="20">
+            </div>
+            <div class="form-group">
+              <label class="form-label">File Size</label>
+              <input type="text" id="upyq-size" class="form-control" value="3.5 MB">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Upload PYQ PDF File</label>
+            <input type="file" id="upyq-file" class="form-control" accept=".pdf">
+            <span style="font-size:0.75rem; color:#64748b;">Or enter existing URL:</span>
+            <input type="text" id="upyq-url" class="form-control" placeholder="/uploads/pdfs/airforce_intake_02_2025_group_x.pdf" style="margin-top:0.25rem;">
+          </div>
+          <button type="submit" id="upyq-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Upload PYQ Document
+          </button>
+        </form>
+      `;
+    } else if (section === 'syllabus') {
+      modalTitle.innerText = '📤 Upload Official Syllabus PDF';
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleUploadSyllabus(event)">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Syllabus Title</label>
+            <input type="text" id="usyl-title" class="form-control" required placeholder="e.g. Airforce Agniveer Science & Non-Science Syllabus 2026">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Exam Category</label>
+              <select id="usyl-exam" class="form-control">
+                <option value="Airforce">Airforce Agniveer</option>
+                <option value="Navy">Indian Navy SSR / MR</option>
+                <option value="ICG">Indian Coast Guard (ICG)</option>
+                <option value="Army">Indian Army Agniveer</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Pages</label>
+              <input type="number" id="usyl-pages" class="form-control" value="12">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Upload Syllabus PDF File</label>
+            <input type="file" id="usyl-file" class="form-control" accept=".pdf">
+            <span style="font-size:0.75rem; color:#64748b;">Or enter existing URL:</span>
+            <input type="text" id="usyl-url" class="form-control" placeholder="/uploads/pdfs/airforce_syllabus_2026.pdf" style="margin-top:0.25rem;">
+          </div>
+          <button type="submit" id="usyl-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Upload Syllabus Document
+          </button>
+        </form>
+      `;
+    } else if (section === 'current-affairs') {
+      modalTitle.innerText = '📤 Upload Current Affairs';
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleUploadCurrentAffairs(event)">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Type</label>
+              <select id="uca-type" class="form-control" onchange="App.toggleCaFields(this.value)">
+                <option value="weekly">Weekly Defence Capsule</option>
+                <option value="monthly">Monthly Defence Digest</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Date / Period</label>
+              <input type="text" id="uca-date" class="form-control" value="October 2026 Week 4" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Title</label>
+            <input type="text" id="uca-title" class="form-control" required placeholder="e.g. Weekly Defence Capsule - 21 to 28 Oct 2026">
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Summary</label>
+            <textarea id="uca-summary" class="form-control" rows="2" placeholder="Brief summary of defence news and updates..."></textarea>
+          </div>
+          <div id="uca-highlights-box" class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Key Highlights (comma-separated)</label>
+            <input type="text" id="uca-highlights" class="form-control" placeholder="Exercise Malabar 2026, Tejas Mk1A Induction, INS Arighat">
+          </div>
+          <div id="uca-monthly-box" style="display:none; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Pages</label>
+              <input type="number" id="uca-pages" class="form-control" value="60">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Size</label>
+              <input type="text" id="uca-size" class="form-control" value="5.5 MB">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Upload Current Affairs PDF File</label>
+            <input type="file" id="uca-file" class="form-control" accept=".pdf">
+            <span style="font-size:0.75rem; color:#64748b;">Or enter existing URL:</span>
+            <input type="text" id="uca-url" class="form-control" placeholder="/uploads/pdfs/ca_weekly_oct_w4.pdf" style="margin-top:0.25rem;">
+          </div>
+          <button type="submit" id="uca-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Publish Current Affairs
+          </button>
+        </form>
+      `;
+    }
+
+    this.openModal('generic-modal');
+  },
+
+  toggleCaFields(type) {
+    const hl = document.getElementById('uca-highlights-box');
+    const mo = document.getElementById('uca-monthly-box');
+    if (hl) hl.style.display = type === 'weekly' ? 'block' : 'none';
+    if (mo) mo.style.display = type === 'monthly' ? 'grid' : 'none';
+  },
+
+  openEditModal(section, itemId, subCategory) {
+    if (!this.ensureAdmin()) return;
+    const modalBody = document.getElementById('generic-modal-body');
+    const modalTitle = document.getElementById('generic-modal-title');
+
+    if (section === 'free-test') {
+      const item = (this.state.freeTests || []).find(t => t.id === itemId);
+      if (!item) return alert('Test not found');
+      modalTitle.innerText = '✏️ Edit Free Mock Test';
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleEditFreeTest(event, '${itemId}')">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Mock Test Title</label>
+            <input type="text" id="eft-title" class="form-control" required value="${item.title || ''}">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Exam Category</label>
+              <input type="text" id="eft-exam" class="form-control" value="${item.exam || 'Airforce Agniveer'}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Duration (Minutes)</label>
+              <input type="number" id="eft-duration" class="form-control" value="${item.durationMinutes || 45}" required>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Total Marks</label>
+              <input type="number" id="eft-marks" class="form-control" value="${item.totalMarks || 50}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Positive Mark</label>
+              <input type="number" step="0.25" id="eft-pos" class="form-control" value="${item.positiveMarks || 1.0}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Negative Mark</label>
+              <input type="number" step="0.05" id="eft-neg" class="form-control" value="${item.negativeMarks || 0.25}" required>
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Instructions / Exam Rules</label>
+            <textarea id="eft-instructions" class="form-control" rows="2">${item.instructions || ''}</textarea>
+          </div>
+          <button type="submit" id="eft-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Update Free Test
+          </button>
+        </form>
+      `;
+    } else if (section === 'paid-test') {
+      const cat = subCategory || this.state.selectedPtsCategory || 'Airforce';
+      const series = (this.state.paidTestSeries || []).find(s => s.name.toLowerCase() === cat.toLowerCase() || s.id === cat);
+      const test = series && (series.tests || []).find(t => t.id === itemId);
+      if (!test) return alert('Mock test not found');
+      modalTitle.innerText = `✏️ Edit Mock Test (${cat})`;
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleEditPaidTest(event, '${cat}', '${itemId}')">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Mock Test Title</label>
+            <input type="text" id="ept-title" class="form-control" required value="${test.title || ''}">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+            <div class="form-group">
+              <label class="form-label">Duration (Mins)</label>
+              <input type="number" id="ept-duration" class="form-control" value="${test.durationMinutes || 45}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Total Marks</label>
+              <input type="number" id="ept-marks" class="form-control" value="${test.totalMarks || 50}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Positive Mark</label>
+              <input type="number" step="0.25" id="ept-pos" class="form-control" value="${test.positiveMarks || 1.0}">
+            </div>
+          </div>
+          <button type="submit" id="ept-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Update Mock Test
+          </button>
+        </form>
+      `;
+    } else if (section === 'ebook') {
+      const eb = (this.state.ebooks || []).find(e => e.id === itemId);
+      if (!eb) return alert('E-Book not found');
+      modalTitle.innerText = '✏️ Edit Defence E-Book';
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleEditEbook(event, '${itemId}')">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">E-Book Title</label>
+            <input type="text" id="eeb-title" class="form-control" required value="${eb.title || ''}">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Author / Faculty</label>
+              <input type="text" id="eeb-author" class="form-control" value="${eb.author || ''}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Total Pages</label>
+              <input type="number" id="eeb-pages" class="form-control" value="${eb.pages || 120}">
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Price (₹)</label>
+              <input type="number" id="eeb-price" class="form-control" value="${eb.price || 199}" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Original Price (₹)</label>
+              <input type="number" id="eeb-orig-price" class="form-control" value="${eb.originalPrice || 499}">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Key Highlights / Features (comma-separated)</label>
+            <input type="text" id="eeb-features" class="form-control" value="${(eb.features || []).join(', ')}">
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Description</label>
+            <textarea id="eeb-desc" class="form-control" rows="2">${eb.description || ''}</textarea>
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Update PDF File (Leave empty to keep existing)</label>
+            <input type="file" id="eeb-file" class="form-control" accept=".pdf">
+            <span style="font-size:0.75rem; color:#64748b;">Current PDF URL:</span>
+            <input type="text" id="eeb-url" class="form-control" value="${eb.pdfUrl || ''}" style="margin-top:0.25rem;">
+          </div>
+          <button type="submit" id="eeb-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Update E-Book
+          </button>
+        </form>
+      `;
+    } else if (section === 'pyq') {
+      const p = (this.state.pyqs || []).find(item => item.id === itemId);
+      if (!p) return alert('PYQ not found');
+      modalTitle.innerText = '✏️ Edit PYQ Document';
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleEditPyq(event, '${itemId}')">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">PYQ Paper Title</label>
+            <input type="text" id="epyq-title" class="form-control" required value="${p.title || ''}">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Exam Category</label>
+              <input type="text" id="epyq-exam" class="form-control" value="${p.exam || 'Airforce'}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Exam Year</label>
+              <input type="text" id="epyq-year" class="form-control" value="${p.year || '2025'}" required>
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Pages</label>
+              <input type="number" id="epyq-pages" class="form-control" value="${p.pages || 20}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">File Size</label>
+              <input type="text" id="epyq-size" class="form-control" value="${p.size || '3.5 MB'}">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Update PDF File (Leave empty to keep existing)</label>
+            <input type="file" id="epyq-file" class="form-control" accept=".pdf">
+            <span style="font-size:0.75rem; color:#64748b;">Current PDF URL:</span>
+            <input type="text" id="epyq-url" class="form-control" value="${p.url || ''}" style="margin-top:0.25rem;">
+          </div>
+          <button type="submit" id="epyq-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Update PYQ Document
+          </button>
+        </form>
+      `;
+    } else if (section === 'syllabus') {
+      const s = (this.state.syllabus || []).find(item => item.id === itemId);
+      if (!s) return alert('Syllabus not found');
+      modalTitle.innerText = '✏️ Edit Syllabus Document';
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleEditSyllabus(event, '${itemId}')">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Syllabus Title</label>
+            <input type="text" id="esyl-title" class="form-control" required value="${s.title || ''}">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Exam Category</label>
+              <input type="text" id="esyl-exam" class="form-control" value="${s.exam || 'Airforce'}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Pages</label>
+              <input type="number" id="esyl-pages" class="form-control" value="${s.pages || 12}">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Update PDF File (Leave empty to keep existing)</label>
+            <input type="file" id="esyl-file" class="form-control" accept=".pdf">
+            <span style="font-size:0.75rem; color:#64748b;">Current PDF URL:</span>
+            <input type="text" id="esyl-url" class="form-control" value="${s.url || ''}" style="margin-top:0.25rem;">
+          </div>
+          <button type="submit" id="esyl-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Update Syllabus Document
+          </button>
+        </form>
+      `;
+    } else if (section === 'current-affairs') {
+      const type = subCategory || 'weekly';
+      const list = type === 'monthly' ? ((this.state.currentAffairs && this.state.currentAffairs.monthly) || []) : ((this.state.currentAffairs && this.state.currentAffairs.weekly) || []);
+      const item = list.find(i => i.id === itemId);
+      if (!item) return alert('Current affairs item not found');
+      modalTitle.innerText = `✏️ Edit ${type === 'monthly' ? 'Monthly Digest' : 'Weekly Capsule'}`;
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleEditCurrentAffairs(event, '${type}', '${itemId}')">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Title</label>
+            <input type="text" id="eca-title" class="form-control" required value="${item.title || ''}">
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Date / Period</label>
+            <input type="text" id="eca-date" class="form-control" required value="${item.date || ''}">
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Summary</label>
+            <textarea id="eca-summary" class="form-control" rows="2">${item.summary || ''}</textarea>
+          </div>
+          ${type === 'weekly' ? `
+            <div class="form-group" style="margin-bottom:0.75rem;">
+              <label class="form-label">Key Highlights (comma-separated)</label>
+              <input type="text" id="eca-highlights" class="form-control" value="${(item.highlights || []).join(', ')}">
+            </div>
+          ` : `
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+              <div class="form-group">
+                <label class="form-label">Pages</label>
+                <input type="number" id="eca-pages" class="form-control" value="${item.pages || 60}">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Size</label>
+                <input type="text" id="eca-size" class="form-control" value="${item.size || '5.5 MB'}">
+              </div>
+            </div>
+          `}
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Update PDF File (Leave empty to keep existing)</label>
+            <input type="file" id="eca-file" class="form-control" accept=".pdf">
+            <span style="font-size:0.75rem; color:#64748b;">Current PDF URL:</span>
+            <input type="text" id="eca-url" class="form-control" value="${item.pdfUrl || ''}" style="margin-top:0.25rem;">
+          </div>
+          <button type="submit" id="eca-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+            💾 Update Current Affairs
+          </button>
+        </form>
+      `;
+    }
+
+    this.openModal('generic-modal');
+  },
+
+  openEditSeriesModal(category) {
+    if (!this.ensureAdmin()) return;
+    const cat = category || this.state.selectedPtsCategory || 'Airforce';
+    const series = (this.state.paidTestSeries || []).find(s => s.name.toLowerCase() === cat.toLowerCase() || s.id === cat) || {
+      title: `${cat} Target Selection Series`,
+      price: 349,
+      originalPrice: 799,
+      description: `Official full mock test series for ${cat} examination.`
+    };
+
+    const modalBody = document.getElementById('generic-modal-body');
+    document.getElementById('generic-modal-title').innerText = `✏️ Edit ${cat} Series Information`;
+
+    modalBody.innerHTML = `
+      <form onsubmit="App.handleEditSeriesSubmit(event, '${cat}')">
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label class="form-label">Series Title</label>
+          <input type="text" id="es-title" class="form-control" required value="${series.title || ''}">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+          <div class="form-group">
+            <label class="form-label">Series Price (₹)</label>
+            <input type="number" id="es-price" class="form-control" required value="${series.price || 349}">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Original Price (₹)</label>
+            <input type="number" id="es-orig-price" class="form-control" value="${series.originalPrice || 799}">
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label class="form-label">Series Description</label>
+          <textarea id="es-desc" class="form-control" rows="3">${series.description || ''}</textarea>
+        </div>
+        <button type="submit" id="es-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+          💾 Save Series Changes
+        </button>
+      </form>
+    `;
+    this.openModal('generic-modal');
+  },
+
+  async handleEditSeriesSubmit(e, category) {
+    e.preventDefault();
+    const btn = document.getElementById('es-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Saving...'; }
+
+    try {
+      const res = await fetch(`/api/paid-test-series/${category}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('es-title').value.trim(),
+          price: Number(document.getElementById('es-price').value),
+          originalPrice: Number(document.getElementById('es-orig-price').value),
+          description: document.getElementById('es-desc').value.trim()
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        const s = (this.state.paidTestSeries || []).find(item => item.name.toLowerCase() === category.toLowerCase() || item.id === category);
+        if (s) {
+          s.title = res.data.title;
+          s.price = res.data.price;
+          s.originalPrice = res.data.originalPrice;
+          s.description = res.data.description;
+        }
+        this.closeModal('generic-modal');
+        this.renderPaidTestSeries();
+        alert('Series info updated successfully!');
+      } else {
+        alert(res.message || 'Failed to update series');
+      }
+    } catch (err) {
+      alert('Error updating series: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Save Series Changes'; }
+    }
+  },
+
+  async handleUploadFreeTest(e) {
+    e.preventDefault();
+    const btn = document.getElementById('uft-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Saving...'; }
+
+    try {
+      const res = await fetch('/api/free-tests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('uft-title').value.trim(),
+          exam: document.getElementById('uft-exam').value,
+          durationMinutes: Number(document.getElementById('uft-duration').value),
+          totalMarks: Number(document.getElementById('uft-marks').value),
+          positiveMarks: Number(document.getElementById('uft-pos').value),
+          negativeMarks: Number(document.getElementById('uft-neg').value),
+          instructions: document.getElementById('uft-instructions').value.trim()
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        this.state.freeTests = this.state.freeTests || [];
+        this.state.freeTests.unshift(res.data);
+        this.closeModal('generic-modal');
+        this.renderFreeTests();
+        alert('Free test successfully published!');
+      } else {
+        alert(res.message || 'Failed to publish test');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Save & Publish Free Test'; }
+    }
+  },
+
+  async handleEditFreeTest(e, testId) {
+    e.preventDefault();
+    const btn = document.getElementById('eft-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Updating...'; }
+
+    try {
+      const res = await fetch(`/api/free-tests/${testId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('eft-title').value.trim(),
+          exam: document.getElementById('eft-exam').value.trim(),
+          durationMinutes: Number(document.getElementById('eft-duration').value),
+          totalMarks: Number(document.getElementById('eft-marks').value),
+          positiveMarks: Number(document.getElementById('eft-pos').value),
+          negativeMarks: Number(document.getElementById('eft-neg').value),
+          instructions: document.getElementById('eft-instructions').value.trim()
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        const idx = (this.state.freeTests || []).findIndex(t => t.id === testId);
+        if (idx !== -1) this.state.freeTests[idx] = res.data;
+        this.closeModal('generic-modal');
+        this.renderFreeTests();
+        alert('Free test updated successfully!');
+      } else {
+        alert(res.message || 'Failed to update test');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Update Free Test'; }
+    }
+  },
+
+  async handleUploadPaidTest(e, category) {
+    e.preventDefault();
+    const btn = document.getElementById('upt-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Adding...'; }
+
+    try {
+      const res = await fetch(`/api/paid-test-series/${category}/tests`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('upt-title').value.trim(),
+          durationMinutes: Number(document.getElementById('upt-duration').value),
+          totalMarks: Number(document.getElementById('upt-marks').value)
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        const series = (this.state.paidTestSeries || []).find(s => s.name.toLowerCase() === category.toLowerCase() || s.id === category);
+        if (series) {
+          series.tests = series.tests || [];
+          series.tests.push(res.data);
+        }
+        this.closeModal('generic-modal');
+        this.renderPaidTestSeries();
+        alert('Mock test successfully added to series!');
+      } else {
+        alert(res.message || 'Failed to add mock test');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = `💾 Add Mock to ${category} Series`; }
+    }
+  },
+
+  async handleEditPaidTest(e, category, testId) {
+    e.preventDefault();
+    const btn = document.getElementById('ept-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Updating...'; }
+
+    try {
+      const res = await fetch(`/api/paid-test-series/${category}/tests/${testId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('ept-title').value.trim(),
+          durationMinutes: Number(document.getElementById('ept-duration').value),
+          totalMarks: Number(document.getElementById('ept-marks').value),
+          positiveMarks: Number(document.getElementById('ept-pos').value)
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        const series = (this.state.paidTestSeries || []).find(s => s.name.toLowerCase() === category.toLowerCase() || s.id === category);
+        if (series) {
+          const idx = (series.tests || []).findIndex(t => t.id === testId);
+          if (idx !== -1) series.tests[idx] = res.data;
+        }
+        this.closeModal('generic-modal');
+        this.renderPaidTestSeries();
+        alert('Mock test updated successfully!');
+      } else {
+        alert(res.message || 'Failed to update mock test');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Update Mock Test'; }
+    }
+  },
+
+  async handleUploadEbook(e) {
+    e.preventDefault();
+    const btn = document.getElementById('ueb-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Uploading...'; }
+
+    try {
+      let pdfUrl = document.getElementById('ueb-url').value.trim() || '/uploads/pdfs/skc_defence_golden_ebook.pdf';
+      const fileInput = document.getElementById('ueb-file');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        btn.innerText = 'Uploading PDF...';
+        const upRes = await this.uploadFile(fileInput.files[0]);
+        pdfUrl = upRes.url;
+      }
+
+      const features = document.getElementById('ueb-features').value.split(',').map(s => s.trim()).filter(Boolean);
+
+      const res = await fetch('/api/ebooks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('ueb-title').value.trim(),
+          author: document.getElementById('ueb-author').value.trim(),
+          pages: Number(document.getElementById('ueb-pages').value),
+          price: Number(document.getElementById('ueb-price').value),
+          originalPrice: Number(document.getElementById('ueb-orig-price').value),
+          features,
+          description: document.getElementById('ueb-desc').value.trim(),
+          pdfUrl
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        this.state.ebooks = this.state.ebooks || [];
+        this.state.ebooks.unshift(res.data);
+        this.closeModal('generic-modal');
+        this.renderEbooks();
+        alert('E-Book published successfully!');
+      } else {
+        alert(res.message || 'Failed to publish e-book');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Save & Publish E-Book'; }
+    }
+  },
+
+  async handleEditEbook(e, ebookId) {
+    e.preventDefault();
+    const btn = document.getElementById('eeb-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Updating...'; }
+
+    try {
+      let pdfUrl = document.getElementById('eeb-url').value.trim();
+      const fileInput = document.getElementById('eeb-file');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        btn.innerText = 'Uploading PDF...';
+        const upRes = await this.uploadFile(fileInput.files[0]);
+        pdfUrl = upRes.url;
+      }
+
+      const features = document.getElementById('eeb-features').value.split(',').map(s => s.trim()).filter(Boolean);
+
+      const res = await fetch(`/api/ebooks/${ebookId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('eeb-title').value.trim(),
+          author: document.getElementById('eeb-author').value.trim(),
+          pages: Number(document.getElementById('eeb-pages').value),
+          price: Number(document.getElementById('eeb-price').value),
+          originalPrice: Number(document.getElementById('eeb-orig-price').value),
+          features,
+          description: document.getElementById('eeb-desc').value.trim(),
+          pdfUrl
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        const idx = (this.state.ebooks || []).findIndex(eb => eb.id === ebookId);
+        if (idx !== -1) this.state.ebooks[idx] = res.data;
+        this.closeModal('generic-modal');
+        this.renderEbooks();
+        alert('E-Book updated successfully!');
+      } else {
+        alert(res.message || 'Failed to update e-book');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Update E-Book'; }
+    }
+  },
+
+  async handleUploadPyq(e) {
+    e.preventDefault();
+    const btn = document.getElementById('upyq-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Uploading...'; }
+
+    try {
+      let url = document.getElementById('upyq-url').value.trim() || '/uploads/pdfs/airforce_intake_02_2025_group_x.pdf';
+      let size = document.getElementById('upyq-size').value.trim() || '3.5 MB';
+      const fileInput = document.getElementById('upyq-file');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        btn.innerText = 'Uploading PDF...';
+        const upRes = await this.uploadFile(fileInput.files[0]);
+        url = upRes.url;
+        size = upRes.size;
+      }
+
+      const res = await fetch('/api/pyqs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('upyq-title').value.trim(),
+          exam: document.getElementById('upyq-exam').value,
+          year: document.getElementById('upyq-year').value.trim(),
+          pages: Number(document.getElementById('upyq-pages').value),
+          size,
+          url
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        this.state.pyqs = this.state.pyqs || [];
+        this.state.pyqs.unshift(res.data);
+        this.closeModal('generic-modal');
+        this.renderPyqs();
+        alert('PYQ Paper successfully uploaded!');
+      } else {
+        alert(res.message || 'Failed to upload PYQ');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Upload PYQ Document'; }
+    }
+  },
+
+  async handleEditPyq(e, pyqId) {
+    e.preventDefault();
+    const btn = document.getElementById('epyq-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Updating...'; }
+
+    try {
+      let url = document.getElementById('epyq-url').value.trim();
+      let size = document.getElementById('epyq-size').value.trim();
+      const fileInput = document.getElementById('epyq-file');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        btn.innerText = 'Uploading PDF...';
+        const upRes = await this.uploadFile(fileInput.files[0]);
+        url = upRes.url;
+        size = upRes.size;
+      }
+
+      const res = await fetch(`/api/pyqs/${pyqId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('epyq-title').value.trim(),
+          exam: document.getElementById('epyq-exam').value.trim(),
+          year: document.getElementById('epyq-year').value.trim(),
+          pages: Number(document.getElementById('epyq-pages').value),
+          size,
+          url
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        const idx = (this.state.pyqs || []).findIndex(p => p.id === pyqId);
+        if (idx !== -1) this.state.pyqs[idx] = res.data;
+        this.closeModal('generic-modal');
+        this.renderPyqs();
+        alert('PYQ paper updated successfully!');
+      } else {
+        alert(res.message || 'Failed to update PYQ');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Update PYQ Document'; }
+    }
+  },
+
+  async handleUploadSyllabus(e) {
+    e.preventDefault();
+    const btn = document.getElementById('usyl-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Uploading...'; }
+
+    try {
+      let url = document.getElementById('usyl-url').value.trim() || '/uploads/pdfs/airforce_syllabus_2026.pdf';
+      const fileInput = document.getElementById('usyl-file');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        btn.innerText = 'Uploading PDF...';
+        const upRes = await this.uploadFile(fileInput.files[0]);
+        url = upRes.url;
+      }
+
+      const res = await fetch('/api/syllabus', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('usyl-title').value.trim(),
+          exam: document.getElementById('usyl-exam').value,
+          pages: Number(document.getElementById('usyl-pages').value),
+          size: '1.8 MB',
+          url
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        this.state.syllabus = this.state.syllabus || [];
+        this.state.syllabus.unshift(res.data);
+        this.closeModal('generic-modal');
+        this.renderSyllabus();
+        alert('Syllabus document successfully uploaded!');
+      } else {
+        alert(res.message || 'Failed to upload syllabus');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Upload Syllabus Document'; }
+    }
+  },
+
+  async handleEditSyllabus(e, syllabusId) {
+    e.preventDefault();
+    const btn = document.getElementById('esyl-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Updating...'; }
+
+    try {
+      let url = document.getElementById('esyl-url').value.trim();
+      const fileInput = document.getElementById('esyl-file');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        btn.innerText = 'Uploading PDF...';
+        const upRes = await this.uploadFile(fileInput.files[0]);
+        url = upRes.url;
+      }
+
+      const res = await fetch(`/api/syllabus/${syllabusId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          title: document.getElementById('esyl-title').value.trim(),
+          exam: document.getElementById('esyl-exam').value.trim(),
+          pages: Number(document.getElementById('esyl-pages').value),
+          url
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        const idx = (this.state.syllabus || []).findIndex(s => s.id === syllabusId);
+        if (idx !== -1) this.state.syllabus[idx] = res.data;
+        this.closeModal('generic-modal');
+        this.renderSyllabus();
+        alert('Syllabus document updated successfully!');
+      } else {
+        alert(res.message || 'Failed to update syllabus');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Update Syllabus Document'; }
+    }
+  },
+
+  async handleUploadCurrentAffairs(e) {
+    e.preventDefault();
+    const btn = document.getElementById('uca-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Uploading...'; }
+
+    try {
+      const type = document.getElementById('uca-type').value;
+      let pdfUrl = document.getElementById('uca-url').value.trim() || (type === 'monthly' ? '/uploads/pdfs/ca_monthly_oct_2026.pdf' : '/uploads/pdfs/ca_weekly_oct_w4.pdf');
+      let size = type === 'monthly' ? document.getElementById('uca-size').value.trim() : '2.1 MB';
+      const fileInput = document.getElementById('uca-file');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        btn.innerText = 'Uploading PDF...';
+        const upRes = await this.uploadFile(fileInput.files[0]);
+        pdfUrl = upRes.url;
+        size = upRes.size;
+      }
+
+      const highlights = document.getElementById('uca-highlights') ? document.getElementById('uca-highlights').value.split(',').map(s => s.trim()).filter(Boolean) : [];
+      const pages = document.getElementById('uca-pages') ? Number(document.getElementById('uca-pages').value) : 60;
+
+      const res = await fetch('/api/current-affairs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify({
+          type,
+          title: document.getElementById('uca-title').value.trim(),
+          date: document.getElementById('uca-date').value.trim(),
+          summary: document.getElementById('uca-summary').value.trim(),
+          highlights,
+          pages,
+          size,
+          pdfUrl
+        })
+      }).then(r => r.json());
+
+      if (res.success) {
+        this.state.currentAffairs = this.state.currentAffairs || { weekly: [], monthly: [] };
+        if (type === 'monthly') {
+          this.state.currentAffairs.monthly.unshift(res.data);
+        } else {
+          this.state.currentAffairs.weekly.unshift(res.data);
+        }
+        this.closeModal('generic-modal');
+        this.renderCurrentAffairs();
+        alert('Current affairs successfully published!');
+      } else {
+        alert(res.message || 'Failed to publish current affairs');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Publish Current Affairs'; }
+    }
+  },
+
+  async handleEditCurrentAffairs(e, type, id) {
+    e.preventDefault();
+    const btn = document.getElementById('eca-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Updating...'; }
+
+    try {
+      let pdfUrl = document.getElementById('eca-url').value.trim();
+      let size = (type === 'monthly' && document.getElementById('eca-size')) ? document.getElementById('eca-size').value.trim() : undefined;
+      const fileInput = document.getElementById('eca-file');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        btn.innerText = 'Uploading PDF...';
+        const upRes = await this.uploadFile(fileInput.files[0]);
+        pdfUrl = upRes.url;
+        size = upRes.size;
+      }
+
+      const bodyData = {
+        title: document.getElementById('eca-title').value.trim(),
+        date: document.getElementById('eca-date').value.trim(),
+        summary: document.getElementById('eca-summary').value.trim(),
+        pdfUrl
+      };
+      if (document.getElementById('eca-highlights')) {
+        bodyData.highlights = document.getElementById('eca-highlights').value.split(',').map(s => s.trim()).filter(Boolean);
+      }
+      if (document.getElementById('eca-pages')) {
+        bodyData.pages = Number(document.getElementById('eca-pages').value);
+      }
+      if (size) bodyData.size = size;
+
+      const res = await fetch(`/api/current-affairs/${type}/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: JSON.stringify(bodyData)
+      }).then(r => r.json());
+
+      if (res.success) {
+        const list = type === 'monthly' ? this.state.currentAffairs.monthly : this.state.currentAffairs.weekly;
+        const idx = (list || []).findIndex(i => i.id === id);
+        if (idx !== -1) list[idx] = res.data;
+        this.closeModal('generic-modal');
+        this.renderCurrentAffairs();
+        alert('Current affairs updated successfully!');
+      } else {
+        alert(res.message || 'Failed to update current affairs');
+      }
+    } catch (err) {
+      alert('Error: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Update Current Affairs'; }
+    }
+  },
+
+  async deleteSectionItem(section, itemId, subCategory) {
+    if (!this.ensureAdmin()) return;
+    if (!confirm('Are you sure you want to delete this item? This action cannot be undone.')) return;
+
+    try {
+      let endpoint = '';
+      if (section === 'free-test') endpoint = `/api/free-tests/${itemId}`;
+      else if (section === 'paid-test') endpoint = `/api/paid-test-series/${subCategory}/tests/${itemId}`;
+      else if (section === 'ebook') endpoint = `/api/ebooks/${itemId}`;
+      else if (section === 'pyq') endpoint = `/api/pyqs/${itemId}`;
+      else if (section === 'syllabus') endpoint = `/api/syllabus/${itemId}`;
+      else if (section === 'current-affairs') endpoint = `/api/current-affairs/${subCategory}/${itemId}`;
+
+      const res = await fetch(endpoint, {
+        method: 'DELETE',
+        headers: {
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        }
+      }).then(r => r.json());
+
+      if (res.success) {
+        if (section === 'free-test') {
+          this.state.freeTests = (this.state.freeTests || []).filter(t => t.id !== itemId);
+          this.renderFreeTests();
+        } else if (section === 'paid-test') {
+          const s = (this.state.paidTestSeries || []).find(item => item.name.toLowerCase() === subCategory.toLowerCase() || item.id === subCategory);
+          if (s) s.tests = (s.tests || []).filter(t => t.id !== itemId);
+          this.renderPaidTestSeries();
+        } else if (section === 'ebook') {
+          this.state.ebooks = (this.state.ebooks || []).filter(e => e.id !== itemId);
+          this.renderEbooks();
+        } else if (section === 'pyq') {
+          this.state.pyqs = (this.state.pyqs || []).filter(p => p.id !== itemId);
+          this.renderPyqs();
+        } else if (section === 'syllabus') {
+          this.state.syllabus = (this.state.syllabus || []).filter(s => s.id !== itemId);
+          this.renderSyllabus();
+        } else if (section === 'current-affairs') {
+          if (subCategory === 'monthly') {
+            this.state.currentAffairs.monthly = (this.state.currentAffairs.monthly || []).filter(i => i.id !== itemId);
+          } else {
+            this.state.currentAffairs.weekly = (this.state.currentAffairs.weekly || []).filter(i => i.id !== itemId);
+          }
+          this.renderCurrentAffairs();
+        }
+        alert('Item successfully deleted.');
+      } else {
+        alert(res.message || 'Failed to delete item.');
+      }
+    } catch (err) {
+      alert('Delete error: ' + err.message);
     }
   },
 
