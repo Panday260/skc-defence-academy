@@ -82,6 +82,63 @@ function extractYoutubeId(url) {
   return trimmed;
 }
 
+// Helper to generate full YouTube thumbnail URLs
+function getYoutubeThumbnail(ytId) {
+  if (!ytId) return { thumbnail: '/uploads/banner.png', hqThumbnail: '/uploads/banner.png' };
+  return {
+    thumbnail: `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`,
+    hqThumbnail: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
+    mqThumbnail: `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`
+  };
+}
+
+// Auto-migrate thumbnails on existing video entries in DB
+function ensureVideoThumbnails(db) {
+  let changed = false;
+  if (Array.isArray(db.phase2)) {
+    db.phase2.forEach(batch => {
+      if (Array.isArray(batch.youtubeVideos)) {
+        batch.youtubeVideos.forEach(v => {
+          const ytId = v.youtubeId || extractYoutubeId(v.youtubeUrl);
+          if (ytId && (!v.thumbnail || !v.hqThumbnail)) {
+            const thumbs = getYoutubeThumbnail(ytId);
+            v.thumbnail = thumbs.thumbnail;
+            v.hqThumbnail = thumbs.hqThumbnail;
+            changed = true;
+          }
+        });
+      }
+      if (Array.isArray(batch.gdClasses)) {
+        batch.gdClasses.forEach(c => {
+          const ytId = c.youtubeId || extractYoutubeId(c.youtubeUrl);
+          if (ytId && (!c.thumbnail || !c.hqThumbnail)) {
+            const thumbs = getYoutubeThumbnail(ytId);
+            c.thumbnail = thumbs.thumbnail;
+            c.hqThumbnail = thumbs.hqThumbnail;
+            changed = true;
+          }
+        });
+      }
+    });
+  }
+  if (Array.isArray(db.courses)) {
+    db.courses.forEach(course => {
+      if (Array.isArray(course.videos)) {
+        course.videos.forEach(v => {
+          const ytId = v.youtubeId || extractYoutubeId(v.youtubeUrl || v.url);
+          if (ytId && (!v.thumbnail || !v.hqThumbnail)) {
+            const thumbs = getYoutubeThumbnail(ytId);
+            v.thumbnail = thumbs.thumbnail;
+            v.hqThumbnail = thumbs.hqThumbnail;
+            changed = true;
+          }
+        });
+      }
+    });
+  }
+  return changed;
+}
+
 // Middleware: Ensure only authorized coaching Admin can make changes
 function requireAdmin(req, res, next) {
   const pin = (req.headers['x-admin-pin'] || req.body?.adminPin || req.query?.adminPin || '').trim().toLowerCase();
@@ -544,6 +601,7 @@ app.post('/api/phase2/gd-classes', requireAdmin, upload.single('pdfFile'), (req,
     if (!pdfTitle) finalPdfTitle = req.file.originalname;
   }
 
+  const ytThumbs = getYoutubeThumbnail(ytId);
   const newClass = {
     id: 'gd_cls_' + Date.now(),
     title: title || 'Airforce Phase-II GD Lecture',
@@ -551,6 +609,8 @@ app.post('/api/phase2/gd-classes', requireAdmin, upload.single('pdfFile'), (req,
     date: new Date().toISOString().split('T')[0],
     youtubeUrl: youtubeUrl || '',
     youtubeId: ytId || 'ysz5S6PUM-U',
+    thumbnail: ytThumbs.thumbnail,
+    hqThumbnail: ytThumbs.hqThumbnail,
     pdfTitle: finalPdfTitle,
     pdfUrl: finalPdfUrl,
     pdfSize: finalPdfSize,
@@ -566,8 +626,13 @@ app.post('/api/phase2/gd-classes', requireAdmin, upload.single('pdfFile'), (req,
   gdBatch.youtubeVideos.unshift({
     id: 'yt_' + newClass.id,
     title: newClass.title,
+    topic: newClass.topic,
     youtubeUrl: newClass.youtubeUrl,
-    youtubeId: newClass.youtubeId
+    youtubeId: newClass.youtubeId,
+    thumbnail: ytThumbs.thumbnail,
+    hqThumbnail: ytThumbs.hqThumbnail,
+    date: newClass.date,
+    notes: newClass.notes
   });
 
   gdBatch.classPdfs = gdBatch.classPdfs || [];
@@ -589,6 +654,8 @@ app.post('/api/phase2/gd-classes', requireAdmin, upload.single('pdfFile'), (req,
       topic: newClass.topic,
       youtubeUrl: newClass.youtubeUrl,
       youtubeId: newClass.youtubeId,
+      thumbnail: ytThumbs.thumbnail,
+      hqThumbnail: ytThumbs.hqThumbnail,
       date: newClass.date,
       notes: newClass.notes
     });
@@ -674,12 +741,15 @@ app.post('/api/phase2/:batchId/videos', requireAdmin, (req, res) => {
   }
 
   const ytId = extractYoutubeId(youtubeUrl);
+  const ytThumbs = getYoutubeThumbnail(ytId);
   const newVideo = {
     id: 'vid_' + Date.now(),
     title: title.trim(),
     topic: topic || 'GD & SRT Strategy',
     youtubeUrl: youtubeUrl.trim(),
     youtubeId: ytId || 'ysz5S6PUM-U',
+    thumbnail: ytThumbs.thumbnail,
+    hqThumbnail: ytThumbs.hqThumbnail,
     date: new Date().toISOString().split('T')[0],
     notes: notes || 'Official discussion points, speaking framework, and arguments.'
   };
@@ -700,6 +770,8 @@ app.post('/api/phase2/:batchId/videos', requireAdmin, (req, res) => {
       date: newVideo.date,
       youtubeUrl: newVideo.youtubeUrl,
       youtubeId: newVideo.youtubeId,
+      thumbnail: ytThumbs.thumbnail,
+      hqThumbnail: ytThumbs.hqThumbnail,
       pdfTitle: newVideo.title + ' Notes.pdf',
       pdfUrl: '/uploads/pdfs/phase2_gd_guide.pdf',
       pdfSize: '3.5 MB',
@@ -717,6 +789,8 @@ app.post('/api/phase2/:batchId/videos', requireAdmin, (req, res) => {
       date: newVideo.date,
       youtubeUrl: newVideo.youtubeUrl,
       youtubeId: newVideo.youtubeId,
+      thumbnail: ytThumbs.thumbnail,
+      hqThumbnail: ytThumbs.hqThumbnail,
       pdfTitle: newVideo.title + ' Notes.pdf',
       pdfUrl: '/uploads/pdfs/phase2_gd_guide.pdf',
       pdfSize: '3.5 MB',
@@ -1282,6 +1356,17 @@ app.post('/api/upload', requireAdmin, upload.single('file'), (req, res) => {
 app.use((req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+// Auto-initialize YouTube thumbnails on server start
+try {
+  const initDb = readDb();
+  if (ensureVideoThumbnails(initDb)) {
+    writeDb(initDb);
+    console.log('✓ Initialized and verified all YouTube video thumbnails in database.');
+  }
+} catch (e) {
+  console.error('Error verifying video thumbnails:', e);
+}
 
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`\n======================================================`);

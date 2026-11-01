@@ -299,28 +299,36 @@
           "title": "English: Subject-Verb Agreement & Error Spotting (Concept + 50 MCQs)",
           "duration": "48 mins",
           "youtubeUrl": "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-          "youtubeId": "ysz5S6PUM-U"
+          "youtubeId": "ysz5S6PUM-U",
+          "thumbnail": "https://img.youtube.com/vi/ysz5S6PUM-U/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/ysz5S6PUM-U/hqdefault.jpg"
         },
         {
           "id": "v2",
           "title": "Physics: Kinematics, Projectile & Circular Motion Short Tricks",
           "duration": "54 mins",
           "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-          "youtubeId": "dQw4w9WgXcQ"
+          "youtubeId": "dQw4w9WgXcQ",
+          "thumbnail": "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"
         },
         {
           "id": "v3",
           "title": "Mathematics: Matrices, Determinants & Integration for Group X",
           "duration": "52 mins",
           "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
-          "youtubeId": "3JZ_D3ELwOQ"
+          "youtubeId": "3JZ_D3ELwOQ",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         },
         {
           "id": "v4",
           "title": "RAGA: Figure Series, Analogy & Coding Decoding Tricks",
           "duration": "42 mins",
           "youtubeUrl": "https://www.youtube.com/watch?v=L_LUpnjgPso",
-          "youtubeId": "L_LUpnjgPso"
+          "youtubeId": "L_LUpnjgPso",
+          "thumbnail": "https://img.youtube.com/vi/L_LUpnjgPso/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/L_LUpnjgPso/hqdefault.jpg"
         }
       ],
       "pdfs": [
@@ -382,14 +390,18 @@
           "title": "Navy Science: General Science, Waves & Optics Masterclass",
           "duration": "50 mins",
           "youtubeUrl": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-          "youtubeId": "dQw4w9WgXcQ"
+          "youtubeId": "dQw4w9WgXcQ",
+          "thumbnail": "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/dQw4w9WgXcQ/hqdefault.jpg"
         },
         {
           "id": "v2_2",
           "title": "Navy English: Active/Passive Voice & Direct/Indirect Speech",
           "duration": "45 mins",
           "youtubeUrl": "https://www.youtube.com/watch?v=ysz5S6PUM-U",
-          "youtubeId": "ysz5S6PUM-U"
+          "youtubeId": "ysz5S6PUM-U",
+          "thumbnail": "https://img.youtube.com/vi/ysz5S6PUM-U/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/ysz5S6PUM-U/hqdefault.jpg"
         }
       ],
       "pdfs": [
@@ -431,7 +443,9 @@
           "title": "Army GD Math: Percentage, Ratio & Time-Work Shortcuts",
           "duration": "40 mins",
           "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
-          "youtubeId": "3JZ_D3ELwOQ"
+          "youtubeId": "3JZ_D3ELwOQ",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         }
       ],
       "pdfs": [
@@ -884,7 +898,9 @@
           "pdfSize": "5.1 MB",
           "pages": 64,
           "notes": "Master group discussion entry, posture, eye contact, and tone of voice with live demo.",
-          "date": "2026-10-25"
+          "date": "2026-10-25",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         },
         {
           "id": "gd_102",
@@ -897,7 +913,9 @@
           "pdfSize": "3.5 MB",
           "pages": 18,
           "notes": "Key pros, cons, and structured conclusion for Agnipath scheme discussions.",
-          "date": "2026-10-26"
+          "date": "2026-10-26",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         },
         {
           "id": "gd_103",
@@ -910,7 +928,9 @@
           "pdfSize": "4.2 MB",
           "pages": 22,
           "notes": "Analysis of drone swarm attacks, air defence, and electronic warfare for IAF GD.",
-          "date": "2026-10-27"
+          "date": "2026-10-27",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         }
       ],
       "youtubeVideos": [
@@ -921,7 +941,9 @@
           "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
           "youtubeId": "3JZ_D3ELwOQ",
           "date": "2026-10-25",
-          "notes": "Master group discussion entry, posture, eye contact, and tone of voice with live demo."
+          "notes": "Master group discussion entry, posture, eye contact, and tone of voice with live demo.",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         },
         {
           "id": "vid_gd_102",
@@ -930,7 +952,9 @@
           "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
           "youtubeId": "3JZ_D3ELwOQ",
           "date": "2026-10-26",
-          "notes": "Key pros, cons, and structured conclusion for Agnipath scheme discussions."
+          "notes": "Key pros, cons, and structured conclusion for Agnipath scheme discussions.",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         },
         {
           "id": "vid_gd_103",
@@ -939,7 +963,9 @@
           "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
           "youtubeId": "3JZ_D3ELwOQ",
           "date": "2026-10-27",
-          "notes": "Analysis of drone swarm attacks, air defence, and electronic warfare for IAF GD."
+          "notes": "Analysis of drone swarm attacks, air defence, and electronic warfare for IAF GD.",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         }
       ],
       "classPdfs": [
@@ -995,7 +1021,9 @@
           "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
           "youtubeId": "3JZ_D3ELwOQ",
           "date": "2026-10-25",
-          "notes": "Master group discussion entry, posture, eye contact, and tone of voice with live demo."
+          "notes": "Master group discussion entry, posture, eye contact, and tone of voice with live demo.",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         },
         {
           "id": "vid_gd_102",
@@ -1004,7 +1032,9 @@
           "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
           "youtubeId": "3JZ_D3ELwOQ",
           "date": "2026-10-26",
-          "notes": "Key pros, cons, and structured conclusion for Agnipath scheme discussions."
+          "notes": "Key pros, cons, and structured conclusion for Agnipath scheme discussions.",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         },
         {
           "id": "vid_gd_103",
@@ -1013,7 +1043,9 @@
           "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
           "youtubeId": "3JZ_D3ELwOQ",
           "date": "2026-10-27",
-          "notes": "Analysis of drone swarm attacks, air defence, and electronic warfare for IAF GD."
+          "notes": "Analysis of drone swarm attacks, air defence, and electronic warfare for IAF GD.",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         }
       ],
       "classPdfs": [
@@ -12759,7 +12791,9 @@
           "id": "srt_v1",
           "title": "SRT Psychology Decoded: What the Psychologist Looks For in Your Responses",
           "youtubeUrl": "https://www.youtube.com/watch?v=3JZ_D3ELwOQ",
-          "youtubeId": "3JZ_D3ELwOQ"
+          "youtubeId": "3JZ_D3ELwOQ",
+          "thumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/maxresdefault.jpg",
+          "hqThumbnail": "https://img.youtube.com/vi/3JZ_D3ELwOQ/hqdefault.jpg"
         }
       ],
       "classPdfs": [

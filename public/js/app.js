@@ -808,17 +808,34 @@ const App = {
                 <h4 style="font-size:1.1rem; color:#0a192f; margin-bottom:0.35rem;">No Video Lectures in this Folder</h4>
                 <p style="color:#64748b; font-size:0.85rem;">New video lectures will appear here once published by faculty.</p>
               </div>
-            ` : videos.map(v => `
-              <div class="folder-item-card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem;">
-                <div>
-                  <strong style="color:#0f172a; font-size:0.95rem; display:block;">🎥 ${v.title}</strong>
-                  <span style="font-size:0.8rem; color:#64748b;">Duration: ${v.duration || '45 mins'} • Full HD YouTube Stream</span>
+            ` : videos.map(v => {
+              const ytId = v.youtubeId || App.extractYoutubeId(v.youtubeUrl || v.url || '');
+              const thumbUrl = v.thumbnail || v.hqThumbnail || (ytId ? `https://img.youtube.com/vi/${ytId}/hqdefault.jpg` : '/uploads/banner.png');
+              return `
+              <div class="folder-item-card">
+                <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem; flex-wrap:wrap;">
+                  <span style="background:#ef4444; color:#fff; font-size:0.72rem; font-weight:800; padding:0.15rem 0.45rem; border-radius:4px;">▶ Video Lecture</span>
+                  <span style="font-size:0.75rem; color:#64748b; margin-left:auto;">⏱️ ${v.duration || '45 Mins'} • Full HD</span>
                 </div>
-                <button class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.82rem;" onclick="App.playVideoModal('${v.youtubeId || 'ysz5S6PUM-U'}', '${v.title.replace(/'/g, "\\'")}')">
-                  ▶ Watch Lecture
-                </button>
+                <div class="gd-card-media-layout">
+                  <div class="gd-card-thumb-container" onclick="App.playVideoModal('${ytId || 'ysz5S6PUM-U'}', '${(v.title || 'Video Lecture').replace(/'/g, "\\'")}')">
+                    <img src="${thumbUrl}" onerror="if(this.src!=='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'){this.src='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'}else{this.src='/uploads/banner.png'}">
+                    <div class="gd-card-thumb-overlay">
+                      <div class="gd-card-play-icon">▶</div>
+                    </div>
+                  </div>
+                  <div style="width:100%;">
+                    <h4 style="font-size:1.02rem; color:#0a192f; margin-bottom:0.35rem; font-weight:700; line-height:1.35;">${v.title}</h4>
+                    <p style="font-size:0.83rem; color:#475569; margin-bottom:0.65rem; line-height:1.4;">${v.description || v.notes || 'Full syllabus defence video lecture with key concept breakdown and exam strategy.'}</p>
+                  </div>
+                </div>
+                <div class="gd-card-actions-row">
+                  <button class="btn btn-secondary" style="background:#fee2e2; color:#dc2626; border:1px solid #fca5a5; font-size:0.82rem; padding:0.45rem 0.85rem;" onclick="App.playVideoModal('${ytId || 'ysz5S6PUM-U'}', '${(v.title || 'Video Lecture').replace(/'/g, "\\'")}')">
+                    ▶ Watch Video Lecture
+                  </button>
+                </div>
               </div>
-            `).join('')}
+            `;}).join('')}
           </div>
         ` : ''}
 
@@ -1875,7 +1892,7 @@ ${eb.previewText || 'Sample preview chapter...'}
               <div class="gd-card-media-layout">
                 <!-- Thumbnail -->
                 <div class="gd-card-thumb-container" onclick="App.playVideoModal('${c.youtubeId}', '${c.title.replace(/'/g, "\\'")}')">
-                  <img src="https://img.youtube.com/vi/${c.youtubeId}/mqdefault.jpg" onerror="this.src='/uploads/banner.png'">
+                  <img src="${c.thumbnail || c.hqThumbnail || ('https://img.youtube.com/vi/' + (c.youtubeId || '') + '/hqdefault.jpg')}" onerror="if(this.src!=='https://img.youtube.com/vi/${c.youtubeId}/hqdefault.jpg'){this.src='https://img.youtube.com/vi/${c.youtubeId}/hqdefault.jpg'}else{this.src='/uploads/banner.png'}">
                   <div class="gd-card-thumb-overlay">
                     <div class="gd-card-play-icon">▶</div>
                   </div>
@@ -2079,7 +2096,8 @@ ${eb.previewText || 'Sample preview chapter...'}
               </div>
               <div style="margin-bottom:0.75rem;">
                 <label style="display:block; font-size:0.8rem; font-weight:700; color:#334155; margin-bottom:0.25rem;">YouTube URL / Video Link *</label>
-                <input type="text" id="batch-yt-url" required placeholder="e.g. https://www.youtube.com/watch?v=... or https://youtu.be/..." style="width:100%; padding:0.5rem 0.75rem; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+                <input type="text" id="batch-yt-url" oninput="App.previewYoutubeThumbnail('batch')" required placeholder="e.g. https://www.youtube.com/watch?v=... or https://youtu.be/..." style="width:100%; padding:0.5rem 0.75rem; border:1px solid #cbd5e1; border-radius:6px; font-size:0.85rem;">
+                <div id="batch-yt-preview-box" style="display:none; margin-top:0.6rem; background:#f0fdf4; border:1.5px solid #86efac; border-radius:8px; padding:0.75rem;"></div>
               </div>
               <div style="margin-bottom:0.75rem;">
                 <label style="display:block; font-size:0.8rem; font-weight:700; color:#334155; margin-bottom:0.25rem;">Discussion Summary / Speaking Notes (Optional)</label>
@@ -2288,7 +2306,7 @@ ${eb.previewText || 'Sample preview chapter...'}
 
                     <div class="gd-card-media-layout">
                       <div class="gd-card-thumb-container" onclick="App.playVideoModal('${v.youtubeId}', '${v.title.replace(/'/g, "\\'")}')">
-                        <img src="https://img.youtube.com/vi/${v.youtubeId}/mqdefault.jpg" onerror="this.src='/uploads/banner.png'">
+                        <img src="${v.thumbnail || v.hqThumbnail || ('https://img.youtube.com/vi/' + (v.youtubeId || '') + '/hqdefault.jpg')}" onerror="if(this.src!=='https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg'){this.src='https://img.youtube.com/vi/${v.youtubeId}/hqdefault.jpg'}else{this.src='/uploads/banner.png'}">
                         <div class="gd-card-thumb-overlay">
                           <div class="gd-card-play-icon">▶</div>
                         </div>
@@ -3731,7 +3749,8 @@ ${eb.previewText || 'Sample preview chapter...'}
             <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1rem; margin-bottom:1rem;">
               <div>
                 <label style="display:block; font-size:0.85rem; font-weight:700; color:#334155; margin-bottom:0.35rem;">YouTube Video Link / URL *</label>
-                <input type="text" id="gd-form-yturl" class="form-control" placeholder="e.g. https://www.youtube.com/watch?v=... or https://youtu.be/..." required style="width:100%; padding:0.55rem 0.75rem; border:1px solid #cbd5e1; border-radius:8px;">
+                <input type="text" id="gd-form-yturl" oninput="App.previewYoutubeThumbnail('gd')" class="form-control" placeholder="e.g. https://www.youtube.com/watch?v=... or https://youtu.be/..." required style="width:100%; padding:0.55rem 0.75rem; border:1px solid #cbd5e1; border-radius:8px;">
+                <div id="gd-yt-preview-box" style="display:none; margin-top:0.6rem; background:#f0fdf4; border:1.5px solid #86efac; border-radius:8px; padding:0.75rem;"></div>
               </div>
               <div>
                 <label style="display:block; font-size:0.85rem; font-weight:700; color:#334155; margin-bottom:0.35rem;">Upload Class Notes PDF File</label>
@@ -3770,7 +3789,7 @@ ${eb.previewText || 'Sample preview chapter...'}
                 <tr>
                   <td>
                     <div style="position:relative; width:80px; height:45px; border-radius:4px; overflow:hidden; cursor:pointer;" onclick="App.playVideoModal('${c.youtubeId}', '${c.title.replace(/'/g, "\\'")}')">
-                      <img src="https://img.youtube.com/vi/${c.youtubeId}/mqdefault.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='/uploads/banner.png'">
+                      <img src="${c.thumbnail || c.hqThumbnail || ('https://img.youtube.com/vi/' + (c.youtubeId || '') + '/hqdefault.jpg')}" style="width:100%; height:100%; object-fit:cover;" onerror="if(this.src!=='https://img.youtube.com/vi/${c.youtubeId}/hqdefault.jpg'){this.src='https://img.youtube.com/vi/${c.youtubeId}/hqdefault.jpg'}else{this.src='/uploads/banner.png'}">
                       <div style="position:absolute; inset:0; background:rgba(0,0,0,0.3); display:flex; align-items:center; justify-content:center; color:#fff; font-size:0.75rem;">▶</div>
                     </div>
                   </td>
@@ -6294,6 +6313,57 @@ ${eb.previewText || 'Sample preview chapter...'}
 
   openSignupModal() {
     this.openModal('signup-modal');
+  },
+
+  extractYoutubeId(url) {
+    if (!url) return '';
+    const trimmed = String(url).trim();
+    const match = trimmed.match(/(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|watch\?v=|watch\?.+&v=|shorts\/|live\/))([\w-]{11})/i);
+    if (match && match[1]) return match[1];
+    if (/^[\w-]{11}$/.test(trimmed)) return trimmed;
+    return trimmed;
+  },
+
+  getYoutubeThumbnailUrls(ytId) {
+    if (!ytId) return { maxres: '/uploads/banner.png', hq: '/uploads/banner.png', mq: '/uploads/banner.png' };
+    return {
+      maxres: `https://img.youtube.com/vi/${ytId}/maxresdefault.jpg`,
+      hq: `https://img.youtube.com/vi/${ytId}/hqdefault.jpg`,
+      mq: `https://img.youtube.com/vi/${ytId}/mqdefault.jpg`
+    };
+  },
+
+  previewYoutubeThumbnail(type) {
+    const inputId = type === 'gd' ? 'gd-form-yturl' : 'batch-yt-url';
+    const boxId = type === 'gd' ? 'gd-yt-preview-box' : 'batch-yt-preview-box';
+    const input = document.getElementById(inputId);
+    const box = document.getElementById(boxId);
+    if (!input || !box) return;
+
+    const val = input.value.trim();
+    const ytId = this.extractYoutubeId(val);
+
+    if (ytId && ytId.length === 11) {
+      box.style.display = 'block';
+      box.innerHTML = `
+        <div style="display:flex; align-items:center; gap:0.85rem; flex-wrap:wrap;">
+          <div style="position:relative; width:130px; height:74px; border-radius:6px; overflow:hidden; box-shadow:0 2px 8px rgba(0,0,0,0.18); flex-shrink:0;">
+            <img src="https://img.youtube.com/vi/${ytId}/mqdefault.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='https://img.youtube.com/vi/${ytId}/hqdefault.jpg'">
+            <div style="position:absolute; inset:0; background:rgba(0,0,0,0.25); display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.1rem;">▶</div>
+          </div>
+          <div>
+            <span style="display:inline-block; background:#dcfce7; color:#15803d; font-weight:800; font-size:0.75rem; padding:0.15rem 0.55rem; border-radius:12px; margin-bottom:0.25rem;">
+              ✓ Valid YouTube Video
+            </span>
+            <div style="font-size:0.82rem; color:#1e293b; font-weight:700;">ID: <code>${ytId}</code></div>
+            <div style="font-size:0.75rem; color:#16a34a; font-weight:600;">✨ HD thumbnail will be set automatically!</div>
+          </div>
+        </div>
+      `;
+    } else {
+      box.style.display = 'none';
+      box.innerHTML = '';
+    }
   },
 
   playVideoModal(youtubeId, title) {
