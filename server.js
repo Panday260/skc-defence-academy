@@ -85,13 +85,12 @@ function extractYoutubeId(url) {
 // Middleware: Ensure only authorized coaching Admin can make changes
 function requireAdmin(req, res, next) {
   const pin = (req.headers['x-admin-pin'] || req.body?.adminPin || req.query?.adminPin || '').trim().toLowerCase();
-  const role = (req.headers['x-admin-role'] || req.body?.adminRole || '').trim().toLowerCase();
-  if (pin === 'skcadmin2026' || pin === 'skcadmin@2026' || pin === 'admin123' || role === 'admin') {
+  if (pin === 'skcadmin2026' || pin === 'skcadmin@2026' || pin === 'admin123') {
     return next();
   }
   return res.status(403).json({
     success: false,
-    message: 'Access Denied: Only Coaching Admin/Owner is authorized to add, edit or delete content.'
+    message: 'Access Denied: Only Coaching Admin/Owner is authorized to perform this action.'
   });
 }
 

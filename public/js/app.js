@@ -149,6 +149,15 @@ const App = {
     if (saved) {
       try {
         this.state.user = JSON.parse(saved);
+        // Security sanity check: non-admin users cannot have admin role without valid pin
+        if (this.state.user && this.state.user.role === 'admin') {
+          const pin = localStorage.getItem('skc_admin_pin');
+          if (!pin || pin.toLowerCase() !== 'skcadmin2026') {
+            this.state.user.role = 'student';
+            localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
+            localStorage.removeItem('skc_admin_pin');
+          }
+        }
       } catch (e) {
         this.state.user = null;
       }
@@ -170,15 +179,25 @@ const App = {
   },
 
   getAdminPin() {
-    return localStorage.getItem('skc_admin_pin') || (this.state.user && this.state.user.adminPin) || 'skcadmin2026';
+    if (this.state.user && this.state.user.role === 'admin') {
+      return localStorage.getItem('skc_admin_pin') || this.state.user.adminPin || '';
+    }
+    return '';
   },
 
   updateUserUI() {
     const userContainer = document.getElementById('user-header-area');
+    const isAdmin = !!(this.state.user && this.state.user.role === 'admin');
+
+    // Securely toggle all admin-only buttons and controls across the DOM
+    document.querySelectorAll('.admin-only-btn, .admin-only-control').forEach(el => {
+      el.style.display = isAdmin ? 'inline-flex' : 'none';
+    });
+
     if (!userContainer) return;
 
     if (this.state.user) {
-      if (this.state.user.role === 'admin') {
+      if (isAdmin) {
         // Only visible when logged in with secret admin code
         userContainer.innerHTML = `
           <div style="display:flex; align-items:center; gap:0.5rem;">
@@ -420,6 +439,9 @@ const App = {
     if (view === 'current-affairs') this.renderCurrentAffairs();
     if (view === 'my-courses') this.renderMyCourses();
     if (view === 'admin-panel') this.renderAdminPanel();
+
+    // Ensure all static admin-only buttons are strictly hidden for non-admin users
+    this.updateUserUI();
   },
 
   // 4. Brand & Logo Rendering
@@ -935,6 +957,7 @@ const App = {
       return;
     }
 
+    const isAdmin = !!(this.state.user && this.state.user.role === 'admin');
     container.innerHTML = filtered.map(test => `
       <div class="content-card">
         <div class="content-card-body">
@@ -955,6 +978,7 @@ const App = {
               ⬇ PDF Paper
             </button>
           </div>
+          ${isAdmin ? `
           <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
             <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('free-test', '${test.id}')">
               ✏️ Edit
@@ -963,6 +987,7 @@ const App = {
               🗑️ Delete
             </button>
           </div>
+          ` : ''}
         </div>
       </div>
     `).join('');
@@ -1108,6 +1133,7 @@ const App = {
     };
 
     const isPurchased = this.state.user && (this.state.user.purchasedTests || []).includes(currentSeries.id || `pts_${this.state.selectedPtsCategory.toLowerCase()}`);
+    const isAdmin = !!(this.state.user && this.state.user.role === 'admin');
 
     contentContainer.innerHTML = `
       <div class="folder-breadcrumb">
@@ -1133,9 +1159,11 @@ const App = {
                 <span class="original-price">₹${currentSeries.originalPrice}</span>
               </div>
               <div style="display:flex; gap:0.4rem; justify-content:flex-end; flex-wrap:wrap; margin-top:0.5rem;">
+                ${isAdmin ? `
                 <button class="btn btn-outline" style="font-size:0.78rem; padding:0.3rem 0.6rem;" onclick="App.openEditSeriesModal('${this.state.selectedPtsCategory}')">
                   ✏️ Edit Series Info
                 </button>
+                ` : ''}
                 ${isPurchased ? `
                   <span style="background:#dcfce7; color:#15803d; font-weight:700; font-size:0.85rem; padding:0.35rem 0.85rem; border-radius:20px; display:inline-block;">
                     ✓ Series Unlocked
@@ -1155,9 +1183,11 @@ const App = {
         <h4 style="font-size:1.15rem; color:#0a192f; font-weight:700;">
           Available Full Length Mocks (${currentSeries.tests ? currentSeries.tests.length : 0})
         </h4>
+        ${isAdmin ? `
         <button class="btn btn-secondary" style="background:#0a192f; color:#fff; font-size:0.85rem;" onclick="App.openUploadModal('paid-test', '${this.state.selectedPtsCategory}')">
           + 📤 Upload Mock Test (${this.state.selectedPtsCategory})
         </button>
+        ` : ''}
       </div>
 
       ${(!currentSeries.tests || currentSeries.tests.length === 0) ? `
@@ -1165,11 +1195,13 @@ const App = {
           <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎯</div>
           <h4 style="color:#0f172a; margin-bottom:0.3rem;">No default mock tests in this section</h4>
           <p style="font-size:0.88rem; max-width:480px; margin:0 auto 1.25rem;">
-            As requested, by default mocks are not added. The coaching faculty/admin can upload verified high-yield mock tests anytime.
+            Full-length CBT mock tests for ${this.state.selectedPtsCategory} will be published soon by SKC faculty.
           </p>
+          ${isAdmin ? `
           <button class="btn btn-primary" onclick="App.openUploadModal('paid-test', '${this.state.selectedPtsCategory}')">
             + 📤 Upload First ${this.state.selectedPtsCategory} Mock Test
           </button>
+          ` : ''}
         </div>
       ` : `
         <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem;">
@@ -1188,6 +1220,7 @@ const App = {
                       🔒 Locked (Buy Series)
                     </button>
                   `}
+                  ${isAdmin ? `
                   <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
                     <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('paid-test', '${t.id}', '${this.state.selectedPtsCategory}')">
                       ✏️ Edit
@@ -1196,6 +1229,7 @@ const App = {
                       🗑️ Delete
                     </button>
                   </div>
+                  ` : ''}
                 </div>
               </div>
             </div>
@@ -1227,6 +1261,7 @@ const App = {
       </div>
     `;
 
+    const isAdmin = !!(this.state.user && this.state.user.role === 'admin');
     container.innerHTML = breadcrumbHtml + this.state.ebooks.map(eb => {
       const isPurchased = this.state.user && (this.state.user.purchasedEbooks || []).includes(eb.id);
       return `
@@ -1260,6 +1295,7 @@ const App = {
                 `}
               </div>
             </div>
+            ${isAdmin ? `
             <div style="display:flex; gap:0.5rem; margin-top:0.75rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem; width:100%;">
               <button class="btn btn-outline" style="flex:1; font-size:0.82rem; padding:0.4rem;" onclick="App.openEditModal('ebook', '${eb.id}')">
                 ✏️ Edit E-Book
@@ -1268,6 +1304,7 @@ const App = {
                 🗑️ Delete E-Book
               </button>
             </div>
+            ` : ''}
           </div>
         </div>
       `;
@@ -1384,6 +1421,7 @@ ${eb.previewText || 'Sample preview chapter...'}
       return;
     }
 
+    const isAdmin = !!(this.state.user && this.state.user.role === 'admin');
     container.innerHTML = filtered.map(p => `
       <div class="content-card">
         <div class="content-card-body">
@@ -1403,6 +1441,7 @@ ${eb.previewText || 'Sample preview chapter...'}
               ⬇ Download
             </button>
           </div>
+          ${isAdmin ? `
           <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
             <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('pyq', '${p.id}')">
               ✏️ Edit
@@ -1411,6 +1450,7 @@ ${eb.previewText || 'Sample preview chapter...'}
               🗑️ Delete
             </button>
           </div>
+          ` : ''}
         </div>
       </div>
     `).join('');
@@ -1506,6 +1546,7 @@ ${eb.previewText || 'Sample preview chapter...'}
       return;
     }
 
+    const isAdmin = !!(this.state.user && this.state.user.role === 'admin');
     container.innerHTML = filtered.map(s => `
       <div class="content-card">
         <div class="content-card-body">
@@ -1524,6 +1565,7 @@ ${eb.previewText || 'Sample preview chapter...'}
               ⬇ Download PDF
             </button>
           </div>
+          ${isAdmin ? `
           <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
             <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('syllabus', '${s.id}')">
               ✏️ Edit
@@ -1532,6 +1574,7 @@ ${eb.previewText || 'Sample preview chapter...'}
               🗑️ Delete
             </button>
           </div>
+          ` : ''}
         </div>
       </div>
     `).join('');
@@ -3144,6 +3187,8 @@ ${eb.previewText || 'Sample preview chapter...'}
       `;
     }
 
+    const isAdmin = !!(this.state.user && this.state.user.role === 'admin');
+
     const renderWeeklyCards = () => weekly.map(w => `
       <div class="content-card" style="margin-bottom:1rem;">
         <div class="content-card-body">
@@ -3161,6 +3206,7 @@ ${eb.previewText || 'Sample preview chapter...'}
               ⬇ Download Weekly PDF (Watermarked)
             </button>
           </div>
+          ${isAdmin ? `
           <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
             <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('current-affairs', '${w.id}', 'weekly')">
               ✏️ Edit
@@ -3169,6 +3215,7 @@ ${eb.previewText || 'Sample preview chapter...'}
               🗑️ Delete
             </button>
           </div>
+          ` : ''}
         </div>
       </div>
     `).join('');
@@ -3185,6 +3232,7 @@ ${eb.previewText || 'Sample preview chapter...'}
               ⬇ Download Magazine
             </button>
           </div>
+          ${isAdmin ? `
           <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
             <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('current-affairs', '${m.id}', 'monthly')">
               ✏️ Edit
@@ -3193,6 +3241,7 @@ ${eb.previewText || 'Sample preview chapter...'}
               🗑️ Delete
             </button>
           </div>
+          ` : ''}
         </div>
       </div>
     `).join('');
@@ -4986,19 +5035,7 @@ ${eb.previewText || 'Sample preview chapter...'}
       localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
       return true;
     }
-    const pin = prompt('Enter SKC Admin PIN (Default: skcadmin2026):', 'skcadmin2026');
-    if (pin && (pin.toLowerCase() === 'skcadmin2026' || pin === 'admin123' || pin === 'skcadmin@2026')) {
-      localStorage.setItem('skc_admin_pin', pin);
-      if (!this.state.user) {
-        this.state.user = { id: 'usr_admin', name: 'SKC Admin', role: 'admin', adminPin: pin };
-      } else {
-        this.state.user.role = 'admin';
-        this.state.user.adminPin = pin;
-      }
-      localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
-      return true;
-    }
-    alert('Access restricted: Invalid Admin PIN');
+    alert('Access restricted: Coaching Admin authorization required. Please login using Admin credentials.');
     return false;
   },
 
