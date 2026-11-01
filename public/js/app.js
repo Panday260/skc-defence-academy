@@ -55,7 +55,7 @@ const App = {
   // 1. Fetch initial data from backend API
   async fetchAppData() {
     try {
-      const [acadRes, crsRes, ftRes, ptsRes, ebRes, pyqRes, sylRes, p2Res, caRes, selRes] = await Promise.all([
+      const [acadRes, crsRes, ftRes, ptsRes, ebRes, pyqRes, sylRes, p2Res, caRes, selRes, ordRes] = await Promise.all([
         fetch('/api/academy').then(r => r.json()),
         fetch('/api/courses').then(r => r.json()),
         fetch('/api/free-tests').then(r => r.json()),
@@ -65,7 +65,8 @@ const App = {
         fetch('/api/syllabus').then(r => r.json()),
         fetch('/api/phase2').then(r => r.json()),
         fetch('/api/current-affairs').then(r => r.json()),
-        fetch('/api/selections').then(r => r.json())
+        fetch('/api/selections').then(r => r.json()),
+        fetch('/api/orders?t=' + Date.now()).then(r => r.json()).catch(() => ({ success: false }))
       ]);
 
       if (acadRes.success) this.state.academy = acadRes.data;
@@ -75,6 +76,15 @@ const App = {
       if (ebRes.success) this.state.ebooks = ebRes.data;
       if (pyqRes.success) this.state.pyqs = pyqRes.data;
       if (sylRes.success) this.state.syllabus = sylRes.data;
+      if (ordRes && ordRes.success) {
+        this.state.orders = ordRes.data || [];
+        const pending = (this.state.orders || []).filter(o => o.status === 'PENDING_APPROVAL');
+        const badge = document.getElementById('admin-pending-badge');
+        if (badge) {
+          badge.innerText = pending.length;
+          badge.style.display = pending.length > 0 ? 'inline-block' : 'none';
+        }
+      }
       if (p2Res.success) {
         this.state.phase2Batches = p2Res.batches || [];
         this.state.srtScenarios = p2Res.srtScenarios || [];
@@ -333,6 +343,37 @@ const App = {
     }
   },
 
+  // Batch Permission & Access Control Helpers
+  hasBatchAccess(batchId) {
+    if (!batchId) return false;
+    if (batchId === 'phase2_gd_yt') return true; // Free YouTube GD classes open to all registered students
+    const user = this.state.user;
+    if (!user) return false;
+    if (user.role === 'admin') return true;
+    const purchased = user.purchasedCourses || [];
+    if (purchased.includes(batchId)) return true;
+    // Flagship GD+SRT batch (phase2_1) includes phase2_2 as well
+    if (batchId === 'phase2_2' && purchased.includes('phase2_1')) return true;
+    return false;
+  },
+
+  isBatchPendingApproval(batchId) {
+    if (!batchId || batchId === 'phase2_gd_yt') return false;
+    const user = this.state.user;
+    if (!user || user.role === 'admin') return false;
+    const pending = user.pendingBatches || [];
+    const hasPendingInUser = pending.some(p => (typeof p === 'string' ? p === batchId : p.itemId === batchId));
+    if (hasPendingInUser) return true;
+
+    const orders = this.state.orders || [];
+    const hasPendingOrder = orders.some(o => 
+      (o.status === 'PENDING_APPROVAL') &&
+      (o.itemId === batchId) &&
+      (o.userId === user.id || (user.phone && o.studentPhone === user.phone))
+    );
+    return hasPendingOrder;
+  },
+
   // 3. Navigation between Views
   navigateTo(viewName) {
     this.state.activeView = viewName;
@@ -551,7 +592,8 @@ const App = {
     }
 
     container.innerHTML = filtered.map(course => {
-      const isEnrolled = this.state.user && (this.state.user.purchasedCourses || []).includes(course.id);
+      const isEnrolled = this.hasBatchAccess(course.id);
+      const isPending = this.isBatchPendingApproval(course.id);
       return `
         <div class="content-card">
           <img src="${course.thumbnail || '/uploads/banner.png'}" class="content-card-thumb" alt="${course.title}">
@@ -571,13 +613,17 @@ const App = {
               </div>
               ${isEnrolled ? `
                 <button class="btn btn-defence" onclick="App.openCourseViewer('${course.id}')">
-                  ▶ Open Course Folders
+                  ✓ Enter Classroom (Granted)
+                </button>
+              ` : (isPending ? `
+                <button class="btn btn-outline" style="border:1.5px solid #f59e0b; color:#d97706; background:#fffbeb; font-weight:700;" onclick="App.openCourseViewer('${course.id}')">
+                  ⏳ Pending Admin Permission
                 </button>
               ` : `
                 <button class="btn btn-primary" onclick="App.openCheckoutModal('course', '${course.id}', '${course.title}', ${course.price})">
-                  Enroll Now
+                  🔒 Join Batch (₹${course.price})
                 </button>
-              `}
+              `)}
             </div>
           </div>
         </div>
@@ -601,6 +647,67 @@ const App = {
 
     const breadcrumbTag = document.getElementById('course-classroom-breadcrumb-tag');
     if (breadcrumbTag) breadcrumbTag.textContent = `${course.title} • Classroom`;
+
+    // Access Check: Admin permission required
+    if (!this.hasBatchAccess(courseId)) {
+      const isPending = this.isBatchPendingApproval(courseId);
+      const user = this.state.user;
+      const userName = user ? user.name : 'Candidate';
+      const userPhone = user ? (user.phone || '') : '';
+
+      container.innerHTML = `
+        <div style="max-width:720px; margin:2rem auto; background:#ffffff; border:2px solid ${isPending ? '#f59e0b' : '#ef4444'}; border-radius:14px; padding:2rem; box-shadow:0 10px 25px rgba(0,0,0,0.08); text-align:center;">
+          <div style="width:72px; height:72px; margin:0 auto 1rem; border-radius:50%; background:${isPending ? '#fef3c7' : '#fee2e2'}; display:flex; align-items:center; justify-content:center; font-size:2.2rem;">
+            ${isPending ? '⏳' : '🔒'}
+          </div>
+          
+          <span class="batch-badge" style="background:${isPending ? '#fef3c7' : '#fee2e2'}; color:${isPending ? '#b45309' : '#dc2626'}; font-weight:800; font-size:0.82rem; padding:0.3rem 0.8rem; border-radius:20px;">
+            ${isPending ? '⏳ ACCESS STATUS: PENDING ADMIN PERMISSION' : '🔒 COURSE CLASSROOM LOCKED'}
+          </span>
+
+          <h3 style="font-size:1.45rem; color:#0a192f; margin:1rem 0 0.5rem; font-weight:800;">
+            ${course.title}
+          </h3>
+
+          <p style="color:#475569; font-size:0.95rem; line-height:1.6; max-width:580px; margin:0 auto 1.5rem;">
+            ${isPending ? `
+              आपका इस कोर्स में शामिल होने का अनुरोध प्राप्त हो चुका है। डायरेक्टर <strong>शुभम सर (Shubham Sir)</strong> द्वारा वेरिफिकेशन के बाद ही परमिशन ग्रांट की जाएगी।
+            ` : `
+              इस बैच का पूरा स्टडी मटेरियल (वीडियो लेक्चर्स, क्लास नोट्स PDFs और टेस्ट) केवल एडमिन की अनुमति प्राप्त स्टूडेंट्स के लिए ही उपलब्ध है।
+            `}
+          </p>
+
+          ${isPending ? `
+            <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:1rem 1.25rem; margin-bottom:1.5rem; text-align:left; font-size:0.88rem; color:#92400e;">
+              <div style="font-weight:800; margin-bottom:0.25rem;">📌 आपका अनुरोध विवरण (Under Review):</div>
+              <div>• <strong>Student Name:</strong> ${userName}</div>
+              ${userPhone ? `<div>• <strong>Mobile Number:</strong> ${userPhone}</div>` : ''}
+              <div>• <strong>Batch:</strong> ${course.title} (₹${course.price})</div>
+              <div>• <strong>Status:</strong> <span style="background:#fef3c7; color:#b45309; padding:2px 8px; border-radius:4px; font-weight:700;">Admin Approval Pending</span></div>
+            </div>
+
+            <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+              <a href="https://wa.me/919876543210?text=Hello%20Shubham%20Sir,%20I%20have%20submitted%20my%20request%20for%20${encodeURIComponent(course.title)}.%20Please%20grant%20my%20permission.%20Name:%20${encodeURIComponent(userName)}%20Phone:%20${encodeURIComponent(userPhone)}" target="_blank" class="btn btn-primary" style="background:#25D366; border-color:#25D366; font-weight:800; padding:0.75rem 1.5rem; display:inline-flex; align-items:center; gap:0.5rem; text-decoration:none;">
+                💬 Request Permission on WhatsApp
+              </a>
+              <button class="btn btn-outline" style="font-weight:700; padding:0.75rem 1.25rem;" onclick="App.navigateTo('paid-courses')">
+                ← Back to Courses
+              </button>
+            </div>
+          ` : `
+            <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+              <button class="btn btn-primary" style="background:#0284c7; border:none; font-weight:800; padding:0.75rem 1.5rem;" onclick="App.openCheckoutModal('course', '${course.id}', '${course.title}', ${course.price})">
+                💳 Join Batch & Submit Request (₹${course.price})
+              </button>
+              <button class="btn btn-secondary" style="font-weight:700; padding:0.75rem 1.25rem;" onclick="App.navigateTo('paid-courses')">
+                ← Back
+              </button>
+            </div>
+          `}
+        </div>
+      `;
+      return;
+    }
 
     this.state.courseViewActiveFolders[course.id] = activeFolder;
 
@@ -1520,8 +1627,10 @@ ${eb.previewText || 'Sample preview chapter...'}
     const b2 = this.state.phase2Batches.find(b => b.id === 'phase2_2') || this.state.phase2Batches[1];
 
     const gdCount = (bGD && bGD.gdClasses) ? bGD.gdClasses.length : 3;
-    const isB1Purchased = this.state.user && (this.state.user.purchasedCourses || []).includes('phase2_1');
-    const isB2Purchased = this.state.user && (this.state.user.purchasedCourses || []).includes('phase2_2');
+    const hasB1 = this.hasBatchAccess('phase2_1');
+    const pendingB1 = this.isBatchPendingApproval('phase2_1');
+    const hasB2 = this.hasBatchAccess('phase2_2');
+    const pendingB2 = this.isBatchPendingApproval('phase2_2');
 
     container.innerHTML = `
       <div class="phase2-hero-card">
@@ -1590,18 +1699,19 @@ ${eb.previewText || 'Sample preview chapter...'}
               <span class="original-price">₹${b1 ? b1.originalPrice : 499}</span>
             </div>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <button class="btn btn-primary" style="background:#0284c7; border:none; font-weight:800;" onclick="App.openPhase2Viewer('phase2_1', 'srt-mocks')">
-                📁 Open GD + SRT Classroom
-              </button>
-              ${isB1Purchased ? `
-                <button class="btn btn-defence" onclick="App.openPhase2Viewer('phase2_1', 'srt-mocks')">
-                  ▶ Enrolled
+              ${hasB1 ? `
+                <button class="btn btn-defence" style="background:#0284c7; border:none; font-weight:800;" onclick="App.openPhase2Viewer('phase2_1', 'srt-mocks')">
+                  ✓ Enter Classroom (Granted)
+                </button>
+              ` : (pendingB1 ? `
+                <button class="btn btn-outline" style="border:1.5px solid #f59e0b; color:#d97706; background:#fffbeb; font-weight:800;" onclick="App.openPhase2Viewer('phase2_1', 'srt-mocks')">
+                  ⏳ Pending Admin Permission
                 </button>
               ` : `
-                <button class="btn btn-outline" onclick="App.openCheckoutModal('course', 'phase2_1', 'Airforce GD + SRT Special Batch', ${b1 ? b1.price : 99})">
-                  Enroll
+                <button class="btn btn-primary" style="background:#0284c7; border:none; font-weight:800;" onclick="App.openCheckoutModal('course', 'phase2_1', 'Airforce GD + SRT Special Batch', ${b1 ? b1.price : 99})">
+                  🔒 Join Batch (Request Access ₹${b1 ? b1.price : 99})
                 </button>
-              `}
+              `)}
             </div>
           </div>
         </div>
@@ -1632,18 +1742,19 @@ ${eb.previewText || 'Sample preview chapter...'}
               <span class="original-price">₹${b2 ? b2.originalPrice : 199}</span>
             </div>
             <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-              <button class="btn btn-primary" style="background:#10b981; border:none; font-weight:800;" onclick="App.openPhase2Viewer('phase2_2', 'srt-mocks')">
-                📁 Open SRT Classroom
-              </button>
-              ${isB2Purchased || isB1Purchased ? `
-                <button class="btn btn-defence" onclick="App.openPhase2Viewer('phase2_2', 'srt-mocks')">
-                  ▶ Enrolled
+              ${hasB2 ? `
+                <button class="btn btn-defence" style="background:#10b981; border:none; font-weight:800;" onclick="App.openPhase2Viewer('phase2_2', 'srt-mocks')">
+                  ✓ Enter SRT Classroom (Granted)
+                </button>
+              ` : (pendingB2 ? `
+                <button class="btn btn-outline" style="border:1.5px solid #f59e0b; color:#d97706; background:#fffbeb; font-weight:800;" onclick="App.openPhase2Viewer('phase2_2', 'srt-mocks')">
+                  ⏳ Pending Admin Permission
                 </button>
               ` : `
-                <button class="btn btn-outline" onclick="App.openCheckoutModal('course', 'phase2_2', 'AIRFORCE SRT Batch', ${b2 ? b2.price : 49})">
-                  Enroll
+                <button class="btn btn-primary" style="background:#10b981; border:none; font-weight:800;" onclick="App.openCheckoutModal('course', 'phase2_2', 'AIRFORCE SRT Special Batch', ${b2 ? b2.price : 49})">
+                  🔒 Join Batch (Request Access ₹${b2 ? b2.price : 49})
                 </button>
-              `}
+              `)}
             </div>
           </div>
         </div>
@@ -1779,6 +1890,71 @@ ${eb.previewText || 'Sample preview chapter...'}
     const breadcrumbTag = document.getElementById('phase2-classroom-breadcrumb-tag');
     if (breadcrumbTag) breadcrumbTag.innerText = `${batch.title} • Classroom`;
     const isAdmin = this.state.user && this.state.user.role === 'admin';
+
+    // STRICT OWNER GATE: Access only if admin has granted permission!
+    if (!this.hasBatchAccess(batchId) && batchId !== 'phase2_gd_yt') {
+      const isPending = this.isBatchPendingApproval(batchId);
+      const user = this.state.user;
+      const userName = user ? user.name : 'Candidate';
+      const userPhone = user ? (user.phone || '') : '';
+      const batchPrice = batch.price || (batchId === 'phase2_2' ? 49 : 99);
+
+      container.innerHTML = `
+        <div style="max-width:720px; margin:2rem auto; background:#ffffff; border:2px solid ${isPending ? '#f59e0b' : '#ef4444'}; border-radius:14px; padding:2rem; box-shadow:0 10px 25px rgba(0,0,0,0.08); text-align:center;">
+          <div style="width:72px; height:72px; margin:0 auto 1rem; border-radius:50%; background:${isPending ? '#fef3c7' : '#fee2e2'}; display:flex; align-items:center; justify-content:center; font-size:2.2rem;">
+            ${isPending ? '⏳' : '🔒'}
+          </div>
+          
+          <span class="batch-badge" style="background:${isPending ? '#fef3c7' : '#fee2e2'}; color:${isPending ? '#b45309' : '#dc2626'}; font-weight:800; font-size:0.82rem; padding:0.3rem 0.8rem; border-radius:20px;">
+            ${isPending ? '⏳ ACCESS STATUS: PENDING ADMIN PERMISSION' : '🔒 EXCLUSIVE BATCH: PERMISSION REQUIRED'}
+          </span>
+
+          <h3 style="font-size:1.45rem; color:#0a192f; margin:1rem 0 0.5rem; font-weight:800;">
+            ${batch.title}
+          </h3>
+
+          <p style="color:#475569; font-size:0.95rem; line-height:1.6; max-width:580px; margin:0 auto 1.5rem;">
+            ${isPending ? `
+              आपका इस बैच में शामिल होने का अनुरोध प्राप्त हो चुका है। डायरेक्टर <strong>शुभम सर (Shubham Sir)</strong> द्वारा वेरिफिकेशन और परमिशन देने के बाद ही यह क्लासरूम खुलेगी।
+            ` : `
+              इस प्रीमियम क्लासरूम में <strong>17 फुल-लेंथ CBT सिमुलेशन टेस्ट</strong>, <strong>27 क्लास नोट्स PDFs</strong> और विशेष सामग्री शामिल है। इस बैच में कोई भी छात्र बिना डायरेक्टर / एडमिन की अनुमति के प्रवेश नहीं कर सकता।
+            `}
+          </p>
+
+          ${isPending ? `
+            <div style="background:#fffbeb; border:1px solid #fde68a; border-radius:10px; padding:1rem 1.25rem; margin-bottom:1.5rem; text-align:left; font-size:0.88rem; color:#92400e;">
+              <div style="font-weight:800; margin-bottom:0.25rem;">📌 आपका अनुरोध विवरण (Under Review):</div>
+              <div>• <strong>Student Name:</strong> ${userName}</div>
+              ${userPhone ? `<div>• <strong>Mobile Number:</strong> ${userPhone}</div>` : ''}
+              <div>• <strong>Batch:</strong> ${batch.title} (₹${batchPrice})</div>
+              <div>• <strong>Status:</strong> <span style="background:#fef3c7; color:#b45309; padding:2px 8px; border-radius:4px; font-weight:700;">Admin Approval Pending</span></div>
+            </div>
+
+            <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+              <a href="https://wa.me/919876543210?text=Hello%20Shubham%20Sir,%20I%20have%20submitted%20my%20join%20request%20for%20${encodeURIComponent(batch.title)}.%20Please%20grant%20my%20permission.%20Name:%20${encodeURIComponent(userName)}%20Phone:%20${encodeURIComponent(userPhone)}" target="_blank" class="btn btn-primary" style="background:#25D366; border-color:#25D366; font-weight:800; padding:0.75rem 1.5rem; display:inline-flex; align-items:center; gap:0.5rem; text-decoration:none;">
+                💬 Request Permission on WhatsApp
+              </a>
+              <button class="btn btn-outline" style="font-weight:700; padding:0.75rem 1.25rem;" onclick="App.navigateTo('phase2')">
+                ← Back to Phase-II Batches
+              </button>
+            </div>
+          ` : `
+            <div style="display:flex; gap:0.75rem; justify-content:center; flex-wrap:wrap;">
+              <button class="btn btn-primary" style="background:#0284c7; border:none; font-weight:800; padding:0.75rem 1.5rem;" onclick="App.openCheckoutModal('course', '${batch.id}', '${batch.title}', ${batchPrice})">
+                💳 Join Batch & Submit Request (₹${batchPrice})
+              </button>
+              <a href="https://wa.me/919876543210?text=Hello%20Shubham%20Sir,%20I%20want%20to%20join%20${encodeURIComponent(batch.title)}.%20Please%20guide%20me." target="_blank" class="btn btn-outline" style="border-color:#25D366; color:#15803d; font-weight:700; padding:0.75rem 1.25rem; display:inline-flex; align-items:center; gap:0.4rem; text-decoration:none;">
+                💬 Inquire on WhatsApp
+              </a>
+              <button class="btn btn-secondary" style="font-weight:700; padding:0.75rem 1.25rem;" onclick="App.navigateTo('phase2')">
+                ← Back to Batches
+              </button>
+            </div>
+          `}
+        </div>
+      `;
+      return;
+    }
 
     const videos = batch.youtubeVideos || [];
     const pdfs = batch.classPdfs || [];
@@ -3072,29 +3248,95 @@ ${eb.previewText || 'Sample preview chapter...'}
     const myTests = this.state.paidTestSeries.filter(s => (user.purchasedTests || []).includes(s.id));
 
     if (coursesCont) {
-      if (myCourses.length === 0) {
-        coursesCont.innerHTML = `
-          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:2rem; text-align:center; color:#64748b;">
-            <p>You have not enrolled in any paid course yet.</p>
-            <button class="btn btn-primary" style="margin-top:0.75rem;" onclick="App.navigateTo('paid-courses')">Browse Paid Courses</button>
+      const pendingBatches = user.pendingBatches || [];
+      const hasPending = pendingBatches.length > 0;
+
+      // Construct enrolled list including Phase-2 batches
+      const enrolledItems = [...myCourses];
+      if ((user.purchasedCourses || []).includes('phase2_1')) {
+        enrolledItems.unshift({
+          id: 'phase2_1',
+          title: 'Airforce GD + SRT Special Batch (Flagship)',
+          description: '17 Full-Length CBT SRT Mocks, 27 Official Lecture PDFs, and GD scripts.',
+          isPhase2: true
+        });
+      }
+      if ((user.purchasedCourses || []).includes('phase2_2') && !(user.purchasedCourses || []).includes('phase2_1')) {
+        enrolledItems.unshift({
+          id: 'phase2_2',
+          title: 'AIRFORCE SRT Special Batch',
+          description: '17 Full-Length CBT Simulation Tests & 27 Official Lecture Notes PDFs.',
+          isPhase2: true
+        });
+      }
+
+      let html = '';
+
+      if (hasPending) {
+        html += `
+          <div style="grid-column: 1 / -1; background:#fffbeb; border:2px solid #f59e0b; border-radius:12px; padding:1.25rem; margin-bottom:1rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem; margin-bottom:0.75rem;">
+              <div style="display:flex; align-items:center; gap:0.5rem;">
+                <span style="font-size:1.4rem;">⏳</span>
+                <strong style="color:#b45309; font-size:1.05rem;">Pending Batch Join Requests (${pendingBatches.length})</strong>
+              </div>
+              <span style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:800; padding:0.2rem 0.6rem; border-radius:20px;">
+                UNDER VERIFICATION BY ADMIN
+              </span>
+            </div>
+            <p style="font-size:0.88rem; color:#78350f; margin:0 0 1rem; line-height:1.5;">
+              आपका बैच अनुरोध डायरेक्टर (शुभम सर) के पास वेरिफिकेशन के लिए पेंडिंग है। जैसे ही एडमिन परमिशन ग्रांट करेंगे, बैच का कंटेंट यहाँ अनलॉक हो जाएगा।
+            </p>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:0.75rem;">
+              ${pendingBatches.map(pb => `
+                <div style="background:#fff; border:1px solid #fde68a; border-radius:8px; padding:0.85rem; box-shadow:0 2px 4px rgba(0,0,0,0.04);">
+                  <strong style="color:#0a192f; display:block; font-size:0.95rem; margin-bottom:0.25rem;">${pb.itemTitle || pb.itemId}</strong>
+                  <div style="font-size:0.8rem; color:#64748b; margin-bottom:0.5rem;">
+                    Payable: <strong style="color:#15803d;">₹${pb.amount}</strong> • Ref: ${pb.paymentRef || 'TXN'} • ${pb.requestedAt || pb.date || 'Recent'}
+                  </div>
+                  <a href="https://wa.me/919876543210?text=Hello%20Shubham%20Sir,%20I%20have%20submitted%20my%20request%20for%20${encodeURIComponent(pb.itemTitle || pb.itemId)}.%20Please%20grant%20my%20permission." target="_blank" class="btn btn-outline" style="border-color:#25D366; color:#15803d; font-size:0.78rem; padding:0.35rem 0.65rem; text-decoration:none; display:inline-flex; align-items:center; gap:0.3rem;">
+                    💬 WhatsApp Admin for Fast Permission
+                  </a>
+                </div>
+              `).join('')}
+            </div>
           </div>
         `;
+      }
+
+      if (enrolledItems.length === 0) {
+        if (!hasPending) {
+          html += `
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:2rem; text-align:center; color:#64748b; grid-column:1/-1;">
+              <p>You have not enrolled in any paid course yet.</p>
+              <button class="btn btn-primary" style="margin-top:0.75rem;" onclick="App.navigateTo('phase2')">Explore Phase-II & Defence Batches</button>
+            </div>
+          `;
+        }
       } else {
-        coursesCont.innerHTML = myCourses.map(c => `
+        html += enrolledItems.map(c => `
           <div class="content-card">
             <div class="content-card-body">
-              <span class="batch-badge" style="background:#dcfce7; color:#15803d;">Active Enrollment</span>
+              <span class="batch-badge" style="background:#dcfce7; color:#15803d;">✓ Permission Granted • Active</span>
               <h3>${c.title}</h3>
               <p>${c.description}</p>
               <div style="margin-top:auto; padding-top:1rem;">
-                <button class="btn btn-defence" style="width:100%;" onclick="App.openCourseViewer('${c.id}')">
-                  ▶ Open Course Classroom
-                </button>
+                ${c.isPhase2 ? `
+                  <button class="btn btn-defence" style="width:100%; font-weight:800;" onclick="App.openPhase2Viewer('${c.id}', 'srt-mocks')">
+                    ▶ Enter Phase-II Classroom
+                  </button>
+                ` : `
+                  <button class="btn btn-defence" style="width:100%; font-weight:800;" onclick="App.openCourseViewer('${c.id}')">
+                    ▶ Open Course Classroom
+                  </button>
+                `}
               </div>
             </div>
           </div>
         `).join('');
       }
+
+      coursesCont.innerHTML = html;
     }
 
     if (testsCont) {
@@ -3152,8 +3394,8 @@ ${eb.previewText || 'Sample preview chapter...'}
     // Fetch live users and orders
     try {
       const [uRes, oRes] = await Promise.all([
-        fetch('/api/users').then(r => r.json()),
-        fetch('/api/orders').then(r => r.json())
+        fetch('/api/users?t=' + Date.now()).then(r => r.json()),
+        fetch('/api/orders?t=' + Date.now()).then(r => r.json())
       ]);
       if (uRes.success) this.state.users = uRes.data;
       if (oRes.success) this.state.orders = oRes.data;
@@ -3170,6 +3412,14 @@ ${eb.previewText || 'Sample preview chapter...'}
     const pane = document.getElementById('admin-pane-container');
     if (!pane) return;
 
+    // Update pending badge in sidebar
+    const pendingOrders = (this.state.orders || []).filter(o => o.status === 'PENDING_APPROVAL');
+    const badge = document.getElementById('admin-pending-badge');
+    if (badge) {
+      badge.innerText = pendingOrders.length;
+      badge.style.display = pendingOrders.length > 0 ? 'inline-block' : 'none';
+    }
+
     if (tabName === 'overview') {
       const totalRevenue = (this.state.orders || []).reduce((acc, o) => acc + (o.amount || 0), 0);
       const allUsers = (this.state.users || []).filter(u => u.role !== 'admin');
@@ -3177,6 +3427,22 @@ ${eb.previewText || 'Sample preview chapter...'}
       const srtOnlyStudents = allUsers.filter(u => (u.purchasedCourses || []).includes('phase2_2')).length;
       pane.innerHTML = `
         <h3 style="font-size:1.35rem; color:#0a192f; margin-bottom:1.25rem;">Coaching Overview & Real-Time Statistics</h3>
+
+        ${pendingOrders.length > 0 ? `
+          <div style="background:#fffbeb; border:2px solid #f59e0b; border-radius:10px; padding:1.15rem 1.4rem; margin-bottom:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; box-shadow:0 4px 12px rgba(245,158,11,0.15);">
+            <div style="display:flex; align-items:center; gap:0.75rem;">
+              <span style="font-size:1.8rem;">🔔</span>
+              <div>
+                <strong style="color:#b45309; font-size:1.05rem; display:block;">Action Required: ${pendingOrders.length} Student Batch Join Request(s) Pending!</strong>
+                <span style="color:#78350f; font-size:0.85rem;">Nobody can enter any batch until you review and personally click "Grant Permission".</span>
+              </div>
+            </div>
+            <button class="btn btn-primary" style="background:#f59e0b; border-color:#f59e0b; color:#0a192f; font-weight:800; padding:0.6rem 1.25rem;" onclick="App.switchAdminTab('batch-requests')">
+              👉 Review & Grant Permission (${pendingOrders.length})
+            </button>
+          </div>
+        ` : ''}
+
         <div class="analytics-kpi-grid">
           <div class="kpi-tile" style="border-top:3px solid #0a192f;">
             <strong>${allUsers.length}</strong>
@@ -3205,7 +3471,7 @@ ${eb.previewText || 'Sample preview chapter...'}
         </div>
 
         <div style="margin-top:2rem;">
-          <h4 style="font-size:1.1rem; color:#0a192f; margin-bottom:0.75rem;">Recent Enrolled Student Orders</h4>
+          <h4 style="font-size:1.1rem; color:#0a192f; margin-bottom:0.75rem;">Recent Student Transactions & Orders</h4>
           <div class="custom-table-wrapper">
             <table class="data-table">
               <thead>
@@ -3214,26 +3480,172 @@ ${eb.previewText || 'Sample preview chapter...'}
                   <th>Student Name</th>
                   <th>Purchased Item</th>
                   <th>Amount</th>
-                  <th>Gateway</th>
-                  <th>Status</th>
+                  <th>Gateway / Ref</th>
+                  <th>Permission Status</th>
                   <th>Date</th>
                 </tr>
               </thead>
               <tbody>
-                ${(this.state.orders || []).map(o => `
-                  <tr>
-                    <td><strong>${o.id}</strong></td>
-                    <td>${o.studentName}</td>
-                    <td>${o.item}</td>
-                    <td><strong style="color:#10b981;">₹${o.amount}</strong></td>
-                    <td>${o.gateway}</td>
-                    <td><span style="background:#dcfce7; color:#15803d; padding:0.2rem 0.5rem; border-radius:4px; font-size:0.75rem;">SUCCESS</span></td>
-                    <td>${o.date}</td>
-                  </tr>
-                `).join('')}
+                ${(this.state.orders || []).map(o => {
+                  let statusHtml = '<span style="background:#dcfce7; color:#15803d; padding:0.2rem 0.5rem; border-radius:4px; font-size:0.75rem; font-weight:700;">SUCCESS</span>';
+                  if (o.status === 'PENDING_APPROVAL') {
+                    statusHtml = '<span style="background:#fef3c7; color:#b45309; padding:0.2rem 0.5rem; border-radius:4px; font-size:0.75rem; font-weight:800;">⏳ PENDING APPROVAL</span>';
+                  } else if (o.status === 'GRANTED') {
+                    statusHtml = '<span style="background:#dcfce7; color:#15803d; padding:0.2rem 0.5rem; border-radius:4px; font-size:0.75rem; font-weight:800;">✓ GRANTED</span>';
+                  } else if (o.status === 'REJECTED') {
+                    statusHtml = '<span style="background:#fee2e2; color:#dc2626; padding:0.2rem 0.5rem; border-radius:4px; font-size:0.75rem; font-weight:800;">✕ REJECTED</span>';
+                  }
+                  return `
+                    <tr>
+                      <td><strong>${o.id}</strong></td>
+                      <td>${o.studentName || 'Candidate'}</td>
+                      <td>${o.item}</td>
+                      <td><strong style="color:#10b981;">₹${o.amount}</strong></td>
+                      <td>${o.gateway || 'UPI'}</td>
+                      <td>${statusHtml}</td>
+                      <td>${o.date}</td>
+                    </tr>
+                  `;
+                }).join('')}
               </tbody>
             </table>
           </div>
+        </div>
+      `;
+    } else if (tabName === 'batch-requests') {
+      const orders = this.state.orders || [];
+      const batchOrders = orders.filter(o => o.itemType === 'course' || (o.item && (o.item.includes('Batch') || o.item.includes('Course'))));
+      const pendingCount = batchOrders.filter(o => o.status === 'PENDING_APPROVAL').length;
+      const grantedCount = batchOrders.filter(o => o.status === 'GRANTED' || o.status === 'SUCCESS').length;
+      const rejectedCount = batchOrders.filter(o => o.status === 'REJECTED').length;
+
+      pane.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:0.75rem;">
+          <div>
+            <h3 style="font-size:1.35rem; color:#0a192f; margin-bottom:0.25rem;">📋 Batch Join Requests & Permission Manager</h3>
+            <p style="color:#64748b; font-size:0.88rem;">
+              Strict Access Control: Students cannot access Phase-II or paid batches until you review and click <strong>"✓ Grant Permission"</strong>.
+            </p>
+          </div>
+          <button class="btn btn-outline" onclick="App.refreshAdminOrders()">🔄 Refresh Requests</button>
+        </div>
+
+        <!-- KPI Summary Cards -->
+        <div class="analytics-kpi-grid" style="margin-bottom:1.5rem;">
+          <div class="kpi-tile" style="border-top:3px solid #f59e0b; cursor:pointer;" onclick="App.filterBatchRequests('PENDING_APPROVAL')">
+            <strong style="color:#d97706;">${pendingCount}</strong>
+            <span>Pending Approvals (Action Required)</span>
+          </div>
+          <div class="kpi-tile" style="border-top:3px solid #10b981; cursor:pointer;" onclick="App.filterBatchRequests('GRANTED')">
+            <strong style="color:#10b981;">${grantedCount}</strong>
+            <span>Active Granted Permissions</span>
+          </div>
+          <div class="kpi-tile" style="border-top:3px solid #0284c7; cursor:pointer;" onclick="App.filterBatchRequests('all')">
+            <strong style="color:#0284c7;">${batchOrders.length}</strong>
+            <span>Total Join Inquiries</span>
+          </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem; background:#f8fafc; padding:0.6rem 0.85rem; border-radius:8px; border:1px solid #e2e8f0;">
+          <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+            <button class="btn btn-outline batch-req-filter active" data-filter="all" style="font-size:0.8rem; padding:0.35rem 0.75rem;" onclick="App.filterBatchRequests('all')">All Requests (${batchOrders.length})</button>
+            <button class="btn btn-outline batch-req-filter" data-filter="PENDING_APPROVAL" style="font-size:0.8rem; padding:0.35rem 0.75rem; border-color:#f59e0b; color:#b45309;" onclick="App.filterBatchRequests('PENDING_APPROVAL')">⏳ Pending Only (${pendingCount})</button>
+            <button class="btn btn-outline batch-req-filter" data-filter="GRANTED" style="font-size:0.8rem; padding:0.35rem 0.75rem; border-color:#10b981; color:#15803d;" onclick="App.filterBatchRequests('GRANTED')">✓ Granted (${grantedCount})</button>
+            <button class="btn btn-outline batch-req-filter" data-filter="REJECTED" style="font-size:0.8rem; padding:0.35rem 0.75rem; border-color:#ef4444; color:#dc2626;" onclick="App.filterBatchRequests('REJECTED')">✕ Rejected (${rejectedCount})</button>
+          </div>
+          <input type="text" id="batch-req-search" placeholder="Search student or phone..." oninput="App.filterBatchRequestsTable()" style="padding:0.35rem 0.75rem; font-size:0.82rem; border:1px solid #cbd5e1; border-radius:6px;">
+        </div>
+
+        <div class="custom-table-wrapper">
+          <table class="data-table" id="batch-requests-table">
+            <thead>
+              <tr>
+                <th>Candidate / Student</th>
+                <th>Phone & WhatsApp</th>
+                <th>Requested Batch</th>
+                <th>Amount & UTR</th>
+                <th>Submission Time</th>
+                <th>Permission Status</th>
+                <th>Owner Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${batchOrders.length === 0 ? `
+                <tr><td colspan="7" style="text-align:center; padding:2rem; color:#64748b;">No batch join requests recorded yet.</td></tr>
+              ` : batchOrders.map(o => {
+                const isPending = o.status === 'PENDING_APPROVAL';
+                const isGranted = o.status === 'GRANTED' || o.status === 'SUCCESS';
+                const cleanPhone = (o.studentPhone || '').replace(/[^0-9]/g, '');
+
+                return `
+                  <tr class="batch-req-row" data-status="${o.status || 'PENDING_APPROVAL'}" data-name="${(o.studentName || '').toLowerCase()}" data-phone="${o.studentPhone || ''}">
+                    <td>
+                      <strong style="color:#0a192f; font-size:0.95rem;">${o.studentName || 'Candidate'}</strong>
+                      <div style="font-size:0.75rem; color:#64748b;">ID: ${o.id}</div>
+                    </td>
+                    <td>
+                      <strong>${o.studentPhone || 'N/A'}</strong>
+                      ${cleanPhone ? `
+                        <div>
+                          <a href="https://wa.me/91${cleanPhone}?text=Hello%20${encodeURIComponent(o.studentName || 'Candidate')},%20regarding%20your%20join%20request%20for%20${encodeURIComponent(o.item)}%20at%20SKC%20Defence%20Academy..." target="_blank" style="display:inline-flex; align-items:center; gap:3px; margin-top:3px; padding:2px 7px; background:#25D366; color:#fff; font-size:0.72rem; border-radius:4px; text-decoration:none; font-weight:700;">
+                            💬 WhatsApp Chat
+                          </a>
+                        </div>
+                      ` : ''}
+                    </td>
+                    <td>
+                      <strong style="color:#0284c7; font-size:0.9rem;">${o.item}</strong>
+                      <div style="font-size:0.75rem; color:#64748b;">Batch ID: ${o.itemId || 'course'}</div>
+                    </td>
+                    <td>
+                      <strong style="color:#10b981; font-size:0.95rem;">₹${o.amount}</strong>
+                      <div style="font-size:0.75rem; color:#64748b; font-family:monospace;">${o.paymentRef || 'TXN'}</div>
+                      <span style="font-size:0.72rem; color:#475569;">(${o.gateway || 'UPI'})</span>
+                    </td>
+                    <td>
+                      <span style="font-size:0.8rem; color:#475569;">${o.date}</span>
+                    </td>
+                    <td>
+                      ${isPending ? `
+                        <span style="background:#fef3c7; color:#b45309; padding:3px 8px; border-radius:20px; font-size:0.75rem; font-weight:800; border:1px solid #fde68a;">
+                          ⏳ PENDING APPROVAL
+                        </span>
+                      ` : (isGranted ? `
+                        <span style="background:#dcfce7; color:#15803d; padding:3px 8px; border-radius:20px; font-size:0.75rem; font-weight:800; border:1px solid #bbf7d0;">
+                          ✓ PERMISSION GRANTED
+                        </span>
+                      ` : `
+                        <span style="background:#fee2e2; color:#dc2626; padding:3px 8px; border-radius:20px; font-size:0.75rem; font-weight:800; border:1px solid #fecaca;">
+                          ✕ REJECTED
+                        </span>
+                      `)}
+                    </td>
+                    <td>
+                      <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                        ${isPending ? `
+                          <button class="btn btn-primary" style="background:#10b981; border-color:#10b981; padding:0.35rem 0.65rem; font-size:0.75rem; font-weight:800;" onclick="App.approveOrder('${o.id}')" title="Grant access to student">
+                            ✓ Grant Permission
+                          </button>
+                          <button class="btn btn-outline" style="color:#ef4444; border-color:#fca5a5; padding:0.35rem 0.55rem; font-size:0.75rem;" onclick="App.rejectOrder('${o.id}')" title="Reject request">
+                            ✕ Reject
+                          </button>
+                        ` : (isGranted ? `
+                          <button class="btn btn-outline" style="color:#ef4444; border-color:#fca5a5; padding:0.35rem 0.55rem; font-size:0.75rem;" onclick="App.revokeOrderAccess('${o.id}')" title="Revoke access">
+                            ✕ Revoke Access
+                          </button>
+                        ` : `
+                          <button class="btn btn-outline" style="color:#10b981; border-color:#86efac; padding:0.35rem 0.55rem; font-size:0.75rem;" onclick="App.approveOrder('${o.id}')" title="Re-grant permission">
+                            ✓ Grant Access
+                          </button>
+                        `)}
+                      </div>
+                    </td>
+                  </tr>
+                `;
+              }).join('')}
+            </tbody>
+          </table>
         </div>
       `;
     } else if (tabName === 'gd-classes') {
@@ -3756,6 +4168,126 @@ ${eb.previewText || 'Sample preview chapter...'}
     }).then(r => r.json()).then(res => {
       alert('Batch access revoked successfully.');
       this.refreshUsersList();
+    });
+  },
+
+  async refreshAdminOrders() {
+    try {
+      const [uRes, oRes] = await Promise.all([
+        fetch('/api/users?t=' + Date.now()).then(r => r.json()),
+        fetch('/api/orders?t=' + Date.now()).then(r => r.json())
+      ]);
+      if (uRes.success) this.state.users = uRes.data;
+      if (oRes.success) this.state.orders = oRes.data;
+      this.switchAdminTab('batch-requests');
+    } catch (e) {
+      alert('Error refreshing requests: ' + e.message);
+    }
+  },
+
+  async approveOrder(orderId) {
+    if (!orderId) return;
+    try {
+      const res = await fetch(`/api/orders/${orderId}/approve`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin()
+        }
+      }).then(r => r.json());
+
+      if (res.success) {
+        alert(`✅ PERMISSION GRANTED!\n\nOrder ID: ${orderId}\nCandidate: ${res.order.studentName || 'Student'}\nBatch: ${res.order.item}\n\nThe student can now access the full classroom!`);
+        await this.refreshAdminOrders();
+      } else {
+        alert('Failed to grant permission: ' + (res.message || 'Unknown error'));
+      }
+    } catch (err) {
+      alert('Network error approving order: ' + err.message);
+    }
+  },
+
+  async rejectOrder(orderId) {
+    if (!orderId) return;
+    if (!confirm(`Are you sure you want to reject join request ${orderId}?`)) return;
+    try {
+      const res = await fetch(`/api/orders/${orderId}/reject`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin()
+        }
+      }).then(r => r.json());
+
+      if (res.success) {
+        alert(`Join request ${orderId} has been rejected.`);
+        await this.refreshAdminOrders();
+      } else {
+        alert('Failed to reject order: ' + (res.message || 'Unknown error'));
+      }
+    } catch (err) {
+      alert('Network error rejecting order: ' + err.message);
+    }
+  },
+
+  async revokeOrderAccess(orderId) {
+    const order = (this.state.orders || []).find(o => o.id === orderId);
+    if (!order) return;
+    if (!confirm(`Are you sure you want to revoke access for ${order.studentName} from ${order.item}?`)) return;
+
+    const user = (this.state.users || []).find(u => 
+      (order.userId && u.id === order.userId) ||
+      (order.studentPhone && u.phone === order.studentPhone) ||
+      (u.name && u.name.toLowerCase() === (order.studentName || '').toLowerCase())
+    );
+
+    if (user && order.itemId) {
+      await fetch(`/api/users/${user.id}/revoke`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Admin-Pin': this.getAdminPin()
+        },
+        body: JSON.stringify({ type: 'course', itemId: order.itemId })
+      });
+    }
+
+    await fetch(`/api/orders/${orderId}/reject`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Admin-Pin': this.getAdminPin()
+      }
+    });
+
+    alert('Access revoked successfully.');
+    await this.refreshAdminOrders();
+  },
+
+  filterBatchRequests(filterStatus) {
+    document.querySelectorAll('.batch-req-filter').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.filter === filterStatus);
+    });
+
+    document.querySelectorAll('.batch-req-row').forEach(row => {
+      const rowStatus = row.getAttribute('data-status') || '';
+      if (filterStatus === 'all') {
+        row.style.display = '';
+      } else if (filterStatus === 'GRANTED') {
+        row.style.display = (rowStatus === 'GRANTED' || rowStatus === 'SUCCESS') ? '' : 'none';
+      } else {
+        row.style.display = (rowStatus === filterStatus) ? '' : 'none';
+      }
+    });
+  },
+
+  filterBatchRequestsTable() {
+    const q = (document.getElementById('batch-req-search')?.value || '').toLowerCase().trim();
+    document.querySelectorAll('.batch-req-row').forEach(row => {
+      const name = row.getAttribute('data-name') || '';
+      const phone = row.getAttribute('data-phone') || '';
+      const matches = !q || name.includes(q) || phone.includes(q);
+      row.style.display = matches ? '' : 'none';
     });
   },
 
@@ -4300,13 +4832,27 @@ ${eb.previewText || 'Sample preview chapter...'}
     const payeeName = 'Shubham Choudhary';
     const qrSrc = (this.state.academy && this.state.academy.qrCode) || '/uploads/payment_qr.jpg';
     const upiLink = `upi://pay?pa=${encodeURIComponent(upiId)}&pn=${encodeURIComponent(payeeName)}&am=${amount}&cu=INR`;
+    const isCourse = (itemType === 'course');
 
     modalBody.innerHTML = `
       <div style="margin-bottom:1rem; text-align:center;">
-        <span class="batch-badge" style="background:#e0f2fe; color:#0369a1; font-weight:700;">Instant Digital Access</span>
+        <span class="batch-badge" style="background:${isCourse ? '#fef3c7' : '#e0f2fe'}; color:${isCourse ? '#b45309' : '#0369a1'}; font-weight:700;">
+          ${isCourse ? '🔒 Admin Permission Required for Batches' : 'Instant Digital Access'}
+        </span>
         <h3 style="font-size:1.25rem; color:#0a192f; margin:0.35rem 0;">${itemTitle}</h3>
         <div style="font-size:1.6rem; font-weight:800; color:#15803d;">
           Total Payable: ₹${amount}
+        </div>
+      </div>
+
+      <!-- Student Contact Verification -->
+      <div style="background:#f1f5f9; border:1px solid #e2e8f0; border-radius:8px; padding:0.65rem 0.85rem; margin-bottom:1rem; text-align:left;">
+        <div style="font-size:0.75rem; font-weight:700; color:#475569; margin-bottom:0.35rem; text-transform:uppercase;">
+          Candidate Details (छात्र का नाम और मोबाइल नंबर)
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.5rem;">
+          <input type="text" id="checkout-student-name" class="form-control" placeholder="Full Name" value="${user.name || ''}" style="font-size:0.85rem; padding:0.4rem 0.6rem; background:#fff;">
+          <input type="tel" id="checkout-student-phone" class="form-control" placeholder="WhatsApp / Phone" value="${user.phone || ''}" style="font-size:0.85rem; padding:0.4rem 0.6rem; background:#fff;">
         </div>
       </div>
 
@@ -4334,10 +4880,10 @@ ${eb.previewText || 'Sample preview chapter...'}
 
       <!-- Direct Verification / Reference Submission -->
       <div style="margin-bottom:1.25rem;">
-        <label class="form-label" style="font-size:0.85rem;">Enter UPI Ref / UTR No. (Optional):</label>
+        <label class="form-label" style="font-size:0.85rem;">Enter UPI Ref / UTR No. (12-Digit Reference):</label>
         <input type="text" id="checkout-utr-input" class="form-control" placeholder="12-digit UTR/Ref (e.g. 429812345678)" style="margin-bottom:0.75rem;">
         <button class="btn btn-primary" style="width:100%; padding:0.85rem; font-size:1.02rem; background:#16a34a; border-color:#16a34a;" onclick="App.confirmDirectPayment('${itemType}', '${itemId}', '${itemTitle}', ${amount})">
-          ✓ I Have Paid — Unlock Instantly (₹${amount})
+          ${isCourse ? `✓ I Have Paid — Submit Join Request (₹${amount})` : `✓ I Have Paid — Unlock Instantly (₹${amount})`}
         </button>
       </div>
 
@@ -4376,7 +4922,16 @@ ${eb.previewText || 'Sample preview chapter...'}
   },
 
   async simulatePayment(itemType, itemId, itemTitle, amount, gateway) {
-    const user = this.state.user || { id: 'usr_student1', name: 'Aakash Verma' };
+    const sNameInput = document.getElementById('checkout-student-name');
+    const sPhoneInput = document.getElementById('checkout-student-phone');
+    const studentName = (sNameInput && sNameInput.value.trim()) || (this.state.user ? this.state.user.name : 'Candidate');
+    const studentPhone = (sPhoneInput && sPhoneInput.value.trim()) || (this.state.user ? (this.state.user.phone || '') : '');
+
+    const user = this.state.user || { id: 'usr_' + Date.now(), name: studentName, phone: studentPhone, role: 'student' };
+    user.name = studentName;
+    user.phone = studentPhone;
+    this.state.user = user;
+    localStorage.setItem('skc_active_user', JSON.stringify(user));
     
     try {
       const res = await fetch('/api/checkout', {
@@ -4384,6 +4939,8 @@ ${eb.previewText || 'Sample preview chapter...'}
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           userId: user.id,
+          studentName,
+          studentPhone,
           itemId,
           itemTitle,
           itemType,
@@ -4395,10 +4952,20 @@ ${eb.previewText || 'Sample preview chapter...'}
 
       if (res.success) {
         this.closeModal('checkout-modal');
-        this.state.user = res.user;
-        localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
-        alert(`🎉 PAYMENT SUCCESSFUL!\n\nTransaction ID: ${res.order.id}\nItem: ${itemTitle}\nAmount: ₹${amount}\n\nThe content is now unlocked in your library!`);
-        this.navigateTo('my-courses');
+        if (res.user) {
+          this.state.user = res.user;
+          localStorage.setItem('skc_active_user', JSON.stringify(this.state.user));
+        }
+
+        if (res.requiresApproval) {
+          alert(`✅ PAYMENT & JOIN REQUEST SUBMITTED!\n\nOrder Ref: ${res.order.id}\nBatch: ${itemTitle}\nAmount: ₹${amount}\n\n⏳ Your join request has been sent to Coaching Director (Shubham Sir).\n\nAs soon as Admin verifies and grants permission, this batch will automatically activate in your portal!`);
+        } else {
+          alert(`🎉 PAYMENT SUCCESSFUL!\n\nTransaction ID: ${res.order.id}\nItem: ${itemTitle}\nAmount: ₹${amount}\n\nThe content is now unlocked in your library!`);
+        }
+
+        if (this.state.activeView === 'phase2') this.renderPhase2();
+        else if (this.state.activeView === 'paid-courses') this.renderPaidCourses();
+        else this.navigateTo('my-courses');
       }
     } catch (err) {
       alert('Payment processing error');

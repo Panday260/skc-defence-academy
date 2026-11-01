@@ -22,6 +22,14 @@ app.use(cors());
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
+// Disable caching for API responses so updates are instant
+app.use((req, res, next) => {
+  if (req.path.startsWith('/api/')) {
+    res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+  }
+  next();
+});
+
 // Static frontend
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -995,6 +1003,13 @@ app.post('/api/users/:id/grant', requireAdmin, (req, res) => {
   if (type === 'course') {
     user.purchasedCourses = user.purchasedCourses || [];
     if (!user.purchasedCourses.includes(itemId)) user.purchasedCourses.push(itemId);
+    user.pendingBatches = (user.pendingBatches || []).filter(p => (typeof p === 'string' ? p !== itemId : p.itemId !== itemId));
+    (db.orders || []).forEach(o => {
+      if ((o.userId === user.id || o.studentPhone === user.phone) && o.itemId === itemId && o.status === 'PENDING_APPROVAL') {
+        o.status = 'GRANTED';
+        o.approvedAt = new Date().toISOString().replace('T', ' ').substring(0, 16);
+      }
+    });
   } else if (type === 'test') {
     user.purchasedTests = user.purchasedTests || [];
     if (!user.purchasedTests.includes(itemId)) user.purchasedTests.push(itemId);
@@ -1029,23 +1044,97 @@ app.get('/api/orders', (req, res) => {
   res.json({ success: true, data: db.orders || [] });
 });
 
-// 14. Checkout Simulation (Razorpay, PhonePe, PayU)
-app.post('/api/checkout', (req, res) => {
-  const { userId, itemId, itemTitle, itemType, amount, gateway, paymentRef } = req.body;
+// Approve Batch Enrollment Request (Admin only)
+app.post('/api/orders/:id/approve', requireAdmin, (req, res) => {
   const db = readDb();
-  const user = (db.users || []).find(u => u.id === userId);
+  const order = (db.orders || []).find(o => o.id === req.params.id);
+  if (!order) return res.status(404).json({ success: false, message: 'Order / Request not found' });
+
+  order.status = 'GRANTED';
+  order.approvedAt = new Date().toISOString().replace('T', ' ').substring(0, 16);
+
+  // Find user by userId, phone, or name
+  let user = (db.users || []).find(u => 
+    (order.userId && u.id === order.userId) ||
+    (order.studentPhone && u.phone && u.phone === order.studentPhone) ||
+    (order.studentName && u.name && u.name.toLowerCase() === order.studentName.toLowerCase())
+  );
+
+  if (user) {
+    const itType = order.itemType || 'course';
+    if (itType === 'course') {
+      user.purchasedCourses = user.purchasedCourses || [];
+      if (order.itemId && !user.purchasedCourses.includes(order.itemId)) {
+        user.purchasedCourses.push(order.itemId);
+      }
+      user.pendingBatches = (user.pendingBatches || []).filter(p => (typeof p === 'string' ? p !== order.itemId : p.itemId !== order.itemId));
+    } else if (itType === 'test') {
+      user.purchasedTests = user.purchasedTests || [];
+      if (order.itemId && !user.purchasedTests.includes(order.itemId)) {
+        user.purchasedTests.push(order.itemId);
+      }
+    } else if (itType === 'ebook') {
+      user.purchasedEbooks = user.purchasedEbooks || [];
+      if (order.itemId && !user.purchasedEbooks.includes(order.itemId)) {
+        user.purchasedEbooks.push(order.itemId);
+      }
+    }
+  }
+
+  writeDb(db);
+  res.json({ success: true, message: 'Batch permission granted successfully!', order, user });
+});
+
+// Reject Batch Enrollment Request (Admin only)
+app.post('/api/orders/:id/reject', requireAdmin, (req, res) => {
+  const db = readDb();
+  const order = (db.orders || []).find(o => o.id === req.params.id);
+  if (!order) return res.status(404).json({ success: false, message: 'Order / Request not found' });
+
+  order.status = 'REJECTED';
+  order.rejectedAt = new Date().toISOString().replace('T', ' ').substring(0, 16);
+
+  let user = (db.users || []).find(u => 
+    (order.userId && u.id === order.userId) ||
+    (order.studentPhone && u.phone && u.phone === order.studentPhone) ||
+    (order.studentName && u.name && u.name.toLowerCase() === order.studentName.toLowerCase())
+  );
+
+  if (user && user.pendingBatches) {
+    user.pendingBatches = user.pendingBatches.filter(p => (typeof p === 'string' ? p !== order.itemId : p.itemId !== order.itemId));
+  }
+
+  writeDb(db);
+  res.json({ success: true, message: 'Join request rejected.', order });
+});
+
+// 14. Checkout & Join Request Submission
+app.post('/api/checkout', (req, res) => {
+  const { userId, itemId, itemTitle, itemType, amount, gateway, paymentRef, studentName, studentPhone, studentEmail } = req.body;
+  const db = readDb();
+  let user = (db.users || []).find(u => u.id === userId);
+  if (!user && studentPhone) {
+    user = (db.users || []).find(u => u.phone === studentPhone);
+  }
 
   const orderId = 'ord_' + Math.floor(100000 + Math.random() * 900000);
   const now = new Date();
   const dateStr = now.toISOString().replace('T', ' ').substring(0, 16);
 
+  const isCourse = (itemType === 'course');
+
   const newOrder = {
     id: orderId,
-    studentName: user ? user.name : 'Candidate',
+    userId: user ? user.id : (userId || ''),
+    studentName: (user && user.name) ? user.name : (studentName || 'Candidate'),
+    studentPhone: (user && user.phone) ? user.phone : (studentPhone || ''),
+    studentEmail: (user && user.email) ? user.email : (studentEmail || ''),
+    itemId: itemId,
     item: itemTitle,
+    itemType: itemType || 'course',
     amount: Number(amount) || 0,
     gateway: gateway || 'UPI / QR',
-    status: 'SUCCESS',
+    status: isCourse ? 'PENDING_APPROVAL' : 'SUCCESS',
     paymentRef: paymentRef || 'TXN' + Date.now(),
     date: dateStr
   };
@@ -1053,11 +1142,21 @@ app.post('/api/checkout', (req, res) => {
   db.orders = db.orders || [];
   db.orders.unshift(newOrder);
 
-  // Automatically unlock for user
   if (user) {
-    if (itemType === 'course') {
-      user.purchasedCourses = user.purchasedCourses || [];
-      if (!user.purchasedCourses.includes(itemId)) user.purchasedCourses.push(itemId);
+    if (isCourse) {
+      // STRICT OWNER RULE: Paid batches MUST NOT unlock automatically without admin granting permission!
+      user.pendingBatches = user.pendingBatches || [];
+      user.pendingBatches = user.pendingBatches.filter(p => (typeof p === 'string' ? p !== itemId : p.itemId !== itemId));
+      user.pendingBatches.push({
+        orderId,
+        itemId,
+        itemTitle,
+        amount: Number(amount) || 0,
+        gateway: newOrder.gateway,
+        paymentRef: newOrder.paymentRef,
+        status: 'PENDING_APPROVAL',
+        requestedAt: dateStr
+      });
     } else if (itemType === 'test') {
       user.purchasedTests = user.purchasedTests || [];
       if (!user.purchasedTests.includes(itemId)) user.purchasedTests.push(itemId);
@@ -1068,7 +1167,12 @@ app.post('/api/checkout', (req, res) => {
   }
 
   writeDb(db);
-  res.json({ success: true, order: newOrder, user });
+  res.json({
+    success: true,
+    requiresApproval: isCourse,
+    order: newOrder,
+    user
+  });
 });
 
 // 15. Dynamic PDF Watermarking Engine (Piracy Protection)
