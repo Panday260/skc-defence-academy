@@ -195,9 +195,17 @@
 
     <!-- ======================== 1. PAID COURSES VIEW ======================== -->
     <div id="view-paid-courses" class="view-section">
-      <div class="view-header">
-        <h2>🎓 Paid Courses (HTML Mock & Video Classes Enabled)</h2>
-        <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+      <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
+        <div>
+          <h2>🎓 Paid Courses (HTML Mock & Video Classes Enabled)</h2>
+          <p style="margin:0; font-size:0.85rem; color:#64748b;">Comprehensive video lectures, class PDFs, and practice tests</p>
+        </div>
+        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+          <button class="btn btn-secondary admin-only-btn" style="display:none; background:#0a192f; color:#fff;" onclick="App.openUploadModal('course')">
+            + 🎓 Create New Batch / Course
+          </button>
+          <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
+        </div>
       </div>
       <div id="courses-folder-nav" class="folder-nav-tabs"></div>
       <div id="courses-folder-breadcrumb"></div>
@@ -538,6 +546,29 @@
   </footer>
 
   <!-- ======================== MODALS ======================== -->
+
+  <!-- Interactive HTML CBT Quiz Runner Modal -->
+  <div id="html-quiz-modal" class="modal-backdrop" style="padding:0; z-index:99999;">
+    <div class="modal-card" style="max-width:100vw; width:100vw; height:100vh; max-height:100vh; border-radius:0; display:flex; flex-direction:column; margin:0; padding:0; background:#0f172a;">
+      <div class="modal-header" style="background:#0a192f; color:#fff; border-bottom:1px solid #1e293b; padding:0.75rem 1.25rem; display:flex; justify-content:space-between; align-items:center;">
+        <div style="display:flex; align-items:center; gap:0.6rem;">
+          <span style="font-size:1.3rem;">🖥️</span>
+          <div>
+            <h3 id="html-quiz-modal-title" style="margin:0; font-size:1rem; color:#fff; font-weight:700;">Online CBT Exam</h3>
+            <span style="font-size:0.75rem; color:#94a3b8;">SKC Defence Academy Online Testing System</span>
+          </div>
+        </div>
+        <div style="display:flex; align-items:center; gap:0.75rem;">
+          <button class="btn btn-secondary" style="background:#ef4444; color:#fff; border:none; padding:0.4rem 0.9rem; font-size:0.82rem; font-weight:700; cursor:pointer;" onclick="App.closeHtmlQuiz()">
+            ✕ Exit Exam
+          </button>
+        </div>
+      </div>
+      <div class="modal-body" style="flex:1; padding:0; overflow:hidden; position:relative; background:#f8fafc;">
+        <iframe id="html-quiz-iframe" src="" style="width:100%; height:100%; border:none;" allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
 
   <!-- Generic Modal (Course Viewer, Previews, Dynamic Forms) -->
   <div id="generic-modal" class="modal-backdrop">

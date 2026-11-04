@@ -17,6 +17,8 @@ const UPLOADS_DIR = path.join(__dirname, 'public', 'uploads');
 // Ensure upload folders exist
 fs.mkdirSync(path.join(UPLOADS_DIR, 'pdfs'), { recursive: true });
 fs.mkdirSync(path.join(UPLOADS_DIR, 'selections'), { recursive: true });
+fs.mkdirSync(path.join(UPLOADS_DIR, 'quizzes'), { recursive: true });
+fs.mkdirSync(path.join(UPLOADS_DIR, 'courses'), { recursive: true });
 
 app.use(cors());
 app.use(express.json({ limit: '50mb' }));
@@ -33,19 +35,30 @@ app.use((req, res, next) => {
 // Static frontend
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Configure Multer for file uploads
+// Configure Multer for file uploads (PDFs, HTML CBT Quizzes, Images)
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    if (file.mimetype === 'application/pdf') {
+    const ext = path.extname(file.originalname || '').toLowerCase();
+    const mime = (file.mimetype || '').toLowerCase();
+    if (mime === 'application/pdf' || ext === '.pdf') {
       cb(null, path.join(UPLOADS_DIR, 'pdfs'));
+    } else if (ext === '.html' || ext === '.htm' || mime.includes('html')) {
+      cb(null, path.join(UPLOADS_DIR, 'quizzes'));
     } else {
       cb(null, path.join(UPLOADS_DIR, 'selections'));
     }
   },
   filename: (req, file, cb) => {
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
-    const ext = path.extname(file.originalname) || (file.mimetype === 'application/pdf' ? '.pdf' : '.png');
-    cb(null, file.fieldname + '-' + uniqueSuffix + ext);
+    let ext = path.extname(file.originalname || '').toLowerCase();
+    if (!ext) {
+      const mime = (file.mimetype || '').toLowerCase();
+      if (mime === 'application/pdf') ext = '.pdf';
+      else if (mime.includes('html')) ext = '.html';
+      else ext = '.png';
+    }
+    const safeBase = (file.fieldname || 'upload').replace(/[^a-zA-Z0-9_-]/g, '_');
+    cb(null, safeBase + '-' + uniqueSuffix + ext);
   }
 });
 const upload = multer({ storage });
@@ -258,21 +271,30 @@ app.get('/api/courses', (req, res) => {
   res.json({ success: true, data: db.courses || [] });
 });
 
-app.post('/api/courses', requireAdmin, (req, res) => {
+app.post('/api/courses', requireAdmin, upload.single('thumbnailFile'), (req, res) => {
   const db = readDb();
+  let thumb = req.body.thumbnail || '/uploads/banner.png';
+  if (req.file) {
+    thumb = '/uploads/selections/' + req.file.filename;
+  }
   const newCourse = {
     id: 'course_' + Date.now(),
-    title: req.body.title || 'New Defence Course',
+    title: (req.body.title || 'New Defence Batch 2026').trim(),
     category: req.body.category || 'Airforce',
     price: Number(req.body.price) || 999,
     originalPrice: Number(req.body.originalPrice) || 1999,
-    badge: req.body.badge || 'New',
-    thumbnail: req.body.thumbnail || '/uploads/banner.png',
+    badge: req.body.badge || 'New Batch',
+    thumbnail: thumb,
     description: req.body.description || '',
-    features: req.body.features || ['Full Syllabus Lectures', 'Mock Tests Included', 'Class Notes PDF'],
-    videos: req.body.videos || [],
-    pdfs: req.body.pdfs || [],
-    htmlMocks: req.body.htmlMocks || []
+    features: Array.isArray(req.body.features) ? req.body.features : [
+      '120+ Full Length Video Lectures',
+      'Chapter-wise HTML Mock Tests with Instant Scoring',
+      'Class PDFs & Golden Rules Notes',
+      'Previous 5 Years Question Paper Discussions'
+    ],
+    videos: [],
+    pdfs: [],
+    htmlMocks: []
   };
   db.courses = db.courses || [];
   db.courses.push(newCourse);
@@ -280,11 +302,25 @@ app.post('/api/courses', requireAdmin, (req, res) => {
   res.json({ success: true, data: newCourse });
 });
 
-app.put('/api/courses/:id', requireAdmin, (req, res) => {
+app.put('/api/courses/:id', requireAdmin, upload.single('thumbnailFile'), (req, res) => {
   const db = readDb();
   const index = (db.courses || []).findIndex(c => c.id === req.params.id);
   if (index === -1) return res.status(404).json({ success: false, message: 'Course not found' });
-  db.courses[index] = { ...db.courses[index], ...req.body };
+  const existing = db.courses[index];
+  let thumb = existing.thumbnail;
+  if (req.file) {
+    thumb = '/uploads/selections/' + req.file.filename;
+  } else if (req.body.thumbnail) {
+    thumb = req.body.thumbnail;
+  }
+  db.courses[index] = {
+    ...existing,
+    ...req.body,
+    thumbnail: thumb,
+    price: req.body.price !== undefined ? Number(req.body.price) : existing.price,
+    originalPrice: req.body.originalPrice !== undefined ? Number(req.body.originalPrice) : existing.originalPrice,
+    id: req.params.id
+  };
   writeDb(db);
   res.json({ success: true, data: db.courses[index] });
 });
@@ -296,17 +332,137 @@ app.delete('/api/courses/:id', requireAdmin, (req, res) => {
   res.json({ success: true });
 });
 
+// Course Classroom Sub-Items: Videos
+app.post('/api/courses/:id/videos', requireAdmin, (req, res) => {
+  const db = readDb();
+  const course = (db.courses || []).find(c => c.id === req.params.id);
+  if (!course) return res.status(404).json({ success: false, message: 'Course not found' });
+  course.videos = course.videos || [];
+  const ytUrl = (req.body.youtubeUrl || req.body.url || '').trim();
+  const ytId = extractYoutubeId(ytUrl);
+  const thumbs = getYoutubeThumbnail(ytId);
+  const newVideo = {
+    id: 'cv_' + Date.now(),
+    title: (req.body.title || 'Video Lecture').trim(),
+    youtubeUrl: ytUrl,
+    youtubeId: ytId,
+    duration: req.body.duration || '45 Mins',
+    description: req.body.description || '',
+    thumbnail: thumbs.thumbnail,
+    hqThumbnail: thumbs.hqThumbnail
+  };
+  course.videos.push(newVideo);
+  writeDb(db);
+  res.json({ success: true, data: newVideo });
+});
+
+app.delete('/api/courses/:id/videos/:videoId', requireAdmin, (req, res) => {
+  const db = readDb();
+  const course = (db.courses || []).find(c => c.id === req.params.id);
+  if (!course) return res.status(404).json({ success: false, message: 'Course not found' });
+  course.videos = (course.videos || []).filter(v => v.id !== req.params.videoId);
+  writeDb(db);
+  res.json({ success: true });
+});
+
+// Course Classroom Sub-Items: PDFs
+app.post('/api/courses/:id/pdfs', requireAdmin, upload.single('pdfFile'), (req, res) => {
+  const db = readDb();
+  const course = (db.courses || []).find(c => c.id === req.params.id);
+  if (!course) return res.status(404).json({ success: false, message: 'Course not found' });
+  course.pdfs = course.pdfs || [];
+  let pdfUrl = req.body.pdfUrl || '';
+  let size = '3.2 MB';
+  if (req.file) {
+    pdfUrl = '/uploads/pdfs/' + req.file.filename;
+    size = (req.file.size / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+  const newPdf = {
+    id: 'cp_' + Date.now(),
+    title: (req.body.title || 'Class Notes PDF').trim(),
+    url: pdfUrl,
+    pages: Number(req.body.pages) || 30,
+    size: size,
+    uploadedAt: new Date().toISOString()
+  };
+  course.pdfs.push(newPdf);
+  writeDb(db);
+  res.json({ success: true, data: newPdf });
+});
+
+app.delete('/api/courses/:id/pdfs/:pdfId', requireAdmin, (req, res) => {
+  const db = readDb();
+  const course = (db.courses || []).find(c => c.id === req.params.id);
+  if (!course) return res.status(404).json({ success: false, message: 'Course not found' });
+  course.pdfs = (course.pdfs || []).filter(p => p.id !== req.params.pdfId);
+  writeDb(db);
+  res.json({ success: true });
+});
+
+// Course Classroom Sub-Items: HTML Practice Tests / Mocks
+app.post('/api/courses/:id/mocks', requireAdmin, upload.fields([{ name: 'pdfFile', maxCount: 1 }, { name: 'htmlFile', maxCount: 1 }]), (req, res) => {
+  const db = readDb();
+  const course = (db.courses || []).find(c => c.id === req.params.id);
+  if (!course) return res.status(404).json({ success: false, message: 'Course not found' });
+  course.htmlMocks = course.htmlMocks || [];
+
+  let htmlUrl = '';
+  let pdfUrl = '';
+  if (req.files) {
+    if (req.files.htmlFile && req.files.htmlFile[0]) {
+      htmlUrl = '/uploads/quizzes/' + req.files.htmlFile[0].filename;
+    }
+    if (req.files.pdfFile && req.files.pdfFile[0]) {
+      pdfUrl = '/uploads/pdfs/' + req.files.pdfFile[0].filename;
+    }
+  }
+
+  const newMock = {
+    id: 'cm_' + Date.now(),
+    title: (req.body.title || 'Course Interactive Mock Test').trim(),
+    durationMinutes: Number(req.body.durationMinutes) || 45,
+    totalMarks: Number(req.body.totalMarks) || 50,
+    positiveMarks: Number(req.body.positiveMarks) || 1.0,
+    negativeMarks: Number(req.body.negativeMarks) || 0.25,
+    htmlUrl: htmlUrl,
+    pdfUrl: pdfUrl,
+    uploadedAt: new Date().toISOString()
+  };
+  course.htmlMocks.push(newMock);
+  writeDb(db);
+  res.json({ success: true, data: newMock });
+});
+
+app.delete('/api/courses/:id/mocks/:mockId', requireAdmin, (req, res) => {
+  const db = readDb();
+  const course = (db.courses || []).find(c => c.id === req.params.id);
+  if (!course) return res.status(404).json({ success: false, message: 'Course not found' });
+  course.htmlMocks = (course.htmlMocks || []).filter(m => m.id !== req.params.mockId);
+  writeDb(db);
+  res.json({ success: true });
+});
+
 // 4. Free Test Series
 app.get('/api/free-tests', (req, res) => {
   const db = readDb();
   res.json({ success: true, data: db.freeTests || [] });
 });
 
-app.post('/api/free-tests', requireAdmin, (req, res) => {
+app.post('/api/free-tests', requireAdmin, upload.fields([{ name: 'pdfFile', maxCount: 1 }, { name: 'htmlFile', maxCount: 1 }]), (req, res) => {
   const db = readDb();
+  let pdfUrl = '';
+  let htmlUrl = '';
+  if (req.files) {
+    if (req.files.pdfFile && req.files.pdfFile[0]) {
+      pdfUrl = '/uploads/pdfs/' + req.files.pdfFile[0].filename;
+    }
+    if (req.files.htmlFile && req.files.htmlFile[0]) {
+      htmlUrl = '/uploads/quizzes/' + req.files.htmlFile[0].filename;
+    }
+  }
   const newTest = {
     id: 'ft_' + Date.now(),
-    title: req.body.title || 'Free Mock Test',
+    title: (req.body.title || 'Free Mock Test').trim(),
     exam: req.body.exam || 'Airforce Agniveer',
     category: 'Free',
     totalMarks: Number(req.body.totalMarks) || 50,
@@ -314,6 +470,8 @@ app.post('/api/free-tests', requireAdmin, (req, res) => {
     positiveMarks: Number(req.body.positiveMarks) || 1.0,
     negativeMarks: Number(req.body.negativeMarks) || 0.25,
     instructions: req.body.instructions || 'Standard Defence Examination Rules apply.',
+    pdfUrl: pdfUrl,
+    htmlUrl: htmlUrl,
     questions: req.body.questions || []
   };
   db.freeTests = db.freeTests || [];
@@ -322,13 +480,28 @@ app.post('/api/free-tests', requireAdmin, (req, res) => {
   res.json({ success: true, data: newTest });
 });
 
-app.put('/api/free-tests/:id', requireAdmin, (req, res) => {
+app.put('/api/free-tests/:id', requireAdmin, upload.fields([{ name: 'pdfFile', maxCount: 1 }, { name: 'htmlFile', maxCount: 1 }]), (req, res) => {
   const db = readDb();
   const index = (db.freeTests || []).findIndex(t => t.id === req.params.id);
   if (index === -1) return res.status(404).json({ success: false, message: 'Test not found' });
+  const existing = db.freeTests[index];
+  let pdfUrl = existing.pdfUrl || '';
+  let htmlUrl = existing.htmlUrl || '';
+  if (req.files) {
+    if (req.files.pdfFile && req.files.pdfFile[0]) {
+      pdfUrl = '/uploads/pdfs/' + req.files.pdfFile[0].filename;
+    }
+    if (req.files.htmlFile && req.files.htmlFile[0]) {
+      htmlUrl = '/uploads/quizzes/' + req.files.htmlFile[0].filename;
+    }
+  }
   db.freeTests[index] = {
-    ...db.freeTests[index],
+    ...existing,
     ...req.body,
+    totalMarks: Number(req.body.totalMarks) || existing.totalMarks,
+    durationMinutes: Number(req.body.durationMinutes) || existing.durationMinutes,
+    pdfUrl,
+    htmlUrl,
     id: req.params.id
   };
   writeDb(db);
@@ -348,20 +521,33 @@ app.get('/api/paid-test-series', (req, res) => {
   res.json({ success: true, data: db.paidTestSeries || [] });
 });
 
-app.post('/api/paid-test-series/:category/tests', requireAdmin, (req, res) => {
+app.post('/api/paid-test-series/:category/tests', requireAdmin, upload.fields([{ name: 'pdfFile', maxCount: 1 }, { name: 'htmlFile', maxCount: 1 }]), (req, res) => {
   const db = readDb();
   const { category } = req.params;
   const series = (db.paidTestSeries || []).find(s => s.name.toLowerCase() === category.toLowerCase() || s.id === category);
   if (!series) return res.status(404).json({ success: false, message: 'Series category not found' });
 
   series.tests = series.tests || [];
+  let pdfUrl = '';
+  let htmlUrl = '';
+  if (req.files) {
+    if (req.files.pdfFile && req.files.pdfFile[0]) {
+      pdfUrl = '/uploads/pdfs/' + req.files.pdfFile[0].filename;
+    }
+    if (req.files.htmlFile && req.files.htmlFile[0]) {
+      htmlUrl = '/uploads/quizzes/' + req.files.htmlFile[0].filename;
+    }
+  }
+
   const newMock = {
     id: 'pt_' + Date.now(),
-    title: req.body.title || `${series.name} Full Length Mock Test ${series.tests.length + 1}`,
+    title: (req.body.title || `${series.name} Full Length Mock Test ${series.tests.length + 1}`).trim(),
     durationMinutes: Number(req.body.durationMinutes) || 45,
     totalMarks: Number(req.body.totalMarks) || 50,
     positiveMarks: Number(req.body.positiveMarks) || 1.0,
     negativeMarks: Number(req.body.negativeMarks) || 0.25,
+    pdfUrl: pdfUrl,
+    htmlUrl: htmlUrl,
     questions: req.body.questions || []
   };
   series.tests.push(newMock);
@@ -369,16 +555,33 @@ app.post('/api/paid-test-series/:category/tests', requireAdmin, (req, res) => {
   res.json({ success: true, data: newMock });
 });
 
-app.put('/api/paid-test-series/:category/tests/:testId', requireAdmin, (req, res) => {
+app.put('/api/paid-test-series/:category/tests/:testId', requireAdmin, upload.fields([{ name: 'pdfFile', maxCount: 1 }, { name: 'htmlFile', maxCount: 1 }]), (req, res) => {
   const db = readDb();
   const { category, testId } = req.params;
   const series = (db.paidTestSeries || []).find(s => s.name.toLowerCase() === category.toLowerCase() || s.id === category);
   if (!series) return res.status(404).json({ success: false, message: 'Series category not found' });
   const index = (series.tests || []).findIndex(t => t.id === testId);
   if (index === -1) return res.status(404).json({ success: false, message: 'Test not found' });
+
+  const existing = series.tests[index];
+  let pdfUrl = existing.pdfUrl || '';
+  let htmlUrl = existing.htmlUrl || '';
+  if (req.files) {
+    if (req.files.pdfFile && req.files.pdfFile[0]) {
+      pdfUrl = '/uploads/pdfs/' + req.files.pdfFile[0].filename;
+    }
+    if (req.files.htmlFile && req.files.htmlFile[0]) {
+      htmlUrl = '/uploads/quizzes/' + req.files.htmlFile[0].filename;
+    }
+  }
+
   series.tests[index] = {
-    ...series.tests[index],
+    ...existing,
     ...req.body,
+    totalMarks: Number(req.body.totalMarks) || existing.totalMarks,
+    durationMinutes: Number(req.body.durationMinutes) || existing.durationMinutes,
+    pdfUrl,
+    htmlUrl,
     id: testId
   };
   writeDb(db);
@@ -1006,6 +1209,13 @@ app.post('/api/selections', requireAdmin, upload.single('candidatePhoto'), (req,
 app.delete('/api/selections/:id', requireAdmin, (req, res) => {
   const db = readDb();
   db.selections = (db.selections || []).filter(s => s.id !== req.params.id);
+  writeDb(db);
+  res.json({ success: true });
+});
+
+app.delete('/api/selections-all/clear', requireAdmin, (req, res) => {
+  const db = readDb();
+  db.selections = [];
   writeDb(db);
   res.json({ success: true });
 });

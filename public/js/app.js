@@ -599,15 +599,23 @@ const App = {
       `;
     }
 
+    const isAdmin = !!(this.state.user && this.state.user.role === 'admin');
+
     if (filtered.length === 0) {
       container.innerHTML = `
-        <div class="empty-folder-box" style="grid-column: 1 / -1;">
-          <div style="font-size:2.5rem; margin-bottom:0.5rem;">📁</div>
-          <h4 style="font-size:1.15rem; color:#0a192f; margin-bottom:0.35rem;">No Batches In This Folder Yet</h4>
-          <p style="color:#64748b; font-size:0.88rem; max-width:440px; margin:0 auto 1.25rem;">
-            New target batches will be launched soon. Explore all defence courses.
+        <div class="empty-folder-box" style="grid-column: 1 / -1; padding:3rem 1.5rem; text-align:center;">
+          <div style="font-size:2.8rem; margin-bottom:0.5rem;">🎓</div>
+          <h4 style="font-size:1.2rem; color:#0a192f; margin-bottom:0.35rem;">No Batches In This Folder Yet</h4>
+          <p style="color:#64748b; font-size:0.9rem; max-width:440px; margin:0 auto 1.25rem;">
+            New target batches will be published soon by SKC faculty.
           </p>
+          ${isAdmin ? `
+          <button class="btn btn-primary" onclick="App.openUploadModal('course')">
+            + 🎓 Create First Batch / Course
+          </button>
+          ` : `
           <button class="btn btn-outline" onclick="App.selectPaidCourseCategory('all')">View All Batches</button>
+          `}
         </div>
       `;
       return;
@@ -624,9 +632,10 @@ const App = {
             <h3>${course.title}</h3>
             <p>${course.description}</p>
             <ul class="card-meta-list">
-              ${course.features.map(f => `<li><span style="color:#10b981;">✓</span> ${f}</li>`).join('')}
+              ${(course.features || []).map(f => `<li><span style="color:#10b981;">✓</span> ${f}</li>`).join('')}
               <li><span style="color:#0284c7;">🎥</span> ${course.videos ? course.videos.length : 0} Video Lectures Included</li>
-              <li><span style="color:#f59e0b;">📝</span> HTML & CBT Practice Tests Included</li>
+              <li><span style="color:#f59e0b;">📝</span> ${course.htmlMocks ? course.htmlMocks.length : 0} HTML & CBT Practice Tests</li>
+              <li><span style="color:#10b981;">📑</span> ${course.pdfs ? course.pdfs.length : 0} Class Notes PDFs</li>
             </ul>
             <div class="card-pricing-row">
               <div class="price-box">
@@ -647,6 +656,16 @@ const App = {
                 </button>
               `)}
             </div>
+            ${isAdmin ? `
+            <div style="display:flex; gap:0.5rem; margin-top:0.75rem; border-top:1px dashed #cbd5e1; padding-top:0.75rem;">
+              <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditCourseModal('${course.id}')">
+                ✏️ Edit Batch
+              </button>
+              <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteCourse('${course.id}')">
+                🗑️ Delete Batch
+              </button>
+            </div>
+            ` : ''}
           </div>
         </div>
       `;
@@ -799,6 +818,23 @@ const App = {
           <span class="crumb-count">${countText}</span>
         </div>
 
+        ${isAdmin ? `
+          <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:0.85rem 1.1rem; margin-bottom:1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem;">
+            <span style="font-weight:800; color:#0f172a; font-size:0.9rem;">🛠️ Batch Upload Controls:</span>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <button class="btn btn-primary" style="background:#ef4444; border-color:#ef4444; font-size:0.82rem; padding:0.4rem 0.8rem; font-weight:700;" onclick="App.openUploadCourseVideoModal('${course.id}')">
+                + 🎥 Add Video
+              </button>
+              <button class="btn btn-primary" style="background:#0284c7; border-color:#0284c7; font-size:0.82rem; padding:0.4rem 0.8rem; font-weight:700;" onclick="App.openUploadCoursePdfModal('${course.id}')">
+                + 📑 Upload Class PDF
+              </button>
+              <button class="btn btn-primary" style="background:#10b981; border-color:#10b981; font-size:0.82rem; padding:0.4rem 0.8rem; font-weight:700;" onclick="App.openUploadCourseMockModal('${course.id}')">
+                + 🖥️ Upload HTML Mock / Quiz
+              </button>
+            </div>
+          </div>
+        ` : ''}
+
         <!-- FOLDER CONTENT: VIDEOS -->
         ${activeFolder === 'videos' ? `
           <div style="display:flex; flex-direction:column; gap:0.75rem;">
@@ -807,6 +843,11 @@ const App = {
                 <div style="font-size:2.5rem; margin-bottom:0.5rem;">🎥</div>
                 <h4 style="font-size:1.1rem; color:#0a192f; margin-bottom:0.35rem;">No Video Lectures in this Folder</h4>
                 <p style="color:#64748b; font-size:0.85rem;">New video lectures will appear here once published by faculty.</p>
+                ${isAdmin ? `
+                  <button class="btn btn-primary" style="margin-top:0.75rem; background:#ef4444; border:none;" onclick="App.openUploadCourseVideoModal('${course.id}')">
+                    + 🎥 Add First Video Lecture
+                  </button>
+                ` : ''}
               </div>
             ` : videos.map(v => {
               const ytId = v.youtubeId || App.extractYoutubeId(v.youtubeUrl || v.url || '');
@@ -833,6 +874,11 @@ const App = {
                   <button class="btn btn-secondary" style="background:#fee2e2; color:#dc2626; border:1px solid #fca5a5; font-size:0.82rem; padding:0.45rem 0.85rem;" onclick="App.playVideoModal('${ytId || 'ysz5S6PUM-U'}', '${(v.title || 'Video Lecture').replace(/'/g, "\\'")}')">
                     ▶ Watch Video Lecture
                   </button>
+                  ${isAdmin ? `
+                    <button class="btn btn-outline" style="color:#dc2626; border-color:#fca5a5; font-size:0.8rem; padding:0.35rem 0.75rem; margin-left:auto;" onclick="App.deleteCourseVideo('${course.id}', '${v.id}')">
+                      🗑️ Delete Video
+                    </button>
+                  ` : ''}
                 </div>
               </div>
             `;}).join('')}
@@ -847,6 +893,11 @@ const App = {
                 <div style="font-size:2.5rem; margin-bottom:0.5rem;">📑</div>
                 <h4 style="font-size:1.1rem; color:#0a192f; margin-bottom:0.35rem;">No PDFs in this Folder</h4>
                 <p style="color:#64748b; font-size:0.85rem;">Class notes and formula sheets will be uploaded soon.</p>
+                ${isAdmin ? `
+                  <button class="btn btn-primary" style="margin-top:0.75rem; background:#0284c7; border:none;" onclick="App.openUploadCoursePdfModal('${course.id}')">
+                    + 📑 Upload First PDF Notes
+                  </button>
+                ` : ''}
               </div>
             ` : pdfs.map(p => `
               <div class="folder-item-card" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem;">
@@ -854,13 +905,18 @@ const App = {
                   <strong style="color:#0f172a; font-size:0.95rem; display:block;">📄 ${p.title}</strong>
                   <span style="font-size:0.8rem; color:#64748b;">Pages: ${p.pages || 30} • Size: ${p.size || '3.2 MB'} • Watermark Protected</span>
                 </div>
-                <div style="display:flex; gap:0.4rem;">
+                <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
                   <button class="btn btn-outline" style="padding:0.35rem 0.75rem; font-size:0.8rem;" onclick="App.previewPdf('${p.url}')">
                     Preview
                   </button>
                   <button class="btn btn-defence" style="padding:0.35rem 0.75rem; font-size:0.8rem;" onclick="App.downloadWatermarkedPdf('${p.url}')">
                     ⬇ Download PDF
                   </button>
+                  ${isAdmin ? `
+                    <button class="btn btn-outline" style="color:#dc2626; border-color:#fca5a5; font-size:0.8rem; padding:0.35rem 0.65rem;" onclick="App.deleteCoursePdf('${course.id}', '${p.id}')">
+                      🗑️ Delete
+                    </button>
+                  ` : ''}
                 </div>
               </div>
             `).join('')}
@@ -875,16 +931,33 @@ const App = {
                 <div style="font-size:2.5rem; margin-bottom:0.5rem;">🖥️</div>
                 <h4 style="font-size:1.1rem; color:#0a192f; margin-bottom:0.35rem;">No CBT Tests in this Folder</h4>
                 <p style="color:#64748b; font-size:0.85rem;">Practice tests will be assigned during course progression.</p>
+                ${isAdmin ? `
+                  <button class="btn btn-primary" style="margin-top:0.75rem; background:#10b981; border:none;" onclick="App.openUploadCourseMockModal('${course.id}')">
+                    + 🖥️ Upload First HTML Mock / Quiz
+                  </button>
+                ` : ''}
               </div>
             ` : mocks.map(hm => `
               <div class="folder-item-card" style="background:#fffdf5; border-color:#fef08a; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.6rem;">
                 <div>
                   <strong style="color:#713f12; font-size:0.95rem; display:block;">📝 ${hm.title}</strong>
-                  <span style="font-size:0.8rem; color:#854d0e;">Questions: ${hm.questions} • Time Limit: ${hm.timeMinutes} Mins • Instant Result</span>
+                  <span style="font-size:0.8rem; color:#854d0e;">Marks: ${hm.totalMarks || 50} • Time Limit: ${hm.durationMinutes || 45} Mins • Instant Result</span>
                 </div>
-                <button class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.82rem;" onclick="App.startHtmlMock('${hm.title}')">
-                  Start Test
-                </button>
+                <div style="display:flex; gap:0.4rem; align-items:center; flex-wrap:wrap;">
+                  <button class="btn btn-primary" style="padding:0.4rem 0.9rem; font-size:0.82rem; background:#10b981; border-color:#10b981;" onclick="${hm.htmlUrl ? `App.launchHtmlQuiz('${hm.htmlUrl}', '${(hm.title || 'CBT Mock').replace(/'/g, "\\'")}')` : `App.startHtmlMock('${(hm.title || '').replace(/'/g, "\\'")}')`}">
+                    ▶ Start CBT Test
+                  </button>
+                  ${hm.pdfUrl ? `
+                    <button class="btn btn-outline" style="padding:0.4rem 0.75rem; font-size:0.8rem;" onclick="App.downloadWatermarkedPdf('${hm.pdfUrl}')">
+                      📄 PDF Paper
+                    </button>
+                  ` : ''}
+                  ${isAdmin ? `
+                    <button class="btn btn-outline" style="color:#dc2626; border-color:#fca5a5; font-size:0.8rem; padding:0.35rem 0.65rem;" onclick="App.deleteCourseMock('${course.id}', '${hm.id}')">
+                      🗑️ Delete
+                    </button>
+                  ` : ''}
+                </div>
               </div>
             `).join('')}
           </div>
@@ -988,12 +1061,14 @@ const App = {
             <li><span>📄</span> PDF Mode Enabled (Download Question Paper with Watermark)</li>
           </ul>
           <div style="display:flex; gap:0.5rem; margin-top:1rem; flex-wrap:wrap;">
-            <button class="btn btn-primary" style="flex:1;" onclick="App.launchTest('${test.id}')">
+            <button class="btn btn-primary" style="flex:1;" onclick="${test.htmlUrl ? `App.launchHtmlQuiz('${test.htmlUrl}', '${(test.title || 'Free Test').replace(/'/g, "\\'")}')` : `App.launchTest('${test.id}')`}">
               ▶ Start Online CBT
             </button>
-            <button class="btn btn-outline" style="padding:0.6rem 0.85rem;" title="Download PDF Question Paper" onclick="App.downloadWatermarkedPdf('/uploads/pdfs/airforce_intake_02_2025_group_x.pdf')">
-              ⬇ PDF Paper
-            </button>
+            ${test.pdfUrl ? `
+              <button class="btn btn-outline" style="padding:0.6rem 0.85rem;" title="Download PDF Question Paper" onclick="App.downloadWatermarkedPdf('${test.pdfUrl}')">
+                ⬇ PDF Paper
+              </button>
+            ` : ''}
           </div>
           ${isAdmin ? `
           <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
@@ -1229,9 +1304,16 @@ const App = {
                 <p>Total Questions: ${t.questions ? t.questions.length : 50} • ${t.durationMinutes} Mins</p>
                 <div style="margin-top:auto;">
                   ${isPurchased ? `
-                    <button class="btn btn-primary" style="width:100%;" onclick="App.launchTest('${t.id}')">
-                      Attempt Mock
-                    </button>
+                    <div style="display:flex; gap:0.4rem; flex-wrap:wrap;">
+                      <button class="btn btn-primary" style="flex:1;" onclick="${t.htmlUrl ? `App.launchHtmlQuiz('${t.htmlUrl}', '${(t.title || 'Mock Test').replace(/'/g, "\\'")}')` : `App.launchTest('${t.id}')`}">
+                        ▶ Attempt Mock
+                      </button>
+                      ${t.pdfUrl ? `
+                        <button class="btn btn-outline" style="padding:0.45rem 0.75rem; font-size:0.82rem;" title="Download PDF Question Paper" onclick="App.downloadWatermarkedPdf('${t.pdfUrl}')">
+                          ⬇ PDF
+                        </button>
+                      ` : ''}
+                    </div>
                   ` : `
                     <button class="btn btn-outline" style="width:100%;" onclick="App.openCheckoutModal('test', '${currentSeries.id}', '${currentSeries.title}', ${currentSeries.price})">
                       🔒 Locked (Buy Series)
@@ -4011,38 +4093,59 @@ ${eb.previewText || 'Sample preview chapter...'}
       `;
     } else if (tabName === 'selections') {
       pane.innerHTML = `
-        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem;">
-          <h3 style="font-size:1.35rem; color:#0a192f;">Manage "OUR Selections" Slideshow</h3>
-          <button class="btn btn-primary" onclick="App.openAddSelectionModal()">+ Add New Selection Hero</button>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.25rem; flex-wrap:wrap; gap:0.6rem;">
+          <div>
+            <h3 style="font-size:1.35rem; color:#0a192f; margin:0;">Manage "OUR Selections" Slideshow</h3>
+            <span style="font-size:0.8rem; color:#64748b;">Total Candidate Heroes: ${(this.state.selections || []).length}</span>
+          </div>
+          <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+            ${(this.state.selections && this.state.selections.length > 0) ? `
+              <button class="btn btn-outline" style="color:#dc2626; border-color:#fca5a5; font-size:0.82rem; padding:0.4rem 0.8rem;" onclick="App.clearAllSelections()">
+                🗑️ Clear All Selections (${this.state.selections.length})
+              </button>
+            ` : ''}
+            <button class="btn btn-primary" onclick="App.openAddSelectionModal()">+ Add New Selection Hero</button>
+          </div>
         </div>
-        <div class="custom-table-wrapper">
-          <table class="data-table">
-            <thead>
-              <tr>
-                <th>Photo</th>
-                <th>Candidate Name</th>
-                <th>Exam</th>
-                <th>Intake / Batch</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              ${this.state.selections.map(s => `
+        ${(!this.state.selections || this.state.selections.length === 0) ? `
+          <div style="background:#fff; border:2px dashed #cbd5e1; border-radius:12px; padding:3rem 1.5rem; text-align:center; color:#64748b;">
+            <div style="font-size:2.5rem; margin-bottom:0.5rem;">🏆</div>
+            <h4 style="color:#0f172a; margin-bottom:0.3rem;">No Selections in Slideshow</h4>
+            <p style="font-size:0.88rem; max-width:440px; margin:0 auto 1.25rem;">
+              All default selections have been removed. Add real successful students from your academy using the button above.
+            </p>
+            <button class="btn btn-primary" onclick="App.openAddSelectionModal()">+ Add First Selection Hero</button>
+          </div>
+        ` : `
+          <div class="custom-table-wrapper">
+            <table class="data-table">
+              <thead>
                 <tr>
-                  <td><img src="${s.image}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" onerror="this.src='/uploads/logo.png'"></td>
-                  <td><strong>${s.name}</strong></td>
-                  <td>${s.exam}</td>
-                  <td>${s.intake}</td>
-                  <td>
-                    <button class="btn btn-secondary" style="background:#fee2e2; color:#ef4444; padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="App.deleteSelection('${s.id}')">
-                      Remove
-                    </button>
-                  </td>
+                  <th>Photo</th>
+                  <th>Candidate Name</th>
+                  <th>Exam</th>
+                  <th>Intake / Batch</th>
+                  <th>Action</th>
                 </tr>
-              `).join('')}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                ${this.state.selections.map(s => `
+                  <tr>
+                    <td><img src="${s.image}" style="width:40px; height:40px; border-radius:50%; object-fit:cover;" onerror="this.src='/uploads/logo.png'"></td>
+                    <td><strong>${s.name}</strong></td>
+                    <td>${s.exam}</td>
+                    <td>${s.intake}</td>
+                    <td>
+                      <button class="btn btn-secondary" style="background:#fee2e2; color:#ef4444; padding:0.25rem 0.5rem; font-size:0.75rem;" onclick="App.deleteSelection('${s.id}')">
+                        Remove
+                      </button>
+                    </td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `}
       `;
     }
   },
@@ -4178,6 +4281,30 @@ ${eb.previewText || 'Sample preview chapter...'}
     this.state.selections = this.state.selections.filter(s => s.id !== id);
     this.renderOurSelectionsSlideshow();
     this.switchAdminTab('selections');
+  },
+
+  async clearAllSelections() {
+    if (!this.ensureAdmin()) return;
+    if (!confirm('Are you sure you want to remove ALL selections from the slideshow? This cannot be undone.')) return;
+    try {
+      const res = await fetch('/api/selections-all/clear', {
+        method: 'DELETE',
+        headers: {
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        }
+      }).then(r => r.json());
+      if (res.success) {
+        this.state.selections = [];
+        this.renderOurSelectionsSlideshow();
+        this.switchAdminTab('selections');
+        alert('All selections cleared successfully.');
+      } else {
+        alert(res.message || 'Failed to clear selections.');
+      }
+    } catch (e) {
+      alert('Error clearing selections: ' + e.message);
+    }
   },
 
   filterStudentsTable() {
@@ -5078,12 +5205,59 @@ ${eb.previewText || 'Sample preview chapter...'}
     const modalBody = document.getElementById('generic-modal-body');
     const modalTitle = document.getElementById('generic-modal-title');
 
-    if (section === 'free-test') {
+    if (section === 'course') {
+      modalTitle.innerText = '🎓 Create New Defence Course / Batch';
+      modalBody.innerHTML = `
+        <form onsubmit="App.handleUploadCourse(event)">
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Course / Batch Title *</label>
+            <input type="text" id="uc-title" class="form-control" required placeholder="e.g. Airforce Agniveer Vayu 01/2026 Selection Target Batch">
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Exam Category</label>
+              <select id="uc-category" class="form-control">
+                <option value="Airforce">Airforce Agniveer</option>
+                <option value="Navy">Indian Navy SSR / MR</option>
+                <option value="Army">Indian Army Agniveer</option>
+                <option value="ICG">Indian Coast Guard (ICG)</option>
+                <option value="NDA">NDA / CDS Foundation</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Batch Badge</label>
+              <input type="text" id="uc-badge" class="form-control" value="New Live Batch 2026">
+            </div>
+          </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Batch Fee / Price (₹) *</label>
+              <input type="number" id="uc-price" class="form-control" value="999" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Original Price (₹)</label>
+              <input type="number" id="uc-orig-price" class="form-control" value="1999">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:0.75rem;">
+            <label class="form-label">Batch Thumbnail Banner (Optional Image File)</label>
+            <input type="file" id="uc-thumb-file" class="form-control" accept="image/*">
+          </div>
+          <div class="form-group" style="margin-bottom:1rem;">
+            <label class="form-label">Batch Description & Syllabus Coverage</label>
+            <textarea id="uc-desc" class="form-control" rows="3" placeholder="Complete course covering concept classes, digital notes, and full chapterwise mocks."></textarea>
+          </div>
+          <button type="submit" id="uc-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem; font-weight:700;">
+            💾 Create & Publish Batch
+          </button>
+        </form>
+      `;
+    } else if (section === 'free-test') {
       modalTitle.innerText = '📤 Upload / Add Free Mock Test';
       modalBody.innerHTML = `
         <form onsubmit="App.handleUploadFreeTest(event)">
           <div class="form-group" style="margin-bottom:0.75rem;">
-            <label class="form-label">Mock Test Title</label>
+            <label class="form-label">Mock Test Title *</label>
             <input type="text" id="uft-title" class="form-control" required placeholder="e.g. Airforce Agniveer Group X Full Mock 03">
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
@@ -5115,11 +5289,23 @@ ${eb.previewText || 'Sample preview chapter...'}
               <input type="number" step="0.05" id="uft-neg" class="form-control" value="0.25" required>
             </div>
           </div>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">📑 Question Paper PDF (Optional)</label>
+              <input type="file" id="uft-pdf" class="form-control" accept=".pdf">
+              <span style="font-size:0.72rem; color:#64748b;">Watermark download paper for students</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">🖥️ Interactive HTML CBT Quiz (Optional)</label>
+              <input type="file" id="uft-html" class="form-control" accept=".html,.htm">
+              <span style="font-size:0.72rem; color:#64748b;">Interactive live exam file</span>
+            </div>
+          </div>
           <div class="form-group" style="margin-bottom:1rem;">
             <label class="form-label">Instructions / Exam Rules</label>
             <textarea id="uft-instructions" class="form-control" rows="2" placeholder="Standard defence examination rules apply."></textarea>
           </div>
-          <button type="submit" id="uft-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+          <button type="submit" id="uft-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem; font-weight:700;">
             💾 Save & Publish Free Test
           </button>
         </form>
@@ -5130,10 +5316,10 @@ ${eb.previewText || 'Sample preview chapter...'}
       modalBody.innerHTML = `
         <form onsubmit="App.handleUploadPaidTest(event, '${cat}')">
           <div class="form-group" style="margin-bottom:0.75rem;">
-            <label class="form-label">Mock Test Title</label>
+            <label class="form-label">Mock Test Title *</label>
             <input type="text" id="upt-title" class="form-control" required placeholder="e.g. ${cat} Target Selection Mock Test 02">
           </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+          <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
             <div class="form-group">
               <label class="form-label">Duration (Mins)</label>
               <input type="number" id="upt-duration" class="form-control" value="45" required>
@@ -5143,11 +5329,23 @@ ${eb.previewText || 'Sample preview chapter...'}
               <input type="number" id="upt-marks" class="form-control" value="50" required>
             </div>
             <div class="form-group">
-              <label class="form-label">Positive / Negative</label>
-              <input type="text" id="upt-marking" class="form-control" value="+1 / -0.25">
+              <label class="form-label">Positive Mark</label>
+              <input type="number" step="0.25" id="upt-pos" class="form-control" value="1.0">
             </div>
           </div>
-          <button type="submit" id="upt-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem;">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:1rem;">
+            <div class="form-group">
+              <label class="form-label">📑 Question Paper PDF (Optional)</label>
+              <input type="file" id="upt-pdf" class="form-control" accept=".pdf">
+              <span style="font-size:0.72rem; color:#64748b;">Upload PDF mock paper</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label">🖥️ Interactive HTML CBT Quiz (Optional)</label>
+              <input type="file" id="upt-html" class="form-control" accept=".html,.htm">
+              <span style="font-size:0.72rem; color:#64748b;">Upload CBT quiz .html file</span>
+            </div>
+          </div>
+          <button type="submit" id="upt-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem; font-weight:700;">
             💾 Add Mock to ${cat} Series
           </button>
         </form>
@@ -5329,6 +5527,106 @@ ${eb.previewText || 'Sample preview chapter...'}
       `;
     }
 
+    this.openModal('generic-modal');
+  },
+
+  openUploadCourseVideoModal(courseId) {
+    if (!this.ensureAdmin()) return;
+    const course = (this.state.courses || []).find(c => c.id === courseId);
+    const modalBody = document.getElementById('generic-modal-body');
+    const modalTitle = document.getElementById('generic-modal-title');
+    modalTitle.innerText = `🎥 Add Video Lecture: ${course ? course.title : 'Course'}`;
+    modalBody.innerHTML = `
+      <form onsubmit="App.handleUploadCourseVideo(event, '${courseId}')">
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label class="form-label">Lecture Title *</label>
+          <input type="text" id="ucv-title" class="form-control" required placeholder="e.g. Physics Chapter 01: Kinematics & Laws of Motion">
+        </div>
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label class="form-label">YouTube Video Link or Video ID *</label>
+          <input type="text" id="ucv-url" class="form-control" required placeholder="https://www.youtube.com/watch?v=... or Video ID">
+        </div>
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label class="form-label">Duration</label>
+          <input type="text" id="ucv-duration" class="form-control" value="45 Mins">
+        </div>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label class="form-label">Description / Topics Covered</label>
+          <textarea id="ucv-desc" class="form-control" rows="2" placeholder="Key topics covered in this lecture..."></textarea>
+        </div>
+        <button type="submit" id="ucv-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem; background:#ef4444; border:none; font-weight:700;">
+          💾 Add Video Lecture
+        </button>
+      </form>
+    `;
+    this.openModal('generic-modal');
+  },
+
+  openUploadCoursePdfModal(courseId) {
+    if (!this.ensureAdmin()) return;
+    const course = (this.state.courses || []).find(c => c.id === courseId);
+    const modalBody = document.getElementById('generic-modal-body');
+    const modalTitle = document.getElementById('generic-modal-title');
+    modalTitle.innerText = `📑 Upload Class Notes PDF: ${course ? course.title : 'Course'}`;
+    modalBody.innerHTML = `
+      <form onsubmit="App.handleUploadCoursePdf(event, '${courseId}')">
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label class="form-label">PDF Document Title *</label>
+          <input type="text" id="ucp-title" class="form-control" required placeholder="e.g. English Golden Grammar Rules Handwritten Notes">
+        </div>
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label class="form-label">Total Pages (Approx)</label>
+          <input type="number" id="ucp-pages" class="form-control" value="25">
+        </div>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label class="form-label">Select PDF File (.pdf) *</label>
+          <input type="file" id="ucp-file" class="form-control" accept=".pdf" required>
+        </div>
+        <button type="submit" id="ucp-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem; background:#0284c7; border:none; font-weight:700;">
+          💾 Upload & Save PDF
+        </button>
+      </form>
+    `;
+    this.openModal('generic-modal');
+  },
+
+  openUploadCourseMockModal(courseId) {
+    if (!this.ensureAdmin()) return;
+    const course = (this.state.courses || []).find(c => c.id === courseId);
+    const modalBody = document.getElementById('generic-modal-body');
+    const modalTitle = document.getElementById('generic-modal-title');
+    modalTitle.innerText = `🖥️ Upload HTML Mock / CBT Quiz: ${course ? course.title : 'Course'}`;
+    modalBody.innerHTML = `
+      <form onsubmit="App.handleUploadCourseMock(event, '${courseId}')">
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label class="form-label">Mock Quiz Title *</label>
+          <input type="text" id="ucm-title" class="form-control" required placeholder="e.g. Physics Unit Test 01 - CBT Online Exam">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+          <div class="form-group">
+            <label class="form-label">Duration (Minutes)</label>
+            <input type="number" id="ucm-duration" class="form-control" value="45" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Total Marks</label>
+            <input type="number" id="ucm-marks" class="form-control" value="50" required>
+          </div>
+        </div>
+        <div class="form-group" style="margin-bottom:0.75rem;">
+          <label class="form-label">🖥️ Interactive HTML CBT Quiz File (.html, .htm) *</label>
+          <input type="file" id="ucm-html-file" class="form-control" accept=".html,.htm" required>
+          <span style="font-size:0.75rem; color:#64748b;">The student can attempt this test inside the app!</span>
+        </div>
+        <div class="form-group" style="margin-bottom:1rem;">
+          <label class="form-label">📑 Question Paper PDF (.pdf) (Optional)</label>
+          <input type="file" id="ucm-pdf-file" class="form-control" accept=".pdf">
+          <span style="font-size:0.75rem; color:#64748b;">Downloadable question paper for offline practice</span>
+        </div>
+        <button type="submit" id="ucm-submit-btn" class="btn btn-primary" style="width:100%; padding:0.75rem; background:#10b981; border:none; font-weight:700;">
+          💾 Upload & Publish CBT Mock
+        </button>
+      </form>
+    `;
     this.openModal('generic-modal');
   },
 
@@ -5675,13 +5973,80 @@ ${eb.previewText || 'Sample preview chapter...'}
     }
   },
 
-  async handleUploadFreeTest(e) {
+  async handleUploadCourse(e) {
     e.preventDefault();
-    const btn = document.getElementById('uft-submit-btn');
-    if (btn) { btn.disabled = true; btn.innerText = 'Saving...'; }
+    const btn = document.getElementById('uc-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Creating Batch...'; }
 
     try {
-      const res = await fetch('/api/free-tests', {
+      const formData = new FormData();
+      formData.append('title', document.getElementById('uc-title').value.trim());
+      formData.append('category', document.getElementById('uc-category').value);
+      formData.append('badge', document.getElementById('uc-badge').value.trim());
+      formData.append('price', document.getElementById('uc-price').value);
+      formData.append('originalPrice', document.getElementById('uc-orig-price').value);
+      formData.append('description', document.getElementById('uc-desc').value.trim());
+
+      const thumbInput = document.getElementById('uc-thumb-file');
+      if (thumbInput && thumbInput.files && thumbInput.files[0]) {
+        formData.append('thumbnailFile', thumbInput.files[0]);
+      }
+
+      const res = await fetch('/api/courses', {
+        method: 'POST',
+        headers: {
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: formData
+      }).then(r => r.json());
+
+      if (res.success) {
+        this.state.courses = this.state.courses || [];
+        this.state.courses.push(res.data);
+        this.closeModal('generic-modal');
+        this.renderPaidCourses();
+        alert('Course Batch created successfully!');
+      } else {
+        alert(res.message || 'Failed to create course batch');
+      }
+    } catch (err) {
+      alert('Error creating course: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Create & Publish Batch'; }
+    }
+  },
+
+  async deleteCourse(courseId) {
+    if (!this.ensureAdmin()) return;
+    if (!confirm('Are you sure you want to delete this complete batch/course?')) return;
+    try {
+      const res = await fetch(`/api/courses/${courseId}`, {
+        method: 'DELETE',
+        headers: {
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        }
+      }).then(r => r.json());
+      if (res.success) {
+        this.state.courses = (this.state.courses || []).filter(c => c.id !== courseId);
+        this.renderPaidCourses();
+        alert('Course batch deleted successfully.');
+      } else {
+        alert(res.message || 'Failed to delete course');
+      }
+    } catch (err) {
+      alert('Delete error: ' + err.message);
+    }
+  },
+
+  async handleUploadCourseVideo(e, courseId) {
+    e.preventDefault();
+    const btn = document.getElementById('ucv-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Adding Video...'; }
+
+    try {
+      const res = await fetch(`/api/courses/${courseId}/videos`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -5689,14 +6054,220 @@ ${eb.previewText || 'Sample preview chapter...'}
           'X-Admin-Role': 'admin'
         },
         body: JSON.stringify({
-          title: document.getElementById('uft-title').value.trim(),
-          exam: document.getElementById('uft-exam').value,
-          durationMinutes: Number(document.getElementById('uft-duration').value),
-          totalMarks: Number(document.getElementById('uft-marks').value),
-          positiveMarks: Number(document.getElementById('uft-pos').value),
-          negativeMarks: Number(document.getElementById('uft-neg').value),
-          instructions: document.getElementById('uft-instructions').value.trim()
+          title: document.getElementById('ucv-title').value.trim(),
+          youtubeUrl: document.getElementById('ucv-url').value.trim(),
+          duration: document.getElementById('ucv-duration').value.trim(),
+          description: document.getElementById('ucv-desc').value.trim()
         })
+      }).then(r => r.json());
+
+      if (res.success) {
+        const c = (this.state.courses || []).find(course => course.id === courseId);
+        if (c) {
+          c.videos = c.videos || [];
+          c.videos.push(res.data);
+        }
+        this.closeModal('generic-modal');
+        this.renderCourseClassroom(courseId);
+        alert('Video lecture successfully added!');
+      } else {
+        alert(res.message || 'Failed to add video');
+      }
+    } catch (err) {
+      alert('Error adding video: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Add Video Lecture'; }
+    }
+  },
+
+  async deleteCourseVideo(courseId, videoId) {
+    if (!this.ensureAdmin()) return;
+    if (!confirm('Are you sure you want to delete this video lecture?')) return;
+    try {
+      const res = await fetch(`/api/courses/${courseId}/videos/${videoId}`, {
+        method: 'DELETE',
+        headers: {
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        }
+      }).then(r => r.json());
+      if (res.success) {
+        const c = (this.state.courses || []).find(co => co.id === courseId);
+        if (c) c.videos = (c.videos || []).filter(v => v.id !== videoId);
+        this.renderCourseClassroom(courseId);
+        alert('Video lecture removed.');
+      }
+    } catch (err) {
+      alert('Delete error: ' + err.message);
+    }
+  },
+
+  async handleUploadCoursePdf(e, courseId) {
+    e.preventDefault();
+    const btn = document.getElementById('ucp-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Uploading PDF...'; }
+
+    try {
+      const formData = new FormData();
+      formData.append('title', document.getElementById('ucp-title').value.trim());
+      formData.append('pages', document.getElementById('ucp-pages').value);
+
+      const pdfInput = document.getElementById('ucp-file');
+      if (pdfInput && pdfInput.files && pdfInput.files[0]) {
+        formData.append('pdfFile', pdfInput.files[0]);
+      }
+
+      const res = await fetch(`/api/courses/${courseId}/pdfs`, {
+        method: 'POST',
+        headers: {
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: formData
+      }).then(r => r.json());
+
+      if (res.success) {
+        const c = (this.state.courses || []).find(course => course.id === courseId);
+        if (c) {
+          c.pdfs = c.pdfs || [];
+          c.pdfs.push(res.data);
+        }
+        this.closeModal('generic-modal');
+        this.renderCourseClassroom(courseId);
+        alert('Class PDF uploaded successfully!');
+      } else {
+        alert(res.message || 'Failed to upload PDF');
+      }
+    } catch (err) {
+      alert('Error uploading PDF: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Upload & Save PDF'; }
+    }
+  },
+
+  async deleteCoursePdf(courseId, pdfId) {
+    if (!this.ensureAdmin()) return;
+    if (!confirm('Are you sure you want to delete this PDF document?')) return;
+    try {
+      const res = await fetch(`/api/courses/${courseId}/pdfs/${pdfId}`, {
+        method: 'DELETE',
+        headers: {
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        }
+      }).then(r => r.json());
+      if (res.success) {
+        const c = (this.state.courses || []).find(co => co.id === courseId);
+        if (c) c.pdfs = (c.pdfs || []).filter(p => p.id !== pdfId);
+        this.renderCourseClassroom(courseId);
+        alert('Class PDF removed.');
+      }
+    } catch (err) {
+      alert('Delete error: ' + err.message);
+    }
+  },
+
+  async handleUploadCourseMock(e, courseId) {
+    e.preventDefault();
+    const btn = document.getElementById('ucm-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Uploading Mock Files...'; }
+
+    try {
+      const formData = new FormData();
+      formData.append('title', document.getElementById('ucm-title').value.trim());
+      formData.append('durationMinutes', document.getElementById('ucm-duration').value);
+      formData.append('totalMarks', document.getElementById('ucm-marks').value);
+
+      const htmlInput = document.getElementById('ucm-html-file');
+      if (htmlInput && htmlInput.files && htmlInput.files[0]) {
+        formData.append('htmlFile', htmlInput.files[0]);
+      }
+      const pdfInput = document.getElementById('ucm-pdf-file');
+      if (pdfInput && pdfInput.files && pdfInput.files[0]) {
+        formData.append('pdfFile', pdfInput.files[0]);
+      }
+
+      const res = await fetch(`/api/courses/${courseId}/mocks`, {
+        method: 'POST',
+        headers: {
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: formData
+      }).then(r => r.json());
+
+      if (res.success) {
+        const c = (this.state.courses || []).find(course => course.id === courseId);
+        if (c) {
+          c.htmlMocks = c.htmlMocks || [];
+          c.htmlMocks.push(res.data);
+        }
+        this.closeModal('generic-modal');
+        this.renderCourseClassroom(courseId);
+        alert('Interactive HTML Mock Quiz successfully uploaded!');
+      } else {
+        alert(res.message || 'Failed to upload mock quiz');
+      }
+    } catch (err) {
+      alert('Error uploading mock: ' + err.message);
+    } finally {
+      if (btn) { btn.disabled = false; btn.innerText = '💾 Upload & Publish CBT Mock'; }
+    }
+  },
+
+  async deleteCourseMock(courseId, mockId) {
+    if (!this.ensureAdmin()) return;
+    if (!confirm('Are you sure you want to delete this CBT mock test?')) return;
+    try {
+      const res = await fetch(`/api/courses/${courseId}/mocks/${mockId}`, {
+        method: 'DELETE',
+        headers: {
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        }
+      }).then(r => r.json());
+      if (res.success) {
+        const c = (this.state.courses || []).find(co => co.id === courseId);
+        if (c) c.htmlMocks = (c.htmlMocks || []).filter(m => m.id !== mockId);
+        this.renderCourseClassroom(courseId);
+        alert('CBT mock removed.');
+      }
+    } catch (err) {
+      alert('Delete error: ' + err.message);
+    }
+  },
+
+  async handleUploadFreeTest(e) {
+    e.preventDefault();
+    const btn = document.getElementById('uft-submit-btn');
+    if (btn) { btn.disabled = true; btn.innerText = 'Uploading & Saving...'; }
+
+    try {
+      const formData = new FormData();
+      formData.append('title', document.getElementById('uft-title').value.trim());
+      formData.append('exam', document.getElementById('uft-exam').value);
+      formData.append('durationMinutes', document.getElementById('uft-duration').value);
+      formData.append('totalMarks', document.getElementById('uft-marks').value);
+      formData.append('positiveMarks', document.getElementById('uft-pos').value);
+      formData.append('negativeMarks', document.getElementById('uft-neg').value);
+      formData.append('instructions', document.getElementById('uft-instructions').value.trim());
+
+      const pdfInput = document.getElementById('uft-pdf');
+      if (pdfInput && pdfInput.files && pdfInput.files[0]) {
+        formData.append('pdfFile', pdfInput.files[0]);
+      }
+      const htmlInput = document.getElementById('uft-html');
+      if (htmlInput && htmlInput.files && htmlInput.files[0]) {
+        formData.append('htmlFile', htmlInput.files[0]);
+      }
+
+      const res = await fetch('/api/free-tests', {
+        method: 'POST',
+        headers: {
+          'X-Admin-Pin': this.getAdminPin(),
+          'X-Admin-Role': 'admin'
+        },
+        body: formData
       }).then(r => r.json());
 
       if (res.success) {
@@ -5721,22 +6292,22 @@ ${eb.previewText || 'Sample preview chapter...'}
     if (btn) { btn.disabled = true; btn.innerText = 'Updating...'; }
 
     try {
+      const formData = new FormData();
+      formData.append('title', document.getElementById('eft-title').value.trim());
+      formData.append('exam', document.getElementById('eft-exam').value.trim());
+      formData.append('durationMinutes', document.getElementById('eft-duration').value);
+      formData.append('totalMarks', document.getElementById('eft-marks').value);
+      formData.append('positiveMarks', document.getElementById('eft-pos').value);
+      formData.append('negativeMarks', document.getElementById('eft-neg').value);
+      formData.append('instructions', document.getElementById('eft-instructions').value.trim());
+
       const res = await fetch(`/api/free-tests/${testId}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
           'X-Admin-Pin': this.getAdminPin(),
           'X-Admin-Role': 'admin'
         },
-        body: JSON.stringify({
-          title: document.getElementById('eft-title').value.trim(),
-          exam: document.getElementById('eft-exam').value.trim(),
-          durationMinutes: Number(document.getElementById('eft-duration').value),
-          totalMarks: Number(document.getElementById('eft-marks').value),
-          positiveMarks: Number(document.getElementById('eft-pos').value),
-          negativeMarks: Number(document.getElementById('eft-neg').value),
-          instructions: document.getElementById('eft-instructions').value.trim()
-        })
+        body: formData
       }).then(r => r.json());
 
       if (res.success) {
@@ -5758,21 +6329,31 @@ ${eb.previewText || 'Sample preview chapter...'}
   async handleUploadPaidTest(e, category) {
     e.preventDefault();
     const btn = document.getElementById('upt-submit-btn');
-    if (btn) { btn.disabled = true; btn.innerText = 'Adding...'; }
+    if (btn) { btn.disabled = true; btn.innerText = 'Uploading & Saving...'; }
 
     try {
+      const formData = new FormData();
+      formData.append('title', document.getElementById('upt-title').value.trim());
+      formData.append('durationMinutes', document.getElementById('upt-duration').value);
+      formData.append('totalMarks', document.getElementById('upt-marks').value);
+      formData.append('positiveMarks', (document.getElementById('upt-pos') && document.getElementById('upt-pos').value) || '1.0');
+
+      const pdfInput = document.getElementById('upt-pdf');
+      if (pdfInput && pdfInput.files && pdfInput.files[0]) {
+        formData.append('pdfFile', pdfInput.files[0]);
+      }
+      const htmlInput = document.getElementById('upt-html');
+      if (htmlInput && htmlInput.files && htmlInput.files[0]) {
+        formData.append('htmlFile', htmlInput.files[0]);
+      }
+
       const res = await fetch(`/api/paid-test-series/${category}/tests`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
           'X-Admin-Pin': this.getAdminPin(),
           'X-Admin-Role': 'admin'
         },
-        body: JSON.stringify({
-          title: document.getElementById('upt-title').value.trim(),
-          durationMinutes: Number(document.getElementById('upt-duration').value),
-          totalMarks: Number(document.getElementById('upt-marks').value)
-        })
+        body: formData
       }).then(r => r.json());
 
       if (res.success) {
@@ -5800,19 +6381,19 @@ ${eb.previewText || 'Sample preview chapter...'}
     if (btn) { btn.disabled = true; btn.innerText = 'Updating...'; }
 
     try {
+      const formData = new FormData();
+      formData.append('title', document.getElementById('ept-title').value.trim());
+      formData.append('durationMinutes', document.getElementById('ept-duration').value);
+      formData.append('totalMarks', document.getElementById('ept-marks').value);
+      formData.append('positiveMarks', document.getElementById('ept-pos').value);
+
       const res = await fetch(`/api/paid-test-series/${category}/tests/${testId}`, {
         method: 'PUT',
         headers: {
-          'Content-Type': 'application/json',
           'X-Admin-Pin': this.getAdminPin(),
           'X-Admin-Role': 'admin'
         },
-        body: JSON.stringify({
-          title: document.getElementById('ept-title').value.trim(),
-          durationMinutes: Number(document.getElementById('ept-duration').value),
-          totalMarks: Number(document.getElementById('ept-marks').value),
-          positiveMarks: Number(document.getElementById('ept-pos').value)
-        })
+        body: formData
       }).then(r => r.json());
 
       if (res.success) {
@@ -6247,7 +6828,8 @@ ${eb.previewText || 'Sample preview chapter...'}
 
     try {
       let endpoint = '';
-      if (section === 'free-test') endpoint = `/api/free-tests/${itemId}`;
+      if (section === 'course') endpoint = `/api/courses/${itemId}`;
+      else if (section === 'free-test') endpoint = `/api/free-tests/${itemId}`;
       else if (section === 'paid-test') endpoint = `/api/paid-test-series/${subCategory}/tests/${itemId}`;
       else if (section === 'ebook') endpoint = `/api/ebooks/${itemId}`;
       else if (section === 'pyq') endpoint = `/api/pyqs/${itemId}`;
@@ -6263,7 +6845,10 @@ ${eb.previewText || 'Sample preview chapter...'}
       }).then(r => r.json());
 
       if (res.success) {
-        if (section === 'free-test') {
+        if (section === 'course') {
+          this.state.courses = (this.state.courses || []).filter(c => c.id !== itemId);
+          this.renderPaidCourses();
+        } else if (section === 'free-test') {
           this.state.freeTests = (this.state.freeTests || []).filter(t => t.id !== itemId);
           this.renderFreeTests();
         } else if (section === 'paid-test') {
@@ -6379,6 +6964,25 @@ ${eb.previewText || 'Sample preview chapter...'}
       </div>
     `;
     this.openModal('generic-modal');
+  },
+
+  launchHtmlQuiz(quizUrl, title) {
+    if (!quizUrl) return alert('Quiz URL not available');
+    const modal = document.getElementById('html-quiz-modal');
+    const titleEl = document.getElementById('html-quiz-modal-title');
+    const iframe = document.getElementById('html-quiz-iframe');
+    if (titleEl) titleEl.innerText = title || 'Interactive Online CBT Exam';
+    if (iframe) iframe.src = quizUrl;
+    if (modal) modal.classList.add('open');
+  },
+
+  closeHtmlQuiz() {
+    if (confirm('Are you sure you want to exit the CBT Exam? Any unsaved progress will be closed.')) {
+      const modal = document.getElementById('html-quiz-modal');
+      const iframe = document.getElementById('html-quiz-iframe');
+      if (iframe) iframe.src = '';
+      if (modal) modal.classList.remove('open');
+    }
   },
 
   startHtmlMock(title) {
