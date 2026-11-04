@@ -1245,28 +1245,64 @@ app.post('/api/users/auth', (req, res) => {
     });
   }
 
-  // Normal student registration or login by phone or name
-  let user = db.users.find(u => (phone && u.phone === phone) || (cleanName && u.name.toLowerCase() === cleanName.toLowerCase()));
+  // Clean phone to 10 digits
+  const cleanPhone = (phone || '').replace(/\D/g, '').slice(-10);
+
+  // Pre-approved student list with automatic batch assignment (Strictly Student role)
+  const PRE_APPROVED_STUDENTS = [
+    { name: 'birendra', phone: '7379936348', batchId: 'phase2_1' }, // ₹99 Airforce GD + SRT Special Batch
+    { name: 'manoj', phone: '8838180433', batchId: 'phase2_2' },   // ₹49 AIRFORCE SRT Special Batch
+    { name: 'princi', phone: '9304762295', batchId: 'phase2_2' },  // ₹49 AIRFORCE SRT Special Batch
+    { name: 'roli', phone: '8840996960', batchId: 'phase2_2' },    // ₹49 AIRFORCE SRT Special Batch
+    { name: 'ajay', phone: '8651146620', batchId: 'phase2_1' },    // ₹99 Airforce GD + SRT Special Batch
+    { name: 'radhe', phone: '7500050584', batchId: 'phase2_1' }    // ₹99 Airforce GD + SRT Special Batch
+  ];
+
+  // Match by 10-digit phone OR by trimmed lowercase name
+  let user = db.users.find(u => {
+    const uPhone = (u.phone || '').replace(/\D/g, '').slice(-10);
+    const matchPhone = cleanPhone && uPhone && cleanPhone === uPhone;
+    const matchName = cleanName && u.name && u.name.trim().toLowerCase() === cleanName.toLowerCase();
+    return matchPhone || matchName;
+  });
+
+  const matchedPreApproved = PRE_APPROVED_STUDENTS.find(p => 
+    (cleanPhone && p.phone === cleanPhone) ||
+    (cleanName && p.name === cleanName.toLowerCase())
+  );
+
   if (!user) {
     user = {
       id: 'usr_' + Date.now(),
-      name: cleanName || 'Student',
-      phone: phone || '',
+      name: cleanName || (matchedPreApproved ? matchedPreApproved.name : 'Student'),
+      phone: phone || (matchedPreApproved ? matchedPreApproved.phone : ''),
       email: email || '',
-      targetExam: targetExam || 'Airforce',
-      role: 'student',
-      purchasedCourses: [],
+      targetExam: targetExam || (matchedPreApproved ? 'phase2' : 'Airforce'),
+      role: 'student', // ALWAYS student!
+      purchasedCourses: matchedPreApproved ? [matchedPreApproved.batchId] : [],
       purchasedTests: [],
       purchasedEbooks: [],
-      joinedDate: new Date().toISOString().replace('T', ' ').substring(0, 16)
+      joinedDate: new Date().toISOString().replace('T', ' ').substring(0, 16),
+      pendingBatches: []
     };
     db.users.push(user);
     writeDb(db);
   } else {
+    // Ensure role is student (never admin)
+    user.role = 'student';
+    if (cleanPhone && !user.phone) user.phone = phone;
+    if (cleanName && (!user.name || user.name === 'Student')) user.name = cleanName;
     if (targetExam) {
       user.targetExam = targetExam;
-      writeDb(db);
     }
+    if (matchedPreApproved) {
+      user.purchasedCourses = user.purchasedCourses || [];
+      if (!user.purchasedCourses.includes(matchedPreApproved.batchId)) {
+        user.purchasedCourses.push(matchedPreApproved.batchId);
+      }
+      user.targetExam = 'phase2';
+    }
+    writeDb(db);
   }
 
   res.json({ success: true, isAdmin: false, user });

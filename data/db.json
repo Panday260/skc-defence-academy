@@ -83,6 +83,96 @@
       "purchasedEbooks": [],
       "joinedDate": "2026-10-27 09:45",
       "pendingBatches": []
+    },
+    {
+      "id": "usr_st_birendra",
+      "name": "Birendra",
+      "phone": "7379936348",
+      "email": "birendra@skcdefence.in",
+      "role": "student",
+      "targetExam": "phase2",
+      "purchasedCourses": [
+        "phase2_1"
+      ],
+      "purchasedTests": [],
+      "purchasedEbooks": [],
+      "joinedDate": "2026-11-04 07:49",
+      "pendingBatches": []
+    },
+    {
+      "id": "usr_st_manoj",
+      "name": "Manoj",
+      "phone": "8838180433",
+      "email": "manoj@skcdefence.in",
+      "role": "student",
+      "targetExam": "phase2",
+      "purchasedCourses": [
+        "phase2_2"
+      ],
+      "purchasedTests": [],
+      "purchasedEbooks": [],
+      "joinedDate": "2026-11-04 07:49",
+      "pendingBatches": []
+    },
+    {
+      "id": "usr_st_princi",
+      "name": "Princi",
+      "phone": "9304762295",
+      "email": "princi@skcdefence.in",
+      "role": "student",
+      "targetExam": "phase2",
+      "purchasedCourses": [
+        "phase2_2"
+      ],
+      "purchasedTests": [],
+      "purchasedEbooks": [],
+      "joinedDate": "2026-11-04 07:49",
+      "pendingBatches": []
+    },
+    {
+      "id": "usr_st_roli",
+      "name": "Roli",
+      "phone": "8840996960",
+      "email": "roli@skcdefence.in",
+      "role": "student",
+      "targetExam": "phase2",
+      "purchasedCourses": [
+        "phase2_2"
+      ],
+      "purchasedTests": [],
+      "purchasedEbooks": [],
+      "joinedDate": "2026-11-04 07:49",
+      "pendingBatches": []
+    },
+    {
+      "id": "usr_st_ajay",
+      "name": "Ajay",
+      "phone": "8651146620",
+      "email": "ajay@skcdefence.in",
+      "role": "student",
+      "targetExam": "phase2",
+      "purchasedCourses": [
+        "phase2_1"
+      ],
+      "purchasedTests": [],
+      "purchasedEbooks": [],
+      "joinedDate": "2026-11-04 07:49",
+      "pendingBatches": []
+    },
+    {
+      "id": "usr_st_radhe",
+      "name": "Radhe",
+      "phone": "7500050584",
+      "email": "radhe@skcdefence.in",
+      "role": "student",
+      "targetExam": "phase2",
+      "purchasedCourses": [
+        "phase2_1"
+      ],
+      "purchasedTests": [],
+      "purchasedEbooks": [],
+      "joinedDate": "2026-11-04 07:49",
+      "pendingBatches": []
     }
   ],
   "selections": [],
@@ -23992,6 +24082,78 @@
     ]
   },
   "orders": [
+    {
+      "id": "ord_enr_1005",
+      "userId": "usr_st_radhe",
+      "studentName": "Radhe",
+      "studentPhone": "7500050584",
+      "itemId": "phase2_1",
+      "item": "Airforce GD + SRT Special Batch (Phase-II Master Course)",
+      "amount": 99,
+      "gateway": "Direct UPI / Coaching Enrollment",
+      "status": "SUCCESS",
+      "date": "2026-11-04 07:49"
+    },
+    {
+      "id": "ord_enr_1004",
+      "userId": "usr_st_ajay",
+      "studentName": "Ajay",
+      "studentPhone": "8651146620",
+      "itemId": "phase2_1",
+      "item": "Airforce GD + SRT Special Batch (Phase-II Master Course)",
+      "amount": 99,
+      "gateway": "Direct UPI / Coaching Enrollment",
+      "status": "SUCCESS",
+      "date": "2026-11-04 07:49"
+    },
+    {
+      "id": "ord_enr_1003",
+      "userId": "usr_st_roli",
+      "studentName": "Roli",
+      "studentPhone": "8840996960",
+      "itemId": "phase2_2",
+      "item": "AIRFORCE SRT Special Batch (Situation Reaction Test Simulator)",
+      "amount": 49,
+      "gateway": "Direct UPI / Coaching Enrollment",
+      "status": "SUCCESS",
+      "date": "2026-11-04 07:49"
+    },
+    {
+      "id": "ord_enr_1002",
+      "userId": "usr_st_princi",
+      "studentName": "Princi",
+      "studentPhone": "9304762295",
+      "itemId": "phase2_2",
+      "item": "AIRFORCE SRT Special Batch (Situation Reaction Test Simulator)",
+      "amount": 49,
+      "gateway": "Direct UPI / Coaching Enrollment",
+      "status": "SUCCESS",
+      "date": "2026-11-04 07:49"
+    },
+    {
+      "id": "ord_enr_1001",
+      "userId": "usr_st_manoj",
+      "studentName": "Manoj",
+      "studentPhone": "8838180433",
+      "itemId": "phase2_2",
+      "item": "AIRFORCE SRT Special Batch (Situation Reaction Test Simulator)",
+      "amount": 49,
+      "gateway": "Direct UPI / Coaching Enrollment",
+      "status": "SUCCESS",
+      "date": "2026-11-04 07:49"
+    },
+    {
+      "id": "ord_enr_1000",
+      "userId": "usr_st_birendra",
+      "studentName": "Birendra",
+      "studentPhone": "7379936348",
+      "itemId": "phase2_1",
+      "item": "Airforce GD + SRT Special Batch (Phase-II Master Course)",
+      "amount": 99,
+      "gateway": "Direct UPI / Coaching Enrollment",
+      "status": "SUCCESS",
+      "date": "2026-11-04 07:49"
+    },
     {
       "id": "ord_535089",
       "studentName": "Pooja Sharma",
