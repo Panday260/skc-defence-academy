@@ -962,7 +962,7 @@ app.post('/api/phase2/:batchId/videos', requireAdmin, (req, res) => {
 
   // Also auto-sync to phase2_gd_yt if uploaded to phase2_1
   const gdBatch = (db.phase2 || []).find(b => b.id === 'phase2_gd_yt');
-  if (gdBatch && batch.id !== 'phase2_gd_yt') {
+  if (gdBatch && batch.id === 'phase2_1') {
     gdBatch.youtubeVideos = gdBatch.youtubeVideos || [];
     gdBatch.youtubeVideos.unshift(newVideo);
     gdBatch.gdClasses = gdBatch.gdClasses || [];
@@ -1017,17 +1017,19 @@ app.delete('/api/phase2/:batchId/videos/:videoId', requireAdmin, (req, res) => {
     batch.gdClasses = batch.gdClasses.filter(c => !c.id.includes(targetId));
   }
 
-  // Also remove from the synced batches
-  const gdBatch = (db.phase2 || []).find(b => b.id === 'phase2_gd_yt');
-  const masterBatch = (db.phase2 || []).find(b => b.id === 'phase2_1');
-  if (gdBatch && batch.id !== 'phase2_gd_yt') {
-    gdBatch.youtubeVideos = (gdBatch.youtubeVideos || []).filter(v => v.id !== targetId && !v.id.includes(targetId));
-    if (Array.isArray(gdBatch.gdClasses)) {
-      gdBatch.gdClasses = gdBatch.gdClasses.filter(c => !c.id.includes(targetId));
+  // Also remove from synced batches if batch is phase2_1 or phase2_gd_yt
+  if (batch.id === 'phase2_1' || batch.id === 'phase2_gd_yt') {
+    const gdBatch = (db.phase2 || []).find(b => b.id === 'phase2_gd_yt');
+    const masterBatch = (db.phase2 || []).find(b => b.id === 'phase2_1');
+    if (gdBatch && batch.id !== 'phase2_gd_yt') {
+      gdBatch.youtubeVideos = (gdBatch.youtubeVideos || []).filter(v => v.id !== targetId && !v.id.includes(targetId));
+      if (Array.isArray(gdBatch.gdClasses)) {
+        gdBatch.gdClasses = gdBatch.gdClasses.filter(c => !c.id.includes(targetId));
+      }
     }
-  }
-  if (masterBatch && batch.id !== 'phase2_1') {
-    masterBatch.youtubeVideos = (masterBatch.youtubeVideos || []).filter(v => v.id !== targetId && !v.id.includes(targetId));
+    if (masterBatch && batch.id !== 'phase2_1') {
+      masterBatch.youtubeVideos = (masterBatch.youtubeVideos || []).filter(v => v.id !== targetId && !v.id.includes(targetId));
+    }
   }
 
   writeDb(db);
