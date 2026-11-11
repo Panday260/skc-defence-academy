@@ -173,6 +173,21 @@
       "purchasedEbooks": [],
       "joinedDate": "2026-11-04 07:49",
       "pendingBatches": []
+    },
+    {
+      "id": "usr_st_g_manjunath",
+      "name": "G MANJUNATH",
+      "phone": "6304954454",
+      "email": "manjunath@skcdefence.in",
+      "role": "student",
+      "targetExam": "phase2",
+      "purchasedCourses": [
+        "phase2_1"
+      ],
+      "purchasedTests": [],
+      "purchasedEbooks": [],
+      "joinedDate": "2026-11-11 00:02",
+      "pendingBatches": []
     }
   ],
   "selections": [],
@@ -24085,6 +24100,18 @@
       "gateway": "Razorpay (UPI)",
       "status": "SUCCESS",
       "date": "2026-10-26 16:20"
+    },
+    {
+      "id": "ord_enr_1006",
+      "userId": "usr_st_g_manjunath",
+      "studentName": "G MANJUNATH",
+      "studentPhone": "6304954454",
+      "itemId": "phase2_1",
+      "item": "Airforce GD + SRT Special Batch (Phase-II Master Course)",
+      "amount": 99,
+      "gateway": "Direct UPI / Coaching Enrollment",
+      "status": "SUCCESS",
+      "date": "2026-11-11 00:02"
     }
   ]
 }

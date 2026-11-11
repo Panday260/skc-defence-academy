@@ -1257,7 +1257,9 @@ app.post('/api/users/auth', (req, res) => {
     { name: 'princi', phone: '9304762295', batchId: 'phase2_2' },  // ₹49 AIRFORCE SRT Special Batch
     { name: 'roli', phone: '8840996960', batchId: 'phase2_2' },    // ₹49 AIRFORCE SRT Special Batch
     { name: 'ajay', phone: '8651146620', batchId: 'phase2_1' },    // ₹99 Airforce GD + SRT Special Batch
-    { name: 'radhe', phone: '7500050584', batchId: 'phase2_1' }    // ₹99 Airforce GD + SRT Special Batch
+    { name: 'radhe', phone: '7500050584', batchId: 'phase2_1' },   // ₹99 Airforce GD + SRT Special Batch
+    { name: 'g manjunath', phone: '6304954454', batchId: 'phase2_1' }, // ₹99 Airforce GD + SRT Special Batch
+    { name: 'manjunath', phone: '6304954454', batchId: 'phase2_1' }    // ₹99 Airforce GD + SRT Special Batch
   ];
 
   // Match by 10-digit phone OR by trimmed lowercase name
