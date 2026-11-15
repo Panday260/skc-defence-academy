@@ -188,6 +188,21 @@
       "purchasedEbooks": [],
       "joinedDate": "2026-11-11 00:02",
       "pendingBatches": []
+    },
+    {
+      "id": "usr_st_ajit",
+      "name": "Ajit",
+      "phone": "6266519006",
+      "email": "ajit@skcdefence.in",
+      "role": "student",
+      "targetExam": "phase2",
+      "purchasedCourses": [
+        "phase2_1"
+      ],
+      "purchasedTests": [],
+      "purchasedEbooks": [],
+      "joinedDate": "2026-11-15 16:32",
+      "pendingBatches": []
     }
   ],
   "selections": [],
@@ -36260,6 +36275,18 @@
       "gateway": "Direct UPI / Coaching Enrollment",
       "status": "SUCCESS",
       "date": "2026-11-11 00:02"
+    },
+    {
+      "id": "ord_enr_1007",
+      "userId": "usr_st_ajit",
+      "studentName": "Ajit",
+      "studentPhone": "6266519006",
+      "itemId": "phase2_1",
+      "item": "Airforce GD + SRT Special Batch (Phase-II Master Course)",
+      "amount": 99,
+      "gateway": "Direct UPI / Coaching Enrollment",
+      "status": "SUCCESS",
+      "date": "2026-11-15 16:32"
     }
   ]
 }
