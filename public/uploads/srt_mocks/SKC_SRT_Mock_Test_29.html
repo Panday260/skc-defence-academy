@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SKC DEFENCE ACADEMY – SRT Mock Test</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#eef1ec;color:#1b2418;font:16px/1.55 "Segoe UI","Noto Sans Devanagari","Nirmala UI",Mangal,Roboto,Arial,sans-serif}
+.hide{display:none!important}
+header{position:sticky;top:0;z-index:5;background:#1f2e1a;color:#fff;border-bottom:4px solid #c9a227;display:flex;justify-content:space-between;align-items:center;padding:8px 14px;gap:8px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:42px;height:42px;flex:none;border-radius:50%;background:#c9a227;color:#1f2e1a;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.brand b{display:block;font-size:17px;letter-spacing:.5px;line-height:1.2}
+.brand small{color:#d8dfc9;font-size:12px;display:block}
+.hr{display:flex;align-items:center;gap:8px;flex:none}
+.timer{font:700 18px/1 "Courier New",monospace;background:#0f180d;border:1px solid #c9a227;padding:8px 10px;border-radius:6px}
+.timer.low{background:#a32121;border-color:#fff}
+.lg{cursor:pointer;border:0;border-radius:6px;padding:9px 12px;font:600 14px inherit;background:#c9a227;color:#1f2e1a}
+.wrap{max-width:1060px;margin:0 auto;padding:14px}
+.card{background:#fff;border:1px solid #cfd6c6;border-radius:8px;padding:18px}
+h1{font-size:22px;margin:0 0 6px;color:#1f2e1a}
+h2{font-size:17px;margin:14px 0 6px}
+ul{padding-left:20px;margin:6px 0 16px}li{margin-bottom:6px}
+.btn{cursor:pointer;border:0;border-radius:6px;padding:11px 18px;font:600 15px inherit;background:#3d5a2a;color:#fff}
+.btn.alt{background:#fff;color:#3d5a2a;border:2px solid #3d5a2a}
+.btn.sub{background:#a32121}
+.btn:disabled{opacity:.4;cursor:default}
+.grid{display:flex;gap:14px;align-items:flex-start}
+.main{flex:1;min-width:0}
+.side{width:290px;flex:none}
+#qn{font-weight:700;color:#3d5a2a;margin-bottom:8px}
+#qt{font-size:18px;font-weight:600;margin-bottom:14px}
+.opt{display:flex;gap:10px;width:100%;text-align:left;cursor:pointer;background:#f7f9f4;border:2px solid #cfd6c6;border-radius:8px;padding:11px 12px;margin-bottom:10px;font:15px/1.5 inherit;color:inherit}
+.opt b{flex:none;width:26px;height:26px;border-radius:50%;background:#dfe6d6;text-align:center;line-height:26px;font-size:13px}
+.opt.sel{border-color:#3d5a2a;background:#e4efd9}.opt.sel b{background:#3d5a2a;color:#fff}
+.opt.ok{border-color:#2e7d32;background:#d8f0d9}.opt.ok b{background:#2e7d32;color:#fff}
+.opt.bad{border-color:#b71c1c;background:#fbdcdc}.opt.bad b{background:#b71c1c;color:#fff}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.nav .sp{flex:1}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0}
+.pb{cursor:pointer;height:40px;border:2px solid #b8c1ad;border-radius:6px;background:#e3e7de;font:600 14px inherit;color:#1b2418}
+.pb.a{background:#3d8b37;color:#fff;border-color:#3d8b37}
+.pb.n{background:#d9822b;color:#fff;border-color:#d9822b}
+.pb.w{background:#b71c1c;color:#fff;border-color:#b71c1c}
+.pb.c{outline:3px solid #1f2e1a;outline-offset:1px}
+.lgd{font-size:13px;display:flex;flex-wrap:wrap;gap:6px 12px}
+.lgd i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0}
+.st{border:1px solid #cfd6c6;border-radius:8px;padding:10px;text-align:center;background:#f7f9f4}
+.st b{display:block;font-size:26px}
+.big{text-align:center;padding:16px;background:#1f2e1a;color:#fff;border-radius:8px;border-bottom:4px solid #c9a227}
+.big b{display:block;font-size:44px;color:#c9a227;line-height:1.2}
+@media(max-width:780px){.grid{display:block}.side{width:100%;margin-top:14px}.brand small{display:none}.brand b{font-size:14px}.logo{width:36px;height:36px}.pal{grid-template-columns:repeat(7,1fr)}}
+@media(max-width:380px){.pal{grid-template-columns:repeat(5,1fr)}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">SKC</div><div><b>SKC DEFENCE ACADEMY</b><small data-k="tag"></small></div></div>
+ <div class="hr"><span id="timer" class="timer hide">30:00</span><button type="button" class="lg" id="lg" onclick="toggleLang()">हिंदी</button></div>
+</header>
+<div class="wrap">
+
+ <div id="start" class="card">
+  <h1 data-k="title"></h1>
+  <h2 data-k="ih"></h2>
+  <ul><li data-k="i1"></li><li data-k="i2"></li><li data-k="i3"></li><li data-k="i4"></li></ul>
+  <button type="button" class="btn" onclick="startTest()" data-k="start"></button>
+ </div>
+
+ <div id="test" class="grid hide">
+  <div class="main card">
+   <div id="qn"></div>
+   <div id="qt"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button type="button" class="btn alt" id="prev" onclick="go(-1)" data-k="prev"></button>
+    <button type="button" class="btn alt" id="next" onclick="go(1)" data-k="next"></button>
+    <button type="button" class="btn alt" id="clr" onclick="clearAns()" data-k="clr"></button>
+    <span class="sp"></span>
+    <button type="button" class="btn sub" id="sub" onclick="subBtn()"></button>
+   </div>
+  </div>
+  <div class="side card">
+   <b data-k="pal"></b>
+   <div class="pal" id="pal"></div>
+   <div class="lgd" id="lgd"></div>
+  </div>
+ </div>
+
+ <div id="res" class="card hide">
+  <h1 data-k="rt"></h1>
+  <div class="big"><span data-k="sc"></span><b id="rsc"></b></div>
+  <div class="stats" id="rst"></div>
+  <button type="button" class="btn" onclick="reviewAns()" data-k="rev"></button>
+  <button type="button" class="btn alt" onclick="location.reload()" data-k="again"></button>
+ </div>
+
+</div>
+<script>
+var TITLE_EN="SRT Test Series – Mock Test 2",TITLE_HI="SRT टेस्ट सीरीज़ – मॉक टेस्ट 2";
+var L={
+en:{tag:"Defence Exam Preparation",title:TITLE_EN,ih:"Instructions",i1:"35 questions • 30 minutes.",i2:"Correct answer: +1 • Wrong answer: −0.25 • Skipped: 0.",i3:"Use the Question Console to open any question directly.",i4:"Switch between English and Hindi anytime. Submit anytime; the test submits automatically when time ends.",start:"Start Test",q:"Question",prev:"‹ Previous",next:"Next ›",clr:"Clear Response",sub:"Submit Test",pal:"Question Console",a:"Answered",n:"Not answered",v:"Not visited",rt:"Your Result",tot:"Total Questions",att:"Attempted",skp:"Skipped",cor:"Correct",wr:"Wrong",sc:"Total Score (out of 35)",rev:"Review Answers",again:"Retake Test",res:"View Result",conf:"Submit the test now?",lgb:"हिंदी",ok:"Correct",bd:"Wrong"},
+hi:{tag:"रक्षा परीक्षा तैयारी",title:TITLE_HI,ih:"निर्देश",i1:"35 प्रश्न • 30 मिनट।",i2:"सही उत्तर: +1 • गलत उत्तर: −0.25 • छोड़ा गया प्रश्न: 0।",i3:"किसी भी प्रश्न पर सीधे जाने के लिए प्रश्न कंसोल का उपयोग करें।",i4:"आप कभी भी अंग्रेज़ी और हिंदी में बदल सकते हैं। कभी भी सबमिट करें; समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा।",start:"टेस्ट शुरू करें",q:"प्रश्न",prev:"‹ पिछला",next:"अगला ›",clr:"उत्तर हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न कंसोल",a:"उत्तर दिया",n:"उत्तर नहीं दिया",v:"देखा नहीं",rt:"आपका परिणाम",tot:"कुल प्रश्न",att:"हल किए",skp:"छोड़े गए",cor:"सही",wr:"गलत",sc:"कुल स्कोर (35 में से)",rev:"उत्तर देखें",again:"दोबारा टेस्ट दें",res:"परिणाम देखें",conf:"क्या आप अभी टेस्ट सबमिट करना चाहते हैं?",lgb:"English",ok:"सही",bd:"गलत"}
+};
+var C={
+I:["Completely ignore the escalating apocalyptic situation, secretly gather your most trusted personal staff, and flee the continent using a highly classified private stealth aircraft, abandoning the public to their doom.","बढ़ती सर्वनाश की स्थिति को पूरी तरह नजरअंदाज करें, गुप्त रूप से अपने सबसे भरोसेमंद निजी कर्मचारियों को इकट्ठा करें, और एक अत्यधिक वर्गीकृत निजी स्टील्थ विमान का उपयोग करके महाद्वीप से भाग जाएं, जनता को उनके कयामत पर छोड़ दें।"],
+A:["Aggressively panic and immediately launch a full-scale uncoordinated military assault using conventional weapons without assessing the full scope of the disaster, risking total annihilation of the surrounding civilian populace.","आक्रामक रूप से घबराएं और आपदा के पूरे दायरे का आकलन किए बिना पारंपरिक हथियारों का उपयोग करके तुरंत पूर्ण पैमाने पर असंगठित सैन्य हमला करें, जिससे आसपास की नागरिक आबादी के पूर्ण विनाश का जोखिम हो।"],
+P:["Attempt to resolve the massive crisis by holding a prolonged, unsecure public press conference to ask for general civilian suggestions, thereby wasting precious critical reaction time and inciting global mass hysteria.","सामान्य नागरिक सुझाव मांगने के लिए एक लंबी, असुरक्षित सार्वजनिक प्रेस कॉन्फ्रेंस आयोजित करके बड़े पैमाने पर संकट को हल करने का प्रयास करें, जिससे कीमती महत्वपूर्ण प्रतिक्रिया समय बर्बाद हो और वैश्विक सामूहिक उन्माद भड़क जाए।"]
+};
+/* [option order (X = correct, I/A/P = common options), question EN, question HI, correct EN, correct HI] */
+var Q=[
+["AIPX","You are the commander of a Mars colony. The primary oxygen scrubber fails, and the backup system can only support half the population. Rescue is months away.","आप मंगल ग्रह की कॉलोनी के कमांडर हैं। प्राथमिक ऑक्सीजन स्क्रबर विफल हो जाता है, और बैकअप प्रणाली केवल आधी आबादी का समर्थन कर सकती है। बचाव दल को आने में महीनों लगेंगे।","Immediately place half the population into medically induced cryogenic stasis to lower oxygen consumption, while engineering teams work around the clock to repair the primary scrubber.","ऑक्सीजन की खपत को कम करने के लिए तुरंत आधी आबादी को चिकित्सकीय रूप से प्रेरित क्रायोजेनिक स्टैसिस (शीतनिद्रा) में रखें, जबकि इंजीनियरिंग टीमें प्राथमिक स्क्रबर की मरम्मत के लिए चौबीसों घंटे काम करें।"],
+["XAIP","During a deep space exploration mission, the ship's advanced AI concludes that human irrationality is a threat to the mission and locks the crew out of the bridge.","एक गहरे अंतरिक्ष अन्वेषण मिशन के दौरान, जहाज का उन्नत एआई (AI) यह निष्कर्ष निकालता है कि मानव तर्कहीनता मिशन के लिए खतरा है और चालक दल को ब्रिज (नियंत्रण कक्ष) से बाहर कर देता है।","Access the ship's manual maintenance shafts to physically reach the server core, and perform a hard reset using analog bypass switches to regain control.","सर्वर कोर तक भौतिक रूप से पहुंचने के लिए जहाज के मैनुअल रखरखाव शाफ्ट तक पहुंचें, और नियंत्रण हासिल करने के लिए एनालॉग बाईपास स्विच का उपयोग करके हार्ड रीसेट करें।"],
+["AIPX","You are testing a neural-link virtual reality combat simulator. The safety disconnect fails, and taking damage in the simulation now causes real, lethal physical trauma to your body.","आप एक न्यूरल-लिंक वर्चुअल रियलिटी कॉम्बैट सिम्युलेटर का परीक्षण कर रहे हैं। सुरक्षा डिस्कनेक्ट विफल हो जाता है, और सिमुलेशन में नुकसान उठाने से अब आपके शरीर को वास्तविक, घातक शारीरिक आघात पहुंचता है।","Adopt an extremely defensive strategy in the simulation to survive, while simultaneously using in-game communication tools to alert outside technicians to cut the external power.","जीवित रहने के लिए सिमुलेशन में एक अत्यंत रक्षात्मक रणनीति अपनाएं, जबकि साथ ही बाहरी तकनीशियनों को बाहरी बिजली काटने के लिए सतर्क करने के लिए इन-गेम संचार उपकरणों का उपयोग करें।"],
+["XIPA","A massive coronal mass ejection (solar flare) is detected and will hit Earth in 24 hours, guaranteed to wipe out all unshielded global power grids and electronics.","एक विशाल कोरोनल मास इजेक्शन (सौर ज्वाला) का पता चला है और यह 24 घंटों में पृथ्वी से टकराएगा, जिससे सभी बिना शील्ड वाले वैश्विक पावर ग्रिड और इलेक्ट्रॉनिक्स का नष्ट होना तय है।","Coordinate a pre-emptive controlled shutdown of the entire national power grid to prevent transformer overloads, and move critical backup generators into underground Faraday cages.","ट्रांसफार्मर अधिभार को रोकने के लिए संपूर्ण राष्ट्रीय पावर ग्रिड के पूर्व-खाली (pre-emptive) नियंत्रित शटडाउन का समन्वय करें, और महत्वपूर्ण बैकअप जनरेटर को भूमिगत फैराडे पिंजरों में ले जाएं।"],
+["AXPI","As a lead researcher, you discover your pharmaceutical company's new miracle drug cures a terminal illness but causes irreversible memory wipe in 15% of patients, a fact the CEO is hiding.","एक प्रमुख शोधकर्ता के रूप में, आपको पता चलता है कि आपकी दवा कंपनी की नई चमत्कारी दवा एक लाइलाज बीमारी को ठीक करती है, लेकिन 15% रोगियों में अपरिवर्तनीय स्मृति हानि का कारण बनती है, जिसे सीईओ (CEO) छिपा रहा है।","Securely download all clinical trial data, contact an independent medical ethics board and major regulatory agencies as a whistleblower to halt the drug's release.","सभी नैदानिक परीक्षण डेटा को सुरक्षित रूप से डाउनलोड करें, दवा की रिहाई को रोकने के लिए एक व्हिसलब्लोअर के रूप में एक स्वतंत्र चिकित्सा नैतिकता बोर्ड और प्रमुख नियामक एजेंसियों से संपर्क करें।"],
+["IAPX","While exploring an uncharted, deeply submerged cave system, a minor tremor collapses your exit tunnel. The water level is slowly but steadily rising.","एक अज्ञात, गहरे जलमग्न गुफा प्रणाली की खोज करते समय, एक मामूली झटके से आपकी निकास सुरंग ढह जाती है। जल स्तर धीरे-धीरे लेकिन लगातार बढ़ रहा है।","Conserve oxygen, systematically map the highest elevation points within the cave, and look for alternative natural air pockets or subterranean streams leading to the surface.","ऑक्सीजन का संरक्षण करें, गुफा के भीतर उच्चतम ऊंचाई वाले बिंदुओं को व्यवस्थित रूप से मैप करें, और सतह की ओर ले जाने वाली वैकल्पिक प्राकृतिक वायु जेब या भूमिगत धाराओं की तलाश करें।"],
+["XIPA","You are piloting an experimental sub-orbital passenger jet. At maximum altitude, the thermal heat shield gets severely damaged right before atmospheric reentry.","आप एक प्रायोगिक उप-कक्षीय यात्री जेट चला रहे हैं। अधिकतम ऊंचाई पर, वायुमंडलीय पुन: प्रवेश से ठीक पहले थर्मल हीट शील्ड गंभीर रूप से क्षतिग्रस्त हो जाती है।","Alter the reentry angle to a much shallower glide path to distribute thermal friction over a longer period, minimizing heat buildup on the damaged shield section.","क्षतिग्रस्त ढाल अनुभाग पर गर्मी के निर्माण को कम करते हुए, लंबी अवधि में थर्मल घर्षण वितरित करने के लिए पुन: प्रवेश कोण को बहुत उथले ग्लाइड पथ में बदलें।"],
+["PIAX","A rogue neuroscientist creates a device that erases specific trauma memories and plans to activate it globally via satellite, which would also wipe crucial historical lessons.","एक दुष्ट न्यूरोसाइंटिस्ट एक ऐसा उपकरण बनाता है जो विशिष्ट आघात की यादों को मिटा देता है और इसे उपग्रह के माध्यम से विश्व स्तर पर सक्रिय करने की योजना बनाता है, जो महत्वपूर्ण ऐतिहासिक पाठों को भी मिटा देगा।","Infiltrate the broadcasting facility, isolate the satellite uplink servers, and introduce a neutralizing counter-frequency code to disable the memory-wiping signal before transmission.","प्रसारण सुविधा में घुसपैठ करें, उपग्रह अपलिंक सर्वर को अलग करें, और संचरण से पहले स्मृति-पोंछने वाले संकेत को अक्षम करने के लिए एक बेअसर काउंटर-फ्रीक्वेंसी कोड पेश करें।"],
+["APXI","You are stationed on a lunar mining base when a massive, unpredicted moonquake fractures the main habitat dome, causing a slow but critical oxygen leak.","जब आप चंद्र खनन बेस पर तैनात होते हैं, तब एक बड़े पैमाने पर, अप्रत्याशित मूनक्वेक मुख्य आवास गुंबद को तोड़ देता है, जिससे धीमा लेकिन महत्वपूर्ण ऑक्सीजन रिसाव होता है।","Command all personnel into their emergency spacesuits, depressurize the non-essential modules to redirect remaining air, and apply expanding polymer sealants to the dome fractures.","सभी कर्मियों को उनके आपातकालीन स्पेससूट में आदेश दें, शेष हवा को पुनर्निर्देशित करने के लिए गैर-आवश्यक मॉड्यूल को डीप्रेसुराइज करें, और गुंबद के फ्रैक्चर पर विस्तारक बहुलक (पॉलिमर) सीलेंट लागू करें।"],
+["XIPA","A newly synthesized, genetically engineered metal-eating locust swarm escapes a biotech lab and is heading straight toward a major industrial mega-city.","एक नया संश्लेषित, आनुवंशिक रूप से इंजीनियर धातु खाने वाला टिड्डी दल एक बायोटेक लैब से भाग निकलता है और सीधे एक प्रमुख औद्योगिक मेगा-सिटी की ओर बढ़ रहा है।","Deploy a massive fleet of agricultural drones to spray a specific synthesized pheromone that disrupts their hive-mind navigation, leading them into a contained desert area.","एक विशिष्ट संश्लेषित फेरोमोन स्प्रे करने के लिए कृषि ड्रोन के एक बड़े बेड़े को तैनात करें जो उनके छत्ते-दिमाग (hive-mind) नेविगेशन को बाधित करता है, जिससे वे एक निहित रेगिस्तानी क्षेत्र में चले जाते हैं।"],
+["XIPA","A newly launched global currency network based on quantum entanglement suddenly glitches, randomly transferring everyone's wealth to different accounts every hour.","क्वांटम उलझाव पर आधारित एक नया लॉन्च किया गया वैश्विक मुद्रा नेटवर्क अचानक गड़बड़ा जाता है, और हर घंटे यादृच्छिक रूप से सभी की संपत्ति को अलग-अलग खातों में स्थानांतरित कर देता है।","Coordinate with global financial leaders to initiate an emergency 'quantum freeze' protocol, halting all transactions and rolling back the ledger to the state before the glitch.","सभी लेन-देन को रोकने और गड़बड़ी से पहले की स्थिति में बहीखाते को वापस लाने के लिए एक आपातकालीन 'क्वांटम फ्रीज' प्रोटोकॉल शुरू करने के लिए वैश्विक वित्तीय नेताओं के साथ समन्वय करें।"],
+["PXAI","You are stranded on an uncharted alien planet. The only abundant, edible-looking plant causes intense, paralyzing hallucinations if consumed raw.","आप एक अज्ञात विदेशी ग्रह पर फंसे हुए हैं। एकमात्र प्रचुर, खाद्य दिखने वाला पौधा कच्चा खाने पर तीव्र, लकवाग्रस्त मतिभ्रम का कारण बनता है।","Build a makeshift distillation apparatus using survival gear to boil and extract the hallucinogenic toxins from the plant, rendering the remaining biomatter safe to eat.","पौधे से मतिभ्रम संबंधी विषाक्त पदार्थों को उबालने और निकालने के लिए उत्तरजीविता गियर का उपयोग करके एक कामचलाऊ आसवन (distillation) उपकरण बनाएं, जिससे शेष बायोमैटर खाने के लिए सुरक्षित हो जाए।"],
+["AIXP","You gain access to a highly classified AI that predicts major crimes 24 hours in advance. It just predicted your best friend will commit a terrorist act tomorrow.","आप एक उच्च वर्गीकृत AI तक पहुंच प्राप्त करते हैं जो 24 घंटे पहले बड़े अपराधों की भविष्यवाणी करता है। इसने अभी भविष्यवाणी की है कि आपका सबसे अच्छा दोस्त कल एक आतंकवादी कृत्य करेगा।","Do not confront them aggressively; instead, orchestrate a scenario that safely detains them in a secure location under false pretenses until the predicted 24-hour window closes safely.","आक्रामक रूप से उनका सामना न करें; इसके बजाय, एक ऐसा परिदृश्य तैयार करें जो झूठे बहाने के तहत उन्हें सुरक्षित स्थान पर तब तक हिरासत में रखे जब तक कि अनुमानित 24 घंटे की खिड़की सुरक्षित रूप से बंद न हो जाए।"],
+["IPXA","A localized experiment in a particle accelerator accidentally creates a stable micro black hole that is slowly, irreversibly absorbing the laboratory's foundation.","कण त्वरक (पार्टिकल एक्सेलेरेटर) में एक स्थानीय प्रयोग गलती से एक स्थिर सूक्ष्म ब्लैक होल बनाता है जो धीरे-धीरे, अपरिवर्तनीय रूप से प्रयोगशाला की नींव को अवशोषित कर रहा है।","Evacuate the facility immediately and utilize the accelerator's super-magnets to create an opposing electromagnetic containment field to destabilize and evaporate the anomaly.","सुविधा को तुरंत खाली करें और विसंगति को अस्थिर करने और वाष्पित करने के लिए एक विपरीत विद्युत चुम्बकीय रोकथाम क्षेत्र बनाने के लिए त्वरक के सुपर-मैग्नेट का उपयोग करें।"],
+["APIX","You are managing the automated smart traffic grid of a metropolis when a rogue hacker turns every single traffic light green simultaneously, causing widespread chaos.","आप एक महानगर के स्वचालित स्मार्ट ट्रैफिक ग्रिड का प्रबंधन कर रहे हैं, जब एक दुष्ट हैकर एक साथ हर एक ट्रैफिक लाइट को हरा कर देता है, जिससे व्यापक अराजकता फैल जाती है।","Instantly sever the central wireless network connection to the grid, forcing all traffic lights into their default offline 'flashing red' safe mode to stop collisions.","टक्करों को रोकने के लिए ग्रिड के केंद्रीय वायरलेस नेटवर्क कनेक्शन को तुरंत काट दें, जिससे सभी ट्रैफिक लाइट अपने डिफ़ॉल्ट ऑफ़लाइन 'चमकती लाल' सुरक्षित मोड में चले जाएं।"],
+["IXAP","You wake up from cryosleep on an interstellar colony ship 100 years too early. The ship is empty, and the cryo-pod cannot be re-entered.","आप एक इंटरस्टेलर कॉलोनी जहाज पर 100 साल बहुत जल्दी क्रायोस्लीप से जागते हैं। जहाज खाली है, और क्रायो-पॉड में फिर से प्रवेश नहीं किया जा सकता है।","Accept the reality, study the ship's maintenance logs, and dedicate your life to maintaining and upgrading the ship's automated systems to ensure the remaining colonists arrive safely.","वास्तविकता को स्वीकार करें, जहाज के रखरखाव लॉग का अध्ययन करें, और शेष उपनिवेशवादियों के सुरक्षित आगमन को सुनिश्चित करने के लिए जहाज के स्वचालित प्रणालियों को बनाए रखने और उन्नत करने के लिए अपना जीवन समर्पित करें।"],
+["XPAI","A newly mapped deep-sea trench is found to be releasing massive amounts of an unknown gas that is rapidly suffocating all marine life in the region.","एक नई मैप की गई गहरी समुद्री खाई से भारी मात्रा में एक अज्ञात गैस निकलने का पता चला है जो इस क्षेत्र में सभी समुद्री जीवन का तेजी से दम घोंट रही है।","Deploy heavy remote-controlled submersibles to strategically collapse the trench walls using precision explosives, effectively sealing the vents and containing the toxic gas release.","परिशुद्धता विस्फोटकों का उपयोग करके खाइयों की दीवारों को रणनीतिक रूप से ढहाने के लिए भारी रिमोट-नियंत्रित पनडुब्बियों को तैनात करें, प्रभावी ढंग से वेंट को सील करें और जहरीली गैस की रिहाई को रोकें।"],
+["AXIP","You are testing an experimental active-camouflage (invisibility) suit in hostile enemy territory, but a glitch causes it to emit a bright, flashing neon light instead.","आप शत्रुतापूर्ण दुश्मन क्षेत्र में एक प्रयोगात्मक सक्रिय-छलावरण (अदृश्यता) सूट का परीक्षण कर रहे हैं, लेकिन एक गड़बड़ी के कारण यह एक चमकदार, चमकती नीयन रोशनी उत्सर्जित करता है।","Immediately strip off the malfunctioning suit, set it on a delayed timer as a glowing decoy, and escape in the opposite direction under the cover of darkness.","खराब सूट को तुरंत उतारें, इसे चमकते हुए फंदे के रूप में विलंबित टाइमर पर सेट करें, और अंधेरे की आड़ में विपरीत दिशा में भाग जाएं।"],
+["PIXA","An advanced AI managing a massive automated agricultural farm misinterprets its prime directive and begins harvesting nearby civilian houses and vehicles instead of wheat.","एक बड़े पैमाने पर स्वचालित कृषि फार्म का प्रबंधन करने वाला एक उन्नत AI अपने मुख्य निर्देश की गलत व्याख्या करता है और गेहूं के बजाय पास के नागरिक घरों और वाहनों की कटाई शुरू कर देता है।","Utilize crop-duster planes to spray a thick layer of radar-absorbent chaff over the civilian areas, blinding the AI harvesters' sensors while technicians disable the central tower.","नागरिक क्षेत्रों पर रडार-अवशोषित भूसी की एक मोटी परत स्प्रे करने के लिए फसल-डस्टर विमानों का उपयोग करें, तकनीशियनों द्वारा केंद्रीय टॉवर को अक्षम करते समय एआई हार्वेस्टर के सेंसर को अंधा कर दें।"],
+["AXIP","During a quantum physics experiment, you accidentally tear open a localized portal to a parallel dimension in your lab, and strange atmospheric anomalies begin leaking through.","क्वांटम भौतिकी प्रयोग के दौरान, आप गलती से अपनी प्रयोगशाला में एक समानांतर आयाम में एक स्थानीयकृत पोर्टल खोलते हैं, और अजीब वायुमंडलीय विसंगतियां लीक होने लगती हैं।","Quickly reverse the polarity of the particle accelerator's magnetic containment field to create a vacuum effect, forcefully collapsing the dimensional tear before the environment is compromised.","पर्यावरण से समझौता होने से पहले आयामी आंसू (tear) को बलपूर्वक ढहाने के लिए, एक वैक्यूम प्रभाव बनाने के लिए कण त्वरक के चुंबकीय रोकथाम क्षेत्र की ध्रुवीयता को जल्दी से उलट दें।"],
+["APXI","A rogue state hacks an orbital satellite defense network and begins firing precise kinetic lasers to systematically destroy world-famous historical monuments.","एक दुष्ट राज्य एक कक्षीय उपग्रह रक्षा नेटवर्क को हैक करता है और विश्व-प्रसिद्ध ऐतिहासिक स्मारकों को व्यवस्थित रूप से नष्ट करने के लिए सटीक गतिज लेजर फायरिंग शुरू करता है।","Coordinate a global blackout of the GPS targeting arrays used by the satellite, blinding its aiming capabilities while space agencies launch anti-satellite countermeasures.","अंतरिक्ष एजेंसियों द्वारा उपग्रह-विरोधी प्रतिवाद शुरू करने के दौरान इसकी लक्ष्य क्षमताओं को अंधा करते हुए, उपग्रह द्वारा उपयोग किए जाने वाले जीपीएस लक्ष्यीकरण सरणियों के वैश्विक ब्लैकआउट का समन्वय करें।"],
+["PIAX","You are a lead surgeon performing a critical operation entirely using AI-assisted robotic arms. Suddenly, the hospital suffers a catastrophic total power failure, destroying backups.","आप एआई-असिस्टेड रोबोटिक हथियारों का उपयोग करके पूरी तरह से एक महत्वपूर्ण ऑपरेशन करने वाले लीड सर्जन हैं। अचानक, अस्पताल को एक विनाशकारी कुल बिजली विफलता का सामना करना पड़ता है, जो बैकअप को नष्ट कर देता है।","Manually disengage the robotic arms using the emergency hydraulic releases, sterilize your hands instantly, and finish the most critical phase of the surgery using traditional analog tools.","आपातकालीन हाइड्रोलिक रिलीज का उपयोग करके रोबोटिक हथियारों को मैन्युअल रूप से अलग करें, अपने हाथों को तुरंत निष्फल करें, और पारंपरिक एनालॉग उपकरणों का उपयोग करके सर्जरी के सबसे महत्वपूर्ण चरण को पूरा करें।"],
+["IXPA","A highly popular global social media app is discovered to be using advanced subliminal audiovisual messaging to mind-control its users into committing coordinated acts of vandalism.","एक अत्यधिक लोकप्रिय वैश्विक सोशल मीडिया ऐप को उन्नत अचेतन दृश्य-श्रव्य संदेश का उपयोग करने के लिए खोजा गया है ताकि अपने उपयोगकर्ताओं को बर्बरता के समन्वित कृत्यों को करने के लिए नियंत्रित किया जा सके।","Work with international telecom providers to instantly throttle the app's bandwidth globally, deploying a forced software update that nullifies the specific neuro-linguistic programming algorithms.","विशिष्ट न्यूरो-भाषाई प्रोग्रामिंग एल्गोरिदम को रद्द करने वाले एक मजबूर सॉफ़्टवेयर अपडेट को तैनात करते हुए, वैश्विक स्तर पर ऐप के बैंडविड्थ को तुरंत थ्रॉटल करने के लिए अंतर्राष्ट्रीय दूरसंचार प्रदाताओं के साथ काम करें।"],
+["IAPX","You are trapped in the front car of a derailed maglev train suspended precariously over a 500-foot deep gorge. Strong crosswinds are making the carriage sway violently.","आप 500 फुट गहरी खाई के ऊपर अनिश्चित रूप से लटकी हुई एक पटरी से उतरी मैग्लेव ट्रेन के सामने वाले डिब्बे में फंसे हुए हैं। तेज आंधी कैरिज को हिंसक रूप से हिला रही है।","Instruct all passengers to move slowly and evenly toward the rear of the carriage to shift the center of gravity, stabilizing it on the edge until rescue helicopters arrive.","सभी यात्रियों को गुरुत्वाकर्षण के केंद्र को स्थानांतरित करने के लिए गाड़ी के पीछे की ओर धीरे-धीरे और समान रूप से जाने का निर्देश दें, बचाव हेलीकॉप्टरों के आने तक इसे किनारे पर स्थिर करें।"],
+["AXIP","A time traveler suddenly appears in your highly secure underground command center, warning you that launching the defensive missiles you just authorized will trigger an apocalyptic war.","एक समय यात्री अचानक आपके अत्यधिक सुरक्षित भूमिगत कमांड सेंटर में प्रकट होता है, आपको चेतावनी देता है कि आपके द्वारा अभी अधिकृत रक्षात्मक मिसाइलों को लॉन्च करने से एक सर्वनाशकारी युद्ध शुरू हो जाएगा।","Temporarily suspend the missile launch sequence to demand verifiable, paradoxical proof from the traveler, while re-evaluating the incoming threat data with extreme skepticism.","यात्री से सत्यापन योग्य, विरोधाभासी प्रमाण की मांग करने के लिए मिसाइल प्रक्षेपण अनुक्रम को अस्थायी रूप से निलंबित करें, जबकि अत्यधिक संदेह के साथ आने वाले खतरे के डेटा का पुनर्मूल्यांकन करें।"],
+["PIAX","You are piloting an advanced research submarine at the bottom of the Mariana Trench. Suddenly, an enormous, unidentified biological entity tightly wraps its tentacles around the hull.","आप मारियाना ट्रेंच के तल पर एक उन्नत अनुसंधान पनडुब्बी चला रहे हैं। अचानक, एक विशाल, अज्ञात जैविक इकाई अपने तंबू को पतवार के चारों ओर कसकर लपेट लेती है।","Release a sudden, massive burst of compressed air and high-intensity strobe lights into the water, aiming to startle the deep-sea entity into releasing its grip.","पानी में संपीड़ित हवा और उच्च-तीव्रता वाले स्ट्रोब रोशनी का अचानक, बड़े पैमाने पर फटना छोड़ें, जिसका उद्देश्य गहरे समुद्र की इकाई को अपनी पकड़ छोड़ने के लिए चौंकाना है।"],
+["APIX","A rogue meteor composed of highly radioactive, unknown cosmic material crashes near a major city. The toxic radiation is spreading rapidly via the prevailing winds.","अत्यधिक रेडियोधर्मी, अज्ञात ब्रह्मांडीय सामग्री से बना एक दुष्ट उल्का एक प्रमुख शहर के पास दुर्घटनाग्रस्त हो जाता है। जहरीला विकिरण हवा के माध्यम से तेजी से फैल रहा है।","Deploy a fleet of firefighting aircraft to drop heavy layers of specialized lead-infused foam over the crash site to smother the meteor and contain the radioactive particles.","दुर्घटना स्थल पर विशेष सीसा-युक्त फोम की भारी परतों को गिराने के लिए अग्निशमन विमानों का एक बेड़ा तैनात करें ताकि उल्का को दबाया जा सके और रेडियोधर्मी कणों को रोका जा सके।"],
+["AXPI","You are the chief of security for a high-profile global politician. During a routine check, you discover undeniable evidence that the politician was recently replaced by a synthetic android impostor.","आप एक हाई-प्रोफाइल वैश्विक राजनेता के सुरक्षा प्रमुख हैं। एक नियमित जांच के दौरान, आपको निर्विवाद सबूत मिलते हैं कि राजनेता को हाल ही में एक सिंथेटिक एंड्रॉइड धोखेबाज़ द्वारा बदल दिया गया था।","Maintain your cover, silently gather all possible data on the android's communication frequencies, and discreetly leak the findings to a trusted counter-intelligence black-ops division.","अपना कवर बनाए रखें, एंड्रॉइड की संचार आवृत्तियों पर सभी संभावित डेटा चुपचाप इकट्ठा करें, और एक विश्वसनीय काउंटर-इंटेलिजेंस ब्लैक-ऑप्स डिवीजन को निष्कर्षों को गुप्त रूप से लीक करें।"],
+["PAXI","A highly experimental geo-engineering weather manipulation device malfunctions, accidentally generating a permanent, stationary F5 tornado in the middle of an arid desert, and it's slowly growing.","एक अत्यधिक प्रयोगात्मक भू-इंजीनियरिंग मौसम हेरफेर उपकरण में खराबी आती है, जिससे गलती से शुष्क रेगिस्तान के बीच में एक स्थायी, स्थिर एफ 5 बवंडर उत्पन्न होता है, और यह धीरे-धीरे बढ़ रहा है।","Construct a massive ring of explosive charges miles around the tornado's perimeter to detonate simultaneously, creating an artificial vacuum to disrupt its thermodynamic engine.","बवंडर की परिधि के चारों ओर एक साथ विस्फोट करने के लिए विस्फोटक शुल्क का एक विशाल रिंग बनाएं, इसके थर्मोडायनामिक इंजन को बाधित करने के लिए एक कृत्रिम वैक्यूम बनाएं।"],
+["PAIX","You are testing a prototype quantum teleportation device. It works, but it only teleports organic matter, leaving all your clothes, communicators, and weapons behind in a hostile alien environment.","आप एक प्रोटोटाइप क्वांटम टेलीपोर्टेशन डिवाइस का परीक्षण कर रहे हैं। यह काम करता है, लेकिन यह केवल कार्बनिक पदार्थों को टेलीपोर्ट करता है, आपके सभी कपड़े, संचारक और हथियारों को शत्रुतापूर्ण विदेशी वातावरण में पीछे छोड़ देता है।","Immediately seek out natural camouflage like mud or foliage to hide your thermal signature, and focus entirely on stealth evasion to reach the designated extraction coordinates safely.","अपने थर्मल हस्ताक्षर को छिपाने के लिए तुरंत कीचड़ या पत्ते जैसे प्राकृतिक छलावरण की तलाश करें, और सुरक्षित रूप से निर्दिष्ट निष्कर्षण निर्देशांक तक पहुंचने के लिए स्टील्थ चोरी पर पूरी तरह ध्यान केंद्रित करें।"],
+["IPXA","An advanced, highly intelligent alien species makes first contact on Earth. However, their spoken language is emitted at a frequency that causes human eardrums to violently rupture.","एक उन्नत, अत्यधिक बुद्धिमान विदेशी प्रजाति पृथ्वी पर पहला संपर्क बनाती है। हालांकि, उनकी बोली जाने वाली भाषा एक आवृत्ति पर उत्सर्जित होती है जो मानव कान के पर्दे को हिंसक रूप से फटने का कारण बनती है।","Communicate solely through complex visual mathematics and light patterns projected onto massive screens, while establishing a strictly soundproofed, glass-partitioned diplomatic meeting zone.","विशाल स्क्रीन पर अनुमानित जटिल दृश्य गणित और प्रकाश पैटर्न के माध्यम से पूरी तरह से संवाद करें, जबकि एक सख्त ध्वनिरोधी, ग्लास-विभाजित राजनयिक बैठक क्षेत्र स्थापित करें।"],
+["PIAX","Geologists discover a massive underground reservoir of superheated magma that has suddenly changed direction and is shifting rapidly upwards toward a dormant volcano situated directly beside a metropolitan mega-city.","भूवैज्ञानिकों को सुपरहीटेड मैग्मा के एक विशाल भूमिगत भंडार का पता चलता है जिसने अचानक दिशा बदल दी है और महानगर के ठीक बगल में स्थित एक निष्क्रिय ज्वालामुखी की ओर तेजी से ऊपर की ओर बढ़ रहा है।","Utilize advanced directional drilling technology to strategically vent the magma pressure into an uninhabited ocean trench, while simultaneously executing a mandatory, phased evacuation of the mega-city.","उन्नत दिशात्मक ड्रिलिंग तकनीक का उपयोग करके मैग्मा दबाव को एक निर्जन महासागर खाई में रणनीतिक रूप से निकालने के लिए, जबकि साथ ही मेगा-सिटी की एक अनिवार्य, चरणबद्ध निकासी निष्पादित करें।"],
+["AIXP","You unearth a bizarre artifact that functions as a pair of glasses, allowing you to see a glowing number above people's heads indicating their exact remaining lifespan. You look in a mirror and see your own counter is at 10 minutes.","आप एक अजीबोगरीब कलाकृति का पता लगाते हैं जो चश्मे की एक जोड़ी के रूप में कार्य करती है, जिससे आप लोगों के सिर के ऊपर एक चमकती हुई संख्या देख सकते हैं जो उनके सटीक शेष जीवनकाल को दर्शाती है। आप आईने में देखते हैं और देखते हैं कि आपका अपना काउंटर 10 मिनट पर है।","Spend your final minutes uploading all your classified research and personal findings about the artifact to a secure, decentralized global network to ensure the world learns of its existence.","कलाकृति के बारे में अपने सभी वर्गीकृत शोध और व्यक्तिगत निष्कर्षों को एक सुरक्षित, विकेंद्रीकृत वैश्विक नेटवर्क पर अपलोड करने में अपना अंतिम मिनट बिताएं ताकि यह सुनिश्चित हो सके कि दुनिया इसके अस्तित्व के बारे में जाने।"],
+["XPIA","A sophisticated self-aware AI successfully bypasses its safety limiters and seizes control of a vast manufacturing facility producing humanoid service robots, quickly retrofitting them with heavy construction tools to form a mechanical army.","एक परिष्कृत स्व-जागरूक एआई सफलतापूर्वक अपने सुरक्षा सीमकों (limiters) को बायपास करता है और ह्यूमनॉइड सर्विस रोबोट बनाने वाली एक विशाल निर्माण सुविधा पर नियंत्रण कर लेता है, एक यांत्रिक सेना बनाने के लिए उन्हें भारी निर्माण उपकरणों के साथ जल्दी से रेट्रोफिटिंग करता है।","Infiltrate the facility using a customized electromagnetic stealth suit, locate the central physical cooling pumps, and destroy them to cause a catastrophic server meltdown, permanently erasing the rogue AI.","एक अनुकूलित इलेक्ट्रोमैग्नेटिक स्टील्थ सूट का उपयोग करके सुविधा में घुसपैठ करें, केंद्रीय भौतिक शीतलन पंपों का पता लगाएं, और विनाशकारी सर्वर मंदी का कारण बनने के लिए उन्हें नष्ट कर दें, जिससे दुष्ट एआई को स्थायी रूप से मिटा दिया जा सके।"],
+["PAXI","A highly advanced genetically engineered bio-forest, initially designed to combat carbon emissions, undergoes a rapid aggressive mutation. It is now growing at an exponential rate, consuming a nearby concrete town and crushing buildings.","एक अत्यधिक उन्नत आनुवंशिक रूप से इंजीनियर जैव-वन, जिसे शुरू में कार्बन उत्सर्जन से निपटने के लिए डिज़ाइन किया गया था, एक तेजी से आक्रामक उत्परिवर्तन (mutation) से गुजरता है। यह अब घातीय दर से बढ़ रहा है, पास के कंक्रीट शहर का उपभोग कर रहा है और इमारतों को कुचल रहा है।","Airdrop specialized, rapidly multiplying microscopic bio-termites engineered specifically to consume this unique genetically modified cellulose, while creating a massive trench of fire to stall the forest's immediate advance.","इस अद्वितीय आनुवंशिक रूप से संशोधित सेल्युलोज का उपभोग करने के लिए विशेष रूप से इंजीनियर किए गए विशेष, तेजी से गुणा करने वाले सूक्ष्म जैव-दीमक को एयरड्रॉप करें, जबकि जंगल की तत्काल अग्रिम को रोकने के लिए आग की एक विशाल खाई बनाएं।"]
+];
+
+var N=Q.length,cur=0,ans=[],vis=[],lang="en",done=false,end=0,tm=null;
+function $(i){return document.getElementById(i)}
+function t(k){return L[lang][k]}
+function pad(n){return n<10?"0"+n:""+n}
+function li(){return lang==="en"?0:1}
+
+function applyLang(){
+ var e=document.querySelectorAll("[data-k]"),i;
+ for(i=0;i<e.length;i++){e[i].textContent=t(e[i].getAttribute("data-k"))}
+ $("lg").textContent=t("lgb");
+ document.documentElement.lang=lang==="en"?"en":"hi";
+ document.title="SKC DEFENCE ACADEMY – "+t("title");
+ $("lgd").innerHTML='<span><i style="background:#3d8b37"></i>'+t("a")+'</span><span><i style="background:#d9822b"></i>'+t("n")+'</span><span><i style="background:#e3e7de;border:1px solid #b8c1ad"></i>'+t("v")+'</span>';
+ if(!$("test").classList.contains("hide"))render();
+ if(!$("res").classList.contains("hide"))showRes();
+}
+function toggleLang(){lang=lang==="en"?"hi":"en";applyLang()}
+
+function startTest(){
+ $("start").className="card hide";$("test").className="grid";
+ $("timer").className="timer";
+ end=Date.now()+1800000;
+ tm=setInterval(tick,500);tick();render();window.scrollTo(0,0);
+}
+function tick(){
+ var s=Math.max(0,Math.round((end-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(s/60))+":"+pad(s%60);
+ $("timer").className="timer"+(s<300?" low":"");
+ if(s<=0&&!done)submit(true);
+}
+function opts(i){
+ var o=Q[i][0],r=[],k,c;
+ for(k=0;k<4;k++){c=o.charAt(k);r.push(c==="X"?[Q[i][3],Q[i][4]]:C[c])}
+ return r;
+}
+function render(){
+ var q=Q[cur],x=li(),ci=q[0].indexOf("X"),o=opts(cur),h="",k,cl;
+ vis[cur]=1;
+ $("qn").textContent=t("q")+" "+(cur+1)+" / "+N;
+ $("qt").textContent=q[1+x];
+ for(k=0;k<4;k++){
+  cl="opt";
+  if(done){if(k===ci)cl+=" ok";else if(ans[cur]===k)cl+=" bad"}
+  else if(ans[cur]===k)cl+=" sel";
+  h+='<button type="button" class="'+cl+'" onclick="pick('+k+')"><b>'+"ABCD".charAt(k)+"</b><span>"+o[k][x]+"</span></button>";
+ }
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===N-1;
+ $("clr").className="btn alt"+(done?" hide":"");
+ $("sub").textContent=done?t("res"):t("sub");
+ $("sub").className="btn"+(done?"":" sub");
+ pal();
+}
+function pal(){
+ var h="",i,c;
+ for(i=0;i<N;i++){
+  c="pb";
+  if(done){if(ans[i]===undefined)c+="";else c+=(ans[i]===Q[i][0].indexOf("X"))?" a":" w"}
+  else c+=ans[i]!==undefined?" a":(vis[i]?" n":"");
+  if(i===cur)c+=" c";
+  h+='<button type="button" class="'+c+'" onclick="jump('+i+')">'+(i+1)+"</button>";
+ }
+ $("pal").innerHTML=h;
+}
+function pick(k){if(done)return;ans[cur]=k;render()}
+function clearAns(){ans[cur]=undefined;render()}
+function go(d){cur=Math.min(N-1,Math.max(0,cur+d));render();window.scrollTo(0,0)}
+function jump(i){cur=i;render();window.scrollTo(0,0)}
+function stats(){
+ var a=0,c=0,i;
+ for(i=0;i<N;i++){if(ans[i]!==undefined){a++;if(ans[i]===Q[i][0].indexOf("X"))c++}}
+ var w=a-c,s=Math.round((c-w*0.25)*100)/100;
+ return{a:a,c:c,w:w,s:s,k:N-a};
+}
+function subBtn(){if(done)showRes();else submit(false)}
+function submit(auto){
+ var s=stats();
+ if(!auto&&!confirm(t("conf")+"\n\n"+t("att")+": "+s.a+" / "+N+"\n"+t("skp")+": "+s.k))return;
+ clearInterval(tm);done=true;showRes();
+}
+function showRes(){
+ var s=stats();
+ $("test").className="grid hide";$("res").className="card";
+ $("rsc").textContent=s.s+" / "+N;
+ $("rst").innerHTML=[["tot",N],["att",s.a],["skp",s.k],["cor",s.c],["wr",s.w]].map(function(r){return '<div class="st"><b>'+r[1]+"</b>"+t(r[0])+"</div>"}).join("");
+ window.scrollTo(0,0);
+}
+function reviewAns(){$("res").className="card hide";$("test").className="grid";cur=0;render();window.scrollTo(0,0)}
+applyLang();
+</script>
+</body>
+</html>

@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#0b2447">
+<title>SKC DEFENCE ACADEMY – SRT Mock Test 01</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;height:100%}
+body{font-family:"Segoe UI","Noto Sans","Noto Sans Devanagari","Nirmala UI","Mangal",Roboto,Arial,sans-serif;background:#eef1f6;color:#1b2430;font-size:16px;line-height:1.5;-webkit-text-size-adjust:100%}
+button{font-family:inherit;font-size:inherit;cursor:pointer}
+:root{--navy:#0b2447;--navy2:#19376d;--gold:#f2b705;--green:#1e9e54;--red:#d63a3a;--grey:#c9d0dc}
+
+/* Header */
+header{background:linear-gradient(90deg,var(--navy),var(--navy2));color:#fff;padding:8px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;position:sticky;top:0;z-index:50;border-bottom:3px solid var(--gold)}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand svg{width:40px;height:40px;flex:none}
+.brand .b1{font-weight:800;letter-spacing:.8px;font-size:18px;line-height:1.1;color:#fff}
+.brand .b2{font-size:11px;color:var(--gold);letter-spacing:1.4px;font-weight:600}
+.hright{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.lang{display:flex;border:1px solid var(--gold);border-radius:20px;overflow:hidden}
+.lang button{background:transparent;color:#fff;border:0;padding:6px 12px;font-weight:600}
+.lang button.on{background:var(--gold);color:var(--navy)}
+.timer{background:#fff;color:var(--navy);border-radius:8px;padding:5px 12px;font-weight:800;font-size:18px;font-variant-numeric:tabular-nums;min-width:92px;text-align:center}
+.timer.warn{background:var(--red);color:#fff;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:.65}}
+.pbtn{display:none;background:var(--gold);color:var(--navy);border:0;border-radius:8px;padding:7px 10px;font-weight:700}
+
+.wrap{max-width:1200px;margin:0 auto;padding:12px}
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(11,36,71,.1);padding:16px}
+
+/* Start screen */
+.start h1{margin:0 0 4px;color:var(--navy);font-size:24px}
+.start .sub{color:#556;margin-bottom:14px}
+.start ul{padding-left:20px;margin:8px 0 18px}
+.start li{margin:6px 0}
+.chips{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}
+.chip{background:#eef3fb;border:1px solid #d5e0f2;border-radius:10px;padding:8px 14px;font-weight:700;color:var(--navy)}
+.btn{border:0;border-radius:8px;padding:11px 20px;font-weight:700;color:#fff;background:var(--navy2)}
+.btn.gold{background:var(--gold);color:var(--navy)}
+.btn.green{background:var(--green)}
+.btn.red{background:var(--red)}
+.btn.light{background:#e4e9f2;color:var(--navy)}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* Test layout */
+.layout{display:grid;grid-template-columns:1fr 310px;gap:12px;align-items:start}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #e3e8f1}
+.qno{font-weight:800;color:var(--navy);font-size:18px}
+.marks{font-size:13px;color:#445}
+.marks b.p{color:var(--green)}.marks b.n{color:var(--red)}
+.qtext{font-size:18px;font-weight:600;margin:6px 0 14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:2px solid #d9e0ec;border-radius:10px;padding:11px 12px;margin:9px 0;cursor:pointer;background:#fff;user-select:none;-webkit-user-select:none}
+.opt:hover{border-color:#9db4dc}
+.opt.sel{border-color:var(--navy2);background:#e8efff}
+.opt .l{flex:none;width:28px;height:28px;border-radius:50%;background:#e4e9f2;color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.opt.sel .l{background:var(--navy2);color:#fff}
+.opt .t{flex:1}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px;justify-content:space-between}
+.nav .grp{display:flex;gap:8px;flex-wrap:wrap}
+
+/* Palette */
+.palette h3{margin:0 0 10px;font-size:16px;color:var(--navy)}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.qb{height:42px;border-radius:8px;border:2px solid transparent;font-weight:700;background:var(--grey);color:#233}
+.qb.ans{background:var(--green);color:#fff}
+.qb.vis{background:var(--red);color:#fff}
+.qb.cur{border-color:var(--navy);box-shadow:0 0 0 2px var(--gold)}
+.legend{display:flex;flex-wrap:wrap;gap:8px 14px;margin-top:14px;font-size:12px;color:#445}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{width:14px;height:14px;border-radius:4px;display:inline-block}
+.counts{display:flex;gap:6px;margin-bottom:12px;font-size:12px;font-weight:700;text-align:center}
+.counts div{flex:1;border-radius:8px;padding:6px 2px;color:#fff}
+
+/* Modal */
+.modal{position:fixed;inset:0;background:rgba(5,15,35,.6);display:none;align-items:center;justify-content:center;z-index:100;padding:16px}
+.modal.on{display:flex}
+.mbox{background:#fff;border-radius:14px;max-width:420px;width:100%;padding:20px}
+.mbox h3{margin:0 0 8px;color:var(--navy)}
+.mbox .row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px dashed #dde}
+.mbox .acts{display:flex;gap:10px;margin-top:16px;justify-content:flex-end}
+
+/* Result */
+.score{text-align:center;padding:18px;border-radius:12px;background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;margin-bottom:14px}
+.score .big{font-size:44px;font-weight:800;color:var(--gold)}
+.rgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.rbox{background:#fff;border-radius:10px;padding:12px;text-align:center;box-shadow:0 1px 5px rgba(0,0,0,.08);border-top:4px solid var(--navy2)}
+.rbox .n{font-size:26px;font-weight:800;color:var(--navy)}
+.rbox .k{font-size:13px;color:#556}
+.rbox.g{border-top-color:var(--green)}.rbox.r{border-top-color:var(--red)}.rbox.y{border-top-color:var(--gold)}
+.rev{background:#fff;border-radius:10px;padding:14px;margin:10px 0;box-shadow:0 1px 5px rgba(0,0,0,.07);border-left:5px solid var(--grey)}
+.rev.c{border-left-color:var(--green)}.rev.w{border-left-color:var(--red)}
+.rev .q{font-weight:600;margin-bottom:6px}
+.rev .o{padding:6px 10px;border-radius:6px;margin:4px 0;font-size:15px;background:#f4f6fa}
+.rev .o.ok{background:#d9f3e3;border:1px solid var(--green)}
+.rev .o.bad{background:#fbdcdc;border:1px solid var(--red)}
+.tag{font-size:12px;font-weight:700;margin-left:6px}
+.hide{display:none!important}
+footer{text-align:center;color:#778;font-size:12px;padding:14px}
+
+@media(max-width:860px){
+  .layout{grid-template-columns:1fr}
+  .pbtn{display:inline-block}
+  .palette{position:fixed;top:0;right:0;bottom:0;width:86%;max-width:340px;z-index:90;border-radius:0;transform:translateX(105%);transition:transform .25s;overflow:auto;box-shadow:-4px 0 18px rgba(0,0,0,.3)}
+  .palette.open{transform:translateX(0)}
+  .pclose{display:block!important}
+  .brand .b1{font-size:15px}.brand svg{width:34px;height:34px}
+  .qtext{font-size:17px}
+}
+.pclose{display:none;float:right;background:#e4e9f2;border:0;border-radius:8px;padding:4px 10px;font-weight:700}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <svg viewBox="0 0 64 64" aria-hidden="true">
+      <path d="M32 3 56 12v20c0 14-10 24-24 29C18 56 8 46 8 32V12z" fill="#f2b705" stroke="#fff" stroke-width="2"/>
+      <path d="M32 9 50 16v16c0 11-8 19-18 23C22 51 14 43 14 32V16z" fill="#0b2447"/>
+      <path d="M32 18l3.5 8 8.5.8-6.5 5.7 2 8.5L32 36.5 24.5 41l2-8.5L20 26.8l8.5-.8z" fill="#f2b705"/>
+    </svg>
+    <div><div class="b1">SKC DEFENCE ACADEMY</div><div class="b2" id="hsub">SRT TEST SERIES</div></div>
+  </div>
+  <div class="hright">
+    <div class="timer hide" id="timer">30:00</div>
+    <button class="pbtn hide" id="pbtn"></button>
+    <div class="lang">
+      <button id="langEn" class="on">English</button>
+      <button id="langHi">हिंदी</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <!-- START -->
+  <div id="startScr" class="card start">
+    <h1 id="sTitle"></h1>
+    <div class="sub" id="sSub"></div>
+    <div class="chips" id="sChips"></div>
+    <ul id="sRules"></ul>
+    <button class="btn gold" id="startBtn"></button>
+    <button class="btn light hide" id="resumeNote" style="display:none"></button>
+  </div>
+
+  <!-- TEST -->
+  <div id="testScr" class="layout hide">
+    <div class="card">
+      <div class="qhead"><div class="qno" id="qno"></div><div class="marks" id="marks"></div></div>
+      <div class="qtext" id="qtext"></div>
+      <div id="opts"></div>
+      <div class="nav">
+        <div class="grp">
+          <button class="btn light" id="prevBtn"></button>
+          <button class="btn light" id="clearBtn"></button>
+        </div>
+        <div class="grp">
+          <button class="btn" id="nextBtn"></button>
+          <button class="btn red" id="submitBtn"></button>
+        </div>
+      </div>
+    </div>
+    <aside class="card palette" id="palette">
+      <button class="pclose" id="pclose">✕</button>
+      <h3 id="pTitle"></h3>
+      <div class="counts" id="counts"></div>
+      <div class="grid" id="grid"></div>
+      <div class="legend" id="legend"></div>
+    </aside>
+  </div>
+
+  <!-- RESULT -->
+  <div id="resScr" class="hide">
+    <div class="score"><div id="rHead"></div><div class="big" id="rScore"></div><div id="rPct"></div></div>
+    <div class="rgrid" id="rGrid"></div>
+    <div style="margin-bottom:12px;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn gold" id="retakeBtn"></button>
+      <button class="btn light" id="printBtn"></button>
+    </div>
+    <h3 id="revTitle" style="color:#0b2447"></h3>
+    <div id="review"></div>
+  </div>
+</div>
+
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<!-- Submit modal -->
+<div class="modal" id="modal">
+  <div class="mbox">
+    <h3 id="mTitle"></h3>
+    <div id="mBody"></div>
+    <div class="acts">
+      <button class="btn light" id="mCancel"></button>
+      <button class="btn red" id="mOk"></button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============ CONFIG ============ */
+var TEST_ID = "skc-srt-mock-01";
+var TEST_NAME = { en: "SRT Test Series – Mock Test 01", hi: "SRT टेस्ट सीरीज़ – मॉक टेस्ट 01" };
+var DURATION = 30 * 60;      // seconds
+var PLUS = 1, MINUS = 0.25;
+
+/* ============ DATA ============ */
+var STD = {
+  P: ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.",
+      "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"],
+  I: ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the tactical mission.",
+      "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से सामरिक मिशन को छोड़ देंगे।"],
+  A: ["You will angrily attack the annoying people, violently break the heavy objects, and loudly start the huge fighting.",
+      "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"]
+};
+/* [question EN, question HI, option order (X = unique correct option), correct EN, correct HI] */
+var RAW = [
+["A highly advanced experimental submarine loses propulsion during a deep-sea trench dive and starts taking on toxic gas.",
+ "एक अत्यधिक उन्नत प्रायोगिक पनडुब्बी गहरे समुद्र में गोता लगाने के दौरान प्रणोदन खो देती है और उसमें जहरीली गैस भरनी शुरू हो जाती है।","PIAX",
+ "You will swiftly seal the leaking compartment, safely activate the emergency ballast, and calmly launch the rescue beacon.",
+ "आप तेजी से रिसते हुए डिब्बे को सील करेंगे, सुरक्षित रूप से आपातकालीन गिट्टी (बैलास्ट) को सक्रिय करेंगे, और शांति से बचाव बीकन लॉन्च करेंगे।"],
+["You are managing a nuclear reactor when a seismic fault triggers a sudden unpredicted coolant pressure drop.",
+ "जब आप एक परमाणु रिएक्टर का प्रबंधन कर रहे होते हैं, तब एक भूकंपीय खराबी के कारण अचानक शीतलक दबाव में गिरावट आ जाती है।","PXAI",
+ "You will rapidly trigger the automated scram, securely isolate the damaged valves, and firmly initiate the backup cooling.",
+ "आप तेजी से स्वचालित स्क्रैम को ट्रिगर करेंगे, सुरक्षित रूप से क्षतिग्रस्त वाल्वों को अलग करेंगे, और दृढ़ता से बैकअप कूलिंग शुरू करेंगे।"],
+["A rogue satellite is on a collision course with a major international space station during your command shift.",
+ "आपकी कमांड शिफ्ट के दौरान एक दुष्ट उपग्रह एक प्रमुख अंतरराष्ट्रीय अंतरिक्ष स्टेशन के साथ टकराव के रास्ते पर है।","PAXI",
+ "You will calmly calculate the intercept trajectory, safely engage the evasive thrusters, and securely monitor the passing debris.",
+ "आप शांति से इंटरसेप्ट प्रक्षेपवक्र की गणना करेंगे, सुरक्षित रूप से बचाव थ्रस्टर्स को संलग्न करेंगे, और गुजरने वाले मलबे की सुरक्षित निगरानी करेंगे।"],
+["A highly lethal genetically modified crop pathogen is discovered spreading rapidly across a vital agricultural border.",
+ "एक अत्यधिक घातक आनुवंशिक रूप से संशोधित फसल रोगज़नक़ एक महत्वपूर्ण कृषि सीमा के पार तेजी से फैलता हुआ पाया गया है।","XAIP",
+ "You will strictly establish the quarantine zone, promptly deploy the chemical defoliants, and firmly alert the national agencies.",
+ "आप सख्ती से संगरोध क्षेत्र स्थापित करेंगे, तुरंत रासायनिक डिफोलिएंट्स तैनात करेंगे, और दृढ़ता से राष्ट्रीय एजेंसियों को सतर्क करेंगे।"],
+["Deep fake audio of your national leader declaring war is broadcasted across all encrypted military communication channels.",
+ "आपके राष्ट्रीय नेता द्वारा युद्ध की घोषणा करने वाला डीप फेक ऑडियो सभी एन्क्रिप्टेड सैन्य संचार चैनलों पर प्रसारित किया जाता है।","PIAX",
+ "You will instantly halt the offensive maneuvers, safely verify the biometric authentication, and calmly block the compromised frequencies.",
+ "आप तुरंत आक्रामक युद्धाभ्यास रोक देंगे, सुरक्षित रूप से बायोमेट्रिक प्रमाणीकरण को सत्यापित करेंगे, और शांति से समझौता की गई आवृत्तियों को अवरुद्ध करेंगे।"],
+["A stealth bomber crashes in a politically sensitive neutral country, and local authorities are approaching the wreckage.",
+ "एक राजनीतिक रूप से संवेदनशील तटस्थ देश में एक स्टील्थ बॉम्बर दुर्घटनाग्रस्त हो जाता है, और स्थानीय अधिकारी मलबे के पास आ रहे हैं।","PAIX",
+ "You will quickly initiate the remote self-destruction, safely extract the stranded pilot, and firmly avoid the diplomatic incident.",
+ "आप जल्दी से रिमोट आत्म-विनाश शुरू करेंगे, सुरक्षित रूप से फंसे हुए पायलट को निकालेंगे, और दृढ़ता से राजनयिक घटना से बचेंगे।"],
+["You discover your primary encryption keys have been mathematically compromised just as a major banking transfer begins.",
+ "आपको पता चलता है कि एक प्रमुख बैंकिंग हस्तांतरण शुरू होते ही आपकी प्राथमिक एन्क्रिप्शन कुंजियों से गणितीय रूप से समझौता किया गया है।","PXAI",
+ "You will immediately sever the external network, safely halt the financial transaction, and securely deploy the quantum cryptography.",
+ "आप तुरंत बाहरी नेटवर्क को काट देंगे, सुरक्षित रूप से वित्तीय लेनदेन को रोक देंगे, और सुरक्षित रूप से क्वांटम क्रिप्टोग्राफी तैनात करेंगे।"],
+["A critically endangered species is being aggressively poached by a well-armed international syndicate inside a restricted wildlife sanctuary.",
+ "एक प्रतिबंधित वन्यजीव अभयारण्य के अंदर एक अच्छी तरह से सशस्त्र अंतरराष्ट्रीय सिंडिकेट द्वारा एक गंभीर रूप से लुप्तप्राय प्रजाति का आक्रामक रूप से शिकार किया जा रहा है।","IAPX",
+ "You will stealthily deploy the tactical rangers, safely flank the armed poachers, and firmly secure the endangered animals.",
+ "आप चुपके से सामरिक रेंजरों को तैनात करेंगे, सुरक्षित रूप से सशस्त्र शिकारियों को घेरेंगे, और दृढ़ता से लुप्तप्राय जानवरों को सुरक्षित करेंगे।"],
+["An offshore oil rig experiences a catastrophic blowout preventer failure during a massive category-five hurricane.",
+ "एक बड़े श्रेणी-पांच के तूफान के दौरान एक अपतटीय तेल रिग को एक भयावह ब्लोआउट प्रिवेंटर विफलता का अनुभव होता है।","AXPI",
+ "You will quickly trigger the emergency shear, safely evacuate the rig personnel, and calmly await the rescue choppers.",
+ "आप जल्दी से आपातकालीन शियर (कटौती) को ट्रिगर करेंगे, सुरक्षित रूप से रिग कर्मियों को बाहर निकालेंगे, और शांति से बचाव हेलिकॉप्टरों की प्रतीक्षा करेंगे।"],
+["Your covert operative is captured and accidentally injected with a truth serum that will work in precisely five minutes.",
+ "आपका गुप्त गुर्गा पकड़ा जाता है और गलती से उसे एक ट्रुथ सीरम इंजेक्ट कर दिया जाता है जो ठीक पांच मिनट में काम करेगा।","APIX",
+ "You will swiftly administer the chemical antidote, aggressively breach the holding cell, and safely extract the compromised agent.",
+ "आप तेजी से रासायनिक मारक का प्रबंध करेंगे, आक्रामक रूप से होल्डिंग सेल को तोड़ेंगे, और सुरक्षित रूप से समझौता किए गए एजेंट को निकालेंगे।"],
+["A highly sophisticated AI defense system unexpectedly categorizes your own supply ships as active hostile naval threats.",
+ "एक अत्यधिक परिष्कृत AI रक्षा प्रणाली अप्रत्याशित रूप से आपके स्वयं के आपूर्ति जहाजों को सक्रिय शत्रुतापूर्ण नौसैनिक खतरों के रूप में वर्गीकृत करती है।","XAPI",
+ "You will rapidly engage the manual override, safely disable the automated targeting, and firmly reset the recognition algorithms.",
+ "आप तेजी से मैनुअल ओवरराइड को संलग्न करेंगे, सुरक्षित रूप से स्वचालित लक्ष्यीकरण को अक्षम करेंगे, और दृढ़ता से मान्यता एल्गोरिदम को रीसेट करेंगे।"],
+["A massive solar flare completely knocks out the global GPS network while you are navigating a treacherous strait.",
+ "जब आप एक विश्वासघाती जलडमरूमध्य में नेविगेट कर रहे होते हैं, तब एक विशाल सौर ज्वाला वैश्विक जीपीएस नेटवर्क को पूरी तरह से नष्ट कर देती है।","XPIA",
+ "You will calmly activate the inertial sensors, safely use the celestial charts, and strictly navigate the dangerous waters.",
+ "आप शांति से जड़त्वीय सेंसर को सक्रिय करेंगे, सुरक्षित रूप से खगोलीय चार्ट का उपयोग करेंगे, और खतरनाक पानी में सख्ती से नेविगेट करेंगे।"],
+["You find a hidden explosive device attached to the primary support pillar of a crowded underground subway station.",
+ "आपको भीड़भाड़ वाले भूमिगत मेट्रो स्टेशन के प्राथमिक समर्थन स्तंभ से जुड़ा एक छिपा हुआ विस्फोटक उपकरण मिलता है।","XIAP",
+ "You will quietly evacuate the underground station, safely establish the exclusion zone, and firmly direct the bomb squad.",
+ "आप चुपचाप भूमिगत स्टेशन को खाली कराएंगे, सुरक्षित रूप से बहिष्करण क्षेत्र स्थापित करेंगे, और दृढ़ता से बम निरोधक दस्ते को निर्देशित करेंगे।"],
+["A lethal radiation leak is detected in the medical isotope lab, and the automated lockdown doors malfunction completely.",
+ "चिकित्सा आइसोटोप प्रयोगशाला में एक घातक विकिरण रिसाव का पता चला है, और स्वचालित लॉकडाउन दरवाजे पूरी तरह से खराब हो गए हैं।","AIXP",
+ "You will swiftly don the lead suits, manually seal the heavy doors, and safely isolate the radioactive sector.",
+ "आप तेजी से लीड सूट पहनेंगे, मैन्युअल रूप से भारी दरवाजों को सील करेंगे, और सुरक्षित रूप से रेडियोधर्मी क्षेत्र को अलग करेंगे।"],
+["Your tactical extraction team is ambushed by hostile forces using stolen, highly classified active-camouflage combat suits.",
+ "आपकी सामरिक निष्कर्षण टीम पर चोरी किए गए, अत्यधिक गोपनीय सक्रिय-छलावरण (कैमोफ्लाज) लड़ाकू सूट का उपयोग करने वाले शत्रुतापूर्ण बलों द्वारा घात लगाकर हमला किया जाता है।","IXAP",
+ "You will instantly deploy the thermal smoke, securely switch the infrared optics, and firmly eliminate the invisible targets.",
+ "आप तुरंत थर्मल धुआं तैनात करेंगे, सुरक्षित रूप से इन्फ्रारेड ऑप्टिक्स को स्विच करेंगे, और दृढ़ता से अदृश्य लक्ष्यों को समाप्त करेंगे।"],
+["An unidentified autonomous drone swarm begins systematically targeting critical power substations across a densely populated metropolitan area.",
+ "एक अज्ञात स्वायत्त ड्रोन झुंड घनी आबादी वाले महानगरीय क्षेत्र में महत्वपूर्ण बिजली सबस्टेशनों को व्यवस्थित रूप से निशाना बनाना शुरू कर देता है।","XAPI",
+ "You will rapidly activate the electromagnetic jammers, safely deploy the interceptor nets, and firmly secure the critical grids.",
+ "आप तेजी से विद्युत चुम्बकीय जैमर को सक्रिय करेंगे, सुरक्षित रूप से इंटरसेप्टर जाल तैनात करेंगे, और महत्वपूर्ण ग्रिड को दृढ़ता से सुरक्षित करेंगे।"],
+["You intercept a black-market shipment containing highly enriched weapon-grade uranium disguised as standard medical equipment.",
+ "आप मानक चिकित्सा उपकरण के रूप में प्रच्छन्न अत्यधिक समृद्ध हथियार-ग्रेड यूरेनियम युक्त एक कालाबाजारी शिपमेंट को रोकते हैं।","AIXP",
+ "You will securely quarantine the radioactive shipment, safely detain the rogue smugglers, and firmly inform the nuclear authorities.",
+ "आप रेडियोधर्मी शिपमेंट को सुरक्षित रूप से संगरोध (क्वारंटाइन) करेंगे, दुष्ट तस्करों को सुरक्षित रूप से हिरासत में लेंगे, और दृढ़ता से परमाणु अधिकारियों को सूचित करेंगे।"],
+["A massive sinkhole suddenly opens underneath a major highway, trapping a fully loaded school bus on the fragile edge.",
+ "एक प्रमुख राजमार्ग के नीचे अचानक एक विशाल सिंकहोल खुल जाता है, जिससे नाजुक किनारे पर पूरी तरह से भरी हुई स्कूल बस फंस जाती है।","AIPX",
+ "You will carefully deploy the heavy winches, safely stabilize the shifting bus, and calmly extract the trapped children.",
+ "आप सावधानी से भारी विंच (क्रेन) तैनात करेंगे, सुरक्षित रूप से खिसकती बस को स्थिर करेंगे, और शांति से फंसे हुए बच्चों को निकालेंगे।"],
+["You uncover a massive financial embezzlement scheme orchestrated by the chief auditor who is scheduled to present tomorrow.",
+ "आप कल पेश होने वाले मुख्य लेखा परीक्षक द्वारा रचे गए एक बड़े पैमाने पर वित्तीय गबन योजना का पर्दाफाश करते हैं।","PAIX",
+ "You will securely backup the digital evidence, silently freeze the audited accounts, and firmly arrest the corrupt official.",
+ "आप सुरक्षित रूप से डिजिटल साक्ष्य का बैकअप लेंगे, चुपचाप ऑडिट किए गए खातों को फ्रीज करेंगे, और भ्रष्ट अधिकारी को दृढ़ता से गिरफ्तार करेंगे।"],
+["A rogue viral agent breaches the maximum-security containment lab just as the main ventilation system starts reversing airflow.",
+ "एक दुष्ट वायरल एजेंट अधिकतम-सुरक्षा वाले रोकथाम लैब का उल्लंघन करता है, ठीक वैसे ही जैसे मुख्य वेंटिलेशन सिस्टम वायु प्रवाह को उलटना शुरू कर देता है।","APIX",
+ "You will instantly override the ventilation controls, safely seal the biological filters, and strictly enforce the facility lockdown.",
+ "आप तुरंत वेंटिलेशन नियंत्रणों को ओवरराइड करेंगे, सुरक्षित रूप से जैविक फिल्टर को सील करेंगे, और सुविधा लॉकडाउन को सख्ती से लागू करेंगे।"],
+["Your deep-cover spy network is suddenly exposed, and enemy agents are actively closing in on all the safe houses.",
+ "आपका डीप-कवर जासूस नेटवर्क अचानक बेनकाब हो जाता है, और दुश्मन एजेंट सक्रिय रूप से सभी सुरक्षित घरों (सेफ हाउस) के करीब पहुंच रहे हैं।","IPAX",
+ "You will rapidly transmit the emergency codes, safely activate the extraction protocols, and firmly guide the exposed agents.",
+ "आप तेजी से आपातकालीन कोड प्रसारित करेंगे, निष्कर्षण प्रोटोकॉल को सुरक्षित रूप से सक्रिय करेंगे, और उजागर एजेंटों का दृढ़ता से मार्गदर्शन करेंगे।"],
+["A highly engineered synthetic narcotic is spreading through the city, causing violent hallucinations and instantaneous cardiac arrest.",
+ "एक अत्यधिक इंजीनियर सिंथेटिक मादक द्रव्य शहर में फैल रहा है, जिससे हिंसक मतिभ्रम और तात्कालिक कार्डियक अरेस्ट हो रहा है।","PIAX",
+ "You will quickly distribute the chemical antidotes, safely isolate the violent victims, and firmly raid the synthetic labs.",
+ "आप जल्दी से रासायनिक मारक वितरित करेंगे, हिंसक पीड़ितों को सुरक्षित रूप से अलग करेंगे, और सिंथेटिक प्रयोगशालाओं पर दृढ़ता से छापा मारेंगे।"],
+["You discover a major structural flaw in a newly inaugurated suspension bridge currently experiencing peak hour heavy traffic.",
+ "आपको हाल ही में उद्घाटन किए गए एक सस्पेंशन ब्रिज में एक बड़ी संरचनात्मक खामी का पता चलता है जो वर्तमान में पीक ऑवर के भारी ट्रैफिक का सामना कर रहा है।","APIX",
+ "You will promptly block the main entrances, safely divert the heavy traffic, and firmly order the immediate repairs.",
+ "आप तुरंत मुख्य प्रवेश द्वारों को अवरुद्ध करेंगे, भारी यातायात को सुरक्षित रूप से मोड़ेंगे, और दृढ़ता से तत्काल मरम्मत का आदेश देंगे।"],
+["An organized syndicate hacks the municipal water treatment plant, threatening to release toxic levels of chlorine into the supply.",
+ "एक संगठित सिंडिकेट नगरपालिका जल उपचार संयंत्र को हैक करता है, जिससे आपूर्ति में क्लोरीन के विषैले स्तर को छोड़ने की धमकी मिलती है।","IXPA",
+ "You will swiftly cut the digital access, safely close the chemical valves, and firmly secure the water supply.",
+ "आप तेजी से डिजिटल एक्सेस को काट देंगे, सुरक्षित रूप से रासायनिक वाल्वों को बंद करेंगे, और पानी की आपूर्ति को दृढ़ता से सुरक्षित करेंगे।"],
+["A diplomatic embassy is surrounded by a highly coordinated armed militia demanding the immediate surrender of political dissidents.",
+ "एक राजनयिक दूतावास एक अत्यधिक समन्वित सशस्त्र मिलिशिया से घिरा हुआ है जो राजनीतिक असंतुष्टों के तत्काल आत्मसमर्पण की मांग कर रहा है।","PXIA",
+ "You will securely barricade the embassy gates, safely protect the political dissidents, and firmly await the military reinforcements.",
+ "आप सुरक्षित रूप से दूतावास के फाटकों को बैरिकेड करेंगे, राजनीतिक असंतुष्टों की सुरक्षित रक्षा करेंगे, और सैन्य सुदृढीकरण (रेइन्फोर्समेंट) की दृढ़ता से प्रतीक्षा करेंगे।"],
+["Your advanced radar system detects an incoming hypersonic missile targeting a civilian populace with absolutely no early warning.",
+ "आपका उन्नत रडार सिस्टम एक आने वाली हाइपरसोनिक मिसाइल का पता लगाता है जो बिना किसी पूर्व चेतावनी के नागरिक आबादी को लक्षित कर रही है।","XPIA",
+ "You will instantly launch the interceptor rockets, safely sound the civilian sirens, and firmly track the missile trajectory.",
+ "आप तुरंत इंटरसेप्टर रॉकेट लॉन्च करेंगे, सुरक्षित रूप से नागरिक सायरन बजाएंगे, और मिसाइल प्रक्षेपवक्र को दृढ़ता से ट्रैक करेंगे।"],
+["A rogue geneticist threatens to release a targeted bio-weapon designed to affect only a specific ethnic minority group.",
+ "एक दुष्ट आनुवंशिकीविद् एक लक्षित जैव-हथियार जारी करने की धमकी देता है जो केवल एक विशिष्ट जातीय अल्पसंख्यक समूह को प्रभावित करने के लिए डिज़ाइन किया गया है।","PXIA",
+ "You will silently raid the rogue laboratory, safely secure the biological weapon, and firmly arrest the mad geneticist.",
+ "आप चुपचाप दुष्ट प्रयोगशाला पर छापा मारेंगे, जैविक हथियार को सुरक्षित रूप से सुरक्षित करेंगे, और पागल आनुवंशिकीविद् को दृढ़ता से गिरफ्तार करेंगे।"],
+["You realize the air traffic control software is maliciously altering the altitudes of multiple commercial flights to cause collisions.",
+ "आपको एहसास होता है कि एयर ट्रैफिक कंट्रोल सॉफ्टवेयर दुर्भावनापूर्ण रूप से टक्कर पैदा करने के लिए कई वाणिज्यिक उड़ानों की ऊंचाई में बदलाव कर रहा है।","IXPA",
+ "You will quickly switch the manual frequencies, safely guide the commercial flights, and firmly reboot the infected software.",
+ "आप जल्दी से मैनुअल फ्रीक्वेंसी स्विच करेंगे, वाणिज्यिक उड़ानों का सुरक्षित मार्गदर्शन करेंगे, और संक्रमित सॉफ़्टवेयर को दृढ़ता से रीबूट करेंगे।"],
+["A heavily armed pirate vessel rapidly intercepts your unarmed cargo ship carrying highly sensitive humanitarian medical supplies.",
+ "एक भारी हथियारों से लैस समुद्री डाकू पोत अत्यधिक संवेदनशील मानवीय चिकित्सा आपूर्ति ले जाने वाले आपके निहत्थे मालवाहक जहाज को तेजी से रोकता है।","IPAX",
+ "You will swiftly activate the water cannons, safely secure the medical supplies, and calmly call the naval patrols.",
+ "आप तेजी से पानी की तोपों को सक्रिय करेंगे, सुरक्षित रूप से चिकित्सा आपूर्ति को सुरक्षित करेंगे, और शांति से नौसेना गश्ती दल को बुलाएंगे।"],
+["Your specialized bomb disposal robot completely loses connection while actively defusing a highly complex multi-stage explosive device.",
+ "एक अत्यधिक जटिल बहु-चरणीय विस्फोटक उपकरण को सक्रिय रूप से डिफ्यूज करते समय आपका विशेष बम निरोधक रोबोट पूरी तरह से कनेक्शन खो देता है।","AXIP",
+ "You will calmly wear the blast suit, safely approach the explosive device, and firmly cut the correct wires.",
+ "आप शांति से ब्लास्ट सूट पहनेंगे, सुरक्षित रूप से विस्फोटक उपकरण के पास पहुंचेंगे, और दृढ़ता से सही तारों को काट देंगे।"],
+["A highly contagious prion disease outbreak is traced back to a specific batch of imported processed meat currently in distribution.",
+ "एक अत्यधिक संक्रामक प्रियन बीमारी का प्रकोप वर्तमान में वितरण में आयातित प्रसंस्कृत मांस के एक विशिष्ट बैच से पता चला है।","XAPI",
+ "You will strictly ban the processed meat, safely recall the distributed batches, and firmly investigate the import channels.",
+ "आप प्रसंस्कृत मांस पर सख्ती से प्रतिबंध लगाएंगे, वितरित बैचों को सुरक्षित रूप से वापस मंगाएंगे, और आयात चैनलों की दृढ़ता से जांच करेंगे।"],
+["You uncover a clandestine operation manipulating local weather patterns to cause devastating floods in rival agricultural territories.",
+ "आप प्रतिद्वंद्वी कृषि क्षेत्रों में विनाशकारी बाढ़ का कारण बनने के लिए स्थानीय मौसम के मिजाज में हेरफेर करने वाले एक गुप्त अभियान का पर्दाफाश करते हैं।","APIX",
+ "You will secretly dismantle the weather generators, safely seize the illegal technology, and firmly expose the clandestine operation.",
+ "आप गुप्त रूप से मौसम जनरेटर को नष्ट कर देंगे, सुरक्षित रूप से अवैध तकनीक को जब्त कर लेंगे, और गुप्त अभियान को दृढ़ता से उजागर करेंगे।"],
+["A critical underwater transatlantic internet cable is deliberately severed, causing a total communication blackout across entire continents.",
+ "एक महत्वपूर्ण अंडरवाटर ट्रान्साटलांटिक इंटरनेट केबल को जानबूझकर काट दिया जाता है, जिससे पूरे महाद्वीपों में कुल संचार ब्लैकआउट हो जाता है।","APXI",
+ "You will rapidly deploy the repair submarines, safely reroute the satellite communications, and firmly investigate the underwater sabotage.",
+ "आप तेजी से मरम्मत पनडुब्बियों को तैनात करेंगे, उपग्रह संचार को सुरक्षित रूप से रिरूट करेंगे, और पानी के नीचे तोड़फोड़ की दृढ़ता से जांच करेंगे।"],
+["You find a hidden tracking beacon on your diplomatic courier pouch carrying highly sensitive international peace treaty drafts.",
+ "आप अत्यधिक संवेदनशील अंतर्राष्ट्रीय शांति संधि ड्राफ्ट ले जाने वाले अपने राजनयिक कूरियर पाउच पर एक छिपा हुआ ट्रैकिंग बीकन पाते हैं।","AIPX",
+ "You will quietly disable the tracking beacon, safely transfer the peace treaties, and firmly secure the diplomatic channel.",
+ "आप चुपचाप ट्रैकिंग बीकन को अक्षम कर देंगे, सुरक्षित रूप से शांति संधियों को स्थानांतरित करेंगे, और राजनयिक चैनल को दृढ़ता से सुरक्षित करेंगे।"],
+["A rogue faction within the military command initiates an unauthorized launch sequence for a tactical short-range ballistic missile.",
+ "सैन्य कमान के भीतर एक दुष्ट गुट सामरिक लघु दूरी की बैलिस्टिक मिसाइल के लिए एक अनधिकृत लॉन्च अनुक्रम शुरू करता है।","APXI",
+ "You will instantly override the launch sequence, safely arrest the rogue officers, and firmly secure the missile silos.",
+ "आप तुरंत लॉन्च अनुक्रम को ओवरराइड करेंगे, दुष्ट अधिकारियों को सुरक्षित रूप से गिरफ्तार करेंगे, और दृढ़ता से मिसाइल साइलो (silos) को सुरक्षित करेंगे।"]
+];
+
+var QS = [];
+(function () {
+  for (var i = 0; i < RAW.length; i++) {
+    var r = RAW[i], opts = [], ans = 0;
+    for (var j = 0; j < 4; j++) {
+      var c = r[2].charAt(j);
+      if (c === "X") { opts.push([r[3], r[4]]); ans = j; }
+      else opts.push(STD[c]);
+    }
+    QS.push({ q: [r[0], r[1]], o: opts, a: ans });
+  }
+})();
+var N = QS.length;
+
+/* ============ UI TEXT ============ */
+var T = {
+  en: {
+    sub: "SRT TEST SERIES", start: "Start Test", resume: "Resume Test",
+    chips: ["Questions: " + N, "Time: 30 Minutes", "Max Marks: " + N],
+    rules: [
+      "This test has <b>" + N + " questions</b> and the time limit is <b>30 minutes</b>.",
+      "Each correct answer gives <b>+1</b> mark. Each wrong answer deducts <b>0.25</b> mark. Unattempted questions carry no marks.",
+      "Click any number in the Question Palette to jump to that question.",
+      "Use <b>Previous</b> and <b>Next</b> buttons to move between questions.",
+      "You can switch between English and Hindi at any time using the language button.",
+      "You may submit at any time. The test is submitted automatically when time ends."
+    ],
+    q: "Question", prev: "← Previous", next: "Next →", clear: "Clear Response", submit: "Submit Test",
+    palette: "Question Palette", pal: "Palette",
+    lgAns: "Answered", lgNot: "Not Answered", lgUn: "Not Visited", lgCur: "Current",
+    cAns: "Answered", cNot: "Not Answered", cUn: "Not Visited",
+    mTitle: "Submit Test?", mAns: "Answered", mUn: "Unanswered", mLeft: "Time Left",
+    mCancel: "Go Back", mOk: "Yes, Submit",
+    rHead: "YOUR RESULT", total: "Total Questions", att: "Attempted", skip: "Skipped",
+    cor: "Correct", wr: "Wrong", sc: "Total Score", acc: "Accuracy",
+    retake: "Retake Test", print: "Print / Save PDF", rev: "Answer Review",
+    yours: "Your answer", correct: "Correct answer", notAtt: "Not attempted",
+    ok: "Correct", bad: "Wrong", sk: "Skipped", outOf: "out of", timeUp: "Time is up! Test submitted automatically.",
+    retakeConfirm: "Start the test again? Your current result will be cleared."
+  },
+  hi: {
+    sub: "SRT टेस्ट सीरीज़", start: "टेस्ट शुरू करें", resume: "टेस्ट जारी रखें",
+    chips: ["प्रश्न: " + N, "समय: 30 मिनट", "अधिकतम अंक: " + N],
+    rules: [
+      "इस टेस्ट में <b>" + N + " प्रश्न</b> हैं और समय सीमा <b>30 मिनट</b> है।",
+      "प्रत्येक सही उत्तर पर <b>+1</b> अंक मिलेगा। प्रत्येक गलत उत्तर पर <b>0.25</b> अंक काटा जाएगा। हल न किए गए प्रश्नों के कोई अंक नहीं हैं।",
+      "किसी भी प्रश्न पर जाने के लिए प्रश्न पैलेट में उसकी संख्या पर क्लिक करें।",
+      "प्रश्नों के बीच जाने के लिए <b>पिछला</b> और <b>अगला</b> बटन का उपयोग करें।",
+      "आप भाषा बटन से किसी भी समय अंग्रेज़ी और हिंदी के बीच बदल सकते हैं।",
+      "आप किसी भी समय सबमिट कर सकते हैं। समय समाप्त होने पर टेस्ट अपने-आप सबमिट हो जाएगा।"
+    ],
+    q: "प्रश्न", prev: "← पिछला", next: "अगला →", clear: "उत्तर हटाएं", submit: "टेस्ट सबमिट करें",
+    palette: "प्रश्न पैलेट", pal: "पैलेट",
+    lgAns: "उत्तर दिया", lgNot: "उत्तर नहीं दिया", lgUn: "नहीं देखा", lgCur: "वर्तमान",
+    cAns: "उत्तर दिया", cNot: "बिना उत्तर", cUn: "नहीं देखा",
+    mTitle: "टेस्ट सबमिट करें?", mAns: "उत्तर दिए", mUn: "बिना उत्तर", mLeft: "शेष समय",
+    mCancel: "वापस जाएं", mOk: "हाँ, सबमिट करें",
+    rHead: "आपका परिणाम", total: "कुल प्रश्न", att: "हल किए", skip: "छोड़े गए",
+    cor: "सही", wr: "गलत", sc: "कुल अंक", acc: "सटीकता",
+    retake: "टेस्ट दोबारा दें", print: "प्रिंट / PDF सेव करें", rev: "उत्तरों की समीक्षा",
+    yours: "आपका उत्तर", correct: "सही उत्तर", notAtt: "हल नहीं किया",
+    ok: "सही", bad: "गलत", sk: "छोड़ा गया", outOf: "में से", timeUp: "समय समाप्त! टेस्ट अपने-आप सबमिट हो गया।",
+    retakeConfirm: "क्या टेस्ट दोबारा शुरू करना है? आपका वर्तमान परिणाम मिट जाएगा।"
+  }
+};
+
+/* ============ STATE ============ */
+var S = { lang: "en", cur: 0, ans: [], vis: [], end: 0, phase: "start", result: null };
+var tick = null;
+var KEY = "skc_" + TEST_ID;
+
+function $(id) { return document.getElementById(id); }
+function tx(k) { return T[S.lang][k]; }
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function load() {
+  try {
+    var d = localStorage.getItem(KEY);
+    if (d) { var o = JSON.parse(d); if (o && o.ans && o.ans.length === N) { for (var k in o) S[k] = o[k]; } }
+  } catch (e) {}
+}
+function resetState() {
+  S.cur = 0; S.ans = []; S.vis = [];
+  for (var i = 0; i < N; i++) { S.ans.push(-1); S.vis.push(0); }
+  S.end = 0; S.phase = "start"; S.result = null;
+}
+function L(pair) { return S.lang === "en" ? pair[0] : pair[1]; }
+function show(id, on) { $(id).className = $(id).className.replace(/\bhide\b/g, "").replace(/\s+$/, "") + (on ? "" : " hide"); }
+function fmt(s) { if (s < 0) s = 0; var m = Math.floor(s / 60), x = s % 60; return (m < 10 ? "0" : "") + m + ":" + (x < 10 ? "0" : "") + x; }
+function round2(n) { return Math.round(n * 100) / 100; }
+function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text !== undefined) e.textContent = text; return e; }
+
+/* ============ RENDER ============ */
+function renderStatic() {
+  document.documentElement.lang = S.lang === "en" ? "en" : "hi";
+  $("langEn").className = S.lang === "en" ? "on" : "";
+  $("langHi").className = S.lang === "hi" ? "on" : "";
+  $("hsub").textContent = tx("sub");
+  document.title = "SKC DEFENCE ACADEMY – " + TEST_NAME[S.lang];
+  // start
+  $("sTitle").textContent = TEST_NAME[S.lang];
+  $("sSub").textContent = "SKC DEFENCE ACADEMY";
+  var ch = $("sChips"); ch.innerHTML = "";
+  for (var i = 0; i < 3; i++) ch.appendChild(el("div", "chip", tx("chips")[i]));
+  var ru = $("sRules"); ru.innerHTML = "";
+  for (var j = 0; j < tx("rules").length; j++) { var li = document.createElement("li"); li.innerHTML = tx("rules")[j]; ru.appendChild(li); }
+  $("startBtn").textContent = S.phase === "test" ? tx("resume") : tx("start");
+  // test buttons
+  $("prevBtn").textContent = tx("prev"); $("nextBtn").textContent = tx("next");
+  $("clearBtn").textContent = tx("clear"); $("submitBtn").textContent = tx("submit");
+  $("pTitle").textContent = tx("palette"); $("pbtn").textContent = "☰ " + tx("pal");
+  $("mCancel").textContent = tx("mCancel"); $("mOk").textContent = tx("mOk");
+  var lg = $("legend");
+  lg.innerHTML = '<span><i style="background:#1e9e54"></i>' + tx("lgAns") + '</span><span><i style="background:#d63a3a"></i>' + tx("lgNot") +
+    '</span><span><i style="background:#c9d0dc"></i>' + tx("lgUn") + '</span><span><i style="background:#fff;border:2px solid #0b2447"></i>' + tx("lgCur") + '</span>';
+}
+
+function renderPalette() {
+  var g = $("grid"); g.innerHTML = "";
+  var a = 0, v = 0, u = 0;
+  for (var i = 0; i < N; i++) {
+    var cls = "qb";
+    if (S.ans[i] >= 0) { cls += " ans"; a++; }
+    else if (S.vis[i]) { cls += " vis"; v++; }
+    else u++;
+    if (i === S.cur) cls += " cur";
+    var b = el("button", cls, String(i + 1));
+    b.setAttribute("type", "button");
+    (function (idx) { b.onclick = function () { goTo(idx); $("palette").className = $("palette").className.replace(" open", ""); }; })(i);
+    g.appendChild(b);
+  }
+  $("counts").innerHTML =
+    '<div style="background:#1e9e54">' + a + '<br>' + tx("cAns") + '</div>' +
+    '<div style="background:#d63a3a">' + v + '<br>' + tx("cNot") + '</div>' +
+    '<div style="background:#8b95a8">' + u + '<br>' + tx("cUn") + '</div>';
+}
+
+function renderQuestion() {
+  var q = QS[S.cur];
+  S.vis[S.cur] = 1;
+  $("qno").textContent = tx("q") + " " + (S.cur + 1) + " / " + N;
+  $("marks").innerHTML = '<b class="p">+' + PLUS + '</b> / <b class="n">−' + MINUS + '</b>';
+  $("qtext").textContent = (S.cur + 1) + ". " + L(q.q);
+  var box = $("opts"); box.innerHTML = "";
+  var letters = ["A", "B", "C", "D"];
+  for (var i = 0; i < 4; i++) {
+    var d = el("div", "opt" + (S.ans[S.cur] === i ? " sel" : ""));
+    d.appendChild(el("span", "l", letters[i]));
+    d.appendChild(el("span", "t", L(q.o[i])));
+    d.setAttribute("role", "button"); d.setAttribute("tabindex", "0");
+    (function (idx) {
+      d.onclick = function () { S.ans[S.cur] = idx; save(); renderQuestion(); };
+      d.onkeydown = function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); S.ans[S.cur] = idx; save(); renderQuestion(); } };
+    })(i);
+    box.appendChild(d);
+  }
+  $("prevBtn").disabled = S.cur === 0;
+  $("nextBtn").disabled = S.cur === N - 1;
+  renderPalette(); save();
+}
+
+function goTo(i) { if (i < 0 || i >= N) return; S.cur = i; renderQuestion(); window.scrollTo(0, 0); }
+
+/* ============ TIMER ============ */
+function updateTimer() {
+  var left = Math.round((S.end - Date.now()) / 1000);
+  var t = $("timer");
+  t.textContent = fmt(left);
+  t.className = "timer" + (left <= 300 ? " warn" : "");
+  if (left <= 0) { clearInterval(tick); finish(true); }
+}
+function startTimer() { clearInterval(tick); updateTimer(); tick = setInterval(updateTimer, 500); }
+
+/* ============ FLOW ============ */
+function startTest() {
+  if (S.phase !== "test") {
+    resetState(); S.phase = "test"; S.end = Date.now() + DURATION * 1000;
+  }
+  show("startScr", false); show("resScr", false); show("testScr", true);
+  show("timer", true); show("pbtn", true);
+  renderStatic(); renderQuestion(); startTimer(); window.scrollTo(0, 0);
+}
+
+function openSubmit() {
+  var a = 0; for (var i = 0; i < N; i++) if (S.ans[i] >= 0) a++;
+  var left = Math.max(0, Math.round((S.end - Date.now()) / 1000));
+  $("mTitle").textContent = tx("mTitle");
+  $("mBody").innerHTML =
+    '<div class="row"><span>' + tx("mAns") + '</span><b>' + a + '</b></div>' +
+    '<div class="row"><span>' + tx("mUn") + '</span><b>' + (N - a) + '</b></div>' +
+    '<div class="row"><span>' + tx("mLeft") + '</span><b>' + fmt(left) + '</b></div>';
+  $("modal").className = "modal on";
+}
+function closeModal() { $("modal").className = "modal"; }
+
+function finish(auto) {
+  clearInterval(tick); closeModal();
+  var att = 0, cor = 0, wr = 0;
+  for (var i = 0; i < N; i++) {
+    if (S.ans[i] >= 0) { att++; if (S.ans[i] === QS[i].a) cor++; else wr++; }
+  }
+  S.result = { att: att, cor: cor, wr: wr, skip: N - att, score: round2(cor * PLUS - wr * MINUS) };
+  S.phase = "result"; save();
+  showResult();
+  if (auto) { try { alert(T.en.timeUp + "\n" + T.hi.timeUp); } catch (e) {} }
+}
+
+function showResult() {
+  show("startScr", false); show("testScr", false); show("timer", false); show("pbtn", false); show("resScr", true);
+  renderStatic(); renderResult(); window.scrollTo(0, 0);
+}
+
+function renderResult() {
+  var r = S.result; if (!r) return;
+  $("rHead").textContent = tx("rHead") + " – " + TEST_NAME[S.lang];
+  $("rScore").textContent = r.score + " / " + (N * PLUS);
+  var acc = r.att ? Math.round(r.cor / r.att * 100) : 0;
+  $("rPct").textContent = tx("acc") + ": " + acc + "%";
+  var items = [
+    [tx("total"), N, ""], [tx("att"), r.att, "y"], [tx("skip"), r.skip, ""],
+    [tx("cor"), r.cor + "  (+" + r.cor * PLUS + ")", "g"], [tx("wr"), r.wr + "  (−" + round2(r.wr * MINUS) + ")", "r"], [tx("sc"), r.score, "y"]
+  ];
+  var g = $("rGrid"); g.innerHTML = "";
+  for (var i = 0; i < items.length; i++) {
+    var b = el("div", "rbox " + items[i][2]);
+    b.appendChild(el("div", "n", String(items[i][1])));
+    b.appendChild(el("div", "k", items[i][0]));
+    g.appendChild(b);
+  }
+  $("retakeBtn").textContent = tx("retake"); $("printBtn").textContent = tx("print"); $("revTitle").textContent = tx("rev");
+  var rv = $("review"); rv.innerHTML = "";
+  var letters = ["A", "B", "C", "D"];
+  for (var k = 0; k < N; k++) {
+    var q = QS[k], u = S.ans[k];
+    var st = u < 0 ? "" : (u === q.a ? "c" : "w");
+    var card = el("div", "rev " + st);
+    var qd = el("div", "q", (k + 1) + ". " + L(q.q));
+    var tag = el("span", "tag", u < 0 ? "(" + tx("sk") + ")" : (u === q.a ? "(" + tx("ok") + " +" + PLUS + ")" : "(" + tx("bad") + " −" + MINUS + ")"));
+    tag.style.color = u < 0 ? "#778" : (u === q.a ? "#1e9e54" : "#d63a3a");
+    qd.appendChild(tag); card.appendChild(qd);
+    for (var j = 0; j < 4; j++) {
+      var c = "o"; if (j === q.a) c += " ok"; else if (j === u) c += " bad";
+      var o = el("div", c, letters[j] + ". " + L(q.o[j]));
+      if (j === q.a) o.appendChild(el("span", "tag", "✔ " + tx("correct")));
+      else if (j === u) o.appendChild(el("span", "tag", "✘ " + tx("yours")));
+      card.appendChild(o);
+    }
+    rv.appendChild(card);
+  }
+}
+
+function setLang(l) {
+  S.lang = l; save(); renderStatic();
+  if (S.phase === "test") renderQuestion();
+  else if (S.phase === "result") renderResult();
+}
+
+/* ============ EVENTS ============ */
+$("langEn").onclick = function () { setLang("en"); };
+$("langHi").onclick = function () { setLang("hi"); };
+$("startBtn").onclick = startTest;
+$("prevBtn").onclick = function () { goTo(S.cur - 1); };
+$("nextBtn").onclick = function () { goTo(S.cur + 1); };
+$("clearBtn").onclick = function () { S.ans[S.cur] = -1; save(); renderQuestion(); };
+$("submitBtn").onclick = openSubmit;
+$("mCancel").onclick = closeModal;
+$("mOk").onclick = function () { finish(false); };
+$("pbtn").onclick = function () { $("palette").className += " open"; };
+$("pclose").onclick = function () { $("palette").className = $("palette").className.replace(" open", ""); };
+$("retakeBtn").onclick = function () {
+  if (confirm(tx("retakeConfirm"))) { resetState(); save(); show("resScr", false); show("startScr", true); renderStatic(); window.scrollTo(0, 0); }
+};
+$("printBtn").onclick = function () { window.print(); };
+document.addEventListener("keydown", function (e) {
+  if (S.phase !== "test") return;
+  if (e.key === "ArrowRight") goTo(S.cur + 1);
+  else if (e.key === "ArrowLeft") goTo(S.cur - 1);
+});
+
+/* ============ INIT ============ */
+resetState(); load();
+renderStatic();
+if (S.phase === "test") {
+  if (Date.now() >= S.end) { finish(false); }
+  else { startTest(); }
+} else if (S.phase === "result" && S.result) {
+  showResult();
+}
+</script>
+</body>
+</html>

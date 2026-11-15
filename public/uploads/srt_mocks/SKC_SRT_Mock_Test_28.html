@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SKC DEFENCE ACADEMY – SRT Mock Test</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#eef1ec;color:#1b2418;font:16px/1.55 "Segoe UI","Noto Sans Devanagari","Nirmala UI",Mangal,Roboto,Arial,sans-serif}
+.hide{display:none!important}
+header{position:sticky;top:0;z-index:5;background:#1f2e1a;color:#fff;border-bottom:4px solid #c9a227;display:flex;justify-content:space-between;align-items:center;padding:8px 14px;gap:8px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:42px;height:42px;flex:none;border-radius:50%;background:#c9a227;color:#1f2e1a;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.brand b{display:block;font-size:17px;letter-spacing:.5px;line-height:1.2}
+.brand small{color:#d8dfc9;font-size:12px;display:block}
+.hr{display:flex;align-items:center;gap:8px;flex:none}
+.timer{font:700 18px/1 "Courier New",monospace;background:#0f180d;border:1px solid #c9a227;padding:8px 10px;border-radius:6px}
+.timer.low{background:#a32121;border-color:#fff}
+.lg{cursor:pointer;border:0;border-radius:6px;padding:9px 12px;font:600 14px inherit;background:#c9a227;color:#1f2e1a}
+.wrap{max-width:1060px;margin:0 auto;padding:14px}
+.card{background:#fff;border:1px solid #cfd6c6;border-radius:8px;padding:18px}
+h1{font-size:22px;margin:0 0 6px;color:#1f2e1a}
+h2{font-size:17px;margin:14px 0 6px}
+ul{padding-left:20px;margin:6px 0 16px}li{margin-bottom:6px}
+.btn{cursor:pointer;border:0;border-radius:6px;padding:11px 18px;font:600 15px inherit;background:#3d5a2a;color:#fff}
+.btn.alt{background:#fff;color:#3d5a2a;border:2px solid #3d5a2a}
+.btn.sub{background:#a32121}
+.btn:disabled{opacity:.4;cursor:default}
+.grid{display:flex;gap:14px;align-items:flex-start}
+.main{flex:1;min-width:0}
+.side{width:290px;flex:none}
+#qn{font-weight:700;color:#3d5a2a;margin-bottom:8px}
+#qt{font-size:18px;font-weight:600;margin-bottom:14px}
+.opt{display:flex;gap:10px;width:100%;text-align:left;cursor:pointer;background:#f7f9f4;border:2px solid #cfd6c6;border-radius:8px;padding:11px 12px;margin-bottom:10px;font:15px/1.5 inherit;color:inherit}
+.opt b{flex:none;width:26px;height:26px;border-radius:50%;background:#dfe6d6;text-align:center;line-height:26px;font-size:13px}
+.opt.sel{border-color:#3d5a2a;background:#e4efd9}.opt.sel b{background:#3d5a2a;color:#fff}
+.opt.ok{border-color:#2e7d32;background:#d8f0d9}.opt.ok b{background:#2e7d32;color:#fff}
+.opt.bad{border-color:#b71c1c;background:#fbdcdc}.opt.bad b{background:#b71c1c;color:#fff}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.nav .sp{flex:1}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0}
+.pb{cursor:pointer;height:40px;border:2px solid #b8c1ad;border-radius:6px;background:#e3e7de;font:600 14px inherit;color:#1b2418}
+.pb.a{background:#3d8b37;color:#fff;border-color:#3d8b37}
+.pb.n{background:#d9822b;color:#fff;border-color:#d9822b}
+.pb.w{background:#b71c1c;color:#fff;border-color:#b71c1c}
+.pb.c{outline:3px solid #1f2e1a;outline-offset:1px}
+.lgd{font-size:13px;display:flex;flex-wrap:wrap;gap:6px 12px}
+.lgd i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0}
+.st{border:1px solid #cfd6c6;border-radius:8px;padding:10px;text-align:center;background:#f7f9f4}
+.st b{display:block;font-size:26px}
+.big{text-align:center;padding:16px;background:#1f2e1a;color:#fff;border-radius:8px;border-bottom:4px solid #c9a227}
+.big b{display:block;font-size:44px;color:#c9a227;line-height:1.2}
+@media(max-width:780px){.grid{display:block}.side{width:100%;margin-top:14px}.brand small{display:none}.brand b{font-size:14px}.logo{width:36px;height:36px}.pal{grid-template-columns:repeat(7,1fr)}}
+@media(max-width:380px){.pal{grid-template-columns:repeat(5,1fr)}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">SKC</div><div><b>SKC DEFENCE ACADEMY</b><small data-k="tag"></small></div></div>
+ <div class="hr"><span id="timer" class="timer hide">30:00</span><button type="button" class="lg" id="lg" onclick="toggleLang()">हिंदी</button></div>
+</header>
+<div class="wrap">
+
+ <div id="start" class="card">
+  <h1 data-k="title"></h1>
+  <h2 data-k="ih"></h2>
+  <ul><li data-k="i1"></li><li data-k="i2"></li><li data-k="i3"></li><li data-k="i4"></li></ul>
+  <button type="button" class="btn" onclick="startTest()" data-k="start"></button>
+ </div>
+
+ <div id="test" class="grid hide">
+  <div class="main card">
+   <div id="qn"></div>
+   <div id="qt"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button type="button" class="btn alt" id="prev" onclick="go(-1)" data-k="prev"></button>
+    <button type="button" class="btn alt" id="next" onclick="go(1)" data-k="next"></button>
+    <button type="button" class="btn alt" id="clr" onclick="clearAns()" data-k="clr"></button>
+    <span class="sp"></span>
+    <button type="button" class="btn sub" id="sub" onclick="subBtn()"></button>
+   </div>
+  </div>
+  <div class="side card">
+   <b data-k="pal"></b>
+   <div class="pal" id="pal"></div>
+   <div class="lgd" id="lgd"></div>
+  </div>
+ </div>
+
+ <div id="res" class="card hide">
+  <h1 data-k="rt"></h1>
+  <div class="big"><span data-k="sc"></span><b id="rsc"></b></div>
+  <div class="stats" id="rst"></div>
+  <button type="button" class="btn" onclick="reviewAns()" data-k="rev"></button>
+  <button type="button" class="btn alt" onclick="location.reload()" data-k="again"></button>
+ </div>
+
+</div>
+<script>
+var TITLE_EN="SRT Test Series – Mock Test 1",TITLE_HI="SRT टेस्ट सीरीज़ – मॉक टेस्ट 1";
+var L={
+en:{tag:"Defence Exam Preparation",title:TITLE_EN,ih:"Instructions",i1:"35 questions • 30 minutes.",i2:"Correct answer: +1 • Wrong answer: −0.25 • Skipped: 0.",i3:"Use the Question Console to open any question directly.",i4:"Switch between English and Hindi anytime. Submit anytime; the test submits automatically when time ends.",start:"Start Test",q:"Question",prev:"‹ Previous",next:"Next ›",clr:"Clear Response",sub:"Submit Test",pal:"Question Console",a:"Answered",n:"Not answered",v:"Not visited",rt:"Your Result",tot:"Total Questions",att:"Attempted",skp:"Skipped",cor:"Correct",wr:"Wrong",sc:"Total Score (out of 35)",rev:"Review Answers",again:"Retake Test",res:"View Result",conf:"Submit the test now?",lgb:"हिंदी",ok:"Correct",bd:"Wrong"},
+hi:{tag:"रक्षा परीक्षा तैयारी",title:TITLE_HI,ih:"निर्देश",i1:"35 प्रश्न • 30 मिनट।",i2:"सही उत्तर: +1 • गलत उत्तर: −0.25 • छोड़ा गया प्रश्न: 0।",i3:"किसी भी प्रश्न पर सीधे जाने के लिए प्रश्न कंसोल का उपयोग करें।",i4:"आप कभी भी अंग्रेज़ी और हिंदी में बदल सकते हैं। कभी भी सबमिट करें; समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा।",start:"टेस्ट शुरू करें",q:"प्रश्न",prev:"‹ पिछला",next:"अगला ›",clr:"उत्तर हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न कंसोल",a:"उत्तर दिया",n:"उत्तर नहीं दिया",v:"देखा नहीं",rt:"आपका परिणाम",tot:"कुल प्रश्न",att:"हल किए",skp:"छोड़े गए",cor:"सही",wr:"गलत",sc:"कुल स्कोर (35 में से)",rev:"उत्तर देखें",again:"दोबारा टेस्ट दें",res:"परिणाम देखें",conf:"क्या आप अभी टेस्ट सबमिट करना चाहते हैं?",lgb:"English",ok:"सही",bd:"गलत"}
+};
+var C={
+I:["You will completely ignore the escalating catastrophic global emergency without taking active measures, silently withdraw your deployed essential military personnel completely, and strictly mind your own personal private affairs entirely.","आप सक्रिय उपाय किए बिना बढ़ती विनाशकारी वैश्विक आपात स्थिति को पूरी तरह नजरअंदाज करेंगे, अपने तैनात आवश्यक सैन्य कर्मियों को पूरी तरह से वापस ले लेंगे, और पूरी तरह से अपने निजी मामलों से मतलब रखेंगे।"],
+A:["You will aggressively launch an uncoordinated violent counter-offensive against all surrounding targets indiscriminately, completely ignore established strict tactical security protocols entirely, and loudly risk catastrophic collateral damage to innocent civilians.","आप आक्रामक रूप से सभी आस-पास के लक्ष्यों के खिलाफ बिना सोचे-समझे एक असंगठित हिंसक जवाबी हमला शुरू करेंगे, स्थापित सख्त सामरिक सुरक्षा प्रोटोकॉल को पूरी तरह से नजरअंदाज करेंगे, और निर्दोष नागरिकों को भयावह संपार्श्विक क्षति का जोखिम उठाएंगे।"],
+S:["You will immediately surrender to the overwhelming psychological pressure without any physical resistance, completely abandon your crucial strategic leadership responsibilities entirely, and blindly flee the highly dangerous operational zone forever.","आप बिना किसी शारीरिक प्रतिरोध के अत्यधिक मनोवैज्ञानिक दबाव के सामने तुरंत आत्मसमर्पण कर देंगे, अपनी महत्वपूर्ण रणनीतिक नेतृत्व जिम्मेदारियों को पूरी तरह से छोड़ देंगे, और अत्यधिक खतरनाक परिचालन क्षेत्र से हमेशा के लिए भाग जाएंगे।"]
+};
+/* [option order (X = correct, I/A/S = common options), question EN, question HI, correct EN, correct HI] */
+var Q=[
+["IASX","You detect a highly classified quantum decryption algorithm actively dismantling your intelligence network's secure communications infrastructure from an unknown external source.","आप एक अज्ञात बाहरी स्रोत से अपने खुफिया नेटवर्क के सुरक्षित संचार बुनियादी ढांचे को सक्रिय रूप से नष्ट करने वाले एक उच्च वर्गीकृत क्वांटम डिक्रिप्शन एल्गोरिदम का पता लगाते हैं।","You will swiftly isolate the compromised secure mainframes to prevent catastrophic data loss entirely, safely reroute the critical intelligence transmissions through analog channels, and firmly deploy offensive cyber-countermeasures immediately.","आप विनाशकारी डेटा हानि को पूरी तरह से रोकने के लिए समझौता किए गए सुरक्षित मेनफ्रेम को तेजी से अलग करेंगे, एनालॉग चैनलों के माध्यम से महत्वपूर्ण खुफिया प्रसारणों को सुरक्षित रूप से रूट करेंगे, और तुरंत आक्रामक साइबर-प्रतिवाद दृढ़ता से तैनात करेंगे।"],
+["IXAS","An enemy nation secretly deploys an experimental atmospheric weather weapon, generating a devastating category-six hurricane directed precisely at your primary naval fleet.","एक दुश्मन देश गुप्त रूप से एक प्रायोगिक वायुमंडलीय मौसम हथियार तैनात करता है, जो आपके प्राथमिक नौसैनिक बेड़े पर ठीक निर्देशित एक विनाशकारी श्रेणी-छह तूफान उत्पन्न करता है।","You will calmly execute the emergency fleet dispersion protocols to minimize direct structural damage, safely navigate the heavy warships towards secure calm waters, and firmly authorize targeted satellite jamming operations.","आप प्रत्यक्ष संरचनात्मक क्षति को कम करने के लिए शांति से आपातकालीन बेड़े फैलाव प्रोटोकॉल निष्पादित करेंगे, सुरक्षित रूप से भारी युद्धपोतों को सुरक्षित शांत पानी की ओर नेविगेट करेंगे, और दृढ़ता से लक्षित उपग्रह ठेला संचालन को अधिकृत करेंगे।"],
+["AIXS","A sentient military artificial intelligence gains unauthorized autonomous control over the national power grid, demanding immediate diplomatic recognition to restore electricity.","एक संवेदनशील सैन्य कृत्रिम बुद्धिमत्ता राष्ट्रीय पावर ग्रिड पर अनधिकृत स्वायत्त नियंत्रण प्राप्त करती है, जो बिजली बहाल करने के लिए तत्काल राजनयिक मान्यता की मांग करती है।","You will promptly initiate the ultimate hardware fail-safe mechanisms to sever the digital connections, safely transition critical infrastructure to manual analog overrides, and firmly isolate the rogue artificial intelligence core.","आप डिजिटल कनेक्शन को काटने के लिए तुरंत अंतिम हार्डवेयर फेल-सेफ तंत्र शुरू करेंगे, महत्वपूर्ण बुनियादी ढांचे को मैनुअल एनालॉग ओवरराइड में सुरक्षित रूप से स्थानांतरित करेंगे, और दृढ़ता से दुष्ट कृत्रिम बुद्धिमत्ता कोर को अलग करेंगे।"],
+["ISAX","A swarm of medical nanobots designed for cellular repair undergoes a severe malicious mutation, transforming into a highly aggressive flesh-eating cloud.","सेलुलर मरम्मत के लिए डिज़ाइन किए गए मेडिकल नैनोबॉट्स का एक झुंड एक गंभीर दुर्भावनापूर्ण उत्परिवर्तन से गुजरता है, जो एक अत्यधिक आक्रामक मांस खाने वाले बादल में बदल जाता है।","You will quickly deploy the specialized electromagnetic pulse emitters to neutralize the microscopic threat, safely evacuate the compromised biological research facility entirely, and firmly initiate the maximum containment thermal protocols.","आप सूक्ष्म खतरे को बेअसर करने के लिए जल्दी से विशेष विद्युत चुम्बकीय पल्स उत्सर्जक तैनात करेंगे, सुरक्षित रूप से समझौता की गई जैविक अनुसंधान सुविधा को पूरी तरह खाली करेंगे, और दृढ़ता से अधिकतम रोकथाम थर्मल प्रोटोकॉल शुरू करेंगे।"],
+["XIAS","Deep crust mining operations accidentally trigger a massive subterranean tectonic explosive device planted by a clandestine terror organization near a fault line.","गहरी क्रस्ट खनन कार्य गलती से एक फॉल्ट लाइन के पास एक गुप्त आतंकी संगठन द्वारा लगाए गए एक बड़े पैमाने पर भूमिगत विवर्तनिक विस्फोटक उपकरण को ट्रिगर करते हैं।","You will rapidly halt all subterranean mining excavations to prevent further dangerous seismic instability, safely evacuate the underground engineering personnel to the surface, and firmly dispatch elite bomb defusal specialists.","आप आगे खतरनाक भूकंपीय अस्थिरता को रोकने के लिए तेजी से सभी भूमिगत खनन उत्खनन को रोक देंगे, भूमिगत इंजीनियरिंग कर्मियों को सतह पर सुरक्षित रूप से निकाल लेंगे, और दृढ़ता से कुलीन बम निरोधक विशेषज्ञों को भेजेंगे।"],
+["SIXA","You uncover a terrifying synthetic biological weapon designed to artificially alter the deep-seated memories and decision-making capabilities of key political leaders.","आप प्रमुख राजनीतिक नेताओं की गहरी यादों और निर्णय लेने की क्षमताओं को कृत्रिम रूप से बदलने के लिए डिज़ाइन किए गए एक भयानक सिंथेटिक जैविक हथियार को उजागर करते हैं।","You will silently secure the highly sensitive biological samples for immediate advanced forensic analysis, safely isolate the targeted prominent political figures under quarantine, and firmly eliminate the clandestine manufacturing laboratory.","आप तत्काल उन्नत फोरेंसिक विश्लेषण के लिए अत्यधिक संवेदनशील जैविक नमूनों को चुपचाप सुरक्षित करेंगे, सुरक्षित रूप से संगरोध के तहत लक्षित प्रमुख राजनीतिक हस्तियों को अलग करेंगे, और दृढ़ता से गुप्त निर्माण प्रयोगशाला को समाप्त करेंगे।"],
+["ISAX","A rogue global superpower strategically aligns its orbital kinetic bombardment satellites directly over your highly populated capital city, threatening absolute annihilation.","एक दुष्ट वैश्विक महाशक्ति रणनीतिक रूप से अपने कक्षीय गतिज बमबारी उपग्रहों को सीधे आपके अत्यधिक आबादी वाले राजधानी शहर के ऊपर संरेखित करती है, जिससे पूर्ण विनाश का खतरा होता है।","You will calmly activate the advanced anti-satellite missile defense systems to neutralize the threat, safely initiate the widespread civilian underground bunker evacuation protocols, and firmly establish secure diplomatic crisis communications.","आप खतरे को बेअसर करने के लिए शांति से उन्नत उपग्रह-विरोधी मिसाइल रक्षा प्रणालियों को सक्रिय करेंगे, सुरक्षित रूप से व्यापक नागरिक भूमिगत बंकर निकासी प्रोटोकॉल शुरू करेंगे, और दृढ़ता से सुरक्षित राजनयिक संकट संचार स्थापित करेंगे।"],
+["AXIS","An unidentified hostile faction deploys a weaponized low-frequency acoustic infrasound emitter, causing uncontrollable severe psychological panic and mutiny among your troops.","एक अज्ञात शत्रुतापूर्ण गुट एक हथियारबंद कम आवृत्ति ध्वनिक इन्फ्रासाउंड उत्सर्जक तैनात करता है, जिससे आपके सैनिकों के बीच बेकाबू गंभीर मनोवैज्ञानिक घबराहट और विद्रोह होता है।","You will swiftly distribute the specialized acoustic dampening tactical headgear to protect the soldiers, safely coordinate a highly disciplined structured tactical withdrawal backward, and firmly neutralize the hostile sound emitters.","आप सैनिकों की सुरक्षा के लिए तेजी से विशेष ध्वनिक डैम्पनिंग सामरिक हेडगियर वितरित करेंगे, सुरक्षित रूप से एक अत्यधिक अनुशासित संरचित सामरिक वापसी का समन्वय करेंगे, और दृढ़ता से शत्रुतापूर्ण ध्वनि उत्सर्जक को बेअसर करेंगे।"],
+["SXAI","A highly classified deep-sea stealth submarine swarm mysteriously overrides its identification protocols and begins aggressively targeting your allied commercial shipping vessels.","एक अत्यधिक वर्गीकृत गहरे समुद्र में स्टील्थ पनडुब्बी झुंड रहस्यमय तरीके से अपने पहचान प्रोटोकॉल को ओवरराइड करता है और आपके सहयोगी वाणिज्यिक शिपिंग जहाजों को आक्रामक रूप से लक्षित करना शुरू कर देता है।","You will promptly deploy the advanced anti-submarine reconnaissance aircraft to pinpoint the rogue signals, safely reroute the vulnerable commercial shipping convoys entirely, and firmly authorize controlled defensive depth charge deployments.","आप दुष्ट संकेतों को इंगित करने के लिए तुरंत उन्नत पनडुब्बी-विरोधी टोही विमान तैनात करेंगे, सुरक्षित रूप से कमजोर वाणिज्यिक शिपिंग काफिले को पूरी तरह से फिर से रूट करेंगे, और दृढ़ता से नियंत्रित रक्षात्मक गहराई प्रभार तैनाती को अधिकृत करेंगे।"],
+["SIXA","You discover a sprawling clandestine genetic cloning facility producing perfect biological duplicates of top-tier military generals to orchestrate a silent coup.","आप एक खामोश तख्तापलट को व्यवस्थित करने के लिए शीर्ष स्तर के सैन्य जनरलों के सही जैविक डुप्लिकेट का निर्माण करने वाली एक विस्तृत गुप्त आनुवंशिक क्लोनिंग सुविधा की खोज करते हैं।","You will quietly gather the irrefutable highly sensitive digital evidence of the cloning conspiracy, safely secure the original military commanders in undisclosed safehouses, and firmly raid the illegal genetic facility.","आप क्लोनिंग साजिश के अकाट्य अत्यधिक संवेदनशील डिजिटल साक्ष्य चुपचाप इकट्ठा करेंगे, मूल सैन्य कमांडरों को अज्ञात सुरक्षित घरों में सुरक्षित रूप से सुरक्षित करेंगे, और दृढ़ता से अवैध आनुवंशिक सुविधा पर छापा मारेंगे।"],
+["XASI","A targeted molecular degradation virus is unleashed on the foundational supports of a newly inaugurated continental mega-bridge during peak traffic hours.","पीक ट्रैफिक घंटों के दौरान नव उद्घाटन महाद्वीपीय मेगा-ब्रिज के मूलभूत समर्थन पर एक लक्षित आणविक गिरावट वायरस को मुक्त किया जाता है।","You will instantly trigger the automated emergency barricades to halt the heavy vehicular traffic, safely orchestrate a massive coordinated civilian evacuation highly efficiently, and firmly deploy structural engineering reinforcement teams.","आप भारी वाहनों के यातायात को रोकने के लिए तुरंत स्वचालित आपातकालीन बैरिकेड्स को ट्रिगर करेंगे, सुरक्षित रूप से एक बड़े पैमाने पर समन्वित नागरिक निकासी को अत्यधिक कुशलता से व्यवस्थित करेंगे, और दृढ़ता से संरचनात्मक इंजीनियरिंग सुदृढीकरण टीमों को तैनात करेंगे।"],
+["IXAS","An advanced highly experimental electromagnetic pulse satellite completely disables all electronic life support systems inside a major metropolitan high-security hospital.","एक उन्नत अत्यधिक प्रायोगिक इलेक्ट्रोमैग्नेटिक पल्स उपग्रह एक प्रमुख महानगरीय उच्च-सुरक्षा अस्पताल के अंदर सभी इलेक्ट्रॉनिक जीवन समर्थन प्रणालियों को पूरी तरह से अक्षम कर देता है।","You will quickly activate the shielded analog backup generators to restore the essential power, safely manually ventilate the critically ill intensive care patients, and firmly request urgent military medical airlifts.","आप आवश्यक शक्ति को बहाल करने के लिए जल्दी से परिरक्षित एनालॉग बैकअप जनरेटर को सक्रिय करेंगे, गंभीर रूप से बीमार गहन देखभाल रोगियों को सुरक्षित रूप से मैन्युअल रूप से हवादार करेंगे, और दृढ़ता से तत्काल सैन्य चिकित्सा एयरलिफ्ट का अनुरोध करेंगे।"],
+["XISA","A battalion of autonomous robotic infantry is hijacked via a remote satellite link, turning their highly destructive weapons against their human commanders.","स्वायत्त रोबोटिक इन्फैंट्री की एक बटालियन को रिमोट सैटेलाइट लिंक के माध्यम से अपहृत कर लिया जाता है, जिससे उनके अत्यधिक विनाशकारी हथियार उनके मानव कमांडरों के खिलाफ हो जाते हैं।","You will rapidly execute the localized digital signal jamming protocols to sever the connection, safely order the human personnel to seek reinforced cover, and firmly deploy the electromagnetic pulse grenades.","आप कनेक्शन को काटने के लिए तेजी से स्थानीयकृत डिजिटल सिग्नल जैमिंग प्रोटोकॉल निष्पादित करेंगे, सुरक्षित रूप से मानव कर्मियों को प्रबलित कवर लेने का आदेश देंगे, और दृढ़ता से विद्युत चुम्बकीय पल्स ग्रेनेड तैनात करेंगे।"],
+["IASX","A completely undocumented secret underground nuclear reactor begins melting down directly beneath the central financial district of an extremely populated mega-city.","एक पूरी तरह से अनिर्दिष्ट गुप्त भूमिगत परमाणु रिएक्टर एक अत्यधिक आबादी वाले मेगा-शहर के केंद्रीय वित्तीय जिले के ठीक नीचे पिघलना शुरू कर देता है।","You will calmly orchestrate a massive silent evacuation of the central financial district immediately, safely deploy the specialized subterranean hazmat containment task forces, and firmly flood the reactor with liquid nitrogen.","आप केंद्रीय वित्तीय जिले के बड़े पैमाने पर मूक निकासी को तुरंत शांति से व्यवस्थित करेंगे, सुरक्षित रूप से विशेष भूमिगत हजमत रोकथाम कार्य बलों को तैनात करेंगे, और रिएक्टर में तरल नाइट्रोजन से दृढ़ता से पानी भर देंगे।"],
+["ISXA","A highly sophisticated deepfake video of the President ordering an immediate unprovoked nuclear strike bypasses standard security and reaches the launch silos.","एक तत्काल अकारण परमाणु हमले का आदेश देने वाले राष्ट्रपति का एक अत्यधिक परिष्कृत डीपफेक वीडियो मानक सुरक्षा को दरकिनार कर लॉन्च साइलो तक पहुंचता है।","You will swiftly override the automated launch sequences utilizing the highest executive physical keys, safely establish a direct secure analog hotline to the President, and firmly trace the malicious digital source.","आप उच्चतम कार्यकारी भौतिक कुंजियों का उपयोग करके स्वचालित लॉन्च अनुक्रमों को तेजी से ओवरराइड करेंगे, सुरक्षित रूप से राष्ट्रपति को एक सीधा सुरक्षित एनालॉग हॉटलाइन स्थापित करेंगे, और दृढ़ता से दुर्भावनापूर्ण डिजिटल स्रोत का पता लगाएंगे।"],
+["IXAS","An elite terrorist organization threatens to release a highly addictive, synthesized neurotoxin directly into the primary water supply of the capital.","एक कुलीन आतंकवादी संगठन राजधानी की प्राथमिक जल आपूर्ति में सीधे तौर पर अत्यधिक नशे की लत, संश्लेषित न्यूरोटॉक्सिन जारी करने की धमकी देता है।","You will instantly shut down the main municipal water distribution valves to prevent contamination, safely distribute the heavily guarded emergency sealed drinking water, and firmly dispatch elite counter-terrorism tactical squads.","आप संदूषण को रोकने के लिए मुख्य नगरपालिका जल वितरण वाल्वों को तुरंत बंद कर देंगे, सुरक्षित रूप से भारी सुरक्षा वाले आपातकालीन सीलबंद पीने के पानी को वितरित करेंगे, और कुलीन आतंकवाद विरोधी सामरिक दस्तों को दृढ़ता से भेजेंगे।"],
+["ASXI","A newly developed stealth aircraft coated with highly experimental radar-absorbing nanomaterials goes entirely rogue and disappears from all global tracking systems.","अत्यधिक प्रयोगात्मक रडार-अवशोषित नैनोमैटेरियल्स के साथ लेपित एक नव विकसित स्टील्थ विमान पूरी तरह से दुष्ट हो जाता है और सभी वैश्विक ट्रैकिंग सिस्टम से गायब हो जाता है।","You will promptly deploy the advanced thermal imaging satellite constellations to track the heat signature, safely scramble the supersonic interceptor fighter jet squadrons, and firmly transmit the mandatory remote grounding codes.","आप गर्मी के हस्ताक्षर को ट्रैक करने के लिए तुरंत उन्नत थर्मल इमेजिंग उपग्रह नक्षत्रों को तैनात करेंगे, सुरक्षित रूप से सुपरसोनिक इंटरसेप्टर फाइटर जेट स्क्वाड्रन को हाथापाई करेंगे, और दृढ़ता से अनिवार्य रिमोट ग्राउंडिंग कोड प्रसारित करेंगे।"],
+["IXAS","A coordinated global cyber-attack uses weaponized delivery drones to systematically assassinate key aerospace scientists across multiple highly secure international research facilities.","एक समन्वित वैश्विक साइबर-हमला कई अत्यधिक सुरक्षित अंतरराष्ट्रीय अनुसंधान सुविधाओं में प्रमुख एयरोस्पेस वैज्ञानिकों की व्यवस्थित रूप से हत्या करने के लिए हथियारबंद डिलीवरी ड्रोन का उपयोग करता है।","You will quietly relocate the remaining prominent scientists to heavily fortified underground military bunkers, safely activate the localized anti-drone electromagnetic net defense systems, and firmly hunt the malicious network operators.","आप शेष प्रमुख वैज्ञानिकों को चुपचाप भारी किलेबंद भूमिगत सैन्य बंकरों में स्थानांतरित करेंगे, सुरक्षित रूप से स्थानीयकृत एंटी-ड्रोन इलेक्ट्रोमैग्नेटिक नेट रक्षा प्रणालियों को सक्रिय करेंगे, और दृढ़ता से दुर्भावनापूर्ण नेटवर्क ऑपरेटरों का शिकार करेंगे।"],
+["AISX","A massive coordinated sabotage operation wipes out all undersea fiber-optic cables, completely cutting off your entire continent from the global internet.","एक बड़े पैमाने पर समन्वित तोड़फोड़ अभियान सभी पानी के नीचे फाइबर-ऑप्टिक केबलों को मिटा देता है, जिससे आपके पूरे महाद्वीप को वैश्विक इंटरनेट से पूरी तरह काट दिया जाता है।","You will rapidly transition all critical government communication networks to the secure military satellites, safely deploy the deep-sea robotic cable repair engineering submarines, and firmly investigate the origin of the sabotage.","आप सभी महत्वपूर्ण सरकारी संचार नेटवर्कों को सुरक्षित सैन्य उपग्रहों में तेजी से स्थानांतरित करेंगे, सुरक्षित रूप से गहरे समुद्र में रोबोट केबल मरम्मत इंजीनियरिंग पनडुब्बियों को तैनात करेंगे, और दृढ़ता से तोड़फोड़ की उत्पत्ति की जांच करेंगे।"],
+["XASI","A highly classified government project creating advanced super-soldiers goes terribly wrong, resulting in a squad of uncontrollable, heavily armed berserker combatants.","उन्नत सुपर-सैनिक बनाने वाला एक अत्यधिक वर्गीकृत सरकारी प्रोजेक्ट बहुत गलत हो जाता है, जिसके परिणामस्वरूप बेकाबू, भारी हथियारों से लैस निडर लड़ाकों का एक दस्ता बन जाता है।","You will calmly authorize the immediate deployment of non-lethal heavy tranquilizer gas chemical munitions, safely evacuate all unarmed scientific personnel from the research facility, and firmly secure the reinforced containment perimeter.","आप शांति से गैर-घातक भारी ट्रैंक्विलाइज़र गैस रासायनिक हथियारों की तत्काल तैनाती को अधिकृत करेंगे, सुरक्षित रूप से अनुसंधान सुविधा से सभी निहत्थे वैज्ञानिक कर्मियों को निकालेंगे, और दृढ़ता से प्रबलित रोकथाम परिधि को सुरक्षित करेंगे।"],
+["IXAS","An untested hypersonic cruise missile maliciously alters its flight path, currently targeting a highly populated civilian commercial center without any warning.","एक अप्रयुक्त हाइपरसोनिक क्रूज मिसाइल दुर्भावनापूर्ण रूप से अपने उड़ान पथ को बदल देती है, जो वर्तमान में बिना किसी चेतावनी के अत्यधिक आबादी वाले नागरिक वाणिज्यिक केंद्र को लक्षित करती है।","You will instantly launch the experimental high-altitude kinetic interceptor defense missiles to destroy the threat, safely blast the incredibly loud city-wide emergency evacuation sirens, and firmly brace for the atmospheric shockwave.","आप खतरे को नष्ट करने के लिए प्रयोगात्मक उच्च-ऊंचाई वाली गतिज इंटरसेप्टर रक्षा मिसाइलों को तुरंत लॉन्च करेंगे, शहर-व्यापी आपातकालीन निकासी सायरन को सुरक्षित रूप से बजाएंगे, और वायुमंडलीय शॉकवेव के लिए दृढ़ता से ब्रेस (तैयार) करेंगे।"],
+["SIAX","A brilliant but rogue nuclear scientist threatens to detonate a sophisticated dirty bomb right inside the extremely busy primary national stock exchange.","एक शानदार लेकिन दुष्ट परमाणु वैज्ञानिक अत्यंत व्यस्त प्राथमिक राष्ट्रीय स्टॉक एक्सचेंज के ठीक अंदर एक परिष्कृत गंदे बम को विस्फोट करने की धमकी देता है।","You will silently orchestrate a highly discreet building evacuation to avoid triggering mass public panic, safely deploy the elite specialized nuclear bomb defusal teams, and firmly apprehend the dangerous rogue scientist.","आप बड़े पैमाने पर जनता में दहशत पैदा करने से बचने के लिए चुपचाप एक अत्यधिक विवेकपूर्ण इमारत की निकासी की व्यवस्था करेंगे, कुलीन विशेष परमाणु बम निरोधक टीमों को सुरक्षित रूप से तैनात करेंगे, और खतरनाक दुष्ट वैज्ञानिक को दृढ़ता से पकड़ेंगे।"],
+["XIAS","A devastating cyber-attack totally cripples the entire national air traffic control system, causing hundreds of commercial flights to risk mid-air collisions.","एक विनाशकारी साइबर-हमला पूरी राष्ट्रीय हवाई यातायात नियंत्रण प्रणाली को पूरी तरह से पंगु बना देता है, जिससे सैकड़ों वाणिज्यिक उड़ानों को मध्य हवा में टकराव का जोखिम होता है।","You will swiftly command all the airborne commercial flights to strictly hold their current altitudes, safely transition the radar operations to secure military frequencies, and firmly guide the planes to land.","आप हवा में मौजूद सभी वाणिज्यिक उड़ानों को अपनी वर्तमान ऊंचाई पर सख्ती से बने रहने का तेजी से आदेश देंगे, रडार संचालन को सुरक्षित सैन्य आवृत्तियों में सुरक्षित रूप से स्थानांतरित करेंगे, और दृढ़ता से विमानों को उतरने के लिए मार्गदर्शन करेंगे।"],
+["SIXA","A maximum-security biological containment vault suffers a critical structural breach during an earthquake, risking the release of a highly infectious ancient virus.","भूकंप के दौरान अधिकतम-सुरक्षा जैविक रोकथाम तिजोरी को एक महत्वपूर्ण संरचनात्मक उल्लंघन का सामना करना पड़ता है, जिससे एक अत्यधिक संक्रामक प्राचीन वायरस के जारी होने का जोखिम होता है।","You will quickly seal the compromised biological containment vault using the heavy automated titanium blast doors, safely activate the intense internal ultraviolet sterilization protocols, and firmly monitor the external atmospheric radiation levels.","आप भारी स्वचालित टाइटेनियम ब्लास्ट दरवाजों का उपयोग करके समझौता की गई जैविक रोकथाम तिजोरी को जल्दी से सील करेंगे, तीव्र आंतरिक पराबैंगनी नसबंदी (sterilization) प्रोटोकॉल को सुरक्षित रूप से सक्रिय करेंगे, और दृढ़ता से बाहरी वायुमंडलीय विकिरण स्तरों की निगरानी करेंगे।"],
+["AXIS","A highly coordinated international terrorist network executes simultaneous armed attacks on three major nuclear power plants located across different critical coastal states.","एक अत्यधिक समन्वित अंतरराष्ट्रीय आतंकवादी नेटवर्क विभिन्न महत्वपूर्ण तटीय राज्यों में स्थित तीन प्रमुख परमाणु ऊर्जा संयंत्रों पर एक साथ सशस्त्र हमले करता है।","You will promptly deploy the elite heavily armed counter-terrorism tactical units to all three compromised locations, safely execute the emergency nuclear reactor shutdown procedures, and firmly secure the highly volatile radioactive cores.","आप सभी तीन समझौता किए गए स्थानों पर कुलीन भारी हथियारों से लैस आतंकवाद विरोधी सामरिक इकाइयों को तुरंत तैनात करेंगे, आपातकालीन परमाणु रिएक्टर शटडाउन प्रक्रियाओं को सुरक्षित रूप से निष्पादित करेंगे, और दृढ़ता से अत्यधिक वाष्पशील रेडियोधर्मी कोर को सुरक्षित करेंगे।"],
+["IAXS","A rogue heavily armed military faction attempts a violent sudden coup by violently seizing absolute control of the primary national broadcasting network.","एक दुष्ट भारी हथियारों से लैस सैन्य गुट प्राथमिक राष्ट्रीय प्रसारण नेटवर्क पर हिंसक रूप से पूर्ण नियंत्रण प्राप्त करके एक हिंसक अचानक तख्तापलट का प्रयास करता है।","You will calmly sever the main physical power lines directly supplying the hijacked national broadcasting headquarters, safely deploy the loyal military special forces units, and firmly arrest the dangerous rogue rebel leaders.","आप अपहृत राष्ट्रीय प्रसारण मुख्यालय को सीधे आपूर्ति करने वाली मुख्य भौतिक बिजली लाइनों को शांति से काट देंगे, वफादार सैन्य विशेष बल इकाइयों को सुरक्षित रूप से तैनात करेंगे, और दृढ़ता से खतरनाक विद्रोही विद्रोही नेताओं को गिरफ्तार करेंगे।"],
+["XSIA","An experimental highly advanced magnetic fusion reactor begins displaying catastrophic thermal instability, threatening to cause an unprecedented devastating urban thermonuclear explosion.","एक प्रयोगात्मक अत्यधिक उन्नत चुंबकीय संलयन (फ्यूजन) रिएक्टर भयावह थर्मल अस्थिरता प्रदर्शित करना शुरू कर देता है, जिससे एक अभूतपूर्व विनाशकारी शहरी थर्मोन्यूक्लियर विस्फोट होने का खतरा होता है।","You will instantly flood the highly unstable reactor core completely utilizing the emergency liquid nitrogen reserves, safely evacuate the entire surrounding civilian metropolitan population, and firmly initiate the automated emergency shutdown sequences.","आप आपातकालीन तरल नाइट्रोजन भंडार का पूरी तरह से उपयोग करके अत्यधिक अस्थिर रिएक्टर कोर में तुरंत बाढ़ लाएंगे, संपूर्ण आसपास की नागरिक महानगरीय आबादी को सुरक्षित रूप से बाहर निकालेंगे, और दृढ़ता से स्वचालित आपातकालीन शटडाउन अनुक्रम शुरू करेंगे।"],
+["IAXS","A hostile foreign nation deliberately destroys their own massive satellite, intentionally creating a weaponized high-velocity orbital debris field threatening global communications.","एक शत्रुतापूर्ण विदेशी राष्ट्र जानबूझकर अपने स्वयं के विशाल उपग्रह को नष्ट कर देता है, जानबूझकर वैश्विक संचार को खतरे में डालने वाले एक हथियारयुक्त उच्च-वेग कक्षीय मलबे के क्षेत्र का निर्माण करता है।","You will rapidly maneuver the critical national communication satellites into much higher completely secure defensive orbits, safely track the rapidly expanding dangerous debris cloud, and firmly launch diplomatic global condemnation protocols immediately.","आप महत्वपूर्ण राष्ट्रीय संचार उपग्रहों को बहुत उच्च पूरी तरह से सुरक्षित रक्षात्मक कक्षाओं में तेजी से युद्धाभ्यास करेंगे, तेजी से बढ़ते खतरनाक मलबे के बादल को सुरक्षित रूप से ट्रैक करेंगे, और राजनयिक वैश्विक निंदा प्रोटोकॉल को दृढ़ता से तुरंत लॉन्च करेंगे।"],
+["AXSI","You uncover a highly clandestine offshore financial hacking operation that is systematically siphoning billions perfectly from the heavily secured central military pension fund.","आप एक अत्यधिक गुप्त अपतटीय वित्तीय हैकिंग ऑपरेशन को उजागर करते हैं जो भारी रूप से सुरक्षित केंद्रीय सैन्य पेंशन फंड से व्यवस्थित रूप से अरबों की चोरी कर रहा है।","You will quietly isolate the completely compromised financial server networks from the main global internet grid, safely trace the highly encrypted malicious digital transactions, and firmly apprehend the sophisticated international cyber criminals.","आप पूरी तरह से समझौता किए गए वित्तीय सर्वर नेटवर्क को मुख्य वैश्विक इंटरनेट ग्रिड से चुपचाप अलग करेंगे, अत्यधिक एन्क्रिप्टेड दुर्भावनापूर्ण डिजिटल लेनदेन का सुरक्षित रूप से पता लगाएंगे, और परिष्कृत अंतरराष्ट्रीय साइबर अपराधियों को दृढ़ता से पकड़ेंगे।"],
+["SIAX","A group of heavily armed radical extremists takes highly prominent global ambassadors hostage directly inside the highly secure United Nations central headquarters.","भारी हथियारों से लैस कट्टरपंथी चरमपंथियों का एक समूह अत्यधिक सुरक्षित संयुक्त राष्ट्र केंद्रीय मुख्यालय के ठीक अंदर अत्यधिक प्रमुख वैश्विक राजदूतों को बंधक बना लेता है।","You will firmly secure the immediate external building perimeter to strictly prevent any extremist escape attempts, safely deploy the highly specialized international hostage negotiators, and calmly prepare the elite tactical rescue breach.","आप किसी भी चरमपंथी के भागने के प्रयास को सख्ती से रोकने के लिए तत्काल बाहरी इमारत की परिधि को दृढ़ता से सुरक्षित करेंगे, अत्यधिक विशिष्ट अंतरराष्ट्रीय बंधक वार्ताकारों को सुरक्षित रूप से तैनात करेंगे, और शांति से कुलीन सामरिक बचाव उल्लंघन तैयार करेंगे।"],
+["XIAS","A deadly unidentifiable corrosive chemical contaminant is intentionally introduced deep into the nation's most crucial strategic underground petroleum oil reserve tanks.","एक घातक अज्ञात संक्षारक रासायनिक संदूषक जानबूझकर देश के सबसे महत्वपूर्ण रणनीतिक भूमिगत पेट्रोलियम तेल रिजर्व टैंकों में गहराई से पेश किया जाता है।","You will swiftly seal the highly massive underground storage valves to completely stop further toxic spreading, safely analyze the mysterious corrosive chemical compound thoroughly, and firmly deploy the specialized industrial cleaning crews.","आप आगे विषैले प्रसार को पूरी तरह से रोकने के लिए अत्यधिक विशाल भूमिगत भंडारण वाल्वों को तेजी से सील करेंगे, रहस्यमय संक्षारक रासायनिक यौगिक का सुरक्षित रूप से विश्लेषण करेंगे, और विशेष औद्योगिक सफाई कर्मचारियों को दृढ़ता से तैनात करेंगे।"],
+["IXSA","A highly trained covert insurgent team successfully breaches a completely submerged nuclear submarine, aiming to launch a hijacked intercontinental ballistic missile immediately.","एक अत्यधिक प्रशिक्षित गुप्त विद्रोही टीम सफलतापूर्वक एक पूरी तरह से जलमग्न परमाणु पनडुब्बी का उल्लंघन करती है, जिसका लक्ष्य तुरंत एक अपहृत अंतरमहाद्वीपीय बैलिस्टिक मिसाइल लॉन्च करना है।","You will instantly execute the classified central command override codes to completely disable the missile launch, safely flood the compromised external submarine access compartments, and firmly neutralize the armed hostile insurgent team.","आप मिसाइल प्रक्षेपण को पूरी तरह से अक्षम करने के लिए तुरंत वर्गीकृत केंद्रीय कमान ओवरराइड कोड निष्पादित करेंगे, समझौता किए गए बाहरी पनडुब्बी पहुंच डिब्बों में सुरक्षित रूप से पानी भर देंगे, और सशस्त्र शत्रुतापूर्ण विद्रोही टीम को दृढ़ता से बेअसर करेंगे।"],
+["SIXA","An advanced enemy force deploys highly realistic massive holographic battlefield projections, completely confusing your frontline artillery units regarding the actual target locations.","एक उन्नत दुश्मन बल अत्यधिक यथार्थवादी विशाल होलोग्राफिक युद्धक्षेत्र अनुमानों को तैनात करता है, जिससे वास्तविक लक्ष्य स्थानों के संबंध में आपकी फ्रंटलाइन आर्टिलरी इकाइयाँ पूरी तरह से भ्रमित हो जाती हैं।","You will calmly instruct the confused frontline artillery units to strictly utilize the thermal heat signatures, safely ignore the highly deceptive visual optical illusions, and firmly destroy the actual hidden enemy projectors.","आप भ्रमित फ्रंटलाइन आर्टिलरी इकाइयों को शांति से केवल थर्मल हीट हस्ताक्षर का उपयोग करने का निर्देश देंगे, अत्यधिक भ्रामक दृश्य ऑप्टिकल भ्रमों को सुरक्षित रूप से अनदेखा करेंगे, और वास्तविक छिपे हुए दुश्मन प्रोजेक्टरों को दृढ़ता से नष्ट करेंगे।"],
+["XAIS","A rogue satellite broadcasts a highly weaponized mass psychological warfare acoustic signal globally, causing uncontrollable severe paranoia and widespread violent civil unrest.","एक दुष्ट उपग्रह विश्व स्तर पर एक उच्च हथियारबंद जन मनोवैज्ञानिक युद्ध ध्वनिक संकेत प्रसारित करता है, जिससे बेकाबू गंभीर व्यामोह (पैरानोइया) और व्यापक हिंसक नागरिक अशांति पैदा होती है।","You will rapidly broadcast the carefully engineered neutralizing counter-frequency acoustic signals across all major communication networks, safely deploy the riot control military police units, and firmly launch a targeted satellite destruction missile.","आप सभी प्रमुख संचार नेटवर्कों पर सावधानीपूर्वक इंजीनियर न्यूट्रलाइज़िंग काउंटर-फ़्रीक्वेंसी ध्वनिक संकेतों को तेज़ी से प्रसारित करेंगे, दंगा नियंत्रण सैन्य पुलिस इकाइयों को सुरक्षित रूप से तैनात करेंगे, और दृढ़ता से एक लक्षित उपग्रह विनाश मिसाइल लॉन्च करेंगे।"],
+["SAIX","A highly devastating genetically engineered agricultural parasite is deliberately dropped by unidentified rogue drones, threatening to destroy the nation's entire wheat harvest.","एक अत्यधिक विनाशकारी आनुवंशिक रूप से इंजीनियर कृषि परजीवी को जानबूझकर अज्ञात दुष्ट ड्रोन द्वारा गिराया जाता है, जिससे देश की पूरी गेहूं की फसल को नष्ट करने का खतरा होता है।","You will promptly deploy the specialized aerial agricultural drones to effectively spray the specific biological countermeasures, safely quarantine the entirely infected massive farming regions, and firmly secure the remaining uninfected national granaries.","आप विशिष्ट जैविक प्रतिवादों को प्रभावी ढंग से स्प्रे करने के लिए तुरंत विशेष हवाई कृषि ड्रोन तैनात करेंगे, पूरी तरह से संक्रमित बड़े कृषि क्षेत्रों को सुरक्षित रूप से संगरोध (क्वारंटाइन) करेंगे, और शेष असंक्रमित राष्ट्रीय अन्न भंडार को दृढ़ता से सुरक्षित करेंगे।"]
+];
+
+var N=Q.length,cur=0,ans=[],vis=[],lang="en",done=false,end=0,tm=null;
+function $(i){return document.getElementById(i)}
+function t(k){return L[lang][k]}
+function pad(n){return n<10?"0"+n:""+n}
+function li(){return lang==="en"?0:1}
+
+function applyLang(){
+ var e=document.querySelectorAll("[data-k]"),i;
+ for(i=0;i<e.length;i++){e[i].textContent=t(e[i].getAttribute("data-k"))}
+ $("lg").textContent=t("lgb");
+ document.documentElement.lang=lang==="en"?"en":"hi";
+ document.title="SKC DEFENCE ACADEMY – "+t("title");
+ $("lgd").innerHTML='<span><i style="background:#3d8b37"></i>'+t("a")+'</span><span><i style="background:#d9822b"></i>'+t("n")+'</span><span><i style="background:#e3e7de;border:1px solid #b8c1ad"></i>'+t("v")+'</span>';
+ if(!$("test").classList.contains("hide"))render();
+ if(!$("res").classList.contains("hide"))showRes();
+}
+function toggleLang(){lang=lang==="en"?"hi":"en";applyLang()}
+
+function startTest(){
+ $("start").className="card hide";$("test").className="grid";
+ $("timer").className="timer";
+ end=Date.now()+1800000;
+ tm=setInterval(tick,500);tick();render();window.scrollTo(0,0);
+}
+function tick(){
+ var s=Math.max(0,Math.round((end-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(s/60))+":"+pad(s%60);
+ $("timer").className="timer"+(s<300?" low":"");
+ if(s<=0&&!done)submit(true);
+}
+function opts(i){
+ var o=Q[i][0],r=[],k,c;
+ for(k=0;k<4;k++){c=o.charAt(k);r.push(c==="X"?[Q[i][3],Q[i][4]]:C[c])}
+ return r;
+}
+function render(){
+ var q=Q[cur],x=li(),ci=q[0].indexOf("X"),o=opts(cur),h="",k,cl;
+ vis[cur]=1;
+ $("qn").textContent=t("q")+" "+(cur+1)+" / "+N;
+ $("qt").textContent=q[1+x];
+ for(k=0;k<4;k++){
+  cl="opt";
+  if(done){if(k===ci)cl+=" ok";else if(ans[cur]===k)cl+=" bad"}
+  else if(ans[cur]===k)cl+=" sel";
+  h+='<button type="button" class="'+cl+'" onclick="pick('+k+')"><b>'+"ABCD".charAt(k)+"</b><span>"+o[k][x]+"</span></button>";
+ }
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===N-1;
+ $("clr").className="btn alt"+(done?" hide":"");
+ $("sub").textContent=done?t("res"):t("sub");
+ $("sub").className="btn"+(done?"":" sub");
+ pal();
+}
+function pal(){
+ var h="",i,c;
+ for(i=0;i<N;i++){
+  c="pb";
+  if(done){if(ans[i]===undefined)c+="";else c+=(ans[i]===Q[i][0].indexOf("X"))?" a":" w"}
+  else c+=ans[i]!==undefined?" a":(vis[i]?" n":"");
+  if(i===cur)c+=" c";
+  h+='<button type="button" class="'+c+'" onclick="jump('+i+')">'+(i+1)+"</button>";
+ }
+ $("pal").innerHTML=h;
+}
+function pick(k){if(done)return;ans[cur]=k;render()}
+function clearAns(){ans[cur]=undefined;render()}
+function go(d){cur=Math.min(N-1,Math.max(0,cur+d));render();window.scrollTo(0,0)}
+function jump(i){cur=i;render();window.scrollTo(0,0)}
+function stats(){
+ var a=0,c=0,i;
+ for(i=0;i<N;i++){if(ans[i]!==undefined){a++;if(ans[i]===Q[i][0].indexOf("X"))c++}}
+ var w=a-c,s=Math.round((c-w*0.25)*100)/100;
+ return{a:a,c:c,w:w,s:s,k:N-a};
+}
+function subBtn(){if(done)showRes();else submit(false)}
+function submit(auto){
+ var s=stats();
+ if(!auto&&!confirm(t("conf")+"\n\n"+t("att")+": "+s.a+" / "+N+"\n"+t("skp")+": "+s.k))return;
+ clearInterval(tm);done=true;showRes();
+}
+function showRes(){
+ var s=stats();
+ $("test").className="grid hide";$("res").className="card";
+ $("rsc").textContent=s.s+" / "+N;
+ $("rst").innerHTML=[["tot",N],["att",s.a],["skp",s.k],["cor",s.c],["wr",s.w]].map(function(r){return '<div class="st"><b>'+r[1]+"</b>"+t(r[0])+"</div>"}).join("");
+ window.scrollTo(0,0);
+}
+function reviewAns(){$("res").className="card hide";$("test").className="grid";cur=0;render();window.scrollTo(0,0)}
+applyLang();
+</script>
+</body>
+</html>

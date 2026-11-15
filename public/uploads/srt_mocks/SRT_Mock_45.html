@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b2447">
+<title>SRT Mock 45 | SKC DEFENCE ACADEMY</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Devanagari","Nirmala UI","Mangal",Roboto,Arial,sans-serif;background:#eef2f7;color:#1b2430;line-height:1.5;-webkit-text-size-adjust:100%}
+button{font-family:inherit;cursor:pointer}
+.hide{display:none!important}
+/* header */
+.top{background:#0b2447;color:#fff;padding:8px 14px;padding-top:calc(8px + env(safe-area-inset-top,0px));display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:20;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand svg{width:40px;height:40px;flex:none}
+.brand b{display:block;font-size:16px;letter-spacing:.8px;color:#ffc93c;line-height:1.1}
+.brand span{display:block;font-size:11px;opacity:.85}
+.tools{display:flex;align-items:center;gap:8px}
+.timer{background:#13315f;border:1px solid #2f5aa0;border-radius:8px;padding:5px 10px;font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;min-width:78px;text-align:center}
+.timer.warn{background:#b3261e;border-color:#ff8a80;animation:bl 1s infinite}
+@keyframes bl{50%{opacity:.65}}
+.lang{display:flex;border:1px solid #ffc93c;border-radius:8px;overflow:hidden}
+.lang button{background:transparent;border:0;color:#ffc93c;padding:7px 11px;font-size:14px;font-weight:700}
+.lang button.on{background:#ffc93c;color:#0b2447}
+/* screens */
+.screen{max-width:1100px;margin:0 auto;padding:14px}
+.card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.1);padding:18px}
+.btn{border:0;border-radius:8px;padding:11px 20px;font-size:15px;font-weight:700}
+.b-pri{background:#0b2447;color:#fff}
+.b-gold{background:#ffc93c;color:#0b2447}
+.b-red{background:#c62828;color:#fff}
+.b-grey{background:#e3e8ef;color:#1b2430}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+/* start */
+.start h1{margin:0 0 4px;font-size:24px;color:#0b2447}
+.start .sub{color:#5b6777;margin-bottom:14px}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+.info div{background:#f3f6fb;border-radius:10px;padding:12px;text-align:center}
+.info b{display:block;font-size:22px;color:#0b2447}
+.info small{color:#5b6777}
+.start ul{padding-left:20px;margin:8px 0 18px}
+.start li{margin-bottom:6px}
+/* test */
+.layout{display:grid;grid-template-columns:1fr 300px;gap:14px;align-items:start}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:700;color:#0b2447}
+.qhead span.tag{font-size:12px;background:#e8eefb;border-radius:20px;padding:3px 10px;color:#2a4a85}
+.qtext{font-size:17px;font-weight:600;margin-bottom:16px}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:2px solid #d5dce8;border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:15.5px;color:#1b2430}
+.opt:hover{border-color:#7f9bd0}
+.opt i{flex:none;width:28px;height:28px;border-radius:50%;background:#e8eefb;color:#0b2447;font-style:normal;font-weight:700;display:flex;align-items:center;justify-content:center}
+.opt.sel{border-color:#0b2447;background:#eaf0fc}
+.opt.sel i{background:#0b2447;color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid #e3e8ef}
+.nav .sp{flex:1}
+/* palette */
+.side h3{margin:0 0 10px;font-size:15px;color:#0b2447}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.pn{border:2px solid #cfd7e4;background:#fff;border-radius:8px;height:42px;font-weight:700;font-size:15px;color:#1b2430}
+.pn.vis{background:#fde7e7;border-color:#e57373;color:#b3261e}
+.pn.ans{background:#2e9e4f;border-color:#2e9e4f;color:#fff}
+.pn.cur{outline:3px solid #ffc93c;outline-offset:1px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-size:12.5px;color:#4a5668}
+.legend span:before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:2px solid #cfd7e4;background:#fff}
+.legend .l2:before{background:#2e9e4f;border-color:#2e9e4f}
+.legend .l3:before{background:#fde7e7;border-color:#e57373}
+.cnt{margin-top:12px;font-size:13px;color:#4a5668}
+.fab{display:none}
+/* modal */
+.modal{position:fixed;left:0;right:0;top:0;bottom:0;background:rgba(10,20,40,.6);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal .box{background:#fff;border-radius:14px;max-width:400px;width:100%;padding:22px}
+.modal h2{margin:0 0 8px;color:#0b2447;font-size:20px}
+.modal .row{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+/* result */
+.score{text-align:center;background:linear-gradient(135deg,#0b2447,#1d4380);color:#fff;border-radius:14px;padding:22px 14px}
+.score .big{font-size:48px;font-weight:800;color:#ffc93c;line-height:1.1}
+.score small{opacity:.85}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0}
+.stat{background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stat b{display:block;font-size:26px}
+.stat small{color:#5b6777}
+.s-ok b{color:#2e9e4f}.s-bad b{color:#c62828}.s-skip b{color:#e08a00}.s-att b{color:#1d4380}
+.rv{border-left:5px solid #cfd7e4;margin-top:12px}
+.rv.ok{border-color:#2e9e4f}.rv.bad{border-color:#c62828}.rv.sk{border-color:#e08a00}
+.rv h4{margin:0 0 6px;font-size:15px}
+.ro{padding:7px 10px;border-radius:8px;margin-top:6px;font-size:14.5px;background:#f3f6fb}
+.ro.c{background:#dff3e5;border:1px solid #2e9e4f}
+.ro.w{background:#fde7e7;border:1px solid #e57373}
+.ro em{font-style:normal;font-size:12px;font-weight:700;margin-left:6px}
+.foot{text-align:center;color:#6b7788;font-size:12px;padding:16px 10px calc(16px + env(safe-area-inset-bottom,0px))}
+/* mobile */
+@media(max-width:860px){
+ .layout{grid-template-columns:1fr}
+ .side{position:fixed;left:0;right:0;bottom:0;background:#fff;z-index:40;border-radius:16px 16px 0 0;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(0,0,0,.3);transform:translateY(105%);transition:transform .25s;max-height:75%;overflow:auto}
+ .side.open{transform:translateY(0)}
+ .grid{grid-template-columns:repeat(6,1fr)}
+ .fab{display:block;position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));background:#ffc93c;color:#0b2447;border:0;border-radius:30px;padding:12px 18px;font-weight:800;font-size:14px;box-shadow:0 3px 10px rgba(0,0,0,.35);z-index:30}
+ #test{padding-bottom:80px}
+ .brand span{display:none}
+ .brand b{font-size:13px}
+ .brand svg{width:34px;height:34px}
+ .timer{font-size:16px;min-width:66px}
+ .btn{padding:11px 14px}
+}
+@media(max-width:380px){.lang button{padding:7px 8px}.brand b{font-size:11.5px}}
+</style>
+</head>
+<body>
+
+<div class="top">
+ <div class="brand">
+  <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 3 8 12v18c0 15 10 26 24 31 14-5 24-16 24-31V12z" fill="#13315f" stroke="#ffc93c" stroke-width="3"/><path d="m32 16 4.6 9.6 10.4 1.4-7.6 7.3 1.9 10.4L32 39.5l-9.3 5.2 1.9-10.4L17 27l10.4-1.4z" fill="#ffc93c"/></svg>
+  <div><b>SKC DEFENCE ACADEMY</b><span data-i="tag">SSB • SRT Mock Test Series</span></div>
+ </div>
+ <div class="tools">
+  <div class="timer hide" id="timer">30:00</div>
+  <div class="lang"><button id="bEn" class="on" type="button">English</button><button id="bHi" type="button">हिन्दी</button></div>
+ </div>
+</div>
+
+<!-- START -->
+<div class="screen start" id="start">
+ <div class="card">
+  <h1>SRT Mock 45</h1>
+  <div class="sub" data-i="sSub">Situation Reaction Test – SKC Defence Academy Test Series</div>
+  <div class="info">
+   <div><b>35</b><small data-i="iQ">Questions</small></div>
+   <div><b>30</b><small data-i="iT">Minutes</small></div>
+   <div><b>+1</b><small data-i="iC">Correct</small></div>
+   <div><b>-0.25</b><small data-i="iW">Wrong</small></div>
+  </div>
+  <ul>
+   <li data-i="r1">Each question has 4 options; choose the best reaction.</li>
+   <li data-i="r2">Timer is 30 minutes. The test auto-submits when time ends.</li>
+   <li data-i="r3">Use the question palette to jump to any question.</li>
+   <li data-i="r4">Unanswered questions carry no marks (0).</li>
+   <li data-i="r5">You can switch between English and Hindi at any time.</li>
+   <li data-i="r6">You can submit the test at any time using the Submit button.</li>
+  </ul>
+  <button class="btn b-gold" id="startBtn" type="button" data-i="start">Start Test</button>
+ </div>
+</div>
+
+<!-- TEST -->
+<div class="screen hide" id="test">
+ <div class="layout">
+  <div class="card">
+   <div class="qhead"><div id="qno"></div><span class="tag" id="qtag"></span></div>
+   <div class="qtext" id="qtext"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button class="btn b-grey" id="prev" type="button" data-i="prev">Previous</button>
+    <button class="btn b-grey" id="clear" type="button" data-i="clear">Clear</button>
+    <span class="sp"></span>
+    <button class="btn b-pri" id="next" type="button" data-i="next">Next</button>
+    <button class="btn b-red" id="submit" type="button" data-i="submit">Submit</button>
+   </div>
+  </div>
+  <div class="side" id="side">
+   <h3 data-i="pal">Question Palette</h3>
+   <div class="grid" id="grid"></div>
+   <div class="legend"><span class="l2" data-i="lAns">Answered</span><span class="l3" data-i="lNot">Not answered</span><span data-i="lNv">Not visited</span></div>
+   <div class="cnt" id="cnt"></div>
+   <button class="btn b-grey fab-close" id="closeSide" type="button" style="margin-top:12px;width:100%;display:none" data-i="close">Close</button>
+  </div>
+ </div>
+ <button class="fab" id="fab" type="button" data-i="qs">Questions</button>
+</div>
+
+<!-- RESULT -->
+<div class="screen hide" id="result">
+ <div class="score">
+  <small data-i="yourScore">Your Score</small>
+  <div class="big" id="rScore">0</div>
+  <small id="rOut"></small>
+ </div>
+ <div class="stats" id="stats"></div>
+ <div style="text-align:center;margin:8px 0 4px">
+  <button class="btn b-gold" id="showRv" type="button" data-i="review">Review Answers</button>
+  <button class="btn b-pri" id="retake" type="button" data-i="retake">Retake Test</button>
+ </div>
+ <div id="rv" class="hide"></div>
+</div>
+
+<div class="foot">© SKC DEFENCE ACADEMY &nbsp;|&nbsp; SRT Mock 45</div>
+
+<!-- CONFIRM -->
+<div class="modal hide" id="modal">
+ <div class="box">
+  <h2 data-i="cTitle">Submit Test?</h2>
+  <div id="cBody"></div>
+  <div class="row">
+   <button class="btn b-grey" id="cNo" type="button" data-i="cancel">Cancel</button>
+   <button class="btn b-red" id="cYes" type="button" data-i="yes">Yes, Submit</button>
+  </div>
+ </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- QUESTION DATA ----------
+ [Q_en, Q_hi, A_en, A_hi, B_en, B_hi, C_en, C_hi, D_en, D_hi, correctIndex(0=A..3=D)] */
+var RAW=[
+["You are on your way to the highly important SSB interview, but your bag containing all your original educational documents is stolen in the train.","आप अत्यधिक महत्वपूर्ण एसएसबी (SSB) साक्षात्कार के लिए जा रहे हैं, लेकिन ट्रेन में आपके सभी मूल शैक्षिक दस्तावेजों वाला आपका बैग चोरी हो जाता है।",
+"Steal another candidate's bag at the station to ruin their chances and exact revenge on society for your bad luck.","अपनी बुरी किस्मत के लिए समाज से बदला लेने और उनके अवसरों को बर्बाद करने के लिए स्टेशन पर किसी अन्य उम्मीदवार का बैग चुरा लेंगे।",
+"Jump in front of the moving train in absolute despair because your only dream of joining the armed forces is shattered.","सशस्त्र बलों में शामिल होने का आपका एकमात्र सपना टूट जाने के कारण पूर्ण निराशा में चलती ट्रेन के सामने कूद जाएंगे।",
+"Sit on the train floor weeping uncontrollably, abandon the interview out of shame, and return home feeling utterly worthless.","बेकाबू होकर रोते हुए ट्रेन के फर्श पर बैठ जाएंगे, शर्म के मारे इंटरव्यू छोड़ देंगे, और पूरी तरह से बेकार महसूस करते हुए घर लौट आएंगे।",
+"Pull the emergency chain and physically assault the train ticket examiner, blaming him violently for the theft.","डकैती के लिए हिंसक रूप से उसे दोषी ठहराते हुए आपातकालीन श्रृंखला खींचेंगे और ट्रेन टिकट परीक्षक पर शारीरिक हमला करेंगे।",2],
+
+["You see a small child drowning in a fast-flowing river, but you do not know how to swim at all.","आप एक छोटे बच्चे को तेज बहने वाली नदी में डूबते हुए देखते हैं, लेकिन आप बिल्कुल भी तैरना नहीं जानते हैं।",
+"Push an innocent bystander violently into the raging river to forcefully make them save the drowning child.","एक निर्दोष दर्शक को हिंसक रूप से उफनती नदी में धकेल देंगे ताकि उन्हें डूबते बच्चे को बचाने के लिए मजबूर किया जा सके।",
+"Turn your back and walk away in cowardly silence, letting the child drown to ensure your own absolute safety.","कायरतापूर्ण चुप्पी में पीठ फेरेंगे और चले जाएंगे, अपनी पूर्ण सुरक्षा सुनिश्चित करने के लिए बच्चे को डूबने देंगे।",
+"Jump directly into the deep, fast-flowing river, guaranteeing that you will also drown alongside the child immediately.","सीधे गहरी, तेज बहने वाली नदी में कूद जाएंगे, यह गारंटी देते हुए कि आप भी बच्चे के साथ तुरंत डूब जाएंगे।",
+"Start a violent riot on the riverbank, heavily destroying public property to protest the lack of safety measures.","सुरक्षा उपायों की कमी का विरोध करने के लिए सार्वजनिक संपत्ति को भारी नुकसान पहुंचाते हुए नदी के किनारे एक हिंसक दंगा शुरू कर देंगे।",1],
+
+["While returning from a late-night movie, some heavily armed goons block your way and start aggressively teasing your sister.","देर रात की फिल्म से लौटते समय, कुछ भारी हथियारों से लैस गुंडे आपका रास्ता रोक लेते हैं और आपकी बहन को आक्रामक रूप से छेड़ना शुरू कर देते हैं।",
+"Beg the goons pathetically on your knees, offering them all your cash to just humiliate you instead of harming her.","गुंडों के सामने अपने घुटनों पर दयनीय रूप से भीख मांगेंगे, उन्हें अपना सारा नकद देंगे ताकि वे उसे नुकसान पहुंचाने के बजाय केवल आपको अपमानित करें।",
+"Pull out a hidden illegal gun and shoot all the goons dead on the street in a fit of absolute blind rage.","एक छिपी हुई अवैध बंदूक निकालेंगे और पूर्ण अंधे क्रोध के दौरे में सड़क पर सभी गुंडों को गोली मार देंगे।",
+"Push your sister towards the goons as a distraction and run away as fast as you can to save your own life.","अपनी बहन को भटकाने के लिए गुंडों की ओर धकेल देंगे और अपनी जान बचाने के लिए जितनी तेजी से हो सके भाग जाएंगे।",
+"Stab yourself repeatedly in front of the goons to deeply traumatize them and force them to leave out of horror.","गुंडों के सामने खुद को बार-बार छुरा घोंपेंगे ताकि उन्हें गहरा आघात लगे और वे डरावनी स्थिति के कारण जाने के लिए मजबूर हो जाएं।",0],
+
+["You are camping in the forest when you wake up to find your tent completely surrounded by a raging, massive forest fire.","आप जंगल में डेरा डाले हुए हैं जब आप जागते हैं तो पाते हैं कि आपका तंबू पूरी तरह से भीषण, भीषण जंगल की आग से घिरा हुआ है।",
+"Purposely throw your sleeping friends into the fire to create a safe path for yourself to escape the inferno.","नरक से बचने के लिए अपने लिए एक सुरक्षित रास्ता बनाने के लिए जानबूझकर अपने सोते हुए दोस्तों को आग में फेंक देंगे।",
+"Curl up on the ground in paralyzing fear, crying helplessly and miserably accepting your agonizing death by burning.","लकवाग्रस्त कर देने वाले डर से जमीन पर सिकुड़ जाएंगे, बेबस होकर रोएंगे और दयनीय रूप से जलकर अपनी दर्दनाक मौत को स्वीकार करेंगे।",
+"Cut your own throat with a camping knife to escape the unbearable, torturous pain of burning alive.","जिंदा जलने के असहनीय, दर्दनाक दर्द से बचने के लिए कैंपिंग चाकू से अपना ही गला काट लेंगे।",
+"Blindly attack the forest rescue rangers when they arrive, heavily injuring them in a totally panicked frenzy.","वन बचाव रेंजरों के आने पर उन पर आंख मूंदकर हमला करेंगे, पूरी तरह से घबराहट में उन्हें बुरी तरह घायल कर देंगे।",1],
+
+["You find an unattended, open briefcase full of millions in cash and expensive jewelry on a completely lonely road.","आपको एक पूरी तरह से सुनसान सड़क पर करोड़ों की नकदी और महंगे गहनों से भरा एक लावारिस, खुला अटैची मिलता है।",
+"Take the entire briefcase and use the illicit money to hire dangerous criminals to eliminate your personal rivals.","पूरा ब्रीफकेस ले लेंगे और अपने व्यक्तिगत प्रतिद्वंद्वियों को खत्म करने के लिए खतरनाक अपराधियों को काम पर रखने के लिए अवैध धन का उपयोग करेंगे।",
+"Leave the briefcase untouched out of extreme paranoia and run away trembling, forever regretting your intense cowardice.","अत्यधिक व्यामोह (paranoia) के कारण ब्रीफकेस को अछूता छोड़ देंगे और कांपते हुए भाग जाएंगे, हमेशा अपनी तीव्र कायरता पर पछतावा करेंगे।",
+"Burn the entire briefcase of cash and jewelry to ashes just to watch something valuable be completely destroyed.","नकदी और गहनों के पूरे ब्रीफकेस को जलाकर राख कर देंगे ताकि किसी मूल्यवान चीज को पूरी तरह से नष्ट होते हुए देखा जा सके।",
+"Keep the money, completely abandon your family, and run away to a foreign country under a fake identity.","पैसा रखेंगे, अपने परिवार को पूरी तरह से छोड़ देंगे, और एक नकली पहचान के तहत एक विदेशी देश में भाग जाएंगे।",1],
+
+["You are in an examination hall, and the strict invigilator wrongly catches you with cheat sheets slipped into your desk by a rival.","आप एक परीक्षा हॉल में हैं, और सख्त पर्यवेक्षक गलत तरीके से आपको एक प्रतिद्वंद्वी द्वारा आपके डेस्क में खिसकाई गई चीट शीट के साथ पकड़ लेता है।",
+"Smash the exam desk heavily and violently attack the invigilator, destroying the classroom property in a blind fury.","परीक्षा डेस्क को भारी रूप से तोड़ देंगे और पर्यवेक्षक पर हिंसक रूप से हमला करेंगे, एक अंधी उग्रता में कक्षा की संपत्ति को नष्ट कर देंगे।",
+"Accept the false cheating accusation weeping loudly, get debarred permanently, and ruin your career without fighting back.","जोर-जोर से रोते हुए झूठे धोखाधड़ी के आरोप को स्वीकार करेंगे, स्थायी रूप से वंचित (debarred) हो जाएंगे, और बिना लड़े अपना करियर बर्बाद कर देंगे।",
+"Pull out a sharp compass and try to stab the rival student who framed you right in the middle of the exam.","एक तेज कंपास निकालेंगे और उस प्रतिद्वंद्वी छात्र को छुरा घोंपने की कोशिश करेंगे जिसने आपको परीक्षा के ठीक बीच में फंसाया था।",
+"Run directly to the roof of the college building and attempt to jump off to escape the unbearable public shame.","असहनीय सार्वजनिक शर्मिंदगी से बचने के लिए सीधे कॉलेज की इमारत की छत पर दौड़ेंगे और कूदने का प्रयास करेंगे।",1],
+
+["You reach the railway station and realize you forgot your wallet and ticket at home, and your crucial train is departing in 2 minutes.","आप रेलवे स्टेशन पहुँचते हैं और महसूस करते हैं कि आप अपना बटुआ और टिकट घर पर भूल गए हैं, और आपकी महत्वपूर्ण ट्रेन 2 मिनट में छूटने वाली है।",
+"Push a wealthy passenger onto the tracks in the chaos and steal their bag to forcefully fund your journey.","अराजकता में एक धनी यात्री को पटरियों पर धकेल देंगे और अपनी यात्रा को बलपूर्वक निधि देने के लिए उनका बैग चुरा लेंगे।",
+"Sit outside the station begging strangers for money in utter humiliation, completely missing the train and ruining the trip.","अत्यधिक अपमान में अजनबियों से पैसे की भीख मांगते हुए स्टेशन के बाहर बैठेंगे, पूरी तरह से ट्रेन छूट जाएगी और यात्रा बर्बाद हो जाएगी।",
+"Break into the station master's office and violently threaten the staff with a glass bottle to stop the train.","स्टेशन मास्टर के कार्यालय में घुस जाएंगे और ट्रेन को रोकने के लिए कांच की बोतल से कर्मचारियों को हिंसक रूप से धमकी देंगे।",
+"Throw yourself under the wheels of the departing train out of absolute frustration and paralyzing self-hatred.","पूर्ण हताशा और लकवाग्रस्त आत्म-घृणा के कारण प्रस्थान करने वाली ट्रेन के पहियों के नीचे खुद को फेंक देंगे।",1],
+
+["A deadly epidemic breaks out in your remote village, and the local government hospital completely runs out of medicine.","आपके दूरस्थ गाँव में एक घातक महामारी फैल जाती है, और स्थानीय सरकारी अस्पताल में दवा पूरी तरह खत्म हो जाती है।",
+"Steal the last remaining medicines from a dying patient violently to aggressively save your own family members.","अपने परिवार के सदस्यों को आक्रामक रूप से बचाने के लिए मरते हुए मरीज से अंतिम बची हुई दवाइयां हिंसक रूप से चुरा लेंगे।",
+"Lead a violent mob to burn down the hospital and lynch the helpless doctors for failing to save the village.","अस्पताल को जलाने के लिए एक हिंसक भीड़ का नेतृत्व करेंगे और गांव को बचाने में विफल रहने के लिए असहाय डॉक्टरों की पीट-पीट कर हत्या कर देंगे।",
+"Drink a bottle of poisonous pesticide to end your life immediately so you don't have to watch your family die.","अपना जीवन तुरंत समाप्त करने के लिए जहरीले कीटनाशक की एक बोतल पी लेंगे ताकि आपको अपने परिवार को मरते हुए न देखना पड़े।",
+"Lock yourself inside your house in sheer terror, abandoning the dying villagers completely, waiting miserably for the end.","सरासर आतंक में खुद को अपने घर के अंदर बंद कर लेंगे, मरते हुए ग्रामीणों को पूरी तरह से छोड़ देंगे, दयनीय रूप से अंत की प्रतीक्षा करेंगे।",3],
+
+["You are appointed as the team captain, but the senior team members arrogantly boycott you and completely refuse to cooperate.","आपको टीम के कप्तान के रूप में नियुक्त किया गया है, लेकिन वरिष्ठ टीम के सदस्य अहंकारपूर्वक आपका बहिष्कार करते हैं और सहयोग करने से पूरी तरह से इंकार करते हैं।",
+"Resign from the captaincy in deep shame, crying in the manager's office, and accept your total failure as a leader.","गहरे शर्म में कप्तानी से इस्तीफा देंगे, मैनेजर के ऑफिस में रोएंगे, और एक नेता के रूप में अपनी पूर्ण विफलता को स्वीकार करेंगे।",
+"Secretly mix heavy laxatives or poison in the senior members' food to ruin their health and exact your sick revenge.","वरिष्ठ सदस्यों के भोजन में भारी जुलाब या जहर गुप्त रूप से मिला देंगे ताकि उनका स्वास्थ्य खराब हो सके और अपना बीमार बदला ले सकें।",
+"Start a brutal physical fistfight with the seniors in the locker room, ensuring everyone gets severely injured and expelled.","लॉकर रूम में वरिष्ठों के साथ एक क्रूर शारीरिक मुक्कामारी शुरू करेंगे, यह सुनिश्चित करते हुए कि हर कोई गंभीर रूप से घायल हो जाए और निष्कासित हो जाए।",
+"Crash your car on purpose on the way to the tournament to avoid facing the massive humiliation of leading a broken team.","टूटी हुई टीम का नेतृत्व करने के भारी अपमान का सामना करने से बचने के लिए टूर्नामेंट के रास्ते में जानबूझकर अपनी कार को दुर्घटनाग्रस्त कर देंगे।",0],
+
+["A highly venomous snake deeply bites your friend's leg while you both are camping in a completely remote, inaccessible area.","जब आप दोनों एक पूरी तरह से दूरस्थ, दुर्गम क्षेत्र में डेरा डाले हुए हैं, तो एक अत्यधिक विषैला सांप आपके दोस्त के पैर में गहराई से काट लेता है।",
+"Chop off your friend's entire leg with a dirty camping axe in a blind panic, causing them to bleed to death rapidly.","एक अंधे घबराहट में एक गंदी शिविर कुल्हाड़ी से अपने दोस्त के पूरे पैर को काट देंगे, जिससे उनके खून बहने से तेजी से मौत हो जाएगी।",
+"Run away in absolute terror, abandoning your dying friend in the wilderness just to save yourself from the snake.","पूर्ण आतंक में भाग जाएंगे, सांप से खुद को बचाने के लिए अपने मरते हुए दोस्त को जंगल में छोड़ देंगे।",
+"Beat the snake to death and then consume its venom intentionally to die alongside your friend out of sheer guilt.","सांप को पीट-पीट कर मार डालेंगे और फिर अपने दोस्त के साथ मरने के लिए जानबूझकर उसके जहर का सेवन करेंगे जो कि शुद्ध अपराधबोध है।",
+"Use your friend as a human shield against any other snakes while you cowardishly hike back to the safe zone alone.","किसी भी अन्य सांपों के खिलाफ अपने दोस्त का मानव ढाल के रूप में उपयोग करेंगे, जबकि आप कायरतापूर्वक अकेले सुरक्षित क्षेत्र में वापस आ जाएंगे।",1],
+
+["You see a suspected terrorist planting a heavy bomb inside a dustbin in a highly crowded shopping mall.","आप एक संदिग्ध आतंकवादी को अत्यधिक भीड़भाड़ वाले शॉपिंग मॉल में एक कूड़ेदान के अंदर एक भारी बम लगाते हुए देखते हैं।",
+"Run out of the mall silently in pure cowardice, saving only yourself and letting hundreds of innocent people blow up.","शुद्ध कायरता में चुपचाप मॉल से बाहर भाग जाएंगे, केवल खुद को बचाएंगे और सैकड़ों निर्दोष लोगों को उड़ने देंगे।",
+"Attack the terrorist blindly with bare hands, ensuring you are instantly shot dead before warning anyone else.","आतंकवादी पर नंगे हाथों से आंख मूंदकर हमला करेंगे, यह सुनिश्चित करते हुए कि किसी और को चेतावनी देने से पहले आपको तुरंत गोली मार दी जाए।",
+"Steal items from the mall shops taking advantage of the imminent bomb blast, prioritizing extreme greed over human lives.","आसन्न बम विस्फोट का लाभ उठाते हुए मॉल की दुकानों से सामान चुराएंगे, मानव जीवन पर अत्यधिक लालच को प्राथमिकता देंगे।",
+"Detonate a small hidden explosive of your own to create a chaotic stampede where dozens of people get crushed.","दर्जनों लोगों को कुचले जाने वाली अराजक भगदड़ पैदा करने के लिए अपना खुद का एक छोटा छिपा हुआ विस्फोटक विस्फोट करेंगे।",0],
+
+["Your bicycle chain breaks completely on a totally deserted, dark road at 1 AM, and it is raining heavily.","रात 1 बजे पूरी तरह से सुनसान, अंधेरी सड़क पर आपकी साइकिल की चेन पूरी तरह से टूट जाती है, और भारी बारिश हो रही है।",
+"Throw yourself directly into the path of an oncoming speeding truck because you cannot handle the extreme stress and misery.","अत्यधिक तनाव और दुख को न संभाल पाने के कारण खुद को सीधे आने वाले तेज रफ्तार ट्रक के रास्ते में फेंक देंगे।",
+"Break into a locked house nearby by smashing windows forcefully to illegally steal a working vehicle for yourself.","अपने लिए काम करने वाला वाहन अवैध रूप से चुराने के लिए खिड़कियों को बलपूर्वक तोड़कर पास के एक बंद घर में सेंध लगाएंगे।",
+"Wait for a passing car and violently attack the driver with a heavy iron tool to hijack their vehicle.","गुजरती कार का इंतजार करेंगे और चालक के वाहन को हाईजैक करने के लिए भारी लोहे के औजार से हिंसक हमला करेंगे।",
+"Abandon the cycle in the mud, sit under a tree crying miserably in the freezing rain, and wait hopelessly till morning.","कीचड़ में साइकिल छोड़ देंगे, पेड़ के नीचे बैठकर ठंडी बारिश में दयनीय रूप से रोएंगे, और सुबह तक निराशा से प्रतीक्षा करेंगे।",3],
+
+["You fail the final medical test for your ultimate dream defense job due to a minor but permanent physical defect.","एक मामूली लेकिन स्थायी शारीरिक दोष के कारण आप अपने अंतिम सपनों की रक्षा नौकरी के लिए अंतिम चिकित्सा परीक्षा में विफल हो जाते हैं।",
+"Sink into severe, lifelong depression, refuse to eat for days, and completely give up on ever having a successful career.","गंभीर, आजीवन अवसाद में डूब जाएंगे, दिनों तक खाने से इंकार करेंगे, और कभी भी सफल करियर बनाने की उम्मीद पूरी तरह से छोड़ देंगे।",
+"Brutally assault the military medical examiner in the hospital room for ruining your life, guaranteeing your arrest.","अपने जीवन को बर्बाद करने के लिए अस्पताल के कमरे में सैन्य चिकित्सा परीक्षक पर बेरहमी से हमला करेंगे, अपनी गिरफ्तारी की गारंटी देंगे।",
+"Hang yourself in the medical ward washroom because you believe your life has absolutely no meaning without the uniform.","मेडिकल वार्ड के वाशरूम में खुद को फांसी लगा लेंगे क्योंकि आपका मानना है कि वर्दी के बिना आपके जीवन का कोई मतलब नहीं है।",
+"Fake a massive terrorist attack on the medical facility as revenge for them rejecting your lifelong application.","आपके आजीवन आवेदन को अस्वीकार करने के प्रतिशोध के रूप में चिकित्सा सुविधा पर एक बड़े पैमाने पर आतंकवादी हमले का नाटक करेंगे।",0],
+
+["Your neighbor's house catches fierce fire, and a baby is crying inside, but the roaring flames are too intense.","आपके पड़ोसी के घर में भयंकर आग लग जाती है, और एक बच्चा अंदर रो रहा है, लेकिन गर्जना की लपटें बहुत तेज हैं।",
+"Stand frozen in sheer cowardice among the crowd, covering your ears to block the screams, and do absolutely nothing to help.","सरासर कायरता में भीड़ के बीच जमे हुए खड़े रहेंगे, चीखों को रोकने के लिए अपने कानों को ढकेंगे, और मदद करने के लिए बिल्कुल कुछ नहीं करेंगे।",
+"Push the weeping parents aggressively into the intense fire so they can burn alongside their trapped baby.","रोते हुए माता-पिता को आक्रामक रूप से तीव्र आग में धकेल देंगे ताकि वे अपने फंसे हुए बच्चे के साथ जल सकें।",
+"Take advantage of the chaotic emergency to secretly break into another house and steal expensive jewelry completely unnoticed.","अराजक आपातकाल का लाभ उठाकर गुप्त रूप से दूसरे घर में सेंध लगाएंगे और पूरी तरह से बिना ध्यान दिए महंगे गहने चुरा लेंगे।",
+"Run directly into the hottest part of the fire completely unprotected, ensuring you burn to death instantly without saving anyone.","पूरी तरह से असुरक्षित आग के सबसे गर्म हिस्से में सीधे दौड़ेंगे, यह सुनिश्चित करते हुए कि आप किसी को बचाए बिना तुरंत जलकर मर जाएं।",0],
+
+["A highly corrupt senior officer aggressively demands a huge cash bribe to pass your perfectly legitimate, urgent leave application.","एक अत्यधिक भ्रष्ट वरिष्ठ अधिकारी आपके पूरी तरह से वैध, तत्काल अवकाश आवेदन को पारित करने के लिए आक्रामक रूप से भारी नकद रिश्वत की मांग करता है।",
+"Pull out your service weapon and shoot the corrupt officer right in his chair in a blinding fit of psychotic rage.","मानसिक क्रोध के अंधेरे में अपनी सर्विस वेपन निकालेंगे और भ्रष्ट अधिकारी को उसकी कुर्सी पर ही गोली मार देंगे।",
+"Fall at the corrupt officer's feet, crying pathetically and handing over your entire month's salary just to get the leave.","भ्रष्ट अधिकारी के पैरों पर गिरेंगे, दयनीय रूप से रोएंगे और छुट्टी पाने के लिए अपने पूरे महीने का वेतन सौंप देंगे।",
+"Leak heavily classified, dangerous national security secrets to the enemy just to get enough black money to pay the bribe.","रिश्वत देने के लिए पर्याप्त काला धन प्राप्त करने के लिए दुश्मन को अत्यधिक वर्गीकृत, खतरनाक राष्ट्रीय सुरक्षा रहस्य लीक करेंगे।",
+"Commit suicide in the barracks to permanently escape the mental torture and humiliation caused by the toxic senior officer.","विषैले वरिष्ठ अधिकारी द्वारा होने वाली मानसिक यातना और अपमान से स्थायी रूप से बचने के लिए बैरक में आत्महत्या कर लेंगे।",1],
+
+["While driving, your brakes fail completely on a highly steep downhill slope with heavy, slow-moving traffic ahead.","गाड़ी चलाते समय, आगे भारी, धीमी गति से चलने वाले यातायात के साथ एक अत्यधिक खड़ी ढलान पर आपके ब्रेक पूरी तरह से विफल हो जाते हैं।",
+"Steer your car intentionally onto the crowded footpath, brutally crushing dozens of innocent pedestrians to forcefully stop your vehicle.","अपने वाहन को बलपूर्वक रोकने के लिए जानबूझकर अपनी कार को भीड़भाड़ वाले फुटपाथ पर ले जाएंगे, दर्जनों निर्दोष पैदल चलने वालों को बेरहमी से कुचल देंगे।",
+"Close your eyes in blinding panic, take your hands off the steering wheel entirely, and wait helplessly for the fatal crash.","अंधी घबराहट में अपनी आँखें बंद करेंगे, स्टीयरिंग व्हील से अपने हाथ पूरी तरह से हटा लेंगे, और बेबस होकर घातक दुर्घटना की प्रतीक्षा करेंगे।",
+"Unbuckle your seatbelt and violently throw yourself out of the speeding car, smashing your skull permanently on the rocky road.","अपनी सीटबेल्ट खोलेंगे और तेजी से चलती कार से खुद को हिंसक रूप से बाहर फेंक देंगे, पथरीली सड़क पर अपनी खोपड़ी को स्थायी रूप से तोड़ देंगे।",
+"Pull out a hidden gun and shoot randomly at the cars ahead to make them scatter out of your terrifying way.","एक छिपी हुई बंदूक निकालेंगे और आगे की कारों पर बेतरतीब ढंग से गोली चलाएंगे ताकि वे आपके भयानक रास्ते से तितर-बितर हो जाएं।",1],
+
+["You are the only earning member of your poor family, and you suddenly get fired from your job without any cause.","आप अपने गरीब परिवार के एकमात्र कमाने वाले सदस्य हैं, और आपको अचानक बिना किसी कारण के अपनी नौकरी से निकाल दिया जाता है।",
+"Beg the HR manager pathetically on your knees, crying loudly in front of everyone, but walk away completely broken and unemployed.","एचआर (HR) मैनेजर से अपने घुटनों पर दयनीय रूप से भीख मांगेंगे, सबके सामने जोर-जोर से रोएंगे, लेकिन पूरी तरह से टूटे और बेरोजगार होकर चले जाएंगे।",
+"Return to the office at midnight and violently burn down the entire building to ashes to destroy the company completely.","आधी रात को कार्यालय लौटेंगे और कंपनी को पूरी तरह से नष्ट करने के लिए पूरी इमारत को हिंसक रूप से जलाकर राख कर देंगे।",
+"Start kidnapping children from your neighborhood to extort heavy ransom money to instantly feed your starving family.","अपने भूखे परिवार को तुरंत खिलाने के लिए भारी फिरौती के पैसे वसूलने के लिए अपने पड़ोस से बच्चों का अपहरण करना शुरू कर देंगे।",
+"Consume a bottle of deadly poison on the office steps because you are too cowardly to face your hungry family.","कार्यालय की सीढ़ियों पर घातक जहर की एक बोतल का सेवन करेंगे क्योंकि आप अपने भूखे परिवार का सामना करने के लिए बहुत कायर हैं।",0],
+
+["A violent, massive riot breaks out in your city, and a heavily armed mob starts brutally attacking your neighborhood.","आपके शहर में एक हिंसक, बड़े पैमाने पर दंगा भड़क उठता है, और भारी हथियारों से लैस भीड़ आपके पड़ोस पर बेरहमी से हमला करना शुरू कर देती है।",
+"Join the violent mob aggressively to save your own life, actively participating in burning down your own neighbors' houses completely.","अपनी जान बचाने के लिए आक्रामक रूप से हिंसक भीड़ में शामिल होंगे, अपने ही पड़ोसियों के घरों को पूरी तरह से जलाने में सक्रिय रूप से भाग लेंगे।",
+"Hide under your bed shivering in paralyzing fear, weeping silently while the mob completely destroys the rest of your neighborhood.","लकवाग्रस्त कर देने वाले डर से कांपते हुए अपने बिस्तर के नीचे छिपेंगे, चुपचाप रोएंगे जबकि भीड़ आपके बाकी पड़ोस को पूरी तरह से नष्ट कर देती है।",
+"Walk straight into the armed mob completely empty-handed, shouting insults, guaranteeing that they brutally lynch you to death instantly.","निहत्थे होकर सीधे हथियारबंद भीड़ के बीच जाएंगे, गालियां देंगे, यह गारंटी देते हुए कि वे आपको तुरंत बेरहमी से मार डालेंगे।",
+"Use homemade explosives to blow up the entire street, killing both the rioters and the innocent trapped families indiscriminately.","पूरी सड़क को उड़ाने के लिए घर के बने विस्फोटकों का उपयोग करेंगे, दंगाइयों और निर्दोष फंसे हुए परिवारों दोनों को अंधाधुंध मार डालेंगे।",1],
+
+["You accidentally break an incredibly expensive piece of testing equipment in the college lab when no one is looking.","जब कोई नहीं देख रहा होता है तो आप कॉलेज की प्रयोगशाला में परीक्षण उपकरण का एक अविश्वसनीय रूप से महंगा टुकड़ा गलती से तोड़ देते हैं।",
+"Sneak away like a coward, secretly let a poor innocent junior take the blame, and live with the severe guilt silently.","एक कायर की तरह छिपकर निकल जाएंगे, गुप्त रूप से एक गरीब निर्दोष जूनियर को दोष लेने देंगे, और चुपचाप गंभीर अपराधबोध के साथ जिएंगे।",
+"Take a heavy hammer and violently smash every single remaining piece of equipment in the lab in a psychotic frenzy.","एक भारी हथौड़ा लेंगे और एक मानसिक उन्माद में प्रयोगशाला में शेष हर एक उपकरण को हिंसक रूप से तोड़ देंगे।",
+"Jump directly from the top floor of the science building because you cannot afford the massive financial penalty.","सीधे विज्ञान भवन की शीर्ष मंजिल से कूद जाएंगे क्योंकि आप बड़े पैमाने पर वित्तीय दंड का खर्च नहीं उठा सकते हैं।",
+"Threaten the lab assistant with a sharp knife to forcefully make him delete the CCTV footage of your accident.","अपनी दुर्घटना के सीसीटीवी (CCTV) फुटेज को हटाने के लिए मजबूर करने के लिए तेज चाकू के साथ लैब सहायक को धमकी देंगे।",0],
+
+["A trusted friend borrows a huge amount of your life savings and then flatly denies it, refusing to pay it back entirely.","एक भरोसेमंद दोस्त आपके जीवन भर की बचत की एक बड़ी राशि उधार लेता है और फिर स्पष्ट रूप से इससे इनकार करता है, इसे पूरी तरह से वापस करने से इनकार करता है।",
+"Hire local contract killers to brutally execute the betraying friend and totally eliminate their entire family for the massive fraud.","बड़े पैमाने पर धोखाधड़ी के लिए धोखा देने वाले दोस्त को बेरहमी से मारने और उनके पूरे परिवार को पूरी तरह से खत्म करने के लिए स्थानीय भाड़े के हत्यारों (contract killers) को काम पर रखेंगे।",
+"Burn yourself alive in front of the friend's house in absolute sheer despair to make them feel lifelong torturous guilt.","उन्हें आजीवन दर्दनाक अपराधबोध महसूस कराने के लिए पूर्ण निराशा में दोस्त के घर के सामने खुद को जिंदा जला लेंगे।",
+"Accept the massive financial loss silently, cry in severe despair at home, and completely sever all ties with the betraying friend.","बड़े पैमाने पर वित्तीय नुकसान को चुपचाप स्वीकार करेंगे, घर पर गंभीर निराशा में रोएंगे, और धोखा देने वाले दोस्त के साथ सभी संबंध पूरी तरह से तोड़ लेंगे।",
+"Kidnap your friend's young innocent child and demand the stolen money back in the form of a heavy illegal ransom.","अपने दोस्त के युवा मासूम बच्चे का अपहरण करेंगे और भारी अवैध फिरौती के रूप में चोरी किए गए पैसे वापस मांगेंगे।",2],
+
+["You are trapped deeply under the heavy debris of a collapsed multi-story building after a massive, devastating earthquake.","एक बड़े पैमाने पर, विनाशकारी भूकंप के बाद आप एक ढह गई बहुमंजिला इमारत के भारी मलबे के नीचे गहराई में फंस गए हैं।",
+"Sob uncontrollably in the pitch dark, completely abandon any effort to call for help, and miserably wait to suffocate to death.","घुप अंधेरे में बेकाबू होकर सिसकेंगे, मदद के लिए पुकारने के किसी भी प्रयास को पूरी तरह से छोड़ देंगे, और दयनीय रूप से दम घुटने से मरने का इंतजार करेंगे।",
+"Slit your own wrists with a broken piece of glass to aggressively escape the terrifying, slow, and agonizing death by crushing.","कुचलने से होने वाली भयानक, धीमी और दर्दनाक मौत से आक्रामक रूप से बचने के लिए कांच के टूटे हुए टुकड़े से अपनी ही कलाई काट लेंगे।",
+"Violently strangle the injured survivor trapped next to you so that you can selfishly consume all their remaining breathing oxygen.","अपने बगल में फंसे घायल उत्तरजीवी का हिंसक रूप से गला घोंट देंगे ताकि आप स्वार्थपूर्वक उनकी शेष सांस लेने वाली ऑक्सीजन का उपभोग कर सकें।",
+"Purposely ignite a lighter to set the surrounding debris completely on fire, burning yourself alive just to end the immense suffering.","अत्यधिक पीड़ा को समाप्त करने के लिए जानबूझकर आसपास के मलबे में पूरी तरह से आग लगाने के लिए एक लाइटर जलाएंगे, खुद को जिंदा जला लेंगे।",0],
+
+["You discover your trusted subordinate is heavily leaking highly classified military troop locations directly to a deadly enemy agent.","आपको पता चलता है कि आपका भरोसेमंद अधीनस्थ अत्यधिक वर्गीकृत सैन्य सैनिकों के स्थानों को सीधे एक घातक दुश्मन एजेंट को भारी रूप से लीक कर रहा है।",
+"Ignore the extreme treason entirely out of intense paralyzing fear of the enemy agents, cowardly letting national security be permanently compromised.","दुश्मन एजेंटों के तीव्र लकवाग्रस्त करने वाले डर के कारण चरम देशद्रोह को पूरी तरह से अनदेखा करेंगे, कायरतापूर्वक राष्ट्रीय सुरक्षा को स्थायी रूप से समझौता होने देंगे।",
+"Pull out your loaded service gun and brutally murder the subordinate instantly without waiting for any official military court martial.","अपनी लोडेड सर्विस गन निकालेंगे और किसी भी आधिकारिक सैन्य कोर्ट मार्शल की प्रतीक्षा किए बिना अधीनस्थ की बेरहमी से तुरंत हत्या कर देंगे।",
+"Join the enemy agent's syndicate for massive financial bribes, willingly betraying your own motherland in a fit of extreme greed.","अत्यधिक लालच के दौरे में स्वेच्छा से अपनी ही मातृभूमि को धोखा देते हुए, बड़े पैमाने पर वित्तीय रिश्वत के लिए दुश्मन एजेंट के सिंडिकेट में शामिल हो जाएंगे।",
+"Hang yourself from the ceiling fan in your office because you feel completely responsible and deeply ashamed of your subordinate's betrayal.","अपने कार्यालय में छत के पंखे से लटक जाएंगे क्योंकि आप अपने अधीनस्थ के विश्वासघात के लिए पूरी तरह से जिम्मेदार और गहराई से शर्मिंदा महसूस करते हैं।",0],
+
+["You are assigned a highly dangerous frontline mission where the tactical survival rate is declared to be absolute zero.","आपको एक अत्यधिक खतरनाक फ्रंटलाइन मिशन सौंपा गया है जहाँ सामरिक अस्तित्व दर पूर्ण शून्य घोषित की गई है।",
+"Mutiny against your commanding officer, shoot him violently in the chest, and force the rest of the unit to run away.","अपने कमांडिंग ऑफिसर के खिलाफ विद्रोह करेंगे, उसके सीने में हिंसक रूप से गोली मारेंगे, और बाकी यूनिट को भागने के लिए मजबूर करेंगे।",
+"Break down crying hysterically in front of your commanding officer, refusing to go out of sheer cowardice, and face a humiliating court-martial.","अपने कमांडिंग ऑफिसर के सामने हिस्टीरिकल रूप से (पागलों की तरह) रोएंगे, सरासर कायरता के कारण बाहर जाने से इंकार करेंगे, और एक अपमानजनक कोर्ट-मार्शल का सामना करेंगे।",
+"Sell your unit's top-secret mission plans to the enemy forces so that they capture you safely instead of executing you.","अपनी इकाई की अति-गुप्त मिशन योजनाओं को दुश्मन सेना को बेच देंगे ताकि वे आपको मारने के बजाय सुरक्षित रूप से पकड़ लें।",
+"Shoot yourself in the foot intentionally with a rifle to become permanently disabled and forcefully escape the deadly suicide mission entirely.","स्थायी रूप से विकलांग होने के लिए जानबूझकर राइफल से अपने पैर में गोली मार लेंगे और घातक आत्मघाती मिशन से पूरी तरह से बच जाएंगे।",1],
+
+["A group of violent seniors brutally rag you in the college hostel, threatening to completely ruin your career if you report them.","कॉलेज के छात्रावास में हिंसक वरिष्ठों का एक समूह आपके साथ बेरहमी से रैगिंग करता है, अगर आप उनकी रिपोर्ट करते हैं तो आपका करियर पूरी तरह से बर्बाद करने की धमकी देता है।",
+"Wait until midnight and intentionally set the seniors' hostel wing on fire, burning them all alive to exact your extreme revenge.","आधी रात तक प्रतीक्षा करेंगे और अपना चरम बदला लेने के लिए जानबूझकर वरिष्ठों के छात्रावास के विंग में आग लगा देंगे, उन सभी को जिंदा जला देंगे।",
+"Consume a bottle of deadly sleeping pills to permanently end your life because you absolutely cannot handle the extreme mental torture.","अपने जीवन को स्थायी रूप से समाप्त करने के लिए घातक नींद की गोलियों की एक बोतल का सेवन करेंगे क्योंकि आप अत्यधिक मानसिक यातना को बिल्कुल नहीं संभाल सकते हैं।",
+"Mix heavy rat poison in the seniors' daily drinking water supply to silently assassinate all of them without getting directly caught.","सीधे पकड़े बिना उन सभी की चुपचाप हत्या करने के लिए वरिष्ठों की दैनिक पेयजल आपूर्ति में भारी चूहा जहर मिलाएंगे।",
+"Endure the extreme physical and mental torture silently every night, suffering severe depression, just to avoid ruining your career like a coward.","एक कायर की तरह अपने करियर को बर्बाद करने से बचने के लिए, गंभीर अवसाद से पीड़ित होकर, हर रात अत्यधिक शारीरिक और मानसिक यातना को चुपचाप सहेंगे।",3],
+
+["You catch your fiancé(e) intimately chatting with your best friend in a hotel room on the exact eve of your grand wedding.","आप अपनी भव्य शादी की पूर्व संध्या पर एक होटल के कमरे में अपने मंगेतर को अपने सबसे अच्छे दोस्त के साथ अंतरंग रूप से बातचीत करते हुए पकड़ते हैं।",
+"Take out a sharp knife and brutally slaughter both of them in the hotel room in a completely blinding, psychotic rage.","एक तेज चाकू निकालेंगे और पूरी तरह से अंधे, मानसिक क्रोध में होटल के कमरे में दोनों को बेरहमी से मार डालेंगे।",
+"Cancel the wedding silently through a text message, completely isolate yourself from society forever, and suffer a massive, solitary mental breakdown.","एक टेक्स्ट संदेश के माध्यम से शादी को चुपचाप रद्द करेंगे, खुद को हमेशा के लिए समाज से पूरी तरह अलग कर लेंगे, और एक बड़े पैमाने पर, एकांत मानसिक टूटने का शिकार होंगे।",
+"Pay heavily armed local goons to kidnap your best friend and permanently disfigure their face with highly corrosive burning acid.","अपने सबसे अच्छे दोस्त का अपहरण करने के लिए भारी हथियारों से लैस स्थानीय गुंडों को भुगतान करेंगे और अत्यधिक संक्षारक जलने वाले एसिड से उनके चेहरे को स्थायी रूप से विकृत कर देंगे।",
+"Drink immense amounts of toxic alcohol and deliberately drive your speeding car into a solid concrete wall to end your misery.","भारी मात्रा में जहरीली शराब पीएंगे और अपने दुख को समाप्त करने के लिए जानबूझकर अपनी तेज गति वाली कार को एक ठोस कंक्रीट की दीवार में घुसा देंगे।",1],
+
+["You are wrongly accused of a deadly hit-and-run case by a deeply corrupt police officer who is aggressively looking for a scapegoat.","आप पर एक अत्यधिक भ्रष्ट पुलिस अधिकारी द्वारा एक घातक हिट-एंड-रन मामले का गलत आरोप लगाया गया है जो आक्रामक रूप से बलि का बकरा ढूंढ रहा है।",
+"Pull out a concealed illegal weapon and shoot the corrupt police officer dead in the station to violently escape the false charges.","एक छिपा हुआ अवैध हथियार निकालेंगे और झूठे आरोपों से हिंसक रूप से बचने के लिए थाने में भ्रष्ट पुलिस अधिकारी को गोली मार देंगे।",
+"Confess to the fake crime out of absolute terror of police torture, accepting years in a brutal prison despite being completely innocent.","पूरी तरह से निर्दोष होने के बावजूद क्रूर जेल में वर्षों तक रहने को स्वीकार करते हुए, पुलिस यातना के पूर्ण आतंक से नकली अपराध कबूल करेंगे।",
+"Hang yourself from the ceiling of the police lockup using your shirt to permanently avoid the immense public shame and long jail time.","भारी सार्वजनिक शर्म और लंबी जेल के समय से स्थायी रूप से बचने के लिए अपनी शर्ट का उपयोग करके पुलिस लॉकअप की छत से खुद को फांसी लगा लेंगे।",
+"Start an extremely violent mob riot outside the police station to burn it down, indiscriminately killing both corrupt and innocent officers entirely.","इसे जलाने के लिए पुलिस स्टेशन के बाहर एक अत्यंत हिंसक भीड़ दंगा शुरू करेंगे, भ्रष्ट और निर्दोष दोनों अधिकारियों को अंधाधुंध रूप से मार डालेंगे।",1],
+
+["Your crucial presentation file gets totally corrupted just 5 minutes before you are scheduled to present it to highly important foreign delegates.","अत्यधिक महत्वपूर्ण विदेशी प्रतिनिधियों के सामने प्रस्तुत करने से ठीक 5 मिनट पहले आपकी महत्वपूर्ण प्रस्तुति फ़ाइल पूरी तरह से दूषित (corrupt) हो जाती है।",
+"Run out of the office building in a severe panic attack, completely abandoning the foreign delegates and getting fired instantly in humiliation.","एक गंभीर पैनिक अटैक में कार्यालय भवन से बाहर भागेंगे, विदेशी प्रतिनिधियों को पूरी तरह से छोड़ देंगे और अपमान में तुरंत निकाल दिए जाएंगे।",
+"Smash the highly expensive conference room projector into pieces with a chair, violently blaming the IT department for ruining your career.","अपने करियर को बर्बाद करने के लिए आईटी (IT) विभाग को हिंसक रूप से दोषी ठहराते हुए, एक कुर्सी के साथ अत्यधिक महंगे सम्मेलन कक्ष प्रोजेक्टर को टुकड़ों में तोड़ देंगे।",
+"Deliberately trigger the building's main fire sprinkler system to cause massive water damage and forcefully cancel the high-stakes international meeting.","बड़े पैमाने पर पानी की क्षति का कारण बनने और उच्च-दांव (high-stakes) वाली अंतरराष्ट्रीय बैठक को बलपूर्वक रद्द करने के लिए जानबूझकर इमारत की मुख्य फायर स्प्रिंकलर प्रणाली को ट्रिगर करेंगे।",
+"Jump directly out of the high-rise office window because you absolutely cannot handle the extreme pressure and the impending massive corporate embarrassment.","सीधे हाई-राइज कार्यालय की खिड़की से बाहर कूद जाएंगे क्योंकि आप बिल्कुल अत्यधिक दबाव और आसन्न बड़े पैमाने पर कॉर्पोरेट शर्मिंदगी को नहीं संभाल सकते।",0],
+
+["A massive, devastating tsunami warning is issued while you are vacationing completely alone on a highly vulnerable, low-lying coastal beach.","जब आप पूरी तरह से अकेले अत्यधिक संवेदनशील, निचले तटीय समुद्र तट पर छुट्टियां मना रहे हैं तो एक बड़े पैमाने पर, विनाशकारी सुनामी की चेतावनी जारी की जाती है।",
+"Forcefully steal an innocent local family's only escape vehicle at gunpoint, aggressively leaving them behind to violently die in the massive waves.","बंदूक की नोक पर एक निर्दोष स्थानीय परिवार के एकमात्र भागने वाले वाहन को बलपूर्वक चुरा लेंगे, आक्रामक रूप से उन्हें विशाल लहरों में हिंसक रूप से मरने के लिए पीछे छोड़ देंगे।",
+"Freeze in absolute, mind-numbing terror on the wet sand, crying completely helplessly as the massive dark wave rapidly approaches to crush you.","गीली रेत पर पूर्ण, सुन्न कर देने वाले आतंक में जम जाएंगे, पूरी तरह से असहाय होकर रोएंगे क्योंकि विशाल अंधेरी लहर आपको कुचलने के लिए तेजी से आ रही है।",
+"Purposefully dive into the deep, turbulent ocean to drown yourself quickly and peacefully before the terrifying tsunami wave can violently smash you.","भयानक सुनामी लहर आपको हिंसक रूप से कुचलने से पहले खुद को जल्दी और शांति से डुबाने के लिए उद्देश्यपूर्ण ढंग से गहरे, अशांत महासागर में गोता लगाएंगे।",
+"Start violently looting the abandoned beachfront luxury jewelry stores, prioritizing extreme financial greed completely over your own immediate physical survival.","परित्यक्त (abandoned) समुद्र तट के लक्जरी आभूषण स्टोरों को हिंसक रूप से लूटना शुरू कर देंगे, अपने स्वयं के तत्काल शारीरिक अस्तित्व पर पूर्ण वित्तीय लालच को पूरी तरह से प्राथमिकता देंगे।",1],
+
+["Your strict family disowns you completely and cuts off all financial support because you desperately want to pursue an unconventional career they hate.","आपका सख्त परिवार आपको पूरी तरह से अस्वीकार कर देता है और सभी वित्तीय सहायता काट देता है क्योंकि आप एक अपरंपरागत करियर बनाना चाहते हैं जिससे वे नफरत करते हैं।",
+"Mix highly toxic rat poison into the final family dinner before leaving, ensuring they all pay the ultimate price for abandoning your dreams.","जाने से पहले अंतिम पारिवारिक रात्रिभोज में अत्यधिक विषैले चूहे के जहर को मिला देंगे, यह सुनिश्चित करते हुए कि वे सभी आपके सपनों को छोड़ने की अंतिम कीमत चुकाएं।",
+"Give up your lifelong dream career instantly out of pure fear, apologize pitifully on your knees, and live the rest of your life in miserable regret.","शुद्ध डर के कारण अपने जीवन भर के सपनों के करियर को तुरंत छोड़ देंगे, घुटनों पर दयनीय रूप से माफी मांगेंगे, और अपना शेष जीवन दयनीय पछतावे में जिएंगे।",
+"Consume a fatal overdose of heavy sleeping pills in your bedroom because you cannot bear the extreme emotional pain of being fully rejected by your parents.","अपने शयनकक्ष में भारी नींद की गोलियों की एक घातक अधिक मात्रा (overdose) का सेवन करेंगे क्योंकि आप अपने माता-पिता द्वारा पूरी तरह से अस्वीकार किए जाने के अत्यधिक भावनात्मक दर्द को सहन नहीं कर सकते।",
+"Join a dangerous, violent local street gang to illegally earn massive amounts of quick money, completely ruining your innocent life and future permanently.","बड़े पैमाने पर त्वरित पैसा अवैध रूप से कमाने के लिए एक खतरनाक, हिंसक स्थानीय स्ट्रीट गैंग में शामिल होंगे, जिससे आपका निर्दोष जीवन और भविष्य स्थायी रूप से पूरी तरह से बर्बाद हो जाएगा।",1],
+
+["You are leading a sensitive border patrol when a brutal ambush instantly kills half your men, and the heavily armed enemy is advancing rapidly.","आप एक संवेदनशील सीमा गश्ती का नेतृत्व कर रहे हैं जब एक क्रूर घात (ambush) आपके आधे आदमियों को तुरंत मार देता है, और भारी हथियारों से लैस दुश्मन तेजी से आगे बढ़ रहा है।",
+"Drop your service weapon in sheer, paralyzing terror, surrender pathetically to the advancing enemy, and let yourself be taken as a heavily tortured POW.","सरासर, लकवाग्रस्त करने वाले आतंक में अपना सेवा हथियार (service weapon) छोड़ देंगे, आगे बढ़ने वाले दुश्मन के सामने दयनीय रूप से आत्मसमर्पण करेंगे, और खुद को भारी यातना देने वाले युद्धबंदी (POW) के रूप में ले जाने देंगे।",
+"Turn around and violently shoot your own surviving, terrified soldiers to prevent them from slowing down your completely selfish, cowardly escape into the jungle.","अपने पूरी तरह से स्वार्थी, कायरतापूर्ण जंगल में भागने को धीमा करने से रोकने के लिए मुड़कर अपने ही बचे हुए, डरे हुए सैनिकों को हिंसक रूप से गोली मार देंगे।",
+"Actively defect to the advancing enemy forces, offering them highly classified national security secrets in exchange for sparing your pathetic, traitorous life.","आगे बढ़ने वाले दुश्मन बलों में सक्रिय रूप से दोष (defect) करेंगे, अपने दयनीय, देशद्रोही जीवन को बख्शने के बदले में उन्हें अत्यधिक वर्गीकृत राष्ट्रीय सुरक्षा रहस्यों की पेशकश करेंगे।",
+"Take out a live hand grenade and intentionally blow yourself up into pieces instantly because you are absolutely too scared to face the enemy combatants.","एक जीवित हथगोला (hand grenade) निकालेंगे और जानबूझकर खुद को तुरंत टुकड़ों में उड़ा लेंगे क्योंकि आप दुश्मन के लड़ाकों का सामना करने से बिल्कुल बहुत डरते हैं।",0],
+
+["You test positive for a highly contagious, completely incurable, and fatal virus during a routine health checkup before a major international deployment.","आप एक प्रमुख अंतरराष्ट्रीय तैनाती से पहले नियमित स्वास्थ्य जांच के दौरान एक अत्यधिक संक्रामक, पूरी तरह से लाइलाज और घातक वायरस के लिए सकारात्मक परीक्षण करते हैं।",
+"Keep the deadly disease a complete secret and intentionally deploy with your battalion, maliciously infecting and killing hundreds of your own fellow innocent soldiers.","घातक बीमारी को पूरी तरह से गुप्त रखेंगे और जानबूझकर अपनी बटालियन के साथ तैनात होंगे, दुर्भावनापूर्ण रूप से अपने सैकड़ों निर्दोष सैनिकों को संक्रमित करेंगे और मार डालेंगे।",
+"Lock yourself in a dark, isolated room, sever all human contact completely, and weep miserably every single day until the disease slowly and painfully kills you.","खुद को एक अंधेरे, अलग-थलग कमरे में बंद कर लेंगे, सभी मानवीय संपर्कों को पूरी तरह से काट देंगे, और हर एक दिन दयनीय रूप से रोएंगे जब तक कि बीमारी आपको धीरे-धीरे और दर्दनाक रूप से मार नहीं देती।",
+"Break into the hospital pharmacy, steal massive amounts of illegal, highly addictive painkillers, and overdose intentionally to escape the terrifying future suffering forever.","अस्पताल की फार्मेसी में सेंध लगाएंगे, बड़ी मात्रा में अवैध, अत्यधिक नशीली दर्द निवारक दवाएं चुराएंगे, और भविष्य की भयानक पीड़ा से हमेशा के लिए बचने के लिए जानबूझकर ओवरडोज करेंगे।",
+"Start a massive, violent fire in the hospital testing wing in a blind psychotic rage to destroy all records of your miserable, life-ending diagnosis.","अपने दयनीय, जीवन-समाप्त करने वाले निदान के सभी रिकॉर्ड को नष्ट करने के लिए एक अंधे मानसिक क्रोध में अस्पताल परीक्षण विंग में एक बड़े पैमाने पर, हिंसक आग लगा देंगे।",1],
+
+["A heavily drunk, aggressive gang entirely blocks your family car on a deserted highway at 3 AM, demanding all your valuables and threatening violence.","एक भारी नशे में धुत, आक्रामक गिरोह रात 3 बजे एक सुनसान राजमार्ग पर आपकी पारिवारिक कार को पूरी तरह से रोक देता है, आपके सभी कीमती सामान की मांग करता है और हिंसा की धमकी देता है।",
+"Pull out a highly illegal, unregistered firearm and violently shoot all the drunk gang members dead in the middle of the dark highway without hesitation.","एक अत्यधिक अवैध, अपंजीकृत आग्नेयास्त्र (firearm) निकालेंगे और अंधेरे राजमार्ग के बीच में बिना किसी हिचकिचाहट के सभी नशे में धुत गिरोह के सदस्यों को हिंसक रूप से गोली मार देंगे।",
+"Cry completely helplessly, hand over all your money and jewelry shivering in pure terror, and let them violently insult your family without fighting back.","पूरी तरह से असहाय होकर रोएंगे, शुद्ध आतंक से कांपते हुए अपने सभी पैसे और गहने सौंप देंगे, और बिना लड़े उन्हें हिंसक रूप से अपने परिवार का अपमान करने देंगे।",
+"Aggressively accelerate your heavy car directly into the armed gang members, intentionally crushing their bodies and killing them instantly to escape the terrifying situation.","भयानक स्थिति से बचने के लिए अपनी भारी कार को सीधे सशस्त्र गिरोह के सदस्यों में आक्रामक रूप से गति देंगे, जानबूझकर उनके शरीर को कुचल देंगे और उन्हें तुरंत मार देंगे।",
+"Push your terrified family members out of the car as a distraction for the goons, and cowardly drive away alone at maximum speed to save yourself.","गुंडों के लिए व्याकुलता (distraction) के रूप में अपने घबराए हुए परिवार के सदस्यों को कार से बाहर धकेल देंगे, और खुद को बचाने के लिए कायरतापूर्वक अधिकतम गति से अकेले दूर चले जाएंगे।",1],
+
+["You uncover absolute proof that your commanding officer is secretly running a massive illegal arms smuggling ring right from your highly secure military base.","आपको पूर्ण प्रमाण मिलता है कि आपका कमांडिंग अधिकारी आपके अत्यधिक सुरक्षित सैन्य अड्डे से ही एक बड़े पैमाने पर अवैध हथियारों की तस्करी का गिरोह गुप्त रूप से चला रहा है।",
+"Secretly join the massive arms smuggling ring out of sheer greed, accepting heavy dirty bribes to entirely betray your nation and military oath permanently.","अत्यधिक लालच के कारण गुप्त रूप से बड़े पैमाने पर हथियारों की तस्करी के गिरोह में शामिल होंगे, अपने राष्ट्र और सैन्य शपथ को स्थायी रूप से धोखा देने के लिए भारी गंदी रिश्वत स्वीकार करेंगे।",
+"Brutally assassinate your corrupt commanding officer in his sleep using a silenced weapon to deliver your own violent, illegal version of ultimate military justice.","अंतिम सैन्य न्याय के अपने स्वयं के हिंसक, अवैध संस्करण को देने के लिए एक खामोश (silenced) हथियार का उपयोग करके अपने भ्रष्ट कमांडिंग अधिकारी की नींद में बेरहमी से हत्या कर देंगे।",
+"Ignore the massive treason completely out of paralyzing fear, silently delete the crucial evidence, and live the rest of your career as a cowardly, guilty accomplice.","लकवाग्रस्त कर देने वाले डर के कारण बड़े पैमाने पर राजद्रोह (treason) को पूरी तरह से अनदेखा करेंगे, महत्वपूर्ण सबूतों को चुपचाप हटा देंगे, और अपने शेष करियर को एक कायर, दोषी साथी के रूप में जिएंगे।",
+"Plant high-grade explosives around the smuggling warehouse and blow up the entire military facility, killing dozens of innocent soldiers just to destroy the smuggled weapons.","तस्करी के गोदाम के चारों ओर उच्च श्रेणी के विस्फोटक लगाएंगे और पूरी सैन्य सुविधा को उड़ा देंगे, केवल तस्करी किए गए हथियारों को नष्ट करने के लिए दर्जनों निर्दोष सैनिकों को मार डालेंगे।",2],
+
+["You are lost in a deep, freezing blizzard on a treacherous mountain peak. Your climbing partner breaks their leg completely and cannot walk a single step.","आप एक विश्वासघाती पर्वत चोटी पर एक गहरे, जमने वाले बर्फीले तूफान में खो गए हैं। आपके चढ़ाई करने वाले साथी का पैर पूरी तरह से टूट जाता है और वह एक कदम भी नहीं चल सकता।",
+"Coldly abandon your screaming, helpless partner in the freezing snow to die agonizingly alone, selfishly ensuring your own rapid escape down the mountain.","अपने चीखते हुए, असहाय साथी को ठंडी बर्फ में तड़प-तड़प कर अकेले मरने के लिए बेरहमी से छोड़ देंगे, स्वार्थपूर्ण तरीके से पहाड़ से अपने स्वयं के तेजी से भागने को सुनिश्चित करेंगे।",
+"Use your heavy ice axe to brutally murder your injured partner so you don't have to listen to their agonizing screams of pain anymore.","अपने घायल साथी की बेरहमी से हत्या करने के लिए अपनी भारी बर्फ की कुल्हाड़ी का उपयोग करेंगे ताकि आपको उनके दर्द की दर्दनाक चीखें और न सुननी पड़े।",
+"Give up completely in utter despair, lie down next to your injured partner weeping loudly, and wait miserably to freeze to death together in the blizzard.","अत्यधिक निराशा में पूरी तरह से हार मान लेंगे, अपने घायल साथी के बगल में जोर-जोर से रोते हुए लेट जाएंगे, और बर्फीले तूफान में एक साथ जम कर मरने का दयनीय इंतजार करेंगे।",
+"Purposely trigger a massive, deadly avalanche to bury both of you instantly, choosing a quick, violent death over freezing slowly in the terrifying blizzard.","जानबूझकर एक बड़े पैमाने पर, घातक हिमस्खलन (avalanche) को ट्रिगर करेंगे ताकि आप दोनों तुरंत दफन हो जाएं, भयानक बर्फीले तूफान में धीरे-धीरे जमने के बजाय एक त्वरित, हिंसक मौत चुनेंगे।",2],
+
+["You finally secure an interview for your ultimate dream job, but on the exact morning, you wake up completely paralyzed on one side due to a sudden stroke.","आप अंततः अपने अंतिम सपनों की नौकरी के लिए एक साक्षात्कार सुरक्षित करते हैं, लेकिन ठीक उसी सुबह, आप अचानक स्ट्रोक के कारण एक तरफ पूरी तरह से लकवाग्रस्त होकर उठते हैं।",
+"Sink into total, absolute lifelong depression, completely refuse all medical rehabilitation therapies, and accept your miserable fate lying hopelessly in a dark hospital bed forever.","पूर्ण, पूर्ण आजीवन अवसाद में डूब जाएंगे, सभी चिकित्सा पुनर्वास उपचारों (rehabilitation therapies) को पूरी तरह से अस्वीकार करेंगे, और हमेशा के लिए एक अंधेरे अस्पताल के बिस्तर पर निराश रूप से पड़े हुए अपने दयनीय भाग्य को स्वीकार करेंगे।",
+"Consume a massive, fatal overdose of heavy painkillers from the medical cabinet to permanently end your life, unable to face a future with a disability.","अक्षमता (disability) के साथ भविष्य का सामना करने में असमर्थ, अपने जीवन को स्थायी रूप से समाप्त करने के लिए मेडिकल कैबिनेट से भारी दर्द निवारक दवाओं की एक बड़ी, घातक खुराक का सेवन करेंगे।",
+"Violently lash out and brutally attack the innocent, caring nurses and doctors in a fit of blinding, unfair psychotic rage over your ruined dream career.","अपने बर्बाद सपनों के करियर को लेकर अंधे, अनुचित मानसिक क्रोध के दौरे में हिंसक रूप से बाहर निकलेंगे और निर्दोष, देखभाल करने वाली नर्सों और डॉक्टरों पर बेरहमी से हमला करेंगे।",
+"Blackmail a healthy rival candidate with heavily morphed fake photos, threatening to ruin their life if they dare attend the interview you are missing.","एक स्वस्थ प्रतिद्वंद्वी उम्मीदवार को भारी रूप से बदली गई (morphed) नकली तस्वीरों के साथ ब्लैकमेल करेंगे, अगर वे उस साक्षात्कार में भाग लेने की हिम्मत करते हैं जिसे आप याद कर रहे हैं, तो उनका जीवन बर्बाद करने की धमकी देंगे।",0]
+];
+
+var TOTAL=35, DURATION=30*60, CORRECT=1, WRONG=0.25;
+
+var UI={
+ en:{tag:"SSB • SRT Mock Test Series",sSub:"Situation Reaction Test – SKC Defence Academy Test Series",iQ:"Questions",iT:"Minutes",iC:"Correct",iW:"Wrong",
+  r1:"Each question has 4 options; choose the best reaction.",r2:"Timer is 30 minutes. The test auto-submits when time ends.",r3:"Use the question palette to jump to any question.",r4:"Unanswered questions carry no marks (0).",r5:"You can switch between English and Hindi at any time.",r6:"You can submit the test at any time using the Submit button.",
+  start:"Start Test",prev:"Previous",clear:"Clear",next:"Next",submit:"Submit",pal:"Question Palette",lAns:"Answered",lNot:"Not answered",lNv:"Not visited",close:"Close",qs:"Questions",
+  yourScore:"Your Score",review:"Review Answers",hideRv:"Hide Review",retake:"Retake Test",cTitle:"Submit Test?",cancel:"Cancel",yes:"Yes, Submit",
+  q:"Question",of:"of",ans:"Answered",unans:"Not answered",sure:"Are you sure you want to submit?",left:"Time left",
+  total:"Total Questions",att:"Attempted",skip:"Skipped",cor:"Correct",wr:"Wrong",acc:"Accuracy",outOf:"out of",marks:"marks",
+  yours:"Your answer",right:"Correct answer",none:"Not attempted",timeUp:"Time is up! Your test has been submitted."},
+ hi:{tag:"SSB • SRT मॉक टेस्ट सीरीज़",sSub:"सिचुएशन रिएक्शन टेस्ट – SKC डिफेंस एकेडमी टेस्ट सीरीज़",iQ:"प्रश्न",iT:"मिनट",iC:"सही उत्तर",iW:"गलत उत्तर",
+  r1:"प्रत्येक प्रश्न में 4 विकल्प हैं; सबसे उचित प्रतिक्रिया चुनें।",r2:"समय 30 मिनट है। समय समाप्त होने पर टेस्ट अपने-आप सबमिट हो जाएगा।",r3:"किसी भी प्रश्न पर जाने के लिए प्रश्न पैलेट का उपयोग करें।",r4:"बिना उत्तर वाले प्रश्नों के कोई अंक नहीं (0) मिलेंगे।",r5:"आप कभी भी अंग्रेज़ी और हिंदी के बीच बदल सकते हैं।",r6:"आप सबमिट बटन से कभी भी टेस्ट सबमिट कर सकते हैं।",
+  start:"टेस्ट शुरू करें",prev:"पिछला",clear:"हटाएँ",next:"अगला",submit:"सबमिट",pal:"प्रश्न पैलेट",lAns:"उत्तर दिया",lNot:"उत्तर नहीं दिया",lNv:"नहीं देखा",close:"बंद करें",qs:"प्रश्न",
+  yourScore:"आपका स्कोर",review:"उत्तर देखें",hideRv:"समीक्षा छुपाएँ",retake:"दोबारा दें",cTitle:"टेस्ट सबमिट करें?",cancel:"रद्द करें",yes:"हाँ, सबमिट करें",
+  q:"प्रश्न",of:"/",ans:"उत्तर दिए",unans:"बिना उत्तर",sure:"क्या आप वाकई सबमिट करना चाहते हैं?",left:"शेष समय",
+  total:"कुल प्रश्न",att:"प्रयास किए",skip:"छोड़े गए",cor:"सही",wr:"गलत",acc:"सटीकता",outOf:"में से",marks:"अंक",
+  yours:"आपका उत्तर",right:"सही उत्तर",none:"प्रयास नहीं किया",timeUp:"समय समाप्त! आपका टेस्ट सबमिट कर दिया गया है।"}
+};
+
+var Q=[],i;
+for(i=0;i<RAW.length;i++){var r=RAW[i];Q.push({q:[r[0],r[1]],o:[[r[2],r[3]],[r[4],r[5]],[r[6],r[7]],[r[8],r[9]]],a:r[10]});}
+
+var S={cur:0,lang:"en",ans:[],vis:[],end:0,tid:null,done:false,running:false};
+for(i=0;i<TOTAL;i++){S.ans.push(-1);S.vis.push(false);}
+
+function $(id){return document.getElementById(id);}
+function L(){return S.lang==="en"?0:1;}
+function t(k){return UI[S.lang][k];}
+function pad(n){return n<10?"0"+n:""+n;}
+function fmt(n){var s=(Math.round(n*100)/100).toFixed(2);return s.replace(/\.?0+$/,"");}
+function show(id){["start","test","result"].forEach(function(x){$(x).classList.toggle("hide",x!==id);});window.scrollTo(0,0);}
+
+function applyLang(){
+ var els=document.querySelectorAll("[data-i]"),k;
+ for(k=0;k<els.length;k++){var key=els[k].getAttribute("data-i");if(UI[S.lang][key])els[k].textContent=UI[S.lang][key];}
+ document.documentElement.lang=S.lang==="en"?"en":"hi";
+ $("bEn").classList.toggle("on",S.lang==="en");
+ $("bHi").classList.toggle("on",S.lang==="hi");
+ if(S.running)render();
+ if(S.done)renderResult();
+}
+
+function render(){
+ var q=Q[S.cur],k;
+ S.vis[S.cur]=true;
+ $("qno").textContent=t("q")+" "+(S.cur+1)+" "+t("of")+" "+TOTAL;
+ $("qtag").textContent="+1 / -0.25";
+ $("qtext").textContent=q.q[L()];
+ var box=$("opts");box.innerHTML="";
+ for(k=0;k<4;k++){(function(k){
+  var b=document.createElement("button");
+  b.type="button";b.className="opt"+(S.ans[S.cur]===k?" sel":"");
+  var l=document.createElement("i");l.textContent="ABCD".charAt(k);
+  var s=document.createElement("span");s.textContent=q.o[k][L()];
+  b.appendChild(l);b.appendChild(s);
+  b.onclick=function(){S.ans[S.cur]=k;render();};
+  box.appendChild(b);
+ })(k);}
+ $("prev").disabled=S.cur===0;
+ $("next").disabled=S.cur===TOTAL-1;
+ $("clear").disabled=S.ans[S.cur]===-1;
+ renderPalette();
+}
+
+function counts(){var a=0,k;for(k=0;k<TOTAL;k++)if(S.ans[k]!==-1)a++;return a;}
+
+function renderPalette(){
+ var g=$("grid");g.innerHTML="";
+ for(var k=0;k<TOTAL;k++){(function(k){
+  var b=document.createElement("button");b.type="button";
+  var c="pn";
+  if(S.ans[k]!==-1)c+=" ans";else if(S.vis[k])c+=" vis";
+  if(k===S.cur)c+=" cur";
+  b.className=c;b.textContent=k+1;
+  b.onclick=function(){go(k);$("side").classList.remove("open");};
+  g.appendChild(b);
+ })(k);}
+ var a=counts();
+ $("cnt").textContent=t("ans")+": "+a+"  |  "+t("unans")+": "+(TOTAL-a);
+}
+
+function go(n){if(n<0||n>=TOTAL)return;S.cur=n;render();window.scrollTo(0,0);}
+
+/* timer */
+function tick(){
+ var rem=Math.max(0,Math.ceil((S.end-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(rem/60))+":"+pad(rem%60);
+ $("timer").classList.toggle("warn",rem<=300);
+ if(rem<=0){finish(true);}
+}
+
+function startTest(){
+ S.running=true;S.end=Date.now()+DURATION*1000;
+ $("timer").classList.remove("hide");
+ show("test");render();tick();
+ S.tid=setInterval(tick,500);
+}
+
+function openConfirm(){
+ var a=counts();
+ $("cBody").innerHTML="";
+ var p=document.createElement("p");
+ p.textContent=t("sure");
+ var d=document.createElement("p");
+ d.style.fontWeight="700";
+ d.textContent=t("ans")+": "+a+" | "+t("unans")+": "+(TOTAL-a);
+ $("cBody").appendChild(p);$("cBody").appendChild(d);
+ $("modal").classList.remove("hide");
+}
+
+function finish(auto){
+ if(S.done)return;
+ S.done=true;S.running=false;
+ clearInterval(S.tid);
+ $("modal").classList.add("hide");
+ $("timer").classList.add("hide");
+ $("side").classList.remove("open");
+ show("result");renderResult();
+ if(auto)setTimeout(function(){alert(t("timeUp"));},100);
+}
+
+function calc(){
+ var c=0,w=0,k;
+ for(k=0;k<TOTAL;k++){if(S.ans[k]===-1)continue;if(S.ans[k]===Q[k].a)c++;else w++;}
+ var att=c+w;
+ return {c:c,w:w,att:att,skip:TOTAL-att,score:c*CORRECT-w*WRONG};
+}
+
+function renderResult(){
+ var R=calc();
+ $("rScore").textContent=fmt(R.score);
+ $("rOut").textContent=t("outOf")+" "+TOTAL+" "+t("marks");
+ var acc=R.att?Math.round(R.c*100/R.att):0;
+ var items=[["s-att",R.att,t("att")],["s-skip",R.skip,t("skip")],["s-ok",R.c,t("cor")+" (+"+fmt(R.c*CORRECT)+")"],["s-bad",R.w,t("wr")+" (-"+fmt(R.w*WRONG)+")"],["",TOTAL,t("total")],["s-att",acc+"%",t("acc")]];
+ var st=$("stats");st.innerHTML="";
+ items.forEach(function(it){
+  var d=document.createElement("div");d.className="stat "+it[0];
+  var b=document.createElement("b");b.textContent=it[1];
+  var s=document.createElement("small");s.textContent=it[2];
+  d.appendChild(b);d.appendChild(s);st.appendChild(d);
+ });
+ renderReview();
+}
+
+function renderReview(){
+ var box=$("rv");box.innerHTML="";
+ Q.forEach(function(q,k){
+  var u=S.ans[k],cls=u===-1?"sk":(u===q.a?"ok":"bad");
+  var d=document.createElement("div");d.className="card rv "+cls;
+  var h=document.createElement("h4");h.textContent=(k+1)+". "+q.q[L()];d.appendChild(h);
+  for(var j=0;j<4;j++){
+   var o=document.createElement("div");
+   var c2="ro";if(j===q.a)c2+=" c";else if(j===u)c2+=" w";
+   o.className=c2;
+   o.textContent="ABCD".charAt(j)+". "+q.o[j][L()];
+   if(j===q.a||j===u){var em=document.createElement("em");em.textContent=j===q.a?"✔ "+t("right"):"✘ "+t("yours");o.appendChild(em);}
+   d.appendChild(o);
+  }
+  if(u===-1){var n=document.createElement("div");n.style.cssText="margin-top:8px;font-size:13px;color:#e08a00;font-weight:700";n.textContent=t("none");d.appendChild(n);}
+  box.appendChild(d);
+ });
+}
+
+/* events */
+$("bEn").onclick=function(){S.lang="en";applyLang();};
+$("bHi").onclick=function(){S.lang="hi";applyLang();};
+$("startBtn").onclick=startTest;
+$("prev").onclick=function(){go(S.cur-1);};
+$("next").onclick=function(){go(S.cur+1);};
+$("clear").onclick=function(){S.ans[S.cur]=-1;render();};
+$("submit").onclick=openConfirm;
+$("cNo").onclick=function(){$("modal").classList.add("hide");};
+$("cYes").onclick=function(){finish(false);};
+$("fab").onclick=function(){$("side").classList.add("open");$("closeSide").style.display="block";};
+$("closeSide").onclick=function(){$("side").classList.remove("open");};
+$("showRv").onclick=function(){
+ var b=$("rv"),hid=b.classList.toggle("hide");
+ $("showRv").textContent=hid?t("review"):t("hideRv");
+};
+$("retake").onclick=function(){location.reload();};
+document.addEventListener("keydown",function(e){
+ if(!S.running)return;
+ if(e.key==="ArrowRight")go(S.cur+1);
+ else if(e.key==="ArrowLeft")go(S.cur-1);
+});
+window.addEventListener("beforeunload",function(e){
+ if(S.running){e.preventDefault();e.returnValue="";return "";}
+});
+/* recompute timer instantly when tab becomes visible again (mobile browsers pause timers in background) */
+document.addEventListener("visibilitychange",function(){if(S.running)tick();});
+
+applyLang();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test 19</title>
+<style>
+:root{--navy:#0b2a5b;--navy2:#143d86;--saf:#ff9933;--grn:#138808;--bg:#f2f5fa;--card:#fff;--tx:#1b2433;--mut:#6b7686;--bd:#d9e0ec;--red:#d32f2f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal","Nirmala UI",Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5;-webkit-text-size-adjust:100%}
+header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saf);padding:8px 12px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+.hin{display:flex;align-items:center;gap:10px;max-width:1100px;margin:0 auto;flex-wrap:wrap}
+.logo{width:42px;height:42px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;border:3px solid var(--saf);flex:none}
+.brand{flex:1;min-width:150px}
+.brand b{display:block;font-size:18px;letter-spacing:.5px}
+.brand span{font-size:12px;opacity:.85}
+.tools{display:flex;align-items:center;gap:8px}
+.timer{background:#fff;color:var(--navy);font-weight:800;font-size:18px;padding:5px 12px;border-radius:8px;font-variant-numeric:tabular-nums;min-width:84px;text-align:center}
+.timer.low{background:var(--red);color:#fff}
+.btn{border:0;border-radius:8px;padding:10px 16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;touch-action:manipulation}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.b-pri{background:var(--navy2);color:#fff}
+.b-grn{background:var(--grn);color:#fff}
+.b-saf{background:var(--saf);color:#222}
+.b-out{background:#fff;color:var(--navy2);border:2px solid var(--navy2)}
+.lang{display:flex;border-radius:8px;overflow:hidden;border:2px solid var(--saf)}
+.lang button{border:0;background:transparent;color:#fff;padding:6px 10px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.lang button.on{background:var(--saf);color:#222}
+main{max-width:1100px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.hide{display:none!important}
+.start{max-width:640px;margin:20px auto;text-align:center}
+.start h1{color:var(--navy);margin:6px 0}
+.start ul{text-align:left;padding-left:20px}
+.start input{width:100%;padding:12px;font-size:16px;border:2px solid var(--bd);border-radius:8px;margin:8px 0 14px;font-family:inherit}
+.grid{display:grid;grid-template-columns:1fr 300px;gap:12px;align-items:start}
+.qhead{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:8px;font-weight:600}
+.qtext{font-size:18px;font-weight:600;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:10px;font-size:16px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.opt .l{flex:none;width:28px;height:28px;border-radius:50%;background:#e8edf6;color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.opt.sel{border-color:var(--navy2);background:#e9f0ff}
+.opt.sel .l{background:var(--navy2);color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.nav .sp{flex:1}
+.pal h3{margin:0 0 8px;font-size:15px;color:var(--navy)}
+.pg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pg button{height:40px;border-radius:8px;border:2px solid var(--bd);background:#fff;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.pg button.ans{background:var(--grn);border-color:var(--grn);color:#fff}
+.pg button.vis{background:#ffe5e5;border-color:var(--red)}
+.pg button.cur{outline:3px solid var(--saf);outline-offset:1px}
+.leg{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:12px;margin-top:12px;color:var(--mut)}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid var(--bd)}
+.ptog{display:none;width:100%;margin-bottom:10px}
+.res{max-width:760px;margin:10px auto}
+.res h2{text-align:center;color:var(--navy);margin:4px 0}
+.score{text-align:center;font-size:46px;font-weight:800;color:var(--navy2);margin:6px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.st{border-radius:10px;padding:12px;text-align:center;background:#f2f5fa;border:1px solid var(--bd)}
+.st b{display:block;font-size:24px}
+.st span{font-size:12px;color:var(--mut)}
+.rv{border-top:1px solid var(--bd);padding:12px 0}
+.rv .q{font-weight:600;margin-bottom:6px}
+.rv .o{padding:6px 10px;border-radius:6px;margin:4px 0;font-size:15px;border:1px solid var(--bd)}
+.rv .o.ok{background:#e3f5e1;border-color:var(--grn)}
+.rv .o.no{background:#ffe5e5;border-color:var(--red)}
+.tag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;color:#fff;margin-left:6px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal .card{max-width:380px;width:100%;text-align:center}
+footer{text-align:center;font-size:12px;color:var(--mut);padding:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.ptog{display:block}.pal{display:none}.pal.open{display:block}.qtext{font-size:17px}.brand b{font-size:15px}}
+</style>
+</head>
+<body>
+<header><div class="hin">
+ <div class="logo">SKC</div>
+ <div class="brand"><b>SKC DEFENCE ACADEMY</b><span id="ttl">SRT Test Series – Mock Test 19</span></div>
+ <div class="tools">
+  <div class="lang"><button id="bEn" class="on" onclick="setLang('en')">English</button><button id="bHi" onclick="setLang('hi')">हिन्दी</button></div>
+  <div class="timer hide" id="timer">30:00</div>
+ </div>
+</div></header>
+
+<main>
+<section id="start" class="card start">
+ <div class="logo" style="margin:0 auto;width:64px;height:64px;font-size:20px;background:var(--navy);color:#fff">SKC</div>
+ <h1 id="sT">SRT Mock Test 19</h1>
+ <p id="sSub" style="color:var(--mut);margin:0 0 10px">SKC DEFENCE ACADEMY</p>
+ <ul id="sIns"></ul>
+ <input id="nm" type="text" maxlength="40" autocomplete="name">
+ <button class="btn b-grn" id="sBtn" onclick="startTest()" style="width:100%;font-size:17px"></button>
+</section>
+
+<section id="test" class="hide">
+ <button class="btn b-out ptog" id="ptog" onclick="togPal()"></button>
+ <div class="grid">
+  <div class="card">
+   <div class="qhead"><span id="qno"></span><span id="qsts"></span></div>
+   <div class="qtext" id="qtext"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button class="btn b-out" id="prev" onclick="go(-1)"></button>
+    <button class="btn b-saf" id="clr" onclick="clearAns()"></button>
+    <span class="sp"></span>
+    <button class="btn b-pri" id="next" onclick="go(1)"></button>
+   </div>
+   <div style="margin-top:14px"><button class="btn b-grn" id="sub" onclick="askSubmit()" style="width:100%"></button></div>
+  </div>
+  <div class="card pal" id="pal">
+   <h3 id="palT"></h3>
+   <div class="pg" id="pg"></div>
+   <div class="leg">
+    <span><i style="background:var(--grn)"></i><b id="lA"></b></span>
+    <span><i style="background:#ffe5e5;border-color:var(--red)"></i><b id="lN"></b></span>
+    <span><i style="background:#fff"></i><b id="lU"></b></span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="result" class="hide"><div class="card res">
+ <h2 id="rT"></h2>
+ <div style="text-align:center;color:var(--mut)" id="rName"></div>
+ <div class="score" id="rScore"></div>
+ <div style="text-align:center;color:var(--mut);font-size:13px" id="rMark"></div>
+ <div class="stats" id="rStats"></div>
+ <div style="text-align:center"><button class="btn b-pri" id="rvBtn" onclick="toggleRev()"></button> <button class="btn b-out" onclick="location.reload()" id="rtBtn"></button></div>
+ <div id="rev" class="hide" style="margin-top:12px"></div>
+</div></section>
+</main>
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<div class="modal hide" id="modal"><div class="card">
+ <h3 id="mT" style="margin-top:0;color:var(--navy)"></h3>
+ <p id="mB"></p>
+ <div style="display:flex;gap:10px;justify-content:center"><button class="btn b-out" id="mNo" onclick="closeM()"></button><button class="btn b-grn" id="mYes" onclick="finish()"></button></div>
+</div></div>
+
+<script>
+var TITLE_EN="SRT Test Series – Mock Test 19", TITLE_HI="एसआरटी टेस्ट सीरीज़ – मॉक टेस्ट 19";
+var DURATION=30*60, PLUS=1, MINUS=0.25;
+// [question EN, question HI, [A en, A hi], [B], [C], [D], correct index 0-3]
+var Q=[
+["A local informant who previously provided accurate intel is caught planting a tracking device on your military vehicle.","एक स्थानीय मुखबिर जिसने पहले सटीक खुफिया जानकारी दी थी, आपके सैन्य वाहन पर ट्रैकिंग डिवाइस लगाते हुए पकड़ा जाता है।",
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will immediately detain the informant securely, remove the tracking device, and hand him over to military intelligence for interrogation.","आप तुरंत मुखबिर को सुरक्षित रूप से हिरासत में लेंगे, ट्रैकिंग डिवाइस को हटाएंगे, और पूछताछ के लिए उसे सैन्य खुफिया को सौंप देंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],1],
+["Your squad is pinned down, and the only extraction route requires crossing a sacred religious site that the enemy is using for cover.","आपकी टुकड़ी फंसी हुई है, और निकासी का एकमात्र मार्ग एक पवित्र धार्मिक स्थल को पार करना है जिसका उपयोग दुश्मन छिपने के लिए कर रहा है।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will strictly hold fire on the sacred site, deploy smoke grenades for concealment, and safely navigate around the perimeter.","आप धार्मिक स्थल पर सख्ती से गोलीबारी रोकेंगे, छिपने के लिए स्मोक ग्रेनेड तैनात करेंगे, और परिधि के चारों ओर सुरक्षित रूप से नेविगेट करेंगे।"],3],
+["During a covert op, an innocent civilian stumbles upon your team. If let go, they might alert the enemy; detaining them slows you down.","एक गुप्त अभियान के दौरान, एक निर्दोष नागरिक आपकी टीम से टकरा जाता है। यदि उसे जाने दिया गया, तो वह दुश्मन को सतर्क कर सकता है; उसे हिरासत में लेने से आपकी गति धीमी हो जाती है।",
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will temporarily and safely detain the civilian, gently assure them of their safety, and release them only after the mission is complete.","आप अस्थायी और सुरक्षित रूप से नागरिक को हिरासत में लेंगे, उन्हें उनकी सुरक्षा का सौम्य आश्वासन देंगे, और मिशन पूरा होने के बाद ही उन्हें रिहा करेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],1],
+["A senior officer is visibly intoxicated during a joint allied briefing and starts making highly offensive remarks.","एक संयुक्त सहयोगी ब्रीफिंग के दौरान एक वरिष्ठ अधिकारी स्पष्ट रूप से नशे में है और अत्यधिक अपमानजनक टिप्पणी करना शुरू कर देता है।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will respectfully intervene to safely escort the officer out of the briefing and privately report the incident to higher command.","आप अधिकारी को सुरक्षित रूप से ब्रीफिंग से बाहर निकालने के लिए सम्मानपूर्वक हस्तक्षेप करेंगे और उच्च कमान को निजी तौर पर घटना की रिपोर्ट करेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],1],
+["You discover that the vital water supply to a civilian refugee camp is being intentionally diverted by your allied militia.","आपको पता चलता है कि नागरिक शरणार्थी शिविर के लिए महत्वपूर्ण जल आपूर्ति को आपके सहयोगी मिलिशिया द्वारा जानबूझकर मोड़ा जा रहा है।",
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will firmly confront the allied militia leaders, forcefully demand the restoration of the water supply, and alert international observers.","आप सहयोगी मिलिशिया नेताओं का दृढ़ता से सामना करेंगे, बलपूर्वक जल आपूर्ति की बहाली की मांग करेंगे, और अंतर्राष्ट्रीय पर्यवेक्षकों को सतर्क करेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],2],
+["Your unit is ordered to hold a strategic bridge at all costs, but a massive uncontainable wildfire is rapidly approaching your position.","आपकी इकाई को हर कीमत पर एक रणनीतिक पुल पर कब्जा करने का आदेश दिया गया है, लेकिन एक विशाल बेकाबू जंगल की आग तेजी से आपकी स्थिति की ओर बढ़ रही है।",
+["You will immediately inform command about the environmental threat, establish a safe firebreak, and request alternative tactical positions to hold.","आप तुरंत कमान को पर्यावरणीय खतरे के बारे में सूचित करेंगे, एक सुरक्षित फायरब्रेक (आग रोकने का रास्ता) स्थापित करेंगे, और कब्जा करने के लिए वैकल्पिक सामरिक स्थितियों का अनुरोध करेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],0],
+["An enemy combatant waves a white flag of surrender but appears to be wearing a bulky, concealed explosive vest.","एक दुश्मन लड़ाका आत्मसमर्पण का सफेद झंडा लहराता है लेकिन ऐसा लगता है कि उसने एक भारी, छुपा हुआ विस्फोटक बनियान पहना हुआ है।",
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will strictly order him to halt at a safe distance, command him to slowly remove his outer garments, and keep snipers on high alert.","आप उसे एक सुरक्षित दूरी पर रुकने का सख्ती से आदेश देंगे, उसे धीरे-धीरे अपने बाहरी कपड़े उतारने का आदेश देंगे, और स्निपर्स को हाई अलर्ट पर रखेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],2],
+["You find highly sensitive national security documents left behind in a public café by a known defense contractor.","आप एक ज्ञात रक्षा ठेकेदार द्वारा सार्वजनिक कैफे में छोड़े गए अत्यधिक संवेदनशील राष्ट्रीय सुरक्षा दस्तावेज पाते हैं।",
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will securely confiscate the classified documents, avoid reading the contents, and immediately hand them over to military vigilance authorities.","आप सुरक्षित रूप से वर्गीकृत दस्तावेजों को जब्त करेंगे, सामग्री को पढ़ने से बचेंगे, और तुरंत उन्हें सैन्य सतर्कता अधिकारियों को सौंप देंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],1],
+["A fellow soldier tearfully confesses to accidentally killing an unarmed civilian during a chaotic raid and begs you to help cover it up.","एक साथी सैनिक रोते हुए एक अराजक छापे के दौरान गलती से एक निहत्थे नागरिक को मारने की बात कबूलता है और आपसे इसे छिपाने में मदद करने की भीख मांगता है।",
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will firmly refuse to cover up the crime, counsel him to surrender, and officially report the tragic incident to the commanding officer.","आप दृढ़ता से अपराध को छिपाने से इंकार करेंगे, उसे आत्मसमर्पण करने की सलाह देंगे, और आधिकारिक तौर पर कमांडिंग अधिकारी को दुखद घटना की रिपोर्ट करेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],1],
+["During a violent riot, the hostile crowd uses women and children in the front line while armed insurgents fire from behind them.","एक हिंसक दंगे के दौरान, शत्रुतापूर्ण भीड़ अग्रिम पंक्ति में महिलाओं और बच्चों का उपयोग करती है जबकि सशस्त्र विद्रोही उनके पीछे से गोलीबारी करते हैं।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will strictly hold return fire, deploy non-lethal tear gas to disperse the crowd safely, and strategically flank the armed insurgents.","आप सख्ती से जवाबी गोलीबारी रोकेंगे, भीड़ को सुरक्षित रूप से तितर-बितर करने के लिए गैर-घातक आंसू गैस तैनात करेंगे, और रणनीतिक रूप से सशस्त्र विद्रोहियों को घेरेंगे।"],3],
+["Your secure communications are jammed, and the only way to request urgent medical evacuation is via an unsecured civilian radio channel.","आपके सुरक्षित संचार जाम हैं, और तत्काल चिकित्सा निकासी का अनुरोध करने का एकमात्र तरीका एक असुरक्षित नागरिक रेडियो चैनल के माध्यम से है।",
+["You will use the unsecured channel by speaking in pre-arranged tactical code to safely request medevac without revealing exact coordinates.","आप सटीक निर्देशांक प्रकट किए बिना सुरक्षित रूप से मेडेवैक का अनुरोध करने के लिए पूर्व-व्यवस्थित सामरिक कोड में बोलकर असुरक्षित चैनल का उपयोग करेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],0],
+["A high-value target is spotted in a densely populated market. Calling an airstrike guarantees massive innocent civilian casualties.","एक घनी आबादी वाले बाजार में एक उच्च-मूल्य का लक्ष्य देखा जाता है। हवाई हमले का आह्वान बड़े पैमाने पर निर्दोष नागरिकों की हताहत होने की गारंटी देता है।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will firmly cancel the airstrike request, deploy ground intelligence to track the target, and plan a surgical strike away from civilians.","आप दृढ़ता से हवाई हमले के अनुरोध को रद्द करेंगे, लक्ष्य को ट्रैक करने के लिए जमीनी खुफिया तैनात करेंगे, और नागरिकों से दूर एक सर्जिकल स्ट्राइक की योजना बनाएंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],1],
+["You are guarding a highly dangerous terrorist who claims to have information about an imminent bomb threat if you let him make one phone call.","आप एक अत्यधिक खतरनाक आतंकवादी की रखवाली कर रहे हैं जो दावा करता है कि यदि आप उसे एक फोन करने देते हैं तो उसके पास एक आसन्न बम खतरे के बारे में जानकारी है।",
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will absolutely deny the phone call, securely record his claims, and immediately inform the intelligence interrogators to extract the information.","आप फोन कॉल से पूरी तरह इंकार करेंगे, सुरक्षित रूप से उसके दावों को रिकॉर्ड करेंगे, और जानकारी निकालने के लिए तुरंत खुफिया पूछताछकर्ताओं को सूचित करेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],2],
+["A drone strike is ordered on a hostile convoy, but you suddenly notice a marked Red Cross medical vehicle embedded within it.","एक शत्रुतापूर्ण काफिले पर ड्रोन हमले का आदेश दिया गया है, लेकिन आप अचानक उसमें एक चिह्नित रेड क्रॉस चिकित्सा वाहन को देखते हैं।",
+["You will immediately alert the command center to abort the strike, highlighting the medical vehicle to prevent war crimes.","आप युद्ध अपराधों को रोकने के लिए चिकित्सा वाहन को उजागर करते हुए, हमले को रद्द करने के लिए तुरंत कमांड सेंटर को सतर्क करेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],0],
+["Your platoon's food rations are completely spoiled, and you are three days away from the nearest resupply point in hostile territory.","आपकी पलटन का भोजन राशन पूरी तरह से खराब हो गया है, और आप शत्रुतापूर्ण क्षेत्र में निकटतम पुन: आपूर्ति बिंदु से तीन दिन दूर हैं।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will immediately ration available water, forage for safe natural survival food, and maintain a steady, disciplined march to the resupply point.","आप तुरंत उपलब्ध पानी का राशन करेंगे, सुरक्षित प्राकृतिक अस्तित्व के भोजन की तलाश करेंगे, और पुन: आपूर्ति बिंदु तक एक स्थिर, अनुशासित मार्च बनाए रखेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],1],
+["An allied drone mistakenly targets your exact coordinates. You have 30 seconds before the missile strikes.","एक सहयोगी ड्रोन गलती से आपके सटीक निर्देशांक को लक्षित करता है। मिसाइल हमले से पहले आपके पास 30 सेकंड हैं।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will loudly order an immediate tactical dispersal, fire friendly identification flares, and dive into the deepest available cover.","आप जोर-जोर से तत्काल सामरिक फैलाव का आदेश देंगे, दोस्ताना पहचान फ्लेयर्स फायर करेंगे, और उपलब्ध सबसे गहरे कवर में गोता लगाएंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],2],
+["You find a critically wounded enemy officer who possesses the secret codes to disarm a minefield your unit must absolutely cross.","आपको एक गंभीर रूप से घायल दुश्मन अधिकारी मिलता है जिसके पास एक खदान को निहत्था करने के गुप्त कोड हैं जिसे आपकी इकाई को बिल्कुल पार करना चाहिए।",
+["You will rapidly provide life-saving first aid, securely detain him, and professionally interrogate him to extract the disarm codes.","आप तेजी से जीवन रक्षक प्राथमिक उपचार प्रदान करेंगे, उसे सुरक्षित रूप से हिरासत में लेंगे, और निरस्त्रीकरण कोड निकालने के लिए पेशेवर रूप से उससे पूछताछ करेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],0],
+["A cyber breach at your command post threatens to leak the true identities of deep undercover operatives within 5 minutes.","आपके कमांड पोस्ट पर एक साइबर उल्लंघन 5 मिनट के भीतर गहरे अंडरकवर गुर्गों की सच्ची पहचान लीक करने की धमकी देता है।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will instantly physically disconnect the main servers from the network, initiate emergency encryption protocols, and alert the cyber defense team.","आप तुरंत भौतिक रूप से मुख्य सर्वर को नेटवर्क से डिस्कनेक्ट कर देंगे, आपातकालीन एन्क्रिप्शन प्रोटोकॉल शुरू करेंगे, और साइबर रक्षा टीम को सतर्क करेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],2],
+["You witness your platoon commander secretly taking heavy cash bribes from local warlords to ignore drug trafficking routes.","आप अपने प्लाटून कमांडर को मादक पदार्थों की तस्करी के मार्गों को अनदेखा करने के लिए स्थानीय सरदारों से गुप्त रूप से भारी नकद रिश्वत लेते हुए देखते हैं।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will silently gather concrete photographic evidence without raising suspicion, and confidentially report the corruption to the vigilance department.","आप संदेह पैदा किए बिना चुपचाप ठोस फोटोग्राफिक साक्ष्य एकत्र करेंगे, और सतर्कता विभाग को गोपनीय रूप से भ्रष्टाचार की रिपोर्ट करेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],1],
+["A sudden violent flash flood in a mountainous terrain sweeps away your communication gear and half your team's weapons.","पहाड़ी इलाके में अचानक आई हिंसक अचानक बाढ़ आपके संचार गियर और आपकी आधी टीम के हथियारों को बहा ले जाती है।",
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will quickly move the team to high ground, redistribute the remaining weapons, and navigate using traditional survival methods.","आप जल्दी से टीम को ऊंचे मैदान में ले जाएंगे, शेष हथियारों को फिर से वितरित करेंगे, और पारंपरिक अस्तित्व विधियों का उपयोग करके नेविगेट करेंगे।"],3],
+["Your VIP protectee suddenly suffers a severe cardiac arrest while driving through a known high-threat ambush zone.","एक ज्ञात उच्च-खतरे वाले घात क्षेत्र से ड्राइविंग करते समय आपके वीआईपी (VIP) को अचानक गंभीर कार्डियक अरेस्ट होता है।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will firmly order the driver to maintain high speed, perform continuous CPR in the moving vehicle, and head straight to the nearest secure hospital.","आप दृढ़ता से ड्राइवर को उच्च गति बनाए रखने का आदेश देंगे, चलती गाड़ी में निरंतर सीपीआर (CPR) करेंगे, और सीधे निकटतम सुरक्षित अस्पताल जाएंगे।"],3],
+["A local journalist threatens to publish classified troop movements unless you provide him with a military escort out of the active warzone.","एक स्थानीय पत्रकार जब तक आप उसे सक्रिय युद्ध क्षेत्र से बाहर सैन्य एस्कॉर्ट प्रदान नहीं करते, तब तक वर्गीकृत सैनिकों की गतिविधियों को प्रकाशित करने की धमकी देता है।",
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will securely detain the journalist under national security laws, confiscate the classified data, and hand him over to intelligence officers.","आप राष्ट्रीय सुरक्षा कानूनों के तहत पत्रकार को सुरक्षित रूप से हिरासत में लेंगे, वर्गीकृत डेटा को जब्त करेंगे, और उसे खुफिया अधिकारियों को सौंप देंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],2],
+["You are ordered to detonate and destroy an enemy bridge, but retreating friendly forces are still frantically crossing it.","आपको दुश्मन के पुल को विस्फोट करने और नष्ट करने का आदेश दिया गया है, लेकिन पीछे हटने वाले मित्र बल अभी भी घबराहट में इसे पार कर रहे हैं।",
+["You will strictly hold the detonation, provide covering fire for the retreating allies, and blow up the bridge the moment they are safe.","आप सख्ती से विस्फोट को रोकेंगे, पीछे हटने वाले सहयोगियों के लिए कवरिंग फायर प्रदान करेंगे, और उनके सुरक्षित होते ही पुल को उड़ा देंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],0],
+["During a joint multinational exercise, a foreign allied soldier continuously makes harsh racist remarks towards your squad members.","एक संयुक्त बहुराष्ट्रीय अभ्यास के दौरान, एक विदेशी सहयोगी सैनिक लगातार आपके दस्ते के सदस्यों के प्रति कठोर नस्लवादी टिप्पणी करता है।",
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will maintain absolute discipline, firmly ask the soldier to stop, and officially report the unprofessional conduct to joint commanders.","आप पूर्ण अनुशासन बनाए रखेंगे, दृढ़ता से सैनिक को रोकने के लिए कहेंगे, और आधिकारिक तौर पर संयुक्त कमांडरों को अव्यवसायिक आचरण की रिपोर्ट करेंगे।"],3],
+["Your primary extraction chopper is shot down, and the secondary landing zone is surrounded by heavily armed hostiles.","आपका प्राथमिक निष्कर्षण हेलिकॉप्टर मार गिराया गया है, और द्वितीयक लैंडिंग क्षेत्र भारी हथियारों से लैस दुश्मनों से घिरा हुआ है।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will quickly call off the secondary extraction, silently move your team into dense cover, and survive until a secure route is found.","आप जल्दी से द्वितीयक निकासी को रद्द कर देंगे, चुपचाप अपनी टीम को घने कवर में ले जाएंगे, और एक सुरक्षित मार्ग मिलने तक जीवित रहेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],2],
+["You discover a massive stockpile of illegal chemical weapons hidden in a functioning civilian hospital basement during a routine search.","एक नियमित तलाशी के दौरान आप एक चालू नागरिक अस्पताल के तहखाने में छिपे अवैध रासायनिक हथियारों का एक विशाल भंडार खोजते हैं।",
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will immediately seal the basement area, secretly evacuate the hospital civilians to avoid panic, and call specialized hazmat units.","आप तुरंत तहखाने के क्षेत्र को सील कर देंगे, घबराहट से बचने के लिए अस्पताल के नागरिकों को गुप्त रूप से निकाल लेंगे, और विशेष खतरनाक सामग्री इकाइयों को बुलाएंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],2],
+["A rogue AI system in your automated defense grid starts glitching and targeting friendly supply trucks.","आपके स्वचालित रक्षा ग्रिड में एक दुष्ट एआई (AI) प्रणाली में खराबी आनी शुरू हो जाती है और वह मित्रवत आपूर्ति ट्रकों को निशाना बनाती है।",
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will instantly engage the manual override protocols, shut down the automated grid, and physically block the turrets.","आप तुरंत मैनुअल ओवरराइड प्रोटोकॉल संलग्न करेंगे, स्वचालित ग्रिड को बंद कर देंगे, और भौतिक रूप से बुर्ज को अवरुद्ध करेंगे।"],3],
+["You are captured and subjected to intense psychological interrogation, and the enemy threatens to harm your family if you don't reveal troop positions.","आपको पकड़ लिया गया है और गहन मनोवैज्ञानिक पूछताछ के अधीन किया गया है, और यदि आप सैनिकों की स्थिति का खुलासा नहीं करते हैं तो दुश्मन आपके परिवार को नुकसान पहुंचाने की धमकी देता है।",
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will remain absolutely silent, rely on your anti-interrogation training, and trust your military to protect your family back home.","आप बिल्कुल चुप रहेंगे, अपने पूछताछ विरोधी प्रशिक्षण पर भरोसा करेंगे, और अपने परिवार की रक्षा के लिए अपनी सेना पर भरोसा करेंगे।"],3],
+["A severe zero-visibility sandstorm grounds all aerial support while your forward operating base is under heavy enemy artillery fire.","एक गंभीर शून्य-दृश्यता वाला रेतीला तूफान सभी हवाई समर्थन को रोक देता है जबकि आपका फॉरवर्ड ऑपरेटिंग बेस दुश्मन के भारी तोपखाने की आग की चपेट में है।",
+["You will firmly command troops into reinforced bunkers, use thermal imaging to detect ground advances, and return calculated mortar fire.","आप दृढ़ता से सैनिकों को प्रबलित बंकरों में जाने का आदेश देंगे, जमीनी प्रगति का पता लगाने के लिए थर्मल इमेजिंग का उपयोग करेंगे, और परिकलित मोर्टार फायर वापस करेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],0],
+["Your squad intercepts a convoy of human traffickers who are heavily armed with military-grade weapons crossing the border.","आपकी टुकड़ी सीमा पार कर रहे सैन्य-ग्रेड के हथियारों से भारी रूप से लैस मानव तस्करों के एक काफिले को रोकती है।",
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will strategically lay down suppressive fire, target the vehicle tires to halt the convoy, and rescue the trapped victims.","आप रणनीतिक रूप से दमनकारी आग (सप्रेसिव फायर) बिछाएंगे, काफिले को रोकने के लिए वाहन के टायरों को निशाना बनाएंगे, और फंसे हुए पीड़ितों को बचाएंगे।"],3],
+["You notice a critical structural failure in the dam holding back millions of gallons of water directly above a populated valley.","आप एक आबादी वाली घाटी के ठीक ऊपर लाखों गैलन पानी को रोके रखने वाले बांध में एक महत्वपूर्ण संरचनात्मक विफलता देखते हैं।",
+["You will immediately trigger the valley's disaster sirens, alert civil defense authorities, and assist in mass rapid evacuation.","आप तुरंत घाटी के आपदा सायरन को ट्रिगर करेंगे, नागरिक सुरक्षा अधिकारियों को सतर्क करेंगे, और बड़े पैमाने पर त्वरित निकासी में सहायता करेंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],0],
+["A fellow pilot ejects over hostile waters, but your aircraft's fuel level is critically low to remain on station for search and rescue.","एक साथी पायलट शत्रुतापूर्ण जल के ऊपर इजेक्ट करता है, लेकिन खोज और बचाव के लिए स्टेशन पर बने रहने के लिए आपके विमान का ईंधन स्तर गंभीर रूप से कम है।",
+["You will drop a survival raft and GPS beacon near his location, mark the coordinates, and safely return to base for refueling.","आप उसके स्थान के पास एक उत्तरजीविता बेड़ा और जीपीएस बीकन गिराएंगे, निर्देशांक को चिह्नित करेंगे, और ईंधन भरने के लिए सुरक्षित रूप से बेस पर लौट आएंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],0],
+["You uncover a plot by rogue elements within your own military to assassinate a visiting foreign dignitary to start a war.","आप युद्ध शुरू करने के लिए एक विदेशी गणमान्य व्यक्ति की हत्या करने के लिए अपनी ही सेना के भीतर दुष्ट तत्वों द्वारा रची गई साजिश का पर्दाफाश करते हैं।",
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will securely bypass the compromised chain of command, secretly inform national intelligence agencies, and provide them with all collected evidence.","आप सुरक्षित रूप से कमान की समझौता श्रृंखला को बायपास करेंगे, गुप्त रूप से राष्ट्रीय खुफिया एजेंसियों को सूचित करेंगे, और उन्हें सभी एकत्र किए गए सबूत प्रदान करेंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],2],
+["An unidentified aircraft violates your restricted airspace and completely ignores all radio warnings to turn back.","एक अज्ञात विमान आपके प्रतिबंधित हवाई क्षेत्र का उल्लंघन करता है और वापस मुड़ने के लिए सभी रेडियो चेतावनियों को पूरी तरह नजरअंदाज कर देता है।",
+["You will launch interceptor jets to physically escort the aircraft out, and firmly prepare anti-air defenses if it shows hostile intent.","आप विमान को भौतिक रूप से बाहर निकालने के लिए इंटरसेप्टर जेट लॉन्च करेंगे, और यदि यह शत्रुतापूर्ण इरादा दिखाता है तो विमान भेदी सुरक्षा को दृढ़ता से तैयार करेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],0],
+["Your unit is exposed to an unknown highly dangerous biological agent, and the nearest quarantine facility is 10 hours away.","आपकी इकाई एक अज्ञात अत्यधिक खतरनाक जैविक एजेंट के संपर्क में है, और निकटतम संगरोध (क्वारंटाइन) सुविधा 10 घंटे दूर है।",
+["You will panic and abandon the entire mission immediately to ensure your own personal safety and run away.","आप घबरा जाएंगे और अपनी व्यक्तिगत सुरक्षा सुनिश्चित करने के लिए तुरंत पूरा मिशन छोड़ देंगे और भाग जाएंगे।"],
+["You will aggressively attack anyone nearby, lose your temper completely, and resort to extreme unregulated violence.","आप पास के किसी भी व्यक्ति पर आक्रामक रूप से हमला करेंगे, अपना आपा पूरी तरह खो देंगे, और अत्यधिक अनियमित हिंसा का सहारा लेंगे।"],
+["You will completely ignore the severe situation, pretend that nothing is happening, and continue minding your own business.","आप गंभीर स्थिति को पूरी तरह नजरअंदाज करेंगे, दिखावा करेंगे कि कुछ नहीं हो रहा है, और अपने काम से काम रखेंगे।"],
+["You will strictly establish a local quarantine zone immediately, administer basic emergency protocols, and request an urgent airlift of medical teams.","आप तुरंत स्थानीय क्वारंटाइन क्षेत्र स्थापित करेंगे, बुनियादी आपातकालीन प्रोटोकॉल का प्रबंधन करेंगे, और मेडिकल टीमों की तत्काल एयरलिफ्ट का अनुरोध करेंगे।"],3]
+];
+
+var T={
+en:{sT:"SRT Mock Test 19",ins:["Total questions: 35 | Time: 30 minutes","Correct answer: +1 mark | Wrong answer: −0.25 mark | Unanswered: 0","Click a question number in the palette to jump to any question","You can switch between English and Hindi anytime","You can submit the test anytime; it auto-submits when time ends"],name:"Enter your name (optional)",start:"Start Test",q:"Question",of:"of",prev:"« Previous",next:"Next »",clr:"Clear",sub:"Submit Test",pal:"Question Console",pg:"Show / Hide Question Console",lA:"Answered",lN:"Not answered",lU:"Not visited",mT:"Submit Test?",mB:function(a,s){return "You have answered "+a+" and left "+s+" unanswered. Do you want to submit?"},mNo:"Cancel",mYes:"Yes, Submit",rT:"Test Result",tot:"Total Score",mk:"Marking: +1 correct, −0.25 wrong",att:"Attempted",skp:"Skipped",cor:"Correct",wro:"Wrong",tq:"Total Questions",neg:"Negative Marks",rv:"View Answers",hv:"Hide Answers",rt:"Retake Test",ok:"Correct",no:"Wrong",sk:"Skipped",ca:"Correct answer",ya:"Your answer"},
+hi:{sT:"एसआरटी मॉक टेस्ट 19",ins:["कुल प्रश्न: 35 | समय: 30 मिनट","सही उत्तर: +1 अंक | गलत उत्तर: −0.25 अंक | बिना उत्तर: 0","किसी भी प्रश्न पर जाने के लिए पैलेट में प्रश्न संख्या दबाएँ","आप कभी भी अंग्रेज़ी और हिन्दी भाषा बदल सकते हैं","आप कभी भी टेस्ट सबमिट कर सकते हैं; समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा"],name:"अपना नाम लिखें (वैकल्पिक)",start:"टेस्ट शुरू करें",q:"प्रश्न",of:"/",prev:"« पिछला",next:"अगला »",clr:"उत्तर हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न कंसोल",pg:"प्रश्न कंसोल दिखाएँ / छिपाएँ",lA:"उत्तर दिया",lN:"उत्तर नहीं दिया",lU:"देखा नहीं",mT:"टेस्ट सबमिट करें?",mB:function(a,s){return "आपने "+a+" प्रश्नों के उत्तर दिए हैं और "+s+" प्रश्न छोड़े हैं। क्या आप सबमिट करना चाहते हैं?"},mNo:"रद्द करें",mYes:"हाँ, सबमिट करें",rT:"टेस्ट परिणाम",tot:"कुल स्कोर",mk:"अंकन: सही +1, गलत −0.25",att:"प्रयास किए",skp:"छोड़े गए",cor:"सही",wro:"गलत",tq:"कुल प्रश्न",neg:"ऋणात्मक अंक",rv:"उत्तर देखें",hv:"उत्तर छिपाएँ",rt:"दोबारा टेस्ट दें",ok:"सही",no:"गलत",sk:"छोड़ा गया",ca:"सही उत्तर",ya:"आपका उत्तर"}
+};
+var lang="en",cur=0,ans=[],vis=[],endAt=0,tick=null,done=false,L="ABCD";
+function $(id){return document.getElementById(id)}
+function t(k){return T[lang][k]}
+function pad(n){return n<10?"0"+n:""+n}
+function fmt(n){return (Math.round(n*100)/100).toString()}
+
+function applyStatic(){
+ $("ttl").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sT").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sIns").innerHTML=t("ins").map(function(x){return "<li>"+x+"</li>"}).join("");
+ $("nm").placeholder=t("name");$("sBtn").textContent=t("start");
+ $("prev").textContent=t("prev");$("next").textContent=t("next");$("clr").textContent=t("clr");$("sub").textContent=t("sub");
+ $("palT").textContent=t("pal");$("ptog").textContent=t("pg");
+ $("lA").textContent=t("lA");$("lN").textContent=t("lN");$("lU").textContent=t("lU");
+ $("mNo").textContent=t("mNo");$("mYes").textContent=t("mYes");$("mT").textContent=t("mT");
+ document.documentElement.lang=lang==="en"?"en":"hi";
+ $("bEn").className=lang==="en"?"on":"";$("bHi").className=lang==="hi"?"on":"";
+}
+function setLang(l){
+ lang=l;applyStatic();
+ if(!$("test").classList.contains("hide"))render();
+ if(!$("result").classList.contains("hide"))showResult();
+ if(!$("modal").classList.contains("hide"))openM();
+}
+function startTest(){
+ for(var i=0;i<Q.length;i++){ans[i]=-1;vis[i]=false}
+ $("start").classList.add("hide");$("test").classList.remove("hide");$("timer").classList.remove("hide");
+ endAt=Date.now()+DURATION*1000;
+ tick=setInterval(upd,500);upd();render();
+ window.scrollTo(0,0);
+}
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(s/60))+":"+pad(s%60);
+ if(s<=300)$("timer").className="timer low";
+ if(s<=0&&!done)finish();
+}
+function render(){
+ vis[cur]=true;var q=Q[cur],i=lang==="en"?0:1;
+ $("qno").textContent=t("q")+" "+(cur+1)+" "+t("of")+" "+Q.length;
+ $("qsts").textContent=ans[cur]>=0?"✔ "+t("lA"):"";
+ $("qtext").textContent=(cur+1)+". "+q[i];
+ var h="";
+ for(var k=0;k<4;k++){h+='<button class="opt'+(ans[cur]===k?" sel":"")+'" onclick="pick('+k+')"><span class="l">'+L[k]+'</span><span>'+esc(q[2+k][i])+'</span></button>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===Q.length-1;
+ pal();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function pal(){
+ var h="";
+ for(var i=0;i<Q.length;i++){
+  var c=ans[i]>=0?"ans":(vis[i]?"vis":"");
+  if(i===cur)c+=" cur";
+  h+='<button class="'+c+'" onclick="jump('+i+')">'+(i+1)+'</button>';
+ }
+ $("pg").innerHTML=h;
+}
+function pick(k){ans[cur]=k;render()}
+function clearAns(){ans[cur]=-1;render()}
+function go(d){var n=cur+d;if(n>=0&&n<Q.length){cur=n;render();window.scrollTo(0,0)}}
+function jump(i){cur=i;render();$("pal").classList.remove("open");window.scrollTo(0,0)}
+function togPal(){$("pal").classList.toggle("open")}
+function counts(){var a=0;for(var i=0;i<ans.length;i++)if(ans[i]>=0)a++;return {a:a,s:Q.length-a}}
+function openM(){var c=counts();$("mB").textContent=t("mB")(c.a,c.s);$("modal").classList.remove("hide")}
+function askSubmit(){openM()}
+function closeM(){$("modal").classList.add("hide")}
+function finish(){
+ if(done&&arguments.length===0&&$("test").classList.contains("hide"))return;
+ done=true;clearInterval(tick);closeM();
+ $("test").classList.add("hide");$("timer").classList.add("hide");$("result").classList.remove("hide");
+ showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var cor=0,wro=0,i;
+ for(i=0;i<Q.length;i++){if(ans[i]>=0){if(ans[i]===Q[i][6])cor++;else wro++}}
+ var att=cor+wro,skp=Q.length-att,neg=wro*MINUS,sc=cor*PLUS-neg;
+ $("rT").textContent=t("rT");
+ var nm=$("nm").value.replace(/^\s+|\s+$/g,"");
+ $("rName").textContent=nm?nm:"";
+ $("rScore").textContent=fmt(sc)+" / "+Q.length;
+ $("rMark").textContent=t("mk");
+ var items=[[t("tq"),Q.length,""],[t("att"),att,""],[t("skp"),skp,""],[t("cor"),cor,"color:#138808"],[t("wro"),wro,"color:#d32f2f"],[t("neg"),"−"+fmt(neg),"color:#d32f2f"]];
+ $("rStats").innerHTML=items.map(function(x){return '<div class="st"><b style="'+x[2]+'">'+x[1]+'</b><span>'+x[0]+'</span></div>'}).join("");
+ $("rvBtn").textContent=$("rev").classList.contains("hide")?t("rv"):t("hv");
+ $("rtBtn").textContent=t("rt");
+ var li=lang==="en"?0:1,h="";
+ for(i=0;i<Q.length;i++){
+  var q=Q[i],st=ans[i]<0?["sk","#6b7686"]:(ans[i]===q[6]?["ok","#138808"]:["no","#d32f2f"]);
+  h+='<div class="rv"><div class="q">'+(i+1)+'. '+esc(q[li])+'<span class="tag" style="background:'+st[1]+'">'+t(st[0])+'</span></div>';
+  for(var k=0;k<4;k++){
+   var c="o";if(k===q[6])c+=" ok";else if(k===ans[i])c+=" no";
+   var m=k===q[6]?" ✔":(k===ans[i]?" ✘ ("+t("ya")+")":"");
+   h+='<div class="'+c+'"><b>'+L[k]+'.</b> '+esc(q[2+k][li])+m+'</div>';
+  }
+  h+='</div>';
+ }
+ $("rev").innerHTML=h;
+}
+function toggleRev(){$("rev").classList.toggle("hide");showResult()}
+window.addEventListener("beforeunload",function(e){if(!done&&!$("test").classList.contains("hide")){e.preventDefault();e.returnValue=""}});
+applyStatic();
+</script>
+</body>
+</html>

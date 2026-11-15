@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test (Q771-805)</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal",Arial,sans-serif;background:#eef1f6;color:#1b2430}
+header{background:#0b2447;color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+.brand{font-weight:800;letter-spacing:.5px;font-size:17px;color:#ffc933}
+.brand small{display:block;color:#cfd8e8;font-weight:500;font-size:11px;letter-spacing:0}
+.tools{display:flex;gap:8px;align-items:center}
+#timer{background:#fff;color:#0b2447;font-weight:800;padding:6px 10px;border-radius:6px;font-size:16px;min-width:72px;text-align:center}
+#timer.low{background:#d62828;color:#fff}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:6px;font-size:15px;padding:10px 16px;font-weight:600}
+#lang{background:#ffc933;color:#0b2447}
+.wrap{max-width:1000px;margin:0 auto;padding:12px;display:flex;gap:12px;flex-wrap:wrap}
+.main{flex:1 1 560px;background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px #0002}
+.side{flex:0 0 260px;background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 4px #0002;height:fit-content}
+.qno{color:#0b2447;font-weight:700;margin-bottom:8px}
+.qtext{font-size:18px;line-height:1.5;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:2px solid #d5dbe6;border-radius:8px;padding:11px;margin-bottom:10px;cursor:pointer;line-height:1.45;font-size:16px}
+.opt b{min-width:24px;height:24px;border-radius:50%;background:#e6ebf4;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.opt.sel{border-color:#0b2447;background:#e8f0ff}.opt.sel b{background:#0b2447;color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.nav button{flex:1 1 90px}
+#prev,#next{background:#0b2447;color:#fff}
+#clear{background:#e6ebf4;color:#0b2447}
+#submit{background:#d62828;color:#fff}
+#prev:disabled,#next:disabled{opacity:.4}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:10px 0}
+.grid button{padding:9px 0;background:#e6ebf4;color:#1b2430;font-size:14px}
+.grid .ans{background:#2a9d4a;color:#fff}.grid .cur{outline:3px solid #ffc933}
+.leg{font-size:12px;color:#555;line-height:1.8}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:middle}
+.ov{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:10;padding:14px}
+.box{background:#fff;border-radius:10px;padding:20px;max-width:420px;width:100%;text-align:center}
+.box .row{display:flex;gap:8px;margin-top:14px}.box .row button{flex:1}
+#result{display:none;max-width:800px;margin:14px auto;padding:0 12px}
+.card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 4px #0002;margin-bottom:12px}
+.score{font-size:42px;font-weight:800;color:#0b2447;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}
+.stats div{background:#eef1f6;border-radius:8px;padding:10px;text-align:center;font-size:14px}.stats b{display:block;font-size:22px}
+.rv{border-left:5px solid #ccc;padding:8px 10px;margin:10px 0;font-size:15px;line-height:1.5}
+.rv.c{border-color:#2a9d4a}.rv.w{border-color:#d62828}.rv.s{border-color:#999}
+footer{text-align:center;font-size:12px;color:#667;padding:10px}
+@media(max-width:700px){.side{flex:1 1 100%}.qtext{font-size:17px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">SKC DEFENCE ACADEMY<small>SRT Mock Test | Q771 – Q805 | 35 Questions | 30 Min</small></div>
+ <div class="tools"><button id="lang" onclick="toggleLang()">हिन्दी</button><div id="timer">30:00</div></div>
+</header>
+
+<div id="test" class="wrap">
+ <div class="main">
+  <div class="qno" id="qno"></div>
+  <div class="qtext" id="qtext"></div>
+  <div id="opts"></div>
+  <div class="nav">
+   <button id="prev" onclick="go(-1)">&laquo; <span class="t-prev">Previous</span></button>
+   <button id="clear" onclick="clr()"><span class="t-clear">Clear</span></button>
+   <button id="next" onclick="go(1)"><span class="t-next">Next</span> &raquo;</button>
+  </div>
+  <div class="nav"><button id="submit" onclick="askSubmit()"><span class="t-sub">Submit Test</span></button></div>
+ </div>
+ <div class="side">
+  <b class="t-pal">Question Palette</b>
+  <div class="grid" id="grid"></div>
+  <div class="leg"><i style="background:#2a9d4a"></i><span class="t-ans">Answered</span> &nbsp; <i style="background:#e6ebf4;border:1px solid #bbb"></i><span class="t-unans">Not Answered</span></div>
+  <div class="leg" style="margin-top:6px">+1 Correct &nbsp;|&nbsp; −0.25 Wrong</div>
+ </div>
+</div>
+
+<div id="result"></div>
+
+<div class="ov" id="ov"><div class="box">
+ <h3 id="ovt">Submit Test?</h3>
+ <p id="ovp"></p>
+ <div class="row"><button style="background:#e6ebf4" onclick="closeOv()" id="ovno">Cancel</button><button style="background:#d62828;color:#fff" onclick="finish()" id="ovyes">Submit</button></div>
+</div></div>
+
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<script>
+var IGN=["You will quietly ignore the highly dangerous, silently leave the crowded area, and strictly mind the personal business.","आप चुपचाप अत्यधिक खतरनाक को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से निजी काम पर ध्यान देंगे।"];
+var PAN=["You will blindly panic the sudden extreme, quickly drop the heavy bags, and rapidly run the safe home.","आप आंख मूंदकर अचानक अत्यधिक घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और तेजी से सुरक्षित घर भागेंगे।"];
+var ANG=["You will angrily attack the nearby innocent, violently break the heavy objects, and loudly start the huge fighting.","आप गुस्से में पास के निर्दोष पर हमला करेंगे, हिंसक रूप से भारी वस्तुएं तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"];
+var Q=[
+["A stray cow enters your open garden and starts eating your expensive plants.","एक आवारा गाय आपके खुले बगीचे में प्रवेश करती है और आपके महंगे पौधे खाने लगती है।",[IGN,PAN,ANG,["You will calmly chase the hungry animal, safely close the main gate, and firmly protect the green garden.","आप शांति से भूखे जानवर को भगाएंगे, सुरक्षित रूप से मुख्य गेट बंद करेंगे, और दृढ़ता से हरे बगीचे को बचाएंगे।"]],3],
+["You find a crying toddler lost in a massive religious fair.","आप एक विशाल धार्मिक मेले में एक रोते हुए बच्चे को खोया हुआ पाते हैं।",[ANG,PAN,IGN,["You will safely hold the crying child, calmly find the security desk, and promptly announce the lost toddler.","आप सुरक्षित रूप से रोते हुए बच्चे को पकड़ेंगे, शांति से सुरक्षा डेस्क खोजेंगे, और तुरंत खोए हुए बच्चे की घोषणा करेंगे।"]],3],
+["You notice a suspicious bag left unattended on a moving ferry.","आप एक चलती नौका पर लावारिस छोड़े गए एक संदिग्ध बैग को देखते हैं।",[["You will safely alert the ferry staff, calmly clear the nearby passengers, and strictly avoid the suspicious bag.","आप सुरक्षित रूप से नौका कर्मचारियों को सतर्क करेंगे, शांति से आस-पास के यात्रियों को हटाएंगे, और सख्ती से संदिग्ध बैग से बचेंगे।"],ANG,IGN,PAN],0],
+["Your roommate accidentally burns your important project report before submission.","आपका रूममेट सबमिशन से पहले गलती से आपकी महत्वपूर्ण प्रोजेक्ट रिपोर्ट जला देता है।",[ANG,PAN,["You will calmly check the digital backup, safely print the new copy, and firmly submit the final project.","आप शांति से डिजिटल बैकअप की जांचेंगे, सुरक्षित रूप से नई कॉपी प्रिंट करेंगे, और दृढ़ता से अंतिम प्रोजेक्ट जमा करेंगे।"],IGN],2],
+["A local shopkeeper refuses to accept digital payment after you consumed food.","एक स्थानीय दुकानदार आपके खाना खाने के बाद डिजिटल भुगतान स्वीकार करने से इंकार करता है।",[["You will calmly check the nearby ATM, safely withdraw the paper cash, and politely pay the pending bill.","आप शांति से पास का एटीएम खोजेंगे, सुरक्षित रूप से कागज की नकदी निकालेंगे, और विनम्रतापूर्वक लंबित बिल चुकाएंगे।"],IGN,PAN,ANG],0],
+["You see a speeding biker snatching a woman's gold chain in broad daylight.","आप दिनदहाड़े एक तेज रफ्तार बाइकर को एक महिला की सोने की चेन छीनते हुए देखते हैं।",[IGN,PAN,ANG,["You will safely note the bike number, calmly support the scared woman, and promptly call the local police.","आप सुरक्षित रूप से बाइक का नंबर नोट करेंगे, शांति से डरी हुई महिला को सहारा देंगे, और तुरंत स्थानीय पुलिस को कॉल करेंगे।"]],3],
+["Your office elevator suddenly drops a few floors and gets stuck.","आपके कार्यालय का लिफ्ट अचानक कुछ मंजिल नीचे गिर जाता है और फंस जाता है।",[IGN,PAN,ANG,["You will calmly press the alarm button, safely comfort the panicked people, and firmly wait the rescue team.","आप शांति से अलार्म बटन दबाएंगे, सुरक्षित रूप से घबराए हुए लोगों को सांत्वना देंगे, और दृढ़ता से बचाव दल का इंतजार करेंगे।"]],3],
+["You find your expensive bicycle stolen from the college parking lot.","आप अपनी महंगी साइकिल को कॉलेज की पार्किंग से चोरी हुआ पाते हैं।",[ANG,["You will calmly check the security cameras, safely inform the college guards, and firmly file the police complaint.","आप शांति से सुरक्षा कैमरे जांचेंगे, सुरक्षित रूप से कॉलेज गार्ड को सूचित करेंगे, और दृढ़ता से पुलिस शिकायत दर्ज करेंगे।"],IGN,PAN],1],
+["A street vendor accidentally spills hot oil on his own hand.","एक सड़क विक्रेता गलती से अपने ही हाथ पर गर्म तेल गिरा देता है।",[PAN,ANG,["You will safely pour the cold water, calmly apply the burn ointment, and promptly call the medical help.","आप सुरक्षित रूप से ठंडा पानी डालेंगे, शांति से जलने का मरहम लगाएंगे, और तुरंत चिकित्सा सहायता बुलाएंगे।"],IGN],2],
+["You notice a heavy leak in the public water pipeline wasting gallons of water.","आप सार्वजनिक पानी की पाइपलाइन में भारी रिसाव देखते हैं जिससे गैलन पानी बर्बाद हो रहा है।",[["You will calmly find the main valve, safely close the leaking pipe, and promptly inform the municipal board.","आप शांति से मुख्य वाल्व खोजेंगे, सुरक्षित रूप से रिसते पाइप को बंद करेंगे, और तुरंत नगर बोर्ड को सूचित करेंगे।"],ANG,PAN,IGN],0],
+["A fellow passenger on a flight starts suffering from severe chest pain.","उड़ान में एक सहयात्री को सीने में तेज दर्द होने लगता है।",[PAN,ANG,["You will calmly alert the cabin crew, safely clear the nearby space, and firmly provide the medical assistance.","आप शांति से केबिन क्रू को सतर्क करेंगे, सुरक्षित रूप से आस-पास की जगह खाली करेंगे, और दृढ़ता से चिकित्सा सहायता प्रदान करेंगे।"],IGN],2],
+["Your laptop screen completely cracks right before an online presentation.","ऑनलाइन प्रेजेंटेशन से ठीक पहले आपके लैपटॉप की स्क्रीन पूरी तरह से टूट जाती है।",[PAN,["You will calmly connect the external monitor, safely start the online meeting, and firmly deliver the final presentation.","आप शांति से बाहरी मॉनिटर कनेक्ट करेंगे, सुरक्षित रूप से ऑनलाइन मीटिंग शुरू करेंगे, और दृढ़ता से अंतिम प्रेजेंटेशन देंगे।"],IGN,ANG],1],
+["You accidentally board a bus heading to a completely unknown village.","आप गलती से एक पूरी तरह से अज्ञात गांव जाने वाली बस में चढ़ जाते हैं।",[["You will calmly ask the bus conductor, safely drop the next stop, and firmly board the correct bus.","आप शांति से बस कंडक्टर से पूछेंगे, सुरक्षित रूप से अगले स्टॉप पर उतरेंगे, और दृढ़ता से सही बस में चढ़ेंगे।"],PAN,IGN,ANG],0],
+["A close relative heavily pressures you to invest in a risky stock market tip.","एक करीबी रिश्तेदार आपको जोखिम भरे शेयर बाजार में निवेश करने के लिए भारी दबाव डालता है।",[IGN,["You will calmly listen the financial advice, politely decline the risky investment, and firmly save the hard money.","आप शांति से वित्तीय सलाह सुनेंगे, विनम्रतापूर्वक जोखिम भरा निवेश अस्वीकार करेंगे, और दृढ़ता से कड़ी मेहनत का पैसा बचाएंगे।"],PAN,ANG],1],
+["You witness a minor car accident where both drivers start a physical fight.","आप एक मामूली कार दुर्घटना देखते हैं जहां दोनों ड्राइवर शारीरिक लड़ाई शुरू कर देते हैं।",[["You will calmly step the between drivers, safely stop the physical fight, and firmly resolve the minor issue.","आप शांति से ड्राइवरों के बीच कदम रखेंगे, सुरक्षित रूप से शारीरिक लड़ाई रोकेंगे, और दृढ़ता से मामूली मुद्दे को सुलझाएंगे।"],ANG,PAN,IGN],0],
+["You find a highly expensive DSLR camera left on a zoo bench.","आप चिड़ियाघर की बेंच पर एक अत्यधिक महंगा डीएसएलआर (DSLR) कैमरा रखा हुआ पाते हैं।",[["You will safely pick the expensive camera, calmly find the zoo office, and firmly submit the lost item.","आप सुरक्षित रूप से महंगा कैमरा उठाएंगे, शांति से चिड़ियाघर का कार्यालय खोजेंगे, और दृढ़ता से खोई हुई वस्तु जमा करेंगे।"],PAN,ANG,IGN],0],
+["Your younger brother secretly takes your credit card for online gaming purchases.","आपका छोटा भाई ऑनलाइन गेमिंग खरीदारी के लिए चुपके से आपका क्रेडिट कार्ड ले लेता है।",[ANG,IGN,["You will calmly block the credit card, firmly counsel the younger brother, and politely explain the financial rules.","आप शांति से क्रेडिट कार्ड ब्लॉक करेंगे, दृढ़ता से छोटे भाई को समझाएंगे, और विनम्रतापूर्वक वित्तीय नियम बताएंगे।"],PAN],2],
+["A loud group of rowdy boys starts harassing an elderly couple in the park.","उपद्रवी लड़कों का एक शोरगुल वाला समूह पार्क में एक बुजुर्ग जोड़े को परेशान करने लगता है।",[["You will firmly stop the rowdy boys, safely escort the elderly couple, and calmly call the park guards.","आप दृढ़ता से उपद्रवी लड़कों को रोकेंगे, सुरक्षित रूप से बुजुर्ग जोड़े को ले जाएंगे, और शांति से पार्क गार्ड को बुलाएंगे।"],ANG,IGN,PAN],0],
+["You suddenly smell burning wire completely inside your crowded college classroom.","आप अचानक अपनी भीड़भाड़ वाली कॉलेज की कक्षा के अंदर जलते हुए तार की गंध महसूस करते हैं।",[IGN,PAN,["You will calmly turn the main switch, safely evacuate the college classroom, and promptly call the campus electrician.","आप शांति से मुख्य स्विच बंद करेंगे, सुरक्षित रूप से कॉलेज की कक्षा खाली कराएंगे, और तुरंत परिसर के इलेक्ट्रीशियन को बुलाएंगे।"],ANG],2],
+["Your rented apartment's ceiling starts leaking heavily during a midnight storm.","आधी रात के तूफान के दौरान आपके किराए के अपार्टमेंट की छत से भारी रिसाव होने लगता है।",[PAN,IGN,["You will calmly place the plastic buckets, safely move the electronic items, and firmly call the apartment owner.","आप शांति से प्लास्टिक की बाल्टियां रखेंगे, सुरक्षित रूप से इलेक्ट्रॉनिक वस्तुएं हटाएंगे, और दृढ़ता से अपार्टमेंट मालिक को कॉल करेंगे।"],ANG],2],
+["You see a completely exhausted delivery boy fainting at your doorstep.","आप देखते हैं कि एक पूरी तरह से थका हुआ डिलीवरी बॉय आपके दरवाजे पर बेहोश हो रहा है।",[["You will safely hold the exhausted boy, calmly provide the cold water, and firmly allow the proper rest.","आप सुरक्षित रूप से थके हुए लड़के को पकड़ेंगे, शांति से ठंडा पानी प्रदान करेंगे, और दृढ़ता से उचित आराम देंगे।"],ANG,PAN,IGN],0],
+["A famous restaurant serves you a vegetarian dish with hidden meat pieces.","एक प्रसिद्ध रेस्तरां आपको छिपे हुए मांस के टुकड़ों के साथ एक शाकाहारी व्यंजन परोसता है।",[["You will firmly stop the eating food, calmly call the restaurant manager, and politely demand the strict action.","आप दृढ़ता से खाना खाना बंद करेंगे, शांति से रेस्तरां मैनेजर को बुलाएंगे, और विनम्रतापूर्वक सख्त कार्रवाई की मांग करेंगे।"],IGN,PAN,ANG],0],
+["You accidentally drop your main house keys inside a deep elevator shaft.","आप गलती से अपनी मुख्य घर की चाबियां एक गहरी लिफ्ट शाफ्ट के अंदर गिरा देते हैं।",[IGN,["You will calmly inform the building security, safely call the maintenance staff, and firmly retrieve the fallen keys.","आप शांति से इमारत की सुरक्षा को सूचित करेंगे, सुरक्षित रूप से रखरखाव कर्मचारियों को बुलाएंगे, और दृढ़ता से गिरी हुई चाबियां निकालेंगे।"],PAN,ANG],1],
+["A powerful local politician forcefully jumps the hospital emergency queue.","एक शक्तिशाली स्थानीय राजनेता बलपूर्वक अस्पताल की आपातकालीन कतार को तोड़ देता है।",[PAN,ANG,IGN,["You will calmly approach the hospital management, firmly explain the critical situation, and safely ensure the fair treatment.","आप शांति से अस्पताल प्रबंधन के पास जाएंगे, दृढ़ता से गंभीर स्थिति समझाएंगे, और सुरक्षित रूप से उचित उपचार सुनिश्चित करेंगे।"]],3],
+["You spot a fake job advertisement using your company's official name online.","आप ऑनलाइन अपनी कंपनी के आधिकारिक नाम का उपयोग करते हुए एक फर्जी नौकरी विज्ञापन देखते हैं।",[["You will calmly take the digital screenshots, safely inform the company HR, and firmly report the fake website.","आप शांति से डिजिटल स्क्रीनशॉट लेंगे, सुरक्षित रूप से कंपनी एचआर को सूचित करेंगे, और दृढ़ता से फर्जी वेबसाइट की रिपोर्ट करेंगे।"],ANG,PAN,IGN],0],
+["A heavily speeding truck completely overturns exactly on the main highway bridge.","एक भारी तेज रफ्तार ट्रक बिल्कुल मुख्य राजमार्ग पुल पर पूरी तरह से पलट जाता है।",[PAN,["You will safely park the your vehicle, calmly check the injured driver, and promptly call the highway patrol.","आप सुरक्षित रूप से अपना वाहन पार्क करेंगे, शांति से घायल ड्राइवर की जांचेंगे, और तुरंत राजमार्ग गश्त को कॉल करेंगे।"],ANG,IGN],1],
+["You accidentally spill permanent black ink on your senior's important documents.","आप गलती से अपने सीनियर के महत्वपूर्ण दस्तावेजों पर स्थायी काली स्याही गिरा देते हैं।",[IGN,PAN,ANG,["You will calmly apologize the senior officer, safely print the new copies, and firmly submit the clean documents.","आप शांति से सीनियर अधिकारी से माफी मांगेंगे, सुरक्षित रूप से नई प्रतियां प्रिंट करेंगे, और दृढ़ता से साफ दस्तावेज जमा करेंगे।"]],3],
+["A wild aggressive dog blocks the only exit of your narrow street.","एक जंगली आक्रामक कुत्ता आपकी संकरी गली के एकमात्र निकास को रोक देता है।",[["You will calmly avoid the eye contact, safely wait the patiently inside, and firmly let the dog pass.","आप शांति से आंखों के संपर्क से बचेंगे, सुरक्षित रूप से धैर्यपूर्वक अंदर इंतजार करेंगे, और दृढ़ता से कुत्ते को गुजरने देंगे।"],IGN,ANG,PAN],0],
+["Your close friend secretly reads your highly personal diary without permission.","आपका करीबी दोस्त बिना अनुमति के चुपके से आपकी अत्यधिक व्यक्तिगत डायरी पढ़ता है।",[["You will calmly take the personal diary, firmly express the deep disappointment, and politely set the strict boundaries.","आप शांति से व्यक्तिगत डायरी लेंगे, दृढ़ता से गहरी निराशा व्यक्त करेंगे, और विनम्रतापूर्वक सख्त सीमाएं तय करेंगे।"],ANG,IGN,PAN],0],
+["You notice a suspicious stranger secretly clicking photos of your female colleague.","आप एक संदिग्ध अजनबी को चुपके से अपनी महिला सहकर्मी की तस्वीरें क्लिक करते हुए देखते हैं।",[IGN,["You will firmly confront the suspicious stranger, safely demand the deleting photos, and calmly inform the security guards.","आप दृढ़ता से संदिग्ध अजनबी का सामना करेंगे, सुरक्षित रूप से हटाने की तस्वीरें मांग करेंगे, और शांति से सुरक्षा गार्ड को सूचित करेंगे।"],PAN,ANG],1],
+["A sudden severe dust storm completely blinds your driving vision on a highway.","एक अचानक गंभीर धूल भरी आंधी राजमार्ग पर आपके ड्राइविंग विजन को पूरी तरह से अंधा कर देती है।",[IGN,ANG,PAN,["You will calmly reduce the vehicle speed, safely turn the parking lights, and firmly stop the road side.","आप शांति से वाहन की गति कम करेंगे, सुरक्षित रूप से पार्किंग लाइट चालू करेंगे, और दृढ़ता से सड़क के किनारे रुकेंगे।"]],3],
+["You accidentally break a highly delicate expensive vase in a museum.","आप गलती से एक संग्रहालय में एक अत्यधिक नाजुक महंगा फूलदान तोड़ देते हैं।",[ANG,IGN,["You will calmly inform the museum staff, politely offer the sincere apology, and safely pay the repair costs.","आप शांति से संग्रहालय कर्मचारियों को सूचित करेंगे, विनम्रतापूर्वक ईमानदार माफी पेश करेंगे, और सुरक्षित रूप से मरम्मत लागत चुकाएंगे।"],PAN],2],
+["Your hostel warden imposes an unfair heavy fine on the entire floor.","आपका हॉस्टल वार्डन पूरे फ्लोर पर अनुचित भारी जुर्माना लगाता है।",[IGN,["You will calmly gather the hostel students, politely meet the strict warden, and firmly resolve the unfair fine.","आप शांति से हॉस्टल छात्रों को इकट्ठा करेंगे, विनम्रतापूर्वक सख्त वार्डन से मिलेंगे, और दृढ़ता से अनुचित जुर्माना सुलझाएंगे।"],PAN,ANG],1],
+["A stray kite string severely cuts a flying bird's wing in the sky.","एक आवारा पतंग की डोरी आकाश में उड़ते हुए पक्षी के पंख को गंभीर रूप से काट देती है।",[IGN,["You will safely catch the injured bird, calmly apply the basic medicine, and promptly call the bird rescue.","आप सुरक्षित रूप से घायल पक्षी को पकड़ेंगे, शांति से बुनियादी दवा लगाएंगे, और तुरंत पक्षी बचाव दल को बुलाएंगे।"],PAN,ANG],1],
+["You completely lose your printed flight boarding pass exactly inside the security check.","सुरक्षा जांच के ठीक अंदर आप अपना मुद्रित फ्लाइट बोर्डिंग पास पूरी तरह खो देते हैं।",[PAN,ANG,["You will calmly check the digital copy, politely inform the security officer, and safely print the new pass.","आप शांति से डिजिटल कॉपी जांचेंगे, विनम्रतापूर्वक सुरक्षा अधिकारी को सूचित करेंगे, और सुरक्षित रूप से नया पास प्रिंट करेंगे।"],IGN],2]
+];
+var START=771,N=Q.length,TOTAL=1800,L=0,cur=0,done=false,A=[],i;
+for(i=0;i<N;i++)A.push(-1);
+var T={
+ en:{prev:"Previous",next:"Next",clear:"Clear",sub:"Submit Test",pal:"Question Palette",ans:"Answered",unans:"Not Answered",lang:"हिन्दी",q:"Question",cancel:"Cancel",submit:"Submit",ot:"Submit Test?",answered:"Answered",left:"Not answered",sure:"Are you sure you want to submit?"},
+ hi:{prev:"पिछला",next:"अगला",clear:"हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न सूची",ans:"उत्तर दिया",unans:"उत्तर नहीं दिया",lang:"English",q:"प्रश्न",cancel:"रद्द करें",submit:"सबमिट",ot:"टेस्ट सबमिट करें?",answered:"उत्तर दिए",left:"बिना उत्तर",sure:"क्या आप सच में सबमिट करना चाहते हैं?"}
+};
+function $(id){return document.getElementById(id)}
+function t(k){return T[L?"hi":"en"][k]}
+function cls(c,v){var e=document.getElementsByClassName(c);for(var j=0;j<e.length;j++)e[j].textContent=v}
+function render(){
+ var q=Q[cur];
+ $("qno").textContent=t("q")+" "+(cur+1)+" / "+N+"  (Q"+(START+cur)+")";
+ $("qtext").textContent=q[L];
+ var h="";
+ for(var j=0;j<4;j++){h+='<div class="opt'+(A[cur]===j?' sel':'')+'" onclick="pick('+j+')"><b>'+"ABCD".charAt(j)+'</b><span>'+esc(q[2][j][L])+'</span></div>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===N-1;
+ cls("t-prev",t("prev"));cls("t-next",t("next"));cls("t-clear",t("clear"));cls("t-sub",t("sub"));cls("t-pal",t("pal"));cls("t-ans",t("ans"));cls("t-unans",t("unans"));
+ $("lang").textContent=t("lang");
+ grid();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function grid(){
+ var h="";
+ for(var j=0;j<N;j++)h+='<button class="'+(A[j]>-1?'ans ':'')+(j===cur?'cur':'')+'" onclick="jump('+j+')">'+(j+1)+'</button>';
+ $("grid").innerHTML=h;
+}
+function pick(j){A[cur]=j;render()}
+function clr(){A[cur]=-1;render()}
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));render();window.scrollTo(0,0)}
+function jump(j){cur=j;render();window.scrollTo(0,0)}
+function toggleLang(){L=L?0:1;document.documentElement.lang=L?"hi":"en";render();if(done)showResult()}
+function askSubmit(){
+ var a=0;for(var j=0;j<N;j++)if(A[j]>-1)a++;
+ $("ovt").textContent=t("ot");
+ $("ovp").textContent=t("answered")+": "+a+" | "+t("left")+": "+(N-a)+". "+t("sure");
+ $("ovno").textContent=t("cancel");$("ovyes").textContent=t("submit");
+ $("ov").style.display="flex";
+}
+function closeOv(){$("ov").style.display="none"}
+var endAt=Date.now()+TOTAL*1000,tick;
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ var m=Math.floor(s/60),r=s%60;
+ $("timer").textContent=(m<10?"0":"")+m+":"+(r<10?"0":"")+r;
+ if(s<=300)$("timer").className="low";
+ if(s<=0){finish()}
+}
+tick=setInterval(upd,500);
+function finish(){
+ if(done)return;done=true;clearInterval(tick);closeOv();
+ $("test").style.display="none";$("timer").style.display="none";
+ $("result").style.display="block";showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var c=0,w=0,s=0,j;
+ for(j=0;j<N;j++){if(A[j]<0)s++;else if(A[j]===Q[j][3])c++;else w++}
+ var sc=c-w*0.25,hi=L===1;
+ var h='<div class="card"><div style="text-align:center;font-weight:700;color:#0b2447">SKC DEFENCE ACADEMY</div>'+
+ '<div class="score">'+sc.toFixed(2)+' / '+N+'</div><div style="text-align:center">'+(hi?'कुल स्कोर':'Total Score')+'</div>'+
+ '<div class="stats"><div><b>'+N+'</b>'+(hi?'कुल प्रश्न':'Total Questions')+'</div><div><b>'+(c+w)+'</b>'+(hi?'प्रयास किए':'Attempted')+'</div><div><b>'+s+'</b>'+(hi?'छोड़े गए':'Skipped')+'</div><div><b style="color:#2a9d4a">'+c+'</b>'+(hi?'सही (+1)':'Correct (+1)')+'</div><div><b style="color:#d62828">'+w+'</b>'+(hi?'गलत (−0.25)':'Wrong (−0.25)')+'</div></div></div>'+
+ '<div class="card"><b>'+(hi?'उत्तर समीक्षा':'Answer Review')+'</b>';
+ for(j=0;j<N;j++){
+  var q=Q[j],st=A[j]<0?'s':(A[j]===q[3]?'c':'w');
+  h+='<div class="rv '+st+'"><b>Q'+(START+j)+'.</b> '+esc(q[L])+'<br>'+
+  (hi?'आपका उत्तर: ':'Your answer: ')+(A[j]<0?(hi?'छोड़ा गया':'Skipped'):"ABCD".charAt(A[j])+') '+esc(q[2][A[j]][L]))+'<br>'+
+  '<b>'+(hi?'सही उत्तर: ':'Correct answer: ')+"ABCD".charAt(q[3])+') '+esc(q[2][q[3]][L])+'</b></div>';
+ }
+ h+='</div><div style="text-align:center"><button style="background:#ffc933;color:#0b2447" onclick="toggleLang()">'+t("lang")+'</button> <button style="background:#0b2447;color:#fff" onclick="location.reload()">'+(hi?'दोबारा दें':'Retake Test')+'</button></div>';
+ $("result").innerHTML=h;
+}
+render();
+</script>
+</body>
+</html>

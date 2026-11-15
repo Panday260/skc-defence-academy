@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test (Q736-770)</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;font-family:-apple-system,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal",Arial,sans-serif;background:#eef1f6;color:#1b2430}
+header{background:#0b2447;color:#fff;padding:10px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:5}
+.brand{font-weight:800;letter-spacing:.5px;font-size:17px;color:#ffc933}
+.brand small{display:block;color:#cfd8e8;font-weight:500;font-size:11px;letter-spacing:0}
+.tools{display:flex;gap:8px;align-items:center}
+#timer{background:#fff;color:#0b2447;font-weight:800;padding:6px 10px;border-radius:6px;font-size:16px;min-width:72px;text-align:center}
+#timer.low{background:#d62828;color:#fff}
+button{font-family:inherit;cursor:pointer;border:0;border-radius:6px;font-size:15px;padding:10px 16px;font-weight:600}
+#lang{background:#ffc933;color:#0b2447}
+.wrap{max-width:1000px;margin:0 auto;padding:12px;display:flex;gap:12px;flex-wrap:wrap}
+.main{flex:1 1 560px;background:#fff;border-radius:10px;padding:16px;box-shadow:0 1px 4px #0002}
+.side{flex:0 0 260px;background:#fff;border-radius:10px;padding:14px;box-shadow:0 1px 4px #0002;height:fit-content}
+.qno{color:#0b2447;font-weight:700;margin-bottom:8px}
+.qtext{font-size:18px;line-height:1.5;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;border:2px solid #d5dbe6;border-radius:8px;padding:11px;margin-bottom:10px;cursor:pointer;line-height:1.45;font-size:16px}
+.opt b{min-width:24px;height:24px;border-radius:50%;background:#e6ebf4;display:inline-flex;align-items:center;justify-content:center;font-size:13px;flex:none}
+.opt.sel{border-color:#0b2447;background:#e8f0ff}.opt.sel b{background:#0b2447;color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.nav button{flex:1 1 90px}
+#prev,#next{background:#0b2447;color:#fff}
+#clear{background:#e6ebf4;color:#0b2447}
+#submit{background:#d62828;color:#fff}
+#prev:disabled,#next:disabled{opacity:.4}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:10px 0}
+.grid button{padding:9px 0;background:#e6ebf4;color:#1b2430;font-size:14px}
+.grid .ans{background:#2a9d4a;color:#fff}.grid .cur{outline:3px solid #ffc933}
+.leg{font-size:12px;color:#555;line-height:1.8}.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:middle}
+.ov{position:fixed;inset:0;background:#000a;display:none;align-items:center;justify-content:center;z-index:10;padding:14px}
+.box{background:#fff;border-radius:10px;padding:20px;max-width:420px;width:100%;text-align:center}
+.box .row{display:flex;gap:8px;margin-top:14px}.box .row button{flex:1}
+#result{display:none;max-width:800px;margin:14px auto;padding:0 12px}
+.card{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 4px #0002;margin-bottom:12px}
+.score{font-size:42px;font-weight:800;color:#0b2447;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-top:12px}
+.stats div{background:#eef1f6;border-radius:8px;padding:10px;text-align:center;font-size:14px}.stats b{display:block;font-size:22px}
+.rv{border-left:5px solid #ccc;padding:8px 10px;margin:10px 0;font-size:15px;line-height:1.5}
+.rv.c{border-color:#2a9d4a}.rv.w{border-color:#d62828}.rv.s{border-color:#999}
+footer{text-align:center;font-size:12px;color:#667;padding:10px}
+@media(max-width:700px){.side{flex:1 1 100%}.qtext{font-size:17px}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand">SKC DEFENCE ACADEMY<small>SRT Mock Test | Q736 – Q770 | 35 Questions | 30 Min</small></div>
+ <div class="tools"><button id="lang" onclick="toggleLang()">हिन्दी</button><div id="timer">30:00</div></div>
+</header>
+
+<div id="test" class="wrap">
+ <div class="main">
+  <div class="qno" id="qno"></div>
+  <div class="qtext" id="qtext"></div>
+  <div id="opts"></div>
+  <div class="nav">
+   <button id="prev" onclick="go(-1)">&laquo; <span class="t-prev">Previous</span></button>
+   <button id="clear" onclick="clr()"><span class="t-clear">Clear</span></button>
+   <button id="next" onclick="go(1)"><span class="t-next">Next</span> &raquo;</button>
+  </div>
+  <div class="nav"><button id="submit" onclick="askSubmit()"><span class="t-sub">Submit Test</span></button></div>
+ </div>
+ <div class="side">
+  <b class="t-pal">Question Palette</b>
+  <div class="grid" id="grid"></div>
+  <div class="leg"><i style="background:#2a9d4a"></i><span class="t-ans">Answered</span> &nbsp; <i style="background:#e6ebf4;border:1px solid #bbb"></i><span class="t-unans">Not Answered</span></div>
+  <div class="leg" style="margin-top:6px">+1 Correct &nbsp;|&nbsp; −0.25 Wrong</div>
+ </div>
+</div>
+
+<div id="result"></div>
+
+<div class="ov" id="ov"><div class="box">
+ <h3 id="ovt">Submit Test?</h3>
+ <p id="ovp"></p>
+ <div class="row"><button style="background:#e6ebf4" onclick="closeOv()" id="ovno">Cancel</button><button style="background:#d62828;color:#fff" onclick="finish()" id="ovyes">Submit</button></div>
+</div></div>
+
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<script>
+var PAN=["You will blindly panic the sudden fear, quickly drop the heavy bags, and rapidly run the safe home.","आप आंख मूंदकर अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और तेजी से सुरक्षित घर भागेंगे।"];
+var ANG=["You will angrily kick the nearby object, violently shout the harsh words, and loudly create the public drama.","आप गुस्से में पास की वस्तु को लात मारेंगे, हिंसक रूप से कठोर शब्द चिल्लाएंगे, और जोर-जोर से सार्वजनिक नाटक बनाएंगे।"];
+var IGN=["You will quietly ignore the whole situation, silently leave the crowded place, and strictly mind the personal business.","आप चुपचाप पूरी स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले स्थान को छोड़ देंगे, और सख्ती से निजी काम पर ध्यान देंगे।"];
+var Q=[
+["You witness a speeding car hitting a parked bicycle and driving away rapidly.","आप एक तेज रफ्तार कार को एक खड़ी साइकिल को टक्कर मारते और तेजी से भागते हुए देखते हैं।",[["You will angrily chase the running driver, violently hit the guilty person, and loudly create the public drama.","आप गुस्से में भागते चालक का पीछा करेंगे, हिंसक रूप से दोषी व्यक्ति को मारेंगे, और जोर-जोर से सार्वजनिक नाटक बनाएंगे।"],["You will safely note the escaping vehicle, quickly check the damaged bicycle, and calmly inform the actual owner.","आप सुरक्षित रूप से भागते वाहन को नोट करेंगे, जल्दी से क्षतिग्रस्त साइकिल की जांच करेंगे, और शांति से वास्तविक मालिक को सूचित करेंगे।"],["You will quietly ignore the broken bicycle, silently leave the empty street, and strictly avoid the legal trouble.","आप चुपचाप टूटी साइकिल को नजरअंदाज करेंगे, चुपचाप खाली सड़क को छोड़ देंगे, और सख्ती से कानूनी परेशानी से बचेंगे।"],PAN],1],
+["You find a beautiful lost pet parrot sitting quietly in your apartment balcony.","आप अपने अपार्टमेंट की बालकनी में एक सुंदर खोए हुए पालतू तोते को चुपचाप बैठे हुए पाते हैं।",[["You will blindly panic the sudden fear, quickly drop the hot tea, and rapidly run the safe room.","आप आंख मूंदकर अचानक डर में घबराएंगे, जल्दी से गर्म चाय गिरा देंगे, और तेजी से सुरक्षित कमरे में भागेंगे।"],["You will gently catch the tired bird, safely provide the fresh water, and calmly find the true owner.","आप धीरे से थके हुए पक्षी को पकड़ेंगे, सुरक्षित रूप से ताजा पानी प्रदान करेंगे, और शांति से सच्चे मालिक को खोजेंगे।"],["You will quietly ignore the poor animal, silently close the glass door, and strictly mind the personal business.","आप चुपचाप बेचारे जानवर को नजरअंदाज करेंगे, चुपचाप कांच का दरवाजा बंद करेंगे, और सख्ती से निजी काम पर ध्यान देंगे।"],["You will aggressively scare the lost parrot, violently throw the hard stones, and loudly shout the angry words.","आप आक्रामक रूप से खोए हुए तोते को डराएंगे, हिंसक रूप से कठोर पत्थर फेंकेंगे, और जोर-जोर से क्रोधित शब्द चिल्लाएंगे।"]],1],
+["A coworker is crying silently in the office breakroom.","एक सहकर्मी कार्यालय के ब्रेकरूम में चुपचाप रो रहा है।",[ANG,["You will safely check the sad coworker, calmly call the warm coffee, and properly provide the good friend.","आप सुरक्षित रूप से उदास सहकर्मी की जांच करेंगे, शांति से गर्म कॉफी लाएंगे, और ठीक से एक अच्छे दोस्त की भूमिका प्रदान करेंगे।"],PAN,IGN],1],
+["You receive a very expensive gift from an anonymous sender.","आपको एक गुमनाम प्रेषक से बहुत महंगा उपहार मिलता है।",[IGN,PAN,["You will safely check the strange parcel, calmly call the hidden sender, and properly provide the local police.","आप सुरक्षित रूप से अजीब पार्सल की जांच करेंगे, शांति से छिपे हुए प्रेषक को कॉल करेंगे, और ठीक से स्थानीय पुलिस को प्रदान करेंगे।"],ANG],2],
+["The hotel room you booked is already occupied by someone else.","आपके द्वारा बुक किया गया होटल का कमरा पहले से ही किसी और के कब्जे में है।",[PAN,ANG,IGN,["You will safely check the wrong room, calmly call the main reception, and properly provide the new key.","आप सुरक्षित रूप से गलत कमरे की जांच करेंगे, शांति से मुख्य रिसेप्शन को बुलाएंगे, और ठीक से नई कुंजी (चाबी) प्रदान करेंगे।"]],3],
+["Your luggage lock breaks at the busy railway station.","व्यस्त रेलवे स्टेशन पर आपके सामान का ताला टूट जाता है।",[IGN,PAN,ANG,["You will safely check the broken lock, calmly call the heavy luggage, and properly provide the safe bag.","आप सुरक्षित रूप से टूटे ताले की जांच करेंगे, शांति से भारी सामान को सुरक्षित करेंगे, और ठीक से सुरक्षित बैग प्रदान करेंगे।"]],3],
+["A street light pole is sparking dangerously near a playground.","एक खेल के मैदान के पास एक स्ट्रीट लाइट पोल खतरनाक रूप से चिंगारी दे रहा है।",[PAN,IGN,ANG,["You will safely check the sparking pole, calmly call the playing kids, and properly provide the electric board.","आप सुरक्षित रूप से चिंगारी वाले खंभे की जांच करेंगे, शांति से खेल रहे बच्चों को दूर बुलाएंगे, और ठीक से बिजली बोर्ड को सूचित करेंगे।"]],3],
+["You accidentally board a train going the wrong direction.","आप गलती से गलत दिशा में जाने वाली ट्रेन में चढ़ जाते हैं।",[PAN,IGN,["You will safely check the wrong train, calmly call the next station, and properly provide the right path.","आप सुरक्षित रूप से गलत ट्रेन की जांच करेंगे, शांति से अगले स्टेशन को बुलाएंगे, और ठीक से सही मार्ग प्रदान करेंगे।"],ANG],2],
+["You find a loaded USB drive labeled 'Exams 2026' in the library.","आपको पुस्तकालय में 'Exams 2026' लेबल वाली एक लोडेड USB ड्राइव मिलती है।",[ANG,IGN,PAN,["You will safely check the secret drive, calmly call the library staff, and properly provide the official desk.","आप सुरक्षित रूप से गुप्त ड्राइव की जांच करेंगे, शांति से पुस्तकालय के कर्मचारियों को बुलाएंगे, और ठीक से आधिकारिक डेस्क को प्रदान करेंगे।"]],3],
+["Your online bank account shows a sudden unexplained huge deposit.","आपका ऑनलाइन बैंक खाता अचानक अस्पष्टीकृत भारी जमा दिखाता है।",[["You will safely check the huge deposit, calmly call the bank manager, and properly provide the formal complaint.","आप सुरक्षित रूप से भारी जमा की जांच करेंगे, शांति से बैंक प्रबंधक को बुलाएंगे, और ठीक से औपचारिक शिकायत प्रदान करेंगे।"],PAN,IGN,ANG],0],
+["A fellow passenger is smoking secretly in the train toilet.","एक सहयात्री ट्रेन के शौचालय में चुपके से धूम्रपान कर रहा है।",[PAN,IGN,ANG,["You will safely check the smoking passenger, calmly call the train guard, and properly provide the strict fine.","आप सुरक्षित रूप से धूम्रपान करने वाले यात्री की जांच करेंगे, शांति से ट्रेन गार्ड को बुलाएंगे, और ठीक से सख्त जुर्माना प्रदान करेंगे।"]],3],
+["You see a toddler playing with a sharp kitchen knife.","आप एक बच्चे को तेज रसोई के चाकू से खेलते हुए देखते हैं।",[PAN,ANG,IGN,["You will safely check the sharp knife, calmly call the scared child, and properly provide the calm parent.","आप सुरक्षित रूप से तेज चाकू की जांच करेंगे, शांति से डरे हुए बच्चे को बुलाएंगे, और ठीक से शांत माता-पिता को प्रदान करेंगे।"]],3],
+["Your rental car breaks down in a highly remote village.","आपकी किराये की कार एक अत्यधिक दूरस्थ गाँव में खराब हो जाती है।",[IGN,PAN,ANG,["You will safely check the broken car, calmly call the rental company, and properly provide the safe mechanic.","आप सुरक्षित रूप से टूटी हुई कार की जांच करेंगे, शांति से रेंटल कंपनी को बुलाएंगे, और ठीक से सुरक्षित मैकेनिक प्रदान करेंगे।"]],3],
+["You overhear someone planning to shoplift from a retail store.","आप किसी को खुदरा स्टोर से चोरी करने की योजना बनाते हुए सुनते हैं।",[PAN,IGN,ANG,["You will safely check the bad thief, calmly call the store guard, and properly provide the stolen item.","आप सुरक्षित रूप से बुरे चोर की जांच करेंगे, शांति से स्टोर गार्ड को बुलाएंगे, और ठीक से चोरी का सामान प्रदान करेंगे।"]],3],
+["You accidentally break the handle of a shop's glass door.","आप गलती से एक दुकान के कांच के दरवाजे का हैंडल तोड़ देते हैं।",[ANG,["You will safely check the broken handle, calmly call the shop owner, and properly provide the repair cost.","आप सुरक्षित रूप से टूटे हुए हैंडल की जांच करेंगे, शांति से दुकान के मालिक को बुलाएंगे, और ठीक से मरम्मत लागत प्रदान करेंगे।"],PAN,IGN],1],
+["A local vendor accidentally hands you a 2000 rupee note instead of 200.","एक स्थानीय विक्रेता गलती से आपको 200 के बजाय 2000 रुपये का नोट सौंप देता है।",[IGN,["You will safely check the extra cash, calmly call the poor vendor, and properly provide the honest truth.","आप सुरक्षित रूप से अतिरिक्त नकदी की जांच करेंगे, शांति से गरीब विक्रेता को बुलाएंगे, और ठीक से ईमानदार सच प्रदान करेंगे।"],ANG,PAN],1],
+["You see a blind man about to step into an open manhole.","आप एक अंधे आदमी को खुले मैनहोल में कदम रखने वाले देखते हैं।",[ANG,IGN,PAN,["You will safely check the blind man, calmly call the open manhole, and properly provide the safe path.","आप सुरक्षित रूप से अंधे आदमी की जांच करेंगे, शांति से उसे खुले मैनहोल से दूर बुलाएंगे, और ठीक से सुरक्षित मार्ग प्रदान करेंगे।"]],3],
+["Your umbrella blows away in heavy rain, hitting a pedestrian.","भारी बारिश में आपका छाता उड़ जाता है, और एक पैदल यात्री को लग जाता है।",[["You will safely check the flying umbrella, calmly call the hurt pedestrian, and properly provide the sincere apology.","आप सुरक्षित रूप से उड़ते छाते की जांच करेंगे, शांति से आहत पैदल यात्री को बुलाएंगे, और ठीक से ईमानदार माफी प्रदान करेंगे।"],PAN,ANG,IGN],0],
+["You find a fresh, uneaten birthday cake left on a park bench.","आप एक पार्क बेंच पर रखा हुआ एक ताजा, बिना खाया हुआ जन्मदिन का केक पाते हैं।",[PAN,ANG,IGN,["You will safely check the fresh cake, calmly call the park guard, and properly provide the lost item.","आप सुरक्षित रूप से ताजे केक की जांच करेंगे, शांति से पार्क गार्ड को बुलाएंगे, और ठीक से खोई हुई वस्तु प्रदान करेंगे।"]],3],
+["A gym member drops a heavy dumbbell on their own foot.","एक जिम सदस्य अपने ही पैर पर एक भारी डम्बल गिरा देता है।",[PAN,IGN,ANG,["You will safely check the heavy dumbbell, calmly call the injured member, and properly provide the medical help.","आप सुरक्षित रूप से भारी डंबल की जांच करेंगे, शांति से घायल सदस्य को बुलाएंगे, और ठीक से चिकित्सा सहायता प्रदान करेंगे।"]],3],
+["You spot a fake QR code sticker pasted over a shop's payment scanner.","आप एक दुकान के भुगतान स्कैनर पर चिपकाया गया एक नकली क्यूआर (QR) कोड स्टिकर देखते हैं।",[["You will safely check the fake sticker, calmly call the shop owner, and properly provide the digital scam.","आप सुरक्षित रूप से नकली स्टिकर की जांच करेंगे, शांति से दुकान के मालिक को बुलाएंगे, और ठीक से डिजिटल घोटाले के बारे में प्रदान करेंगे।"],ANG,PAN,IGN],0],
+["A delivery drone crashes into your backyard.","एक डिलीवरी ड्रोन आपके पिछवाड़े में दुर्घटनाग्रस्त हो जाता है।",[IGN,ANG,PAN,["You will safely check the crashed drone, calmly call the support team, and properly provide the broken parts.","आप सुरक्षित रूप से दुर्घटनाग्रस्त ड्रोन की जांच करेंगे, शांति से सहायता टीम को बुलाएंगे, और ठीक से टूटे हुए हिस्से प्रदान करेंगे।"]],3],
+["You notice the restaurant kitchen is highly unhygienic while using their washroom.","वाशरूम का उपयोग करते समय आप देखते हैं कि रेस्तरां की रसोई अत्यधिक अस्वच्छ है।",[ANG,PAN,["You will safely check the dirty kitchen, calmly call the food inspector, and properly provide the strict action.","आप सुरक्षित रूप से गंदी रसोई की जांच करेंगे, शांति से खाद्य निरीक्षक को बुलाएंगे, और ठीक से सख्त कार्रवाई प्रदान करेंगे।"],IGN],2],
+["Your shoe gets stuck in a moving escalator.","आपका जूता एक चलती एस्केलेटर में फंस जाता है।",[["You will safely check the stuck shoe, calmly call the stop button, and properly provide the mall guard.","आप सुरक्षित रूप से फंसे हुए जूते की जांच करेंगे, शांति से स्टॉप बटन के लिए बुलाएंगे, और ठीक से मॉल गार्ड को प्रदान करेंगे।"],ANG,IGN,PAN],0],
+["A tourist asks for directions but you don't know their language.","एक पर्यटक दिशा पूछता है लेकिन आप उनकी भाषा नहीं जानते हैं।",[ANG,PAN,["You will safely check the lost tourist, calmly call the translation app, and properly provide the correct path.","आप सुरक्षित रूप से खोए हुए पर्यटक की जांच करेंगे, शांति से अनुवाद ऐप को बुलाएंगे, और ठीक से सही मार्ग प्रदान करेंगे।"],IGN],2],
+["You see a young child locked alone inside a hot car.","आप एक छोटे बच्चे को एक गर्म कार के अंदर अकेला बंद देखते हैं।",[IGN,["You will safely check the locked car, calmly call the trapped child, and properly provide the rescue team.","आप सुरक्षित रूप से बंद कार की जांच करेंगे, शांति से फंसे हुए बच्चे को बुलाएंगे, और ठीक से बचाव दल प्रदान करेंगे।"],PAN,ANG],1],
+["A sudden hailstorm starts while you are driving a two-wheeler.","दोपहिया वाहन चलाते समय अचानक ओलावृष्टि शुरू हो जाती है।",[IGN,PAN,ANG,["You will safely check the heavy hailstorm, calmly call the safe shelter, and properly provide the clear weather.","आप सुरक्षित रूप से भारी ओलावृष्टि की जांच करेंगे, शांति से सुरक्षित आश्रय को बुलाएंगे, और ठीक से साफ मौसम प्रदान करेंगे।"]],3],
+["You discover a hidden camera in a public trial room.","आप एक सार्वजनिक ट्रायल रूम में एक छिपा हुआ कैमरा खोजते हैं।",[PAN,["You will safely check the hidden camera, calmly call the store manager, and properly provide the local police.","आप सुरक्षित रूप से छिपे हुए कैमरे की जांच करेंगे, शांति से स्टोर मैनेजर को बुलाएंगे, और ठीक से स्थानीय पुलिस प्रदान करेंगे।"],IGN,ANG],1],
+["Your friend leaves their social media account logged in on your phone.","आपका दोस्त आपके फोन पर अपना सोशल मीडिया अकाउंट लॉग इन छोड़ देता है।",[PAN,ANG,IGN,["You will safely check the open account, calmly call the close friend, and properly provide the secure logout.","आप सुरक्षित रूप से खुले खाते की जांच करेंगे, शांति से करीबी दोस्त को बुलाएंगे, और ठीक से सुरक्षित लॉगआउट प्रदान करेंगे।"]],3],
+["You see an aggressive bull charging towards a fruit market.","आप एक आक्रामक बैल को फलों के बाजार की ओर बढ़ते हुए देखते हैं।",[PAN,["You will safely check the angry bull, calmly call the market crowd, and properly provide the safe distance.","आप सुरक्षित रूप से क्रोधित बैल की जांच करेंगे, शांति से बाजार की भीड़ को दूर बुलाएंगे, और ठीक से सुरक्षित दूरी प्रदान करेंगे।"],IGN,ANG],1],
+["You find a confidential medical file dropped in a hospital corridor.","आपको अस्पताल के गलियारे में गिरा हुआ एक गोपनीय मेडिकल फाइल मिलता है।",[["You will safely check the secret file, calmly call the hospital desk, and properly provide the sick patient.","आप सुरक्षित रूप से गुप्त फाइल की जांच करेंगे, शांति से अस्पताल डेस्क को बुलाएंगे, और ठीक से बीमार रोगी को प्रदान करेंगे।"],ANG,IGN,PAN],0],
+["A sudden strike halts all public transport while you are away from home.","जब आप घर से दूर होते हैं तो अचानक हड़ताल सभी सार्वजनिक परिवहन को रोक देती है।",[ANG,IGN,["You will safely check the sudden strike, calmly call the shared cab, and properly provide the safe home.","आप सुरक्षित रूप से अचानक हड़ताल की जांच करेंगे, शांति से साझा कैब को बुलाएंगे, और ठीक से सुरक्षित घर प्रदान करेंगे।"],PAN],2],
+["You accidentally drop your keys into a deep storm drain.","आप गलती से अपनी चाबियां एक गहरे तूफान नाले में गिरा देते हैं।",[ANG,PAN,IGN,["You will safely check the dropped keys, calmly call the drain cover, and properly provide the spare key.","आप सुरक्षित रूप से गिरी हुई चाबियों की जांच करेंगे, शांति से नाले के ढक्कन को बुलाएंगे, और ठीक से अतिरिक्त चाबी प्रदान करेंगे।"]],3],
+["A person suddenly faints in a crowded elevator.","भीड़भाड़ वाले लिफ्ट में एक व्यक्ति अचानक बेहोश हो जाता है।",[PAN,IGN,ANG,["You will safely check the fainted person, calmly call the lift alarm, and properly provide the medical help.","आप सुरक्षित रूप से बेहोश व्यक्ति की जांच करेंगे, शांति से लिफ्ट अलार्म को बुलाएंगे, और ठीक से चिकित्सा सहायता प्रदान करेंगे।"]],3],
+["You receive an emergency SOS text from an unknown number.","आपको एक अज्ञात नंबर से एक आपातकालीन एसओएस (SOS) संदेश प्राप्त होता है।",[IGN,["You will safely check the fake message, calmly call the local police, and properly provide the unknown sender.","आप सुरक्षित रूप से फर्जी संदेश की जांच करेंगे, शांति से स्थानीय पुलिस को बुलाएंगे, और ठीक से अज्ञात प्रेषक प्रदान करेंगे।"],ANG,PAN],1]
+];
+var START=736,N=Q.length,TOTAL=1800,L=0,cur=0,done=false,A=[],i;
+for(i=0;i<N;i++)A.push(-1);
+var T={
+ en:{prev:"Previous",next:"Next",clear:"Clear",sub:"Submit Test",pal:"Question Palette",ans:"Answered",unans:"Not Answered",lang:"हिन्दी",q:"Question",cancel:"Cancel",submit:"Submit",ot:"Submit Test?",answered:"Answered",left:"Not answered",sure:"Are you sure you want to submit?"},
+ hi:{prev:"पिछला",next:"अगला",clear:"हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न सूची",ans:"उत्तर दिया",unans:"उत्तर नहीं दिया",lang:"English",q:"प्रश्न",cancel:"रद्द करें",submit:"सबमिट",ot:"टेस्ट सबमिट करें?",answered:"उत्तर दिए",left:"बिना उत्तर",sure:"क्या आप सच में सबमिट करना चाहते हैं?"}
+};
+function $(id){return document.getElementById(id)}
+function t(k){return T[L?"hi":"en"][k]}
+function cls(c,v){var e=document.getElementsByClassName(c);for(var j=0;j<e.length;j++)e[j].textContent=v}
+function render(){
+ var q=Q[cur];
+ $("qno").textContent=t("q")+" "+(cur+1)+" / "+N+"  (Q"+(START+cur)+")";
+ $("qtext").textContent=q[L];
+ var h="";
+ for(var j=0;j<4;j++){h+='<div class="opt'+(A[cur]===j?' sel':'')+'" onclick="pick('+j+')"><b>'+"ABCD".charAt(j)+'</b><span>'+esc(q[2][j][L])+'</span></div>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===N-1;
+ cls("t-prev",t("prev"));cls("t-next",t("next"));cls("t-clear",t("clear"));cls("t-sub",t("sub"));cls("t-pal",t("pal"));cls("t-ans",t("ans"));cls("t-unans",t("unans"));
+ $("lang").textContent=t("lang");
+ grid();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;")}
+function grid(){
+ var h="";
+ for(var j=0;j<N;j++)h+='<button class="'+(A[j]>-1?'ans ':'')+(j===cur?'cur':'')+'" onclick="jump('+j+')">'+(j+1)+'</button>';
+ $("grid").innerHTML=h;
+}
+function pick(j){A[cur]=j;render()}
+function clr(){A[cur]=-1;render()}
+function go(d){cur=Math.max(0,Math.min(N-1,cur+d));render();window.scrollTo(0,0)}
+function jump(j){cur=j;render();window.scrollTo(0,0)}
+function toggleLang(){L=L?0:1;document.documentElement.lang=L?"hi":"en";render();if(done)showResult()}
+function askSubmit(){
+ var a=0;for(var j=0;j<N;j++)if(A[j]>-1)a++;
+ $("ovt").textContent=t("ot");
+ $("ovp").textContent=t("answered")+": "+a+" | "+t("left")+": "+(N-a)+". "+t("sure");
+ $("ovno").textContent=t("cancel");$("ovyes").textContent=t("submit");
+ $("ov").style.display="flex";
+}
+function closeOv(){$("ov").style.display="none"}
+var endAt=Date.now()+TOTAL*1000,tick;
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ var m=Math.floor(s/60),r=s%60;
+ $("timer").textContent=(m<10?"0":"")+m+":"+(r<10?"0":"")+r;
+ if(s<=300)$("timer").className="low";
+ if(s<=0){finish()}
+}
+tick=setInterval(upd,500);
+function finish(){
+ if(done)return;done=true;clearInterval(tick);closeOv();
+ $("test").style.display="none";$("timer").style.display="none";
+ $("result").style.display="block";showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var c=0,w=0,s=0,j;
+ for(j=0;j<N;j++){if(A[j]<0)s++;else if(A[j]===Q[j][3])c++;else w++}
+ var sc=c-w*0.25,hi=L===1;
+ var h='<div class="card"><div style="text-align:center;font-weight:700;color:#0b2447">SKC DEFENCE ACADEMY</div>'+
+ '<div class="score">'+sc.toFixed(2)+' / '+N+'</div><div style="text-align:center">'+(hi?'कुल स्कोर':'Total Score')+'</div>'+
+ '<div class="stats"><div><b>'+N+'</b>'+(hi?'कुल प्रश्न':'Total Questions')+'</div><div><b>'+(c+w)+'</b>'+(hi?'प्रयास किए':'Attempted')+'</div><div><b>'+s+'</b>'+(hi?'छोड़े गए':'Skipped')+'</div><div><b style="color:#2a9d4a">'+c+'</b>'+(hi?'सही (+1)':'Correct (+1)')+'</div><div><b style="color:#d62828">'+w+'</b>'+(hi?'गलत (−0.25)':'Wrong (−0.25)')+'</div></div></div>'+
+ '<div class="card"><b>'+(hi?'उत्तर समीक्षा':'Answer Review')+'</b>';
+ for(j=0;j<N;j++){
+  var q=Q[j],st=A[j]<0?'s':(A[j]===q[3]?'c':'w');
+  h+='<div class="rv '+st+'"><b>Q'+(START+j)+'.</b> '+esc(q[L])+'<br>'+
+  (hi?'आपका उत्तर: ':'Your answer: ')+(A[j]<0?(hi?'छोड़ा गया':'Skipped'):"ABCD".charAt(A[j])+') '+esc(q[2][A[j]][L]))+'<br>'+
+  '<b>'+(hi?'सही उत्तर: ':'Correct answer: ')+"ABCD".charAt(q[3])+') '+esc(q[2][q[3]][L])+'</b></div>';
+ }
+ h+='</div><div style="text-align:center"><button style="background:#ffc933;color:#0b2447" onclick="toggleLang()">'+t("lang")+'</button> <button style="background:#0b2447;color:#fff" onclick="location.reload()">'+(hi?'दोबारा दें':'Retake Test')+'</button></div>';
+ $("result").innerHTML=h;
+}
+render();
+</script>
+</body>
+</html>

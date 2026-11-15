@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SKC DEFENCE ACADEMY – SRT Mock Test</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#eef1ec;color:#1b2418;font:16px/1.55 "Segoe UI","Noto Sans Devanagari","Nirmala UI",Mangal,Roboto,Arial,sans-serif}
+.hide{display:none!important}
+header{position:sticky;top:0;z-index:5;background:#1f2e1a;color:#fff;border-bottom:4px solid #c9a227;display:flex;justify-content:space-between;align-items:center;padding:8px 14px;gap:8px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:42px;height:42px;flex:none;border-radius:50%;background:#c9a227;color:#1f2e1a;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.brand b{display:block;font-size:17px;letter-spacing:.5px;line-height:1.2}
+.brand small{color:#d8dfc9;font-size:12px;display:block}
+.hr{display:flex;align-items:center;gap:8px;flex:none}
+.timer{font:700 18px/1 "Courier New",monospace;background:#0f180d;border:1px solid #c9a227;padding:8px 10px;border-radius:6px}
+.timer.low{background:#a32121;border-color:#fff}
+.lg{cursor:pointer;border:0;border-radius:6px;padding:9px 12px;font:600 14px inherit;background:#c9a227;color:#1f2e1a}
+.wrap{max-width:1060px;margin:0 auto;padding:14px}
+.card{background:#fff;border:1px solid #cfd6c6;border-radius:8px;padding:18px}
+h1{font-size:22px;margin:0 0 6px;color:#1f2e1a}
+h2{font-size:17px;margin:14px 0 6px}
+ul{padding-left:20px;margin:6px 0 16px}li{margin-bottom:6px}
+.btn{cursor:pointer;border:0;border-radius:6px;padding:11px 18px;font:600 15px inherit;background:#3d5a2a;color:#fff}
+.btn.alt{background:#fff;color:#3d5a2a;border:2px solid #3d5a2a}
+.btn.sub{background:#a32121}
+.btn:disabled{opacity:.4;cursor:default}
+.grid{display:flex;gap:14px;align-items:flex-start}
+.main{flex:1;min-width:0}
+.side{width:290px;flex:none}
+#qn{font-weight:700;color:#3d5a2a;margin-bottom:8px}
+#qt{font-size:18px;font-weight:600;margin-bottom:14px}
+.opt{display:flex;gap:10px;width:100%;text-align:left;cursor:pointer;background:#f7f9f4;border:2px solid #cfd6c6;border-radius:8px;padding:11px 12px;margin-bottom:10px;font:15px/1.5 inherit;color:inherit}
+.opt b{flex:none;width:26px;height:26px;border-radius:50%;background:#dfe6d6;text-align:center;line-height:26px;font-size:13px}
+.opt.sel{border-color:#3d5a2a;background:#e4efd9}.opt.sel b{background:#3d5a2a;color:#fff}
+.opt.ok{border-color:#2e7d32;background:#d8f0d9}.opt.ok b{background:#2e7d32;color:#fff}
+.opt.bad{border-color:#b71c1c;background:#fbdcdc}.opt.bad b{background:#b71c1c;color:#fff}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.nav .sp{flex:1}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0}
+.pb{cursor:pointer;height:40px;border:2px solid #b8c1ad;border-radius:6px;background:#e3e7de;font:600 14px inherit;color:#1b2418}
+.pb.a{background:#3d8b37;color:#fff;border-color:#3d8b37}
+.pb.n{background:#d9822b;color:#fff;border-color:#d9822b}
+.pb.w{background:#b71c1c;color:#fff;border-color:#b71c1c}
+.pb.c{outline:3px solid #1f2e1a;outline-offset:1px}
+.lgd{font-size:13px;display:flex;flex-wrap:wrap;gap:6px 12px}
+.lgd i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0}
+.st{border:1px solid #cfd6c6;border-radius:8px;padding:10px;text-align:center;background:#f7f9f4}
+.st b{display:block;font-size:26px}
+.big{text-align:center;padding:16px;background:#1f2e1a;color:#fff;border-radius:8px;border-bottom:4px solid #c9a227}
+.big b{display:block;font-size:44px;color:#c9a227;line-height:1.2}
+@media(max-width:780px){.grid{display:block}.side{width:100%;margin-top:14px}.brand small{display:none}.brand b{font-size:14px}.logo{width:36px;height:36px}.pal{grid-template-columns:repeat(7,1fr)}}
+@media(max-width:380px){.pal{grid-template-columns:repeat(5,1fr)}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">SKC</div><div><b>SKC DEFENCE ACADEMY</b><small data-k="tag"></small></div></div>
+ <div class="hr"><span id="timer" class="timer hide">30:00</span><button type="button" class="lg" id="lg" onclick="toggleLang()">हिंदी</button></div>
+</header>
+<div class="wrap">
+
+ <div id="start" class="card">
+  <h1 data-k="title"></h1>
+  <h2 data-k="ih"></h2>
+  <ul><li data-k="i1"></li><li data-k="i2"></li><li data-k="i3"></li><li data-k="i4"></li></ul>
+  <button type="button" class="btn" onclick="startTest()" data-k="start"></button>
+ </div>
+
+ <div id="test" class="grid hide">
+  <div class="main card">
+   <div id="qn"></div>
+   <div id="qt"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button type="button" class="btn alt" id="prev" onclick="go(-1)" data-k="prev"></button>
+    <button type="button" class="btn alt" id="next" onclick="go(1)" data-k="next"></button>
+    <button type="button" class="btn alt" id="clr" onclick="clearAns()" data-k="clr"></button>
+    <span class="sp"></span>
+    <button type="button" class="btn sub" id="sub" onclick="subBtn()"></button>
+   </div>
+  </div>
+  <div class="side card">
+   <b data-k="pal"></b>
+   <div class="pal" id="pal"></div>
+   <div class="lgd" id="lgd"></div>
+  </div>
+ </div>
+
+ <div id="res" class="card hide">
+  <h1 data-k="rt"></h1>
+  <div class="big"><span data-k="sc"></span><b id="rsc"></b></div>
+  <div class="stats" id="rst"></div>
+  <button type="button" class="btn" onclick="reviewAns()" data-k="rev"></button>
+  <button type="button" class="btn alt" onclick="location.reload()" data-k="again"></button>
+ </div>
+
+</div>
+<script>
+var TITLE_EN="SRT Test Series – Mock Test 37",TITLE_HI="SRT टेस्ट सीरीज़ – मॉक टेस्ट 37";
+var L={
+en:{tag:"Defence Exam Preparation",title:TITLE_EN,ih:"Instructions",i1:"35 questions • 30 minutes.",i2:"Correct answer: +1 • Wrong answer: −0.25 • Skipped: 0.",i3:"Use the Question Console to open any question directly.",i4:"Switch between English and Hindi anytime. Submit anytime; the test submits automatically when time ends.",start:"Start Test",q:"Question",prev:"‹ Previous",next:"Next ›",clr:"Clear Response",sub:"Submit Test",pal:"Question Console",a:"Answered",n:"Not answered",v:"Not visited",rt:"Your Result",tot:"Total Questions",att:"Attempted",skp:"Skipped",cor:"Correct",wr:"Wrong",sc:"Total Score (out of 35)",rev:"Review Answers",again:"Retake Test",res:"View Result",conf:"Submit the test now?",lgb:"हिंदी",ok:"Correct",bd:"Wrong"},
+hi:{tag:"रक्षा परीक्षा तैयारी",title:TITLE_HI,ih:"निर्देश",i1:"35 प्रश्न • 30 मिनट।",i2:"सही उत्तर: +1 • गलत उत्तर: −0.25 • छोड़ा गया प्रश्न: 0।",i3:"किसी भी प्रश्न पर सीधे जाने के लिए प्रश्न कंसोल का उपयोग करें।",i4:"आप कभी भी अंग्रेज़ी और हिंदी में बदल सकते हैं। कभी भी सबमिट करें; समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा।",start:"टेस्ट शुरू करें",q:"प्रश्न",prev:"‹ पिछला",next:"अगला ›",clr:"उत्तर हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न कंसोल",a:"उत्तर दिया",n:"उत्तर नहीं दिया",v:"देखा नहीं",rt:"आपका परिणाम",tot:"कुल प्रश्न",att:"हल किए",skp:"छोड़े गए",cor:"सही",wr:"गलत",sc:"कुल स्कोर (35 में से)",rev:"उत्तर देखें",again:"दोबारा टेस्ट दें",res:"परिणाम देखें",conf:"क्या आप अभी टेस्ट सबमिट करना चाहते हैं?",lgb:"English",ok:"सही",bd:"गलत"}
+};
+var C={
+Q:["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.","आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"],
+P:["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.","आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"],
+V:["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.","आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"]
+};
+/* [option order (X = correct, Q/P/V = common options), question EN, question HI, correct EN, correct HI] */
+var Q=[
+["QPVX","You accidentally send a highly confidential office email meant for your boss to a competing company's email address.","आप गलती से अपने बॉस के लिए एक अत्यधिक गोपनीय कार्यालय ईमेल एक प्रतिस्पर्धी कंपनी के ईमेल पते पर भेज देते हैं।","You will quickly trigger the immediate recall function, safely inform your senior manager, and politely explain the genuine error.","आप जल्दी से तत्काल रिकॉल फ़ंक्शन को ट्रिगर करेंगे, सुरक्षित रूप से अपने वरिष्ठ प्रबंधक को सूचित करेंगे, और विनम्रतापूर्वक वास्तविक त्रुटि की व्याख्या करेंगे।"],
+["QPVX","You notice your online food delivery order has been marked as 'Delivered', but you haven't received anything yet.","आप देखते हैं कि आपके ऑनलाइन फूड डिलीवरी ऑर्डर को 'डिलीवर' के रूप में चिह्नित किया गया है, लेकिन आपको अभी तक कुछ नहीं मिला है।","You will calmly check the outside main door, safely contact the delivery agent, and politely raise a customer ticket.","आप शांति से बाहर के मुख्य दरवाजे की जांच करेंगे, सुरक्षित रूप से डिलीवरी एजेंट से संपर्क करेंगे, और विनम्रतापूर्वक एक ग्राहक टिकट बढ़ाएंगे।"],
+["XPQV","A close relative gifts you an expensive but extremely tight-fitting shirt for your birthday, asking you to wear it.","एक करीबी रिश्तेदार आपके जन्मदिन पर आपको एक महंगी लेकिन बेहद तंग फिटिंग वाली शर्ट उपहार में देता है, और आपको इसे पहनने के लिए कहता है।","You will politely thank the loving relative, calmly appreciate the beautiful gift, and safely request an exchange for size.","आप विनम्रतापूर्वक प्यार करने वाले रिश्तेदार को धन्यवाद देंगे, शांति से खूबसूरत उपहार की सराहना करेंगे, और सुरक्षित रूप से आकार के लिए विनिमय का अनुरोध करेंगे।"],
+["QPXV","You are at a formal dinner and accidentally spill a dark beverage entirely over the white tablecloth.","आप एक औपचारिक रात्रिभोज में हैं और गलती से एक गहरा पेय पूरी तरह से सफेद मेज़पोश पर गिरा देते हैं।","You will calmly offer a very sincere apology, quickly use the dry napkins, and politely assist the serving staff.","आप शांति से एक बहुत ही ईमानदार माफी की पेशकश करेंगे, जल्दी से सूखे नैपकिन का उपयोग करेंगे, और विनम्रतापूर्वक सेवारत कर्मचारियों की सहायता करेंगे।"],
+["PXQV","You find a USB drive labeled 'Confidential' lying in the waiting area of your dentist's clinic.","आपको अपने दंत चिकित्सक के क्लिनिक के प्रतीक्षा क्षेत्र में 'गोपनीय' लेबल वाला एक यूएसबी (USB) ड्राइव पड़ा हुआ मिलता है।","You will safely pick the unknown digital drive, strictly avoid opening internal files, and firmly submit the clinic receptionist.","आप सुरक्षित रूप से अज्ञात डिजिटल ड्राइव को उठाएंगे, आंतरिक फाइलों को खोलने से सख्ती से बचेंगे, और दृढ़ता से क्लिनिक रिसेप्शनिस्ट को सौंपेंगे।"],
+["XQPV","While boarding a bus, you realize your monthly transit pass has expired exactly today.","बस में चढ़ते समय, आपको एहसास होता है कि आपका मासिक पारगमन पास ठीक आज ही समाप्त हो गया है।","You will calmly inform the busy bus conductor, safely pay the regular daily cash fare, and politely renew later.","आप शांति से व्यस्त बस कंडक्टर को सूचित करेंगे, सुरक्षित रूप से नियमित दैनिक नकद किराया का भुगतान करेंगे, और विनम्रतापूर्वक बाद में नवीनीकृत करेंगे।"],
+["PQXV","A neighbor mistakenly receives your online shopping parcel and opens it before realizing the error.","एक पड़ोसी को गलती से आपका ऑनलाइन शॉपिंग पार्सल मिल जाता है और वह गलती का एहसास होने से पहले उसे खोल देता है।","You will safely accept the mistakenly opened parcel, calmly check the internal items, and politely forgive the honest mistake.","आप सुरक्षित रूप से गलती से खोले गए पार्सल को स्वीकार करेंगे, शांति से आंतरिक वस्तुओं की जांच करेंगे, और विनम्रतापूर्वक ईमानदार गलती को माफ कर देंगे।"],
+["VQPX","You hear a loud, continuous car alarm ringing in your apartment's basement parking late at night.","आप देर रात अपने अपार्टमेंट की बेसमेंट पार्किंग में एक तेज, लगातार कार अलार्म बजते हुए सुनते हैं।","You will calmly look through the balcony window, safely call the building security guard, and politely request a check.","आप शांति से बालकनी की खिड़की से देखेंगे, सुरक्षित रूप से इमारत के सुरक्षा गार्ड को बुलाएंगे, और विनम्रतापूर्वक जांच का अनुरोध करेंगे।"],
+["PQVX","During a team meeting, a junior team member points out a glaring mistake in your heavily researched presentation.","एक टीम मीटिंग के दौरान, एक जूनियर टीम का सदस्य आपकी भारी शोध वाली प्रस्तुति में एक स्पष्ट गलती की ओर इशारा करता है।","You will calmly verify the pointed factual error, politely accept the genuine mistake, and firmly correct the presentation slide.","आप शांति से इंगित तथ्यात्मक त्रुटि को सत्यापित करेंगे, विनम्रतापूर्वक वास्तविक गलती को स्वीकार करेंगे, और दृढ़ता से प्रस्तुति स्लाइड को ठीक करेंगे।"],
+["XQVP","You are driving and notice the car behind you is constantly honking despite heavy, unmoving traffic.","आप गाड़ी चला रहे हैं और देखते हैं कि भारी, न हिलने वाले यातायात के बावजूद आपके पीछे वाली कार लगातार हॉर्न बजा रही है।","You will calmly ignore the annoying loud noise, safely maintain your steady driving lane, and strictly avoid unnecessary conflict.","आप शांति से कष्टप्रद तेज आवाज को नजरअंदाज करेंगे, सुरक्षित रूप से अपनी स्थिर ड्राइविंग लेन बनाए रखेंगे, और सख्ती से अनावश्यक संघर्ष से बचेंगे।"],
+["PXVQ","You are at a crowded movie theater and the person next to you starts taking a loud phone call.","आप एक भीड़भाड़ वाले मूवी थियेटर में हैं और आपके बगल वाला व्यक्ति जोर से फोन पर बात करने लगता है।","You will calmly lean towards the loud person, politely request maintaining absolute silence, and firmly focus the playing movie.","आप शांति से जोर से बोलने वाले व्यक्ति की ओर झुकेंगे, विनम्रतापूर्वक पूर्ण मौन बनाए रखने का अनुरोध करेंगे, और दृढ़ता से चल रही फिल्म पर ध्यान केंद्रित करेंगे।"],
+["XQPV","You accidentally break a valuable fragile item in a retail store while trying to examine it closely.","करीब से जांच करने की कोशिश करते समय आप गलती से खुदरा स्टोर में एक मूल्यवान नाजुक वस्तु को तोड़ देते हैं।","You will safely collect the broken fragile pieces, calmly approach the store manager, and politely pay the damage cost.","आप सुरक्षित रूप से टूटे हुए नाजुक टुकड़ों को इकट्ठा करेंगे, शांति से स्टोर मैनेजर के पास जाएंगे, और विनम्रतापूर्वक नुकसान की कीमत चुकाएंगे।"],
+["VXPQ","You spot a toddler walking dangerously close to the edge of a busy escalator without parental supervision.","आप माता-पिता की देखरेख के बिना एक बच्चे को व्यस्त एस्केलेटर के किनारे के खतरनाक रूप से करीब चलते हुए देखते हैं।","You will quickly hold the wandering young child, safely secure them away completely, and loudly call the missing parents.","आप जल्दी से भटकते हुए छोटे बच्चे को पकड़ेंगे, सुरक्षित रूप से उन्हें पूरी तरह से दूर सुरक्षित करेंगे, और जोर-जोर से लापता माता-पिता को बुलाएंगे।"],
+["VQXP","A coworker takes complete credit for a successful project during a meeting with the senior management team.","वरिष्ठ प्रबंधन टीम के साथ बैठक के दौरान एक सहकर्मी एक सफल परियोजना का पूरा श्रेय लेता है।","You will calmly wait for the exact moment, politely share your specific contributions, and firmly highlight the collaborative effort.","आप शांति से सही क्षण की प्रतीक्षा करेंगे, विनम्रतापूर्वक अपने विशिष्ट योगदान साझा करेंगे, और दृढ़ता से सहयोगी प्रयास को उजागर करेंगे।"],
+["VPXQ","You receive a message from your bank stating a large sum of money was withdrawn from your account overseas.","आपको अपने बैंक से एक संदेश प्राप्त होता है जिसमें कहा गया है कि आपके खाते से विदेश में एक बड़ी रकम निकाली गई है।","You will instantly block the compromised bank card, safely call the official customer care, and firmly register a dispute.","आप तुरंत समझौता किए गए बैंक कार्ड को ब्लॉक कर देंगे, सुरक्षित रूप से आधिकारिक कस्टमर केयर को कॉल करेंगे, और दृढ़ता से विवाद दर्ज करेंगे।"],
+["VPQX","You see a local shopkeeper selling expired packaged food items to an elderly customer who cannot read well.","आप एक स्थानीय दुकानदार को एक बुजुर्ग ग्राहक को एक्सपायर्ड पैकेज्ड खाद्य पदार्थ बेचते हुए देखते हैं जो ठीक से पढ़ नहीं सकता है।","You will calmly stop the completely unfair sale, politely inform the elderly customer, and firmly warn the dishonest shopkeeper.","आप शांति से पूरी तरह से अनुचित बिक्री को रोकेंगे, विनम्रतापूर्वक बुजुर्ग ग्राहक को सूचित करेंगे, और दृढ़ता से बेईमान दुकानदार को चेतावनी देंगे।"],
+["XPQV","A friend posts a highly insensitive joke about a sensitive political issue on their public social media profile.","एक दोस्त अपने सार्वजनिक सोशल मीडिया प्रोफाइल पर एक संवेदनशील राजनीतिक मुद्दे के बारे में एक अत्यधिक असंवेदनशील मजाक पोस्ट करता है।","You will safely avoid the online public comment, calmly send a private direct message, and politely explain the sensitivity.","आप सुरक्षित रूप से ऑनलाइन सार्वजनिक टिप्पणी से बचेंगे, शांति से एक निजी सीधा संदेश भेजेंगे, और विनम्रतापूर्वक संवेदनशीलता की व्याख्या करेंगे।"],
+["PQXV","While walking home at night, you notice the streetlights on your entire block have suddenly stopped working.","रात में घर लौटते समय, आप देखते हैं कि आपके पूरे ब्लॉक की स्ट्रीट लाइटें अचानक काम करना बंद कर देती हैं।","You will safely turn on your mobile flashlight, calmly walk the familiar dark path, and promptly inform the municipality.","आप सुरक्षित रूप से अपनी मोबाइल फ्लैशलाइट चालू करेंगे, शांति से परिचित अंधेरे रास्ते पर चलेंगे, और तुरंत नगर पालिका को सूचित करेंगे।"],
+["VXPQ","A stray dog starts aggressively barking and following a terrified young student returning from evening tuition.","एक आवारा कुत्ता आक्रामक रूप से भौंकना शुरू कर देता है और शाम की ट्यूशन से लौट रहे एक डरे हुए युवा छात्र का पीछा करता है।","You will quickly step between the aggressive dog, safely escort the terrified young student, and firmly scare the animal.","आप जल्दी से आक्रामक कुत्ते के बीच कदम रखेंगे, सुरक्षित रूप से डरे हुए युवा छात्र को ले जाएंगे, और दृढ़ता से जानवर को डराएंगे।"],
+["VQPX","Your trusted domestic worker asks for a large loan for a medical emergency but you suspect they are lying.","आपका भरोसेमंद घरेलू कर्मचारी मेडिकल इमरजेंसी के लिए एक बड़ा कर्ज मांगता है लेकिन आपको शक है कि वे झूठ बोल रहे हैं।","You will calmly ask for the medical prescriptions, politely offer the direct hospital payment, and safely verify the truth.","आप शांति से चिकित्सा नुस्खे मांगेंगे, विनम्रतापूर्वक सीधे अस्पताल भुगतान की पेशकश करेंगे, और सुरक्षित रूप से सच्चाई की पुष्टि करेंगे।"],
+["PVXQ","You discover a hidden, unauthorized mini-camera installed inside the trial room of a reputed clothing store.","आप एक प्रतिष्ठित कपड़े की दुकान के ट्रायल रूम के अंदर स्थापित एक छिपा हुआ, अनधिकृत मिनी-कैमरा खोजते हैं।","You will safely wear your complete clothes immediately, quietly exit the suspicious trial room, and firmly call the police.","आप सुरक्षित रूप से तुरंत अपने पूरे कपड़े पहनेंगे, चुपचाप संदिग्ध ट्रायल रूम से बाहर निकलेंगे, और दृढ़ता से पुलिस को बुलाएंगे।"],
+["QVXP","A heavily bleeding man knocks on your door late at night, claiming he was just robbed and needs help.","रात को देर से एक भारी खून बह रहा आदमी आपके दरवाजे पर दस्तक देता है, यह दावा करते हुए कि उसे अभी लूटा गया है और उसे मदद की जरूरत है।","You will firmly keep the main security chain, safely provide the basic medical kit, and quickly call an ambulance.","आप दृढ़ता से मुख्य सुरक्षा श्रृंखला (चेन) रखेंगे, सुरक्षित रूप से बुनियादी चिकित्सा किट प्रदान करेंगे, और जल्दी से एम्बुलेंस बुलाएंगे।"],
+["PVXQ","You accidentally transfer a massive sum of money meant for college fees to an unknown UPI number.","आप गलती से कॉलेज की फीस के लिए एक बड़ी राशि एक अज्ञात यूपीआई (UPI) नंबर पर स्थानांतरित कर देते हैं।","You will instantly contact the official bank helpline, safely file the wrong transaction dispute, and firmly trace the recipient.","आप तुरंत आधिकारिक बैंक हेल्पलाइन से संपर्क करेंगे, सुरक्षित रूप से गलत लेनदेन विवाद दर्ज करेंगे, और दृढ़ता से प्राप्तकर्ता का पता लगाएंगे।"],
+["XPQV","You notice your close friend secretly stealing an expensive gadget from another friend's house during a party.","आप देखते हैं कि आपका करीबी दोस्त एक पार्टी के दौरान दूसरे दोस्त के घर से चुपके से एक महंगा गैजेट चुरा रहा है।","You will calmly confront the close friend privately, firmly demand the immediate secret return, and strictly warn against repeating.","आप शांति से निजी तौर पर करीबी दोस्त का सामना करेंगे, दृढ़ता से तत्काल गुप्त वापसी की मांग करेंगे, और दोहराने के खिलाफ सख्ती से चेतावनी देंगे।"],
+["QPXV","A rideshare driver takes a completely unlit, desolate, and entirely wrong route late at night instead of the GPS path.","एक राइडशेयर ड्राइवर देर रात जीपीएस पथ के बजाय पूरी तरह से बिना रोशनी वाले, सुनसान और पूरी तरह से गलत रास्ते पर ले जाता है।","You will firmly order the driver to stop, safely share the live tracking link, and quickly prepare an escape.","आप दृढ़ता से ड्राइवर को रुकने का आदेश देंगे, सुरक्षित रूप से लाइव ट्रैकिंग लिंक साझा करेंगे, और जल्दी से भागने की तैयारी करेंगे।"],
+["QVPX","Your boss tells you to sign off on a safety inspection report for equipment that you know is faulty.","आपका बॉस आपको उस उपकरण के लिए सुरक्षा निरीक्षण रिपोर्ट पर हस्ताक्षर करने के लिए कहता है जिसे आप जानते हैं कि वह दोषपूर्ण है।","You will politely refuse the illegal signature request, safely document the exact faulty equipment, and firmly report to HR.","आप विनम्रतापूर्वक अवैध हस्ताक्षर अनुरोध को अस्वीकार करेंगे, सुरक्षित रूप से सटीक दोषपूर्ण उपकरण का दस्तावेजीकरण करेंगे, और दृढ़ता से एचआर को रिपोर्ट करेंगे।"],
+["VXQP","You spot a group of teenagers brutally beating a helpless stray animal in a secluded alleyway.","आप किशोरों के एक समूह को एक एकांत गली में एक असहाय आवारा जानवर को बेरहमी से पीटते हुए देखते हैं।","You will safely record the totally brutal evidence, loudly shout from a secure distance, and promptly call animal control.","आप सुरक्षित रूप से पूरी तरह से क्रूर सबूत रिकॉर्ड करेंगे, एक सुरक्षित दूरी से जोर से चिल्लाएंगे, और तुरंत पशु नियंत्रण को बुलाएंगे।"],
+["XQPV","A fake WhatsApp message circulating in your family group falsely claims a specific community is poisoning local water supplies.","आपके परिवार के समूह में प्रसारित एक फर्जी व्हाट्सएप संदेश झूठा दावा करता है कि एक विशिष्ट समुदाय स्थानीय जल आपूर्ति में जहर घोल रहा है।","You will safely verify the completely false rumor, calmly share the official fact check, and firmly educate the group.","आप सुरक्षित रूप से पूरी तरह से झूठी अफवाह को सत्यापित करेंगे, शांति से आधिकारिक फैक्ट चेक साझा करेंगे, और दृढ़ता से समूह को शिक्षित करेंगे।"],
+["XPQV","During a highly competitive entrance exam, you realize the student sitting ahead of you is using a hidden earpiece.","अत्यधिक प्रतिस्पर्धी प्रवेश परीक्षा के दौरान, आपको पता चलता है कि आपके आगे बैठा छात्र एक छिपे हुए ईयरपीस का उपयोग कर रहा है।","You will calmly alert the strict exam invigilator, safely continue your own important exam, and firmly protect the fairness.","आप शांति से सख्त परीक्षा निरीक्षक को सचेत करेंगे, सुरक्षित रूप से अपनी खुद की महत्वपूर्ण परीक्षा जारी रखेंगे, और दृढ़ता से निष्पक्षता की रक्षा करेंगे।"],
+["XVQP","You find an unlocked, highly expensive sports bike parked with its engine running in an empty street.","आप एक खाली गली में एक अनलॉक्ड, अत्यधिक महंगी स्पोर्ट्स बाइक को इंजन चालू करके पार्क किया हुआ पाते हैं।","You will safely turn the running engine off, calmly take the vehicle keys out, and firmly inform the police.","आप सुरक्षित रूप से चालू इंजन को बंद कर देंगे, शांति से वाहन की चाबियां निकाल लेंगे, और दृढ़ता से पुलिस को सूचित करेंगे।"],
+["PXQV","You receive a frantic call from your younger sister stating she is being followed by a group of men.","आपको अपनी छोटी बहन का एक घबराया हुआ कॉल आता है जिसमें कहा गया है कि पुरुषों के एक समूह द्वारा उसका पीछा किया जा रहा है।","You will calmly advise her to reach crowds, safely track her live digital location, and quickly dial the police.","आप शांति से उसे भीड़ तक पहुंचने की सलाह देंगे, सुरक्षित रूप से उसके लाइव डिजिटल स्थान को ट्रैक करेंगे, और जल्दी से पुलिस को डायल करेंगे।"],
+["PXQV","A severe thunderstorm hits while you are hiking, and you notice your hair standing on end (a sign of imminent lightning).","लंबी पैदल यात्रा (hiking) करते समय एक भयंकर आंधी आती है, और आप देखते हैं कि आपके बाल खड़े हो गए हैं (आसन्न बिजली गिरने का संकेत)।","You will quickly drop the tall metal objects, safely crouch in the low area, and firmly minimize ground contact.","आप जल्दी से ऊंची धातु की वस्तुओं को गिरा देंगे, सुरक्षित रूप से निचले क्षेत्र में झुकेंगे, और दृढ़ता से जमीन के संपर्क को कम करेंगे।"],
+["XVQP","A close colleague starts spreading vicious, career-damaging lies about you to get a promotion you both applied for.","एक करीबी सहकर्मी उस पदोन्नति को पाने के लिए आपके बारे में शातिर, करियर को नुकसान पहुंचाने वाला झूठ फैलाना शुरू कर देता है जिसके लिए आप दोनों ने आवेदन किया था।","You will calmly gather the solid professional evidence, safely approach the senior management team, and politely clear your name.","आप शांति से ठोस पेशेवर सबूत इकट्ठा करेंगे, सुरक्षित रूप से वरिष्ठ प्रबंधन टीम के पास जाएंगे, और विनम्रतापूर्वक अपना नाम साफ करेंगे।"],
+["QXPV","You discover a highly sensitive, unreleased blockbuster movie file on a second-hand laptop you just purchased.","आप अभी-अभी खरीदे गए एक सेकंड-हैंड लैपटॉप पर एक अत्यधिक संवेदनशील, अप्रकाशित ब्लॉकबस्टर मूवी फ़ाइल खोजते हैं।","You will safely delete the entirely illegal file, strictly avoid any digital online sharing, and firmly mind your business.","आप सुरक्षित रूप से पूरी तरह से अवैध फ़ाइल को हटा देंगे, किसी भी डिजिटल ऑनलाइन साझाकरण से सख्ती से बचेंगे, और दृढ़ता से अपने काम पर ध्यान देंगे।"],
+["XVPQ","Your apartment building catches fire, and the main staircase is completely engulfed in thick, toxic black smoke.","आपके अपार्टमेंट की इमारत में आग लग जाती है, और मुख्य सीढ़ी पूरी तरह से घने, जहरीले काले धुएं की चपेट में आ जाती है।","You will quickly seal the main door gaps, safely move to the open balcony, and loudly wave for rescue.","आप जल्दी से मुख्य दरवाजे के अंतराल को सील करेंगे, सुरक्षित रूप से खुली बालकनी में चले जाएंगे, और जोर-जोर से बचाव के लिए हाथ हिलाएंगे।"]
+];
+
+var N=Q.length,cur=0,ans=[],vis=[],lang="en",done=false,end=0,tm=null;
+function $(i){return document.getElementById(i)}
+function t(k){return L[lang][k]}
+function pad(n){return n<10?"0"+n:""+n}
+function li(){return lang==="en"?0:1}
+
+function applyLang(){
+ var e=document.querySelectorAll("[data-k]"),i;
+ for(i=0;i<e.length;i++){e[i].textContent=t(e[i].getAttribute("data-k"))}
+ $("lg").textContent=t("lgb");
+ document.documentElement.lang=lang==="en"?"en":"hi";
+ document.title="SKC DEFENCE ACADEMY – "+t("title");
+ $("lgd").innerHTML='<span><i style="background:#3d8b37"></i>'+t("a")+'</span><span><i style="background:#d9822b"></i>'+t("n")+'</span><span><i style="background:#e3e7de;border:1px solid #b8c1ad"></i>'+t("v")+'</span>';
+ if(!$("test").classList.contains("hide"))render();
+ if(!$("res").classList.contains("hide"))showRes();
+}
+function toggleLang(){lang=lang==="en"?"hi":"en";applyLang()}
+
+function startTest(){
+ $("start").className="card hide";$("test").className="grid";
+ $("timer").className="timer";
+ end=Date.now()+1800000;
+ tm=setInterval(tick,500);tick();render();window.scrollTo(0,0);
+}
+function tick(){
+ var s=Math.max(0,Math.round((end-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(s/60))+":"+pad(s%60);
+ $("timer").className="timer"+(s<300?" low":"");
+ if(s<=0&&!done)submit(true);
+}
+function opts(i){
+ var o=Q[i][0],r=[],k,c;
+ for(k=0;k<4;k++){c=o.charAt(k);r.push(c==="X"?[Q[i][3],Q[i][4]]:C[c])}
+ return r;
+}
+function render(){
+ var q=Q[cur],x=li(),ci=q[0].indexOf("X"),o=opts(cur),h="",k,cl;
+ vis[cur]=1;
+ $("qn").textContent=t("q")+" "+(cur+1)+" / "+N;
+ $("qt").textContent=q[1+x];
+ for(k=0;k<4;k++){
+  cl="opt";
+  if(done){if(k===ci)cl+=" ok";else if(ans[cur]===k)cl+=" bad"}
+  else if(ans[cur]===k)cl+=" sel";
+  h+='<button type="button" class="'+cl+'" onclick="pick('+k+')"><b>'+"ABCD".charAt(k)+"</b><span>"+o[k][x]+"</span></button>";
+ }
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===N-1;
+ $("clr").className="btn alt"+(done?" hide":"");
+ $("sub").textContent=done?t("res"):t("sub");
+ $("sub").className="btn"+(done?"":" sub");
+ pal();
+}
+function pal(){
+ var h="",i,c;
+ for(i=0;i<N;i++){
+  c="pb";
+  if(done){if(ans[i]===undefined)c+="";else c+=(ans[i]===Q[i][0].indexOf("X"))?" a":" w"}
+  else c+=ans[i]!==undefined?" a":(vis[i]?" n":"");
+  if(i===cur)c+=" c";
+  h+='<button type="button" class="'+c+'" onclick="jump('+i+')">'+(i+1)+"</button>";
+ }
+ $("pal").innerHTML=h;
+}
+function pick(k){if(done)return;ans[cur]=k;render()}
+function clearAns(){ans[cur]=undefined;render()}
+function go(d){cur=Math.min(N-1,Math.max(0,cur+d));render();window.scrollTo(0,0)}
+function jump(i){cur=i;render();window.scrollTo(0,0)}
+function stats(){
+ var a=0,c=0,i;
+ for(i=0;i<N;i++){if(ans[i]!==undefined){a++;if(ans[i]===Q[i][0].indexOf("X"))c++}}
+ var w=a-c,s=Math.round((c-w*0.25)*100)/100;
+ return{a:a,c:c,w:w,s:s,k:N-a};
+}
+function subBtn(){if(done)showRes();else submit(false)}
+function submit(auto){
+ var s=stats();
+ if(!auto&&!confirm(t("conf")+"\n\n"+t("att")+": "+s.a+" / "+N+"\n"+t("skp")+": "+s.k))return;
+ clearInterval(tm);done=true;showRes();
+}
+function showRes(){
+ var s=stats();
+ $("test").className="grid hide";$("res").className="card";
+ $("rsc").textContent=s.s+" / "+N;
+ $("rst").innerHTML=[["tot",N],["att",s.a],["skp",s.k],["cor",s.c],["wr",s.w]].map(function(r){return '<div class="st"><b>'+r[1]+"</b>"+t(r[0])+"</div>"}).join("");
+ window.scrollTo(0,0);
+}
+function reviewAns(){$("res").className="card hide";$("test").className="grid";cur=0;render();window.scrollTo(0,0)}
+applyLang();
+</script>
+</body>
+</html>

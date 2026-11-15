@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test 16</title>
+<style>
+:root{--navy:#0b2a5b;--navy2:#143d86;--saf:#ff9933;--grn:#138808;--bg:#f2f5fa;--card:#fff;--tx:#1b2433;--mut:#6b7686;--bd:#d9e0ec;--red:#d32f2f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal","Nirmala UI",Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5;-webkit-text-size-adjust:100%}
+header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saf);padding:8px 12px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+.hin{display:flex;align-items:center;gap:10px;max-width:1100px;margin:0 auto;flex-wrap:wrap}
+.logo{width:42px;height:42px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;border:3px solid var(--saf);flex:none}
+.brand{flex:1;min-width:150px}
+.brand b{display:block;font-size:18px;letter-spacing:.5px}
+.brand span{font-size:12px;opacity:.85}
+.tools{display:flex;align-items:center;gap:8px}
+.timer{background:#fff;color:var(--navy);font-weight:800;font-size:18px;padding:5px 12px;border-radius:8px;font-variant-numeric:tabular-nums;min-width:84px;text-align:center}
+.timer.low{background:var(--red);color:#fff}
+.btn{border:0;border-radius:8px;padding:10px 16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;touch-action:manipulation}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.b-pri{background:var(--navy2);color:#fff}
+.b-grn{background:var(--grn);color:#fff}
+.b-saf{background:var(--saf);color:#222}
+.b-out{background:#fff;color:var(--navy2);border:2px solid var(--navy2)}
+.lang{display:flex;border-radius:8px;overflow:hidden;border:2px solid var(--saf)}
+.lang button{border:0;background:transparent;color:#fff;padding:6px 10px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.lang button.on{background:var(--saf);color:#222}
+main{max-width:1100px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.hide{display:none!important}
+.start{max-width:640px;margin:20px auto;text-align:center}
+.start h1{color:var(--navy);margin:6px 0}
+.start ul{text-align:left;padding-left:20px}
+.start input{width:100%;padding:12px;font-size:16px;border:2px solid var(--bd);border-radius:8px;margin:8px 0 14px;font-family:inherit}
+.grid{display:grid;grid-template-columns:1fr 300px;gap:12px;align-items:start}
+.qhead{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:8px;font-weight:600}
+.qtext{font-size:18px;font-weight:600;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:10px;font-size:16px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.opt .l{flex:none;width:28px;height:28px;border-radius:50%;background:#e8edf6;color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.opt.sel{border-color:var(--navy2);background:#e9f0ff}
+.opt.sel .l{background:var(--navy2);color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.nav .sp{flex:1}
+.pal h3{margin:0 0 8px;font-size:15px;color:var(--navy)}
+.pg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pg button{height:40px;border-radius:8px;border:2px solid var(--bd);background:#fff;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.pg button.ans{background:var(--grn);border-color:var(--grn);color:#fff}
+.pg button.vis{background:#ffe5e5;border-color:var(--red)}
+.pg button.cur{outline:3px solid var(--saf);outline-offset:1px}
+.leg{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:12px;margin-top:12px;color:var(--mut)}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid var(--bd)}
+.ptog{display:none;width:100%;margin-bottom:10px}
+.res{max-width:760px;margin:10px auto}
+.res h2{text-align:center;color:var(--navy);margin:4px 0}
+.score{text-align:center;font-size:46px;font-weight:800;color:var(--navy2);margin:6px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.st{border-radius:10px;padding:12px;text-align:center;background:#f2f5fa;border:1px solid var(--bd)}
+.st b{display:block;font-size:24px}
+.st span{font-size:12px;color:var(--mut)}
+.rv{border-top:1px solid var(--bd);padding:12px 0}
+.rv .q{font-weight:600;margin-bottom:6px}
+.rv .o{padding:6px 10px;border-radius:6px;margin:4px 0;font-size:15px;border:1px solid var(--bd)}
+.rv .o.ok{background:#e3f5e1;border-color:var(--grn)}
+.rv .o.no{background:#ffe5e5;border-color:var(--red)}
+.tag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;color:#fff;margin-left:6px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal .card{max-width:380px;width:100%;text-align:center}
+footer{text-align:center;font-size:12px;color:var(--mut);padding:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.ptog{display:block}.pal{display:none}.pal.open{display:block}.qtext{font-size:17px}.brand b{font-size:15px}}
+</style>
+</head>
+<body>
+<header><div class="hin">
+ <div class="logo">SKC</div>
+ <div class="brand"><b>SKC DEFENCE ACADEMY</b><span id="ttl">SRT Test Series – Mock Test 16</span></div>
+ <div class="tools">
+  <div class="lang"><button id="bEn" class="on" onclick="setLang('en')">English</button><button id="bHi" onclick="setLang('hi')">हिन्दी</button></div>
+  <div class="timer hide" id="timer">30:00</div>
+ </div>
+</div></header>
+
+<main>
+<section id="start" class="card start">
+ <div class="logo" style="margin:0 auto;width:64px;height:64px;font-size:20px;background:var(--navy);color:#fff">SKC</div>
+ <h1 id="sT">SRT Mock Test 16</h1>
+ <p id="sSub" style="color:var(--mut);margin:0 0 10px">SKC DEFENCE ACADEMY</p>
+ <ul id="sIns"></ul>
+ <input id="nm" type="text" maxlength="40" autocomplete="name">
+ <button class="btn b-grn" id="sBtn" onclick="startTest()" style="width:100%;font-size:17px"></button>
+</section>
+
+<section id="test" class="hide">
+ <button class="btn b-out ptog" id="ptog" onclick="togPal()"></button>
+ <div class="grid">
+  <div class="card">
+   <div class="qhead"><span id="qno"></span><span id="qsts"></span></div>
+   <div class="qtext" id="qtext"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button class="btn b-out" id="prev" onclick="go(-1)"></button>
+    <button class="btn b-saf" id="clr" onclick="clearAns()"></button>
+    <span class="sp"></span>
+    <button class="btn b-pri" id="next" onclick="go(1)"></button>
+   </div>
+   <div style="margin-top:14px"><button class="btn b-grn" id="sub" onclick="askSubmit()" style="width:100%"></button></div>
+  </div>
+  <div class="card pal" id="pal">
+   <h3 id="palT"></h3>
+   <div class="pg" id="pg"></div>
+   <div class="leg">
+    <span><i style="background:var(--grn)"></i><b id="lA"></b></span>
+    <span><i style="background:#ffe5e5;border-color:var(--red)"></i><b id="lN"></b></span>
+    <span><i style="background:#fff"></i><b id="lU"></b></span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="result" class="hide"><div class="card res">
+ <h2 id="rT"></h2>
+ <div style="text-align:center;color:var(--mut)" id="rName"></div>
+ <div class="score" id="rScore"></div>
+ <div style="text-align:center;color:var(--mut);font-size:13px" id="rMark"></div>
+ <div class="stats" id="rStats"></div>
+ <div style="text-align:center"><button class="btn b-pri" id="rvBtn" onclick="toggleRev()"></button> <button class="btn b-out" onclick="location.reload()" id="rtBtn"></button></div>
+ <div id="rev" class="hide" style="margin-top:12px"></div>
+</div></section>
+</main>
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<div class="modal hide" id="modal"><div class="card">
+ <h3 id="mT" style="margin-top:0;color:var(--navy)"></h3>
+ <p id="mB"></p>
+ <div style="display:flex;gap:10px;justify-content:center"><button class="btn b-out" id="mNo" onclick="closeM()"></button><button class="btn b-grn" id="mYes" onclick="finish()"></button></div>
+</div></div>
+
+<script>
+var TITLE_EN="SRT Test Series – Mock Test 16", TITLE_HI="एसआरटी टेस्ट सीरीज़ – मॉक टेस्ट 16";
+var DURATION=30*60, PLUS=1, MINUS=0.25;
+// [question EN, question HI, [A en, A hi], [B], [C], [D], correct index 0-3]
+var Q=[
+["You find a lost identity card lying on the ground in a public park.","आप एक सार्वजनिक पार्क में जमीन पर पड़ा एक खोया हुआ पहचान पत्र पाते हैं।",
+["You will calmly pick up the lost identity card, politely visit the nearest office, and safely submit.","आप शांति से खोया हुआ पहचान पत्र उठाएंगे, विनम्रतापूर्वक निकटतम कार्यालय जाएंगे, और सुरक्षित रूप से जमा करेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],0],
+["You see a water tap left running wastefully in a public restroom.","आप एक सार्वजनिक विश्राम कक्ष में पानी का नल व्यर्थ बहता हुआ देखते हैं।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly approach the running public water tap, politely close the metal valve, and safely leave.","आप शांति से चल रहे सार्वजनिक पानी के नल के पास जाएंगे, विनम्रतापूर्वक धातु के वाल्व को बंद करेंगे, और सुरक्षित रूप से चले जाएंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],2],
+["You suddenly realize you forgot your pen just before a written exam.","एक लिखित परीक्षा से ठीक पहले आपको अचानक एहसास होता है कि आप अपना पेन भूल गए हैं।",
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will calmly ask your nearby helpful class friend, politely borrow an extra pen, and safely write.","आप शांति से अपने पास के मददगार क्लास फ्रेंड से पूछेंगे, विनम्रतापूर्वक एक अतिरिक्त पेन उधार लेंगे, और सुरक्षित रूप से लिखेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],2],
+["A friend asks for your class notes right before the final semester exam.","अंतिम सेमेस्टर परीक्षा से ठीक पहले एक दोस्त आपके क्लास नोट्स मांगता है।",
+["You will calmly share your detailed study class notes, politely explain the main topics, and safely revise.","आप शांति से अपने विस्तृत अध्ययन क्लास नोट्स साझा करेंगे, विनम्रतापूर्वक मुख्य विषयों की व्याख्या करेंगे, और सुरक्षित रूप से दोहराएंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],0],
+["You see a stray kitten stuck in a small open pit on the road.","आप सड़क पर एक छोटे खुले गड्ढे में एक आवारा बिल्ली के बच्चे को फंसा हुआ देखते हैं।",
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will calmly approach the small trapped stray kitten, politely lift the tiny animal, and safely release.","आप शांति से छोटे फंसे हुए आवारा बिल्ली के बच्चे के पास जाएंगे, विनम्रतापूर्वक छोटे जानवर को उठाएंगे, और सुरक्षित रूप से छोड़ देंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],1],
+["You accidentally drop your open lunchbox on the clean office floor.","आप गलती से अपना खुला लंचबॉक्स साफ ऑफिस के फर्श पर गिरा देते हैं।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will calmly collect the fallen dirty lunch food, politely clean the messy floor, and safely wash.","आप शांति से गिरे हुए गंदे लंच के खाने को इकट्ठा करेंगे, विनम्रतापूर्वक गंदे फर्श को साफ करेंगे, और सुरक्षित रूप से धोएंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],1],
+["You receive a call from an unknown number asking for your personal bank details.","आपको एक अज्ञात नंबर से कॉल आता है जिसमें आपके व्यक्तिगत बैंक विवरण मांगे जाते हैं।",
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will calmly refuse the unknown fake phone caller, politely deny the personal details, and safely disconnect.","आप शांति से अज्ञात फर्जी फोन कॉलर को मना करेंगे, विनम्रतापूर्वक व्यक्तिगत विवरण देने से इंकार करेंगे, और सुरक्षित रूप से कॉल काट देंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],2],
+["You see an elderly person struggling to carry heavy grocery bags on the street.","आप सड़क पर एक बुजुर्ग व्यक्ति को किराने के भारी थैले ले जाने के लिए संघर्ष करते देखते हैं।",
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will calmly approach the heavily loaded tired person, politely offer your physical help, and safely carry.","आप शांति से भारी लदे हुए थके हुए व्यक्ति के पास जाएंगे, विनम्रतापूर्वक अपनी शारीरिक मदद की पेशकश करेंगे, और सुरक्षित रूप से ले जाएंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],2],
+["You notice your shirt button has broken while you are actively working at the office.","आप देखते हैं कि ऑफिस में सक्रिय रूप से काम करते समय आपकी शर्ट का बटन टूट गया है।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will calmly use your spare office safety pin, politely secure the open shirt, and safely work.","आप शांति से अपने अतिरिक्त ऑफिस सेफ्टी पिन का उपयोग करेंगे, विनम्रतापूर्वक खुली शर्ट को सुरक्षित करेंगे, और सुरक्षित रूप से काम करेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],2],
+["You find a seat on a crowded train, but an old person suddenly boards.","आपको भीड़भाड़ वाली ट्रेन में सीट मिल जाती है, लेकिन अचानक एक वृद्ध व्यक्ति चढ़ जाता है।",
+["You will calmly stand up from your train seat, politely offer the vacant space, and safely stand.","आप शांति से अपनी ट्रेन की सीट से खड़े होंगे, विनम्रतापूर्वक खाली जगह की पेशकश करेंगे, और सुरक्षित रूप से खड़े रहेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],0],
+["The power goes out completely while you are cooking dinner in the kitchen.","रसोई में रात का खाना बनाते समय बिजली पूरी तरह से चली जाती है।",
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly turn on your mobile flash light, politely finish the cooking tasks, and safely eat.","आप शांति से अपने मोबाइल की फ्लैश लाइट चालू करेंगे, विनम्रतापूर्वक खाना पकाने का काम पूरा करेंगे, और सुरक्षित रूप से खाएंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],1],
+["A colleague takes credit for your minor idea in a casual team meeting.","एक आकस्मिक टीम बैठक में एक सहकर्मी आपके मामूली विचार का श्रेय ले लेता है।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly wait for the right speaking turn, politely add your original points, and safely clarify.","आप शांति से बोलने की सही बारी का इंतजार करेंगे, विनम्रतापूर्वक अपने मूल बिंदु जोड़ेंगे, और सुरक्षित रूप से स्पष्ट करेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],2],
+["You realize you boarded the wrong bus going to the exact opposite side.","आपको एहसास होता है कि आप बिल्कुल विपरीत दिशा में जाने वाली गलत बस में चढ़ गए हैं।",
+["You will calmly step off at the next stop, politely cross the wide road, and safely return.","आप शांति से अगले स्टॉप पर उतरेंगे, विनम्रतापूर्वक चौड़ी सड़क पार करेंगे, और सुरक्षित रूप से वापस लौटेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],0],
+["Your shoe sole comes off completely while walking on a busy street.","एक व्यस्त सड़क पर चलते समय आपके जूते का सोल पूरी तरह से निकल जाता है।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly find a nearby local shoe maker, politely ask for quick glue, and safely repair.","आप शांति से पास के स्थानीय जूता बनाने वाले को खोजेंगे, विनम्रतापूर्वक त्वरित गोंद मांगेंगे, और सुरक्षित रूप से मरम्मत करेंगे।"],3],
+["You see a minor argument between two auto drivers completely blocking the traffic.","आप दो ऑटो चालकों के बीच मामूली बहस देखते हैं जो यातायात को पूरी तरह से अवरुद्ध कर रही है।",
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly approach the angry auto rickshaw drivers, politely resolve the minor issue, and safely clear.","आप शांति से क्रोधित ऑटो रिक्शा चालकों के पास जाएंगे, विनम्रतापूर्वक मामूली मुद्दे को सुलझाएंगे, और सुरक्षित रूप से रास्ता साफ करेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],1],
+["A shopkeeper gives you extra change by mistake after you purchase some items.","कुछ सामान खरीदने के बाद एक दुकानदार आपको गलती से अतिरिक्त छुट्टे दे देता है।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly check the exact given extra change, politely inform the busy shopkeeper, and safely return.","आप शांति से दिए गए सटीक अतिरिक्त छुट्टे की जांच करेंगे, विनम्रतापूर्वक व्यस्त दुकानदार को सूचित करेंगे, और सुरक्षित रूप से वापस करेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],2],
+["You find a beautiful expensive watch lying on the college library table.","आप कॉलेज की लाइब्रेरी की टेबल पर एक खूबसूरत महंगी घड़ी पड़ी हुई पाते हैं।",
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will calmly pick up the expensive lost watch, politely visit the library desk, and safely submit.","आप शांति से महंगी खोई हुई घड़ी उठाएंगे, विनम्रतापूर्वक लाइब्रेरी डेस्क पर जाएंगे, और सुरक्षित रूप से जमा करेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],1],
+["A junior student is hesitating to participate in a college sports event.","एक जूनियर छात्र कॉलेज के खेल आयोजन में भाग लेने से हिचकिचा रहा है।",
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly talk to the hesitant junior student, politely boost his low morale, and safely motivate.","आप शांति से हिचकिचाते जूनियर छात्र से बात करेंगे, विनम्रतापूर्वक उसका कम मनोबल बढ़ाएंगे, और सुरक्षित रूप से प्रेरित करेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],2],
+["Your computer freezes just before saving an important text document.","एक महत्वपूर्ण टेक्स्ट दस्तावेज़ को सहेजने (सेव करने) से ठीक पहले आपका कंप्यूटर फ़्रीज़ हो जाता है।",
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly wait for the computer to respond, politely press the save shortcut, and safely restart.","आप शांति से कंप्यूटर के प्रतिक्रिया देने का इंतजार करेंगे, विनम्रतापूर्वक सेव शॉर्टकट दबाएंगे, और सुरक्षित रूप से पुनरारंभ (रीस्टार्ट) करेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],1],
+["You accidentally spill water on your own important written assignment.","आप गलती से अपने खुद के महत्वपूर्ण लिखित असाइनमेंट पर पानी गिरा देते हैं।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly wipe the spilled water very quickly, politely dry the wet paper, and safely rewrite.","आप शांति से गिरे हुए पानी को बहुत जल्दी पोंछेंगे, विनम्रतापूर्वक गीले कागज को सुखाएंगे, और सुरक्षित रूप से फिर से लिखेंगे।"],3],
+["You notice a small crack in the glass window of your rented room.","आप अपने किराए के कमरे की कांच की खिड़की में एक छोटी सी दरार देखते हैं।",
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will calmly apply thick tape over the crack, politely call a glass repairman, and safely fix.","आप शांति से दरार के ऊपर मोटा टेप लगाएंगे, विनम्रतापूर्वक कांच मरम्मत करने वाले को बुलाएंगे, और सुरक्षित रूप से ठीक करेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],2],
+["A relative arrives at your house when your parents are away.","जब आपके माता-पिता बाहर होते हैं तो एक रिश्तेदार आपके घर आता है।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will calmly welcome the arriving unexpected home guest, politely offer a cool drink, and safely host.","आप शांति से आने वाले अप्रत्याशित घर के मेहमान का स्वागत करेंगे, विनम्रतापूर्वक ठंडे पेय की पेशकश करेंगे, और सुरक्षित रूप से मेजबानी करेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],2],
+["You see someone throwing a banana peel exactly on the walking road.","आप किसी को चलने वाली सड़क पर ठीक केले का छिलका फेंकते हुए देखते हैं।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly pick up the thrown banana peel, politely find a nearby dustbin, and safely throw.","आप शांति से फेंके गए केले के छिलके को उठाएंगे, विनम्रतापूर्वक पास का कूड़ेदान खोजेंगे, और सुरक्षित रूप से फेंक देंगे।"],3],
+["Your alarm doesn't ring and you wake up late for an important class.","आपका अलार्म नहीं बजता है और आप एक महत्वपूर्ण कक्षा के लिए देर से उठते हैं।",
+["You will calmly get ready for the pending class, politely inform the strict teacher, and safely attend.","आप शांति से लंबित कक्षा के लिए तैयार होंगे, विनम्रतापूर्वक सख्त शिक्षक को सूचित करेंगे, और सुरक्षित रूप से उपस्थित होंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],0],
+["You accidentally break a small drinking glass in a busy restaurant.","आप गलती से एक व्यस्त रेस्तरां में पीने का एक छोटा गिलास तोड़ देते हैं।",
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly inform the busy restaurant serving staff, politely apologize for the mistake, and safely pay.","आप शांति से व्यस्त रेस्तरां के सर्विंग स्टाफ को सूचित करेंगे, विनम्रतापूर्वक गलती के लिए माफी मांगेंगे, और सुरक्षित रूप से भुगतान करेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],1],
+["Your friend gets a minor small cut while playing cricket in the field.","मैदान में क्रिकेट खेलते समय आपके दोस्त को एक मामूली छोटा कट लग जाता है।",
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly clean the minor bleeding cricket cut, politely apply a fresh bandage, and safely rest.","आप शांति से मामूली खून बहने वाले क्रिकेट कट को साफ करेंगे, विनम्रतापूर्वक एक ताजी पट्टी लगाएंगे, और सुरक्षित रूप से आराम करेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],1],
+["You see a small kid crying because his air balloon flew away.","आप एक छोटे बच्चे को रोते हुए देखते हैं क्योंकि उसका हवा वाला गुब्बारा उड़ गया है।",
+["You will calmly approach the loudly crying small kid, politely buy a new balloon, and safely give.","आप शांति से जोर-जोर से रोते हुए छोटे बच्चे के पास जाएंगे, विनम्रतापूर्वक एक नया गुब्बारा खरीदेंगे, और सुरक्षित रूप से देंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],0],
+["The lift stops working and you urgently need to reach the 5th floor.","लिफ्ट काम करना बंद कर देती है और आपको तत्काल 5वीं मंजिल पर पहुंचना है।",
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will calmly take the normal building emergency stairs, politely walk at steady pace, and safely reach.","आप शांति से सामान्य इमारत की आपातकालीन सीढ़ियां लेंगे, विनम्रतापूर्वक स्थिर गति से चलेंगे, और सुरक्षित रूप से पहुंचेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],2],
+["You are feeling very tired but have a minor assignment due tomorrow.","आप बहुत थका हुआ महसूस कर रहे हैं लेकिन कल एक मामूली असाइनमेंट देना है।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will calmly take a short relaxing power nap, politely resume your pending work, and safely submit.","आप शांति से एक छोटी आरामदायक पावर नैप (नींद) लेंगे, विनम्रतापूर्वक अपना लंबित काम फिर से शुरू करेंगे, और सुरक्षित रूप से जमा करेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],2],
+["You notice a stray dog sleeping under your car just as you start it.","जैसे ही आप कार चालू करते हैं, आप अपनी कार के नीचे एक आवारा कुत्ते को सोता हुआ देखते हैं।",
+["You will calmly turn off the loud car engine, politely scare the sleeping dog, and safely drive.","आप शांति से तेज कार का इंजन बंद कर देंगे, विनम्रतापूर्वक सोते हुए कुत्ते को डराएंगे, और सुरक्षित रूप से ड्राइव करेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],0],
+["You accidentally lose your hostel room key while playing in the ground.","मैदान में खेलते समय आप गलती से अपने हॉस्टल के कमरे की चाबी खो देते हैं।",
+["You will calmly contact the strict hostel security guard, politely ask for duplicate keys, and safely open.","आप शांति से सख्त हॉस्टल सुरक्षा गार्ड से संपर्क करेंगे, विनम्रतापूर्वक डुप्लीकेट चाबियां मांगेंगे, और सुरक्षित रूप से खोलेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],0],
+["You find a classmate sleeping in the library during important study hours.","आप पाते हैं कि एक सहपाठी महत्वपूर्ण अध्ययन घंटों के दौरान पुस्तकालय में सो रहा है।",
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly tap the tired sleeping class friend, politely wake the exhausted student, and safely study.","आप शांति से थके हुए सोते हुए क्लास फ्रेंड को थपथपाएंगे, विनम्रतापूर्वक थके हुए छात्र को जगाएंगे, और सुरक्षित रूप से अध्ययन करेंगे।"],3],
+["You get a wrong food order at a busy fast-food counter.","व्यस्त फास्ट-फूड काउंटर पर आपको गलत फूड ऑर्डर मिलता है।",
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will calmly take the wrong delivered food back, politely inform the counter staff, and safely replace.","आप शांति से गलत डिलीवर किया गया भोजन वापस ले जाएंगे, विनम्रतापूर्वक काउंटर स्टाफ को सूचित करेंगे, और सुरक्षित रूप से बदलेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],2],
+["You see a person dropping their clean handkerchief without noticing it.","आप एक व्यक्ति को बिना ध्यान दिए अपना साफ रुमाल गिराते हुए देखते हैं।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will calmly pick up the clean dropped handkerchief, politely call the walking person, and safely return.","आप शांति से गिरे हुए साफ रूमाल को उठाएंगे, विनम्रतापूर्वक चलते हुए व्यक्ति को बुलाएंगे, और सुरक्षित रूप से वापस करेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],1],
+["The local ATM has no cash when you urgently need money for books.","जब आपको किताबों के लिए तत्काल पैसों की आवश्यकता होती है तो स्थानीय एटीएम में नकदी नहीं होती है।",
+["You will aggressively shout at the highly annoying people, violently start big physical fights, and loudly curse.","आप आक्रामक रूप से अत्यधिक कष्टप्रद लोगों पर चिल्लाएंगे, हिंसक रूप से बड़ी शारीरिक लड़ाई शुरू करेंगे, और जोर-जोर से कोसेंगे।"],
+["You will completely ignore the highly annoying situation perfectly, silently walk away really fast, and strictly leave.","आप अत्यधिक कष्टप्रद स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप वास्तव में तेजी से चले जाएंगे, और सख्ती से निकल जाएंगे।"],
+["You will calmly visit the next nearest bank machine, politely withdraw the required cash, and safely purchase.","आप शांति से अगली निकटतम बैंक मशीन पर जाएंगे, विनम्रतापूर्वक आवश्यक नकदी निकालेंगे, और सुरक्षित रूप से खरीदारी करेंगे।"],
+["You will instantly start crying in deep extreme panic, completely freeze exactly right there, and blindly run.","आप तुरंत गहरे अत्यधिक घबराहट में रोने लगेंगे, बिल्कुल ठीक वहीं सुन्न हो जाएंगे, और आंख मूंदकर भागेंगे।"],2]
+];
+
+var T={
+en:{sT:"SRT Mock Test 16",ins:["Total questions: 35 | Time: 30 minutes","Correct answer: +1 mark | Wrong answer: −0.25 mark | Unanswered: 0","Click a question number in the palette to jump to any question","You can switch between English and Hindi anytime","You can submit the test anytime; it auto-submits when time ends"],name:"Enter your name (optional)",start:"Start Test",q:"Question",of:"of",prev:"« Previous",next:"Next »",clr:"Clear",sub:"Submit Test",pal:"Question Console",pg:"Show / Hide Question Console",lA:"Answered",lN:"Not answered",lU:"Not visited",mT:"Submit Test?",mB:function(a,s){return "You have answered "+a+" and left "+s+" unanswered. Do you want to submit?"},mNo:"Cancel",mYes:"Yes, Submit",rT:"Test Result",tot:"Total Score",mk:"Marking: +1 correct, −0.25 wrong",att:"Attempted",skp:"Skipped",cor:"Correct",wro:"Wrong",tq:"Total Questions",neg:"Negative Marks",rv:"View Answers",hv:"Hide Answers",rt:"Retake Test",ok:"Correct",no:"Wrong",sk:"Skipped",ca:"Correct answer",ya:"Your answer"},
+hi:{sT:"एसआरटी मॉक टेस्ट 16",ins:["कुल प्रश्न: 35 | समय: 30 मिनट","सही उत्तर: +1 अंक | गलत उत्तर: −0.25 अंक | बिना उत्तर: 0","किसी भी प्रश्न पर जाने के लिए पैलेट में प्रश्न संख्या दबाएँ","आप कभी भी अंग्रेज़ी और हिन्दी भाषा बदल सकते हैं","आप कभी भी टेस्ट सबमिट कर सकते हैं; समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा"],name:"अपना नाम लिखें (वैकल्पिक)",start:"टेस्ट शुरू करें",q:"प्रश्न",of:"/",prev:"« पिछला",next:"अगला »",clr:"उत्तर हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न कंसोल",pg:"प्रश्न कंसोल दिखाएँ / छिपाएँ",lA:"उत्तर दिया",lN:"उत्तर नहीं दिया",lU:"देखा नहीं",mT:"टेस्ट सबमिट करें?",mB:function(a,s){return "आपने "+a+" प्रश्नों के उत्तर दिए हैं और "+s+" प्रश्न छोड़े हैं। क्या आप सबमिट करना चाहते हैं?"},mNo:"रद्द करें",mYes:"हाँ, सबमिट करें",rT:"टेस्ट परिणाम",tot:"कुल स्कोर",mk:"अंकन: सही +1, गलत −0.25",att:"प्रयास किए",skp:"छोड़े गए",cor:"सही",wro:"गलत",tq:"कुल प्रश्न",neg:"ऋणात्मक अंक",rv:"उत्तर देखें",hv:"उत्तर छिपाएँ",rt:"दोबारा टेस्ट दें",ok:"सही",no:"गलत",sk:"छोड़ा गया",ca:"सही उत्तर",ya:"आपका उत्तर"}
+};
+var lang="en",cur=0,ans=[],vis=[],endAt=0,tick=null,done=false,L="ABCD";
+function $(id){return document.getElementById(id)}
+function t(k){return T[lang][k]}
+function pad(n){return n<10?"0"+n:""+n}
+function fmt(n){return (Math.round(n*100)/100).toString()}
+
+function applyStatic(){
+ $("ttl").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sT").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sIns").innerHTML=t("ins").map(function(x){return "<li>"+x+"</li>"}).join("");
+ $("nm").placeholder=t("name");$("sBtn").textContent=t("start");
+ $("prev").textContent=t("prev");$("next").textContent=t("next");$("clr").textContent=t("clr");$("sub").textContent=t("sub");
+ $("palT").textContent=t("pal");$("ptog").textContent=t("pg");
+ $("lA").textContent=t("lA");$("lN").textContent=t("lN");$("lU").textContent=t("lU");
+ $("mNo").textContent=t("mNo");$("mYes").textContent=t("mYes");$("mT").textContent=t("mT");
+ document.documentElement.lang=lang==="en"?"en":"hi";
+ $("bEn").className=lang==="en"?"on":"";$("bHi").className=lang==="hi"?"on":"";
+}
+function setLang(l){
+ lang=l;applyStatic();
+ if(!$("test").classList.contains("hide"))render();
+ if(!$("result").classList.contains("hide"))showResult();
+ if(!$("modal").classList.contains("hide"))openM();
+}
+function startTest(){
+ for(var i=0;i<Q.length;i++){ans[i]=-1;vis[i]=false}
+ $("start").classList.add("hide");$("test").classList.remove("hide");$("timer").classList.remove("hide");
+ endAt=Date.now()+DURATION*1000;
+ tick=setInterval(upd,500);upd();render();
+ window.scrollTo(0,0);
+}
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(s/60))+":"+pad(s%60);
+ if(s<=300)$("timer").className="timer low";
+ if(s<=0&&!done)finish();
+}
+function render(){
+ vis[cur]=true;var q=Q[cur],i=lang==="en"?0:1;
+ $("qno").textContent=t("q")+" "+(cur+1)+" "+t("of")+" "+Q.length;
+ $("qsts").textContent=ans[cur]>=0?"✔ "+t("lA"):"";
+ $("qtext").textContent=(cur+1)+". "+q[i];
+ var h="";
+ for(var k=0;k<4;k++){h+='<button class="opt'+(ans[cur]===k?" sel":"")+'" onclick="pick('+k+')"><span class="l">'+L[k]+'</span><span>'+esc(q[2+k][i])+'</span></button>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===Q.length-1;
+ pal();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function pal(){
+ var h="";
+ for(var i=0;i<Q.length;i++){
+  var c=ans[i]>=0?"ans":(vis[i]?"vis":"");
+  if(i===cur)c+=" cur";
+  h+='<button class="'+c+'" onclick="jump('+i+')">'+(i+1)+'</button>';
+ }
+ $("pg").innerHTML=h;
+}
+function pick(k){ans[cur]=k;render()}
+function clearAns(){ans[cur]=-1;render()}
+function go(d){var n=cur+d;if(n>=0&&n<Q.length){cur=n;render();window.scrollTo(0,0)}}
+function jump(i){cur=i;render();$("pal").classList.remove("open");window.scrollTo(0,0)}
+function togPal(){$("pal").classList.toggle("open")}
+function counts(){var a=0;for(var i=0;i<ans.length;i++)if(ans[i]>=0)a++;return {a:a,s:Q.length-a}}
+function openM(){var c=counts();$("mB").textContent=t("mB")(c.a,c.s);$("modal").classList.remove("hide")}
+function askSubmit(){openM()}
+function closeM(){$("modal").classList.add("hide")}
+function finish(){
+ if(done&&arguments.length===0&&$("test").classList.contains("hide"))return;
+ done=true;clearInterval(tick);closeM();
+ $("test").classList.add("hide");$("timer").classList.add("hide");$("result").classList.remove("hide");
+ showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var cor=0,wro=0,i;
+ for(i=0;i<Q.length;i++){if(ans[i]>=0){if(ans[i]===Q[i][6])cor++;else wro++}}
+ var att=cor+wro,skp=Q.length-att,neg=wro*MINUS,sc=cor*PLUS-neg;
+ $("rT").textContent=t("rT");
+ var nm=$("nm").value.replace(/^\s+|\s+$/g,"");
+ $("rName").textContent=nm?nm:"";
+ $("rScore").textContent=fmt(sc)+" / "+Q.length;
+ $("rMark").textContent=t("mk");
+ var items=[[t("tq"),Q.length,""],[t("att"),att,""],[t("skp"),skp,""],[t("cor"),cor,"color:#138808"],[t("wro"),wro,"color:#d32f2f"],[t("neg"),"−"+fmt(neg),"color:#d32f2f"]];
+ $("rStats").innerHTML=items.map(function(x){return '<div class="st"><b style="'+x[2]+'">'+x[1]+'</b><span>'+x[0]+'</span></div>'}).join("");
+ $("rvBtn").textContent=$("rev").classList.contains("hide")?t("rv"):t("hv");
+ $("rtBtn").textContent=t("rt");
+ var li=lang==="en"?0:1,h="";
+ for(i=0;i<Q.length;i++){
+  var q=Q[i],st=ans[i]<0?["sk","#6b7686"]:(ans[i]===q[6]?["ok","#138808"]:["no","#d32f2f"]);
+  h+='<div class="rv"><div class="q">'+(i+1)+'. '+esc(q[li])+'<span class="tag" style="background:'+st[1]+'">'+t(st[0])+'</span></div>';
+  for(var k=0;k<4;k++){
+   var c="o";if(k===q[6])c+=" ok";else if(k===ans[i])c+=" no";
+   var m=k===q[6]?" ✔":(k===ans[i]?" ✘ ("+t("ya")+")":"");
+   h+='<div class="'+c+'"><b>'+L[k]+'.</b> '+esc(q[2+k][li])+m+'</div>';
+  }
+  h+='</div>';
+ }
+ $("rev").innerHTML=h;
+}
+function toggleRev(){$("rev").classList.toggle("hide");showResult()}
+window.addEventListener("beforeunload",function(e){if(!done&&!$("test").classList.contains("hide")){e.preventDefault();e.returnValue=""}});
+applyStatic();
+</script>
+</body>
+</html>

@@ -2267,13 +2267,13 @@ ${eb.previewText || 'Sample preview chapter...'}
               <span>${batch.title.replace(/\s+/g, '_')}</span>
               <span>›</span>
               <span style="color:#f59e0b; font-weight:700;">📑 SRT_Class_Quizzes_&_PDFs/</span>
-              <span class="crumb-count">${srtPdfs.length} Classes (27 Quizzes & PDFs)</span>
+              <span class="crumb-count">${srtPdfs.length} Classes (${srtPdfs.length} Quizzes & PDFs)</span>
             </div>
 
             <!-- Search Bar -->
             <div class="pw-search-box">
               <span>🔍</span>
-              <input type="text" placeholder="Search 27 Class Quizzes & PDFs (e.g. Class 05, Fire, Disaster, Weapon, Leadership)..." oninput="App.filterCards(this.value, 'srt-pdfs-list')">
+              <input type="text" placeholder="Search ${srtPdfs.length} Class Quizzes & PDFs (e.g. Class 05, Class 30, Leadership)..." oninput="App.filterCards(this.value, 'srt-pdfs-list')">
             </div>
 
             <div id="srt-pdfs-list" style="display:flex; flex-direction:column; gap:0.95rem;">

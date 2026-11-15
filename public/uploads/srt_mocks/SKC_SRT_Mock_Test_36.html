@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test 33</title>
+<style>
+:root{--navy:#0b2a5b;--navy2:#143d86;--saf:#ff9933;--grn:#138808;--bg:#f2f5fa;--card:#fff;--tx:#1b2433;--mut:#6b7686;--bd:#d9e0ec;--red:#d32f2f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal","Nirmala UI",Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5;-webkit-text-size-adjust:100%}
+header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saf);padding:8px 12px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+.hin{display:flex;align-items:center;gap:10px;max-width:1100px;margin:0 auto;flex-wrap:wrap}
+.logo{width:42px;height:42px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;border:3px solid var(--saf);flex:none}
+.brand{flex:1;min-width:150px}
+.brand b{display:block;font-size:18px;letter-spacing:.5px}
+.brand span{font-size:12px;opacity:.85}
+.tools{display:flex;align-items:center;gap:8px}
+.timer{background:#fff;color:var(--navy);font-weight:800;font-size:18px;padding:5px 12px;border-radius:8px;font-variant-numeric:tabular-nums;min-width:84px;text-align:center}
+.timer.low{background:var(--red);color:#fff}
+.btn{border:0;border-radius:8px;padding:10px 16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;touch-action:manipulation}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.b-pri{background:var(--navy2);color:#fff}
+.b-grn{background:var(--grn);color:#fff}
+.b-saf{background:var(--saf);color:#222}
+.b-out{background:#fff;color:var(--navy2);border:2px solid var(--navy2)}
+.lang{display:flex;border-radius:8px;overflow:hidden;border:2px solid var(--saf)}
+.lang button{border:0;background:transparent;color:#fff;padding:6px 10px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.lang button.on{background:var(--saf);color:#222}
+main{max-width:1100px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.hide{display:none!important}
+.start{max-width:640px;margin:20px auto;text-align:center}
+.start h1{color:var(--navy);margin:6px 0}
+.start ul{text-align:left;padding-left:20px}
+.start input{width:100%;padding:12px;font-size:16px;border:2px solid var(--bd);border-radius:8px;margin:8px 0 14px;font-family:inherit}
+.grid{display:grid;grid-template-columns:1fr 300px;gap:12px;align-items:start}
+.qhead{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:8px;font-weight:600}
+.qtext{font-size:18px;font-weight:600;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:10px;font-size:16px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.opt .l{flex:none;width:28px;height:28px;border-radius:50%;background:#e8edf6;color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.opt.sel{border-color:var(--navy2);background:#e9f0ff}
+.opt.sel .l{background:var(--navy2);color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.nav .sp{flex:1}
+.pal h3{margin:0 0 8px;font-size:15px;color:var(--navy)}
+.pg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pg button{height:40px;border-radius:8px;border:2px solid var(--bd);background:#fff;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.pg button.ans{background:var(--grn);border-color:var(--grn);color:#fff}
+.pg button.vis{background:#ffe5e5;border-color:var(--red)}
+.pg button.cur{outline:3px solid var(--saf);outline-offset:1px}
+.leg{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:12px;margin-top:12px;color:var(--mut)}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid var(--bd)}
+.ptog{display:none;width:100%;margin-bottom:10px}
+.res{max-width:760px;margin:10px auto}
+.res h2{text-align:center;color:var(--navy);margin:4px 0}
+.score{text-align:center;font-size:46px;font-weight:800;color:var(--navy2);margin:6px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.st{border-radius:10px;padding:12px;text-align:center;background:#f2f5fa;border:1px solid var(--bd)}
+.st b{display:block;font-size:24px}
+.st span{font-size:12px;color:var(--mut)}
+.rv{border-top:1px solid var(--bd);padding:12px 0}
+.rv .q{font-weight:600;margin-bottom:6px}
+.rv .o{padding:6px 10px;border-radius:6px;margin:4px 0;font-size:15px;border:1px solid var(--bd)}
+.rv .o.ok{background:#e3f5e1;border-color:var(--grn)}
+.rv .o.no{background:#ffe5e5;border-color:var(--red)}
+.tag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;color:#fff;margin-left:6px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal .card{max-width:380px;width:100%;text-align:center}
+footer{text-align:center;font-size:12px;color:var(--mut);padding:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.ptog{display:block}.pal{display:none}.pal.open{display:block}.qtext{font-size:17px}.brand b{font-size:15px}}
+</style>
+</head>
+<body>
+<header><div class="hin">
+ <div class="logo">SKC</div>
+ <div class="brand"><b>SKC DEFENCE ACADEMY</b><span id="ttl">SRT Test Series – Mock Test 33</span></div>
+ <div class="tools">
+  <div class="lang"><button id="bEn" class="on" onclick="setLang('en')">English</button><button id="bHi" onclick="setLang('hi')">हिन्दी</button></div>
+  <div class="timer hide" id="timer">30:00</div>
+ </div>
+</div></header>
+
+<main>
+<section id="start" class="card start">
+ <div class="logo" style="margin:0 auto;width:64px;height:64px;font-size:20px;background:var(--navy);color:#fff">SKC</div>
+ <h1 id="sT">SRT Mock Test 33</h1>
+ <p id="sSub" style="color:var(--mut);margin:0 0 10px">SKC DEFENCE ACADEMY</p>
+ <ul id="sIns"></ul>
+ <input id="nm" type="text" maxlength="40" autocomplete="name">
+ <button class="btn b-grn" id="sBtn" onclick="startTest()" style="width:100%;font-size:17px"></button>
+</section>
+
+<section id="test" class="hide">
+ <button class="btn b-out ptog" id="ptog" onclick="togPal()"></button>
+ <div class="grid">
+  <div class="card">
+   <div class="qhead"><span id="qno"></span><span id="qsts"></span></div>
+   <div class="qtext" id="qtext"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button class="btn b-out" id="prev" onclick="go(-1)"></button>
+    <button class="btn b-saf" id="clr" onclick="clearAns()"></button>
+    <span class="sp"></span>
+    <button class="btn b-pri" id="next" onclick="go(1)"></button>
+   </div>
+   <div style="margin-top:14px"><button class="btn b-grn" id="sub" onclick="askSubmit()" style="width:100%"></button></div>
+  </div>
+  <div class="card pal" id="pal">
+   <h3 id="palT"></h3>
+   <div class="pg" id="pg"></div>
+   <div class="leg">
+    <span><i style="background:var(--grn)"></i><b id="lA"></b></span>
+    <span><i style="background:#ffe5e5;border-color:var(--red)"></i><b id="lN"></b></span>
+    <span><i style="background:#fff"></i><b id="lU"></b></span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="result" class="hide"><div class="card res">
+ <h2 id="rT"></h2>
+ <div style="text-align:center;color:var(--mut)" id="rName"></div>
+ <div class="score" id="rScore"></div>
+ <div style="text-align:center;color:var(--mut);font-size:13px" id="rMark"></div>
+ <div class="stats" id="rStats"></div>
+ <div style="text-align:center"><button class="btn b-pri" id="rvBtn" onclick="toggleRev()"></button> <button class="btn b-out" onclick="location.reload()" id="rtBtn"></button></div>
+ <div id="rev" class="hide" style="margin-top:12px"></div>
+</div></section>
+</main>
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<div class="modal hide" id="modal"><div class="card">
+ <h3 id="mT" style="margin-top:0;color:var(--navy)"></h3>
+ <p id="mB"></p>
+ <div style="display:flex;gap:10px;justify-content:center"><button class="btn b-out" id="mNo" onclick="closeM()"></button><button class="btn b-grn" id="mYes" onclick="finish()"></button></div>
+</div></div>
+
+<script>
+var TITLE_EN="SRT Test Series – Mock Test 33", TITLE_HI="एसआरटी टेस्ट सीरीज़ – मॉक टेस्ट 33";
+var DURATION=30*60, PLUS=1, MINUS=0.25;
+// [question EN, question HI, [A en, A hi], [B], [C], [D], correct index 0-3]
+var Q=[
+["You drop your only contact lens into a public washroom sink.", "आप अपना एकमात्र कॉन्टैक्ट लेंस सार्वजनिक वॉशरूम के सिंक में गिरा देते हैं।", ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will safely block the open drain, carefully retrieve the dropped lens, and cleanly wash the dirty glass.", "आप सुरक्षित रूप से खुले नाले को रोकेंगे, सावधानीपूर्वक गिरे हुए लेंस को निकालेंगे, और साफ तौर पर गंदे शीशे को धोएंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], 1],
+["You accidentally brush against wet paint while wearing a friend's expensive jacket.", "एक दोस्त की महंगी जैकेट पहनते समय आप गलती से गीले पेंट से रगड़ खा जाते हैं।", ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will quickly wipe the wet paint, safely visit the professional cleaner, and politely explain the genuine mistake.", "आप जल्दी से गीले पेंट को पोंछेंगे, सुरक्षित रूप से पेशेवर क्लीनर के पास जाएंगे, और विनम्रतापूर्वक वास्तविक गलती को समझाएंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], 1],
+["You overhear the airport staff making an incorrect boarding announcement for your flight.", "आप सुनते हैं कि हवाई अड्डे के कर्मचारी आपकी उड़ान के लिए गलत बोर्डिंग घोषणा कर रहे हैं।", ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will calmly approach the busy staff, politely correct the wrong announcement, and safely guide the confused passengers.", "आप शांति से व्यस्त कर्मचारियों के पास जाएंगे, विनम्रतापूर्वक गलत घोषणा को सुधारेंगे, और सुरक्षित रूप से भ्रमित यात्रियों का मार्गदर्शन करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], 1],
+["You find a small bird has built a nest with eggs inside your motorcycle helmet.", "आप पाते हैं कि एक छोटी चिड़िया ने आपके मोटरसाइकिल हेलमेट के अंदर अंडों के साथ घोंसला बना लिया है।", ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will gently move the fragile nest, safely place the tiny eggs, and quietly buy the new helmet.", "आप धीरे से नाजुक घोंसले को हटाएंगे, सुरक्षित रूप से छोटे अंडों को रखेंगे, और चुपचाप नया हेलमेट खरीदेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], 2],
+["A sudden swarm of bees enters your open car window while waiting at a signal.", "सिग्नल पर प्रतीक्षा करते समय अचानक मधुमक्खियों का झुंड आपकी खुली कार की खिड़की में प्रवेश कर जाता है।", ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will calmly roll the open windows, quietly exit the trapped vehicle, and safely wait the clear space.", "आप शांति से खुली खिड़कियों को बंद करेंगे, चुपचाप फंसे हुए वाहन से बाहर निकलेंगे, और सुरक्षित रूप से साफ जगह की प्रतीक्षा करेंगे।"], 3],
+["A toddler playfully locks the bathroom door from the inside and starts crying.", "एक बच्चा खेल-खेल में अंदर से बाथरूम का दरवाजा बंद कर लेता है और रोने लगता है।", ["You will calmly soothe the crying child, safely open the locked door, and gently hug the tiny baby.", "आप शांति से रोते हुए बच्चे को सांत्वना देंगे, सुरक्षित रूप से बंद दरवाजे को खोलेंगे, और धीरे से छोटे बच्चे को गले लगाएंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], 0],
+["A tired delivery driver accidentally drops your fragile, expensive package right in front of you.", "एक थका हुआ डिलीवरी ड्राइवर गलती से आपका नाजुक, महंगा पैकेज ठीक आपके सामने गिरा देता है।", ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will calmly check the broken items, politely forgive the tired boy, and safely request the company replacement.", "आप शांति से टूटी हुई वस्तुओं की जांच करेंगे, विनम्रतापूर्वक थके हुए लड़के को क्षमा करेंगे, और सुरक्षित रूप से कंपनी प्रतिस्थापन का अनुरोध करेंगे।"], 3],
+["You see a sleeping passenger's wallet slip out of their pocket on a moving bus.", "आप एक चलती बस में एक सोते हुए यात्री का बटुआ उसकी जेब से फिसलते हुए देखते हैं।", ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will safely pick the fallen wallet, gently wake the sleeping passenger, and politely return the lost money.", "आप सुरक्षित रूप से गिरे हुए बटुए को उठाएंगे, धीरे से सोते हुए यात्री को जगाएंगे, और विनम्रतापूर्वक खोए हुए पैसे वापस करेंगे।"], 3],
+["The ATM dispenses a highly torn currency note during an urgent late-night cash withdrawal.", "तत्काल देर रात नकद निकासी के दौरान एटीएम एक अत्यधिक फटा हुआ करेंसी नोट निकालता है।", ["You will safely keep the torn note, cleanly take the printed receipt, and calmly visit the official bank.", "आप सुरक्षित रूप से फटे हुए नोट को रखेंगे, सफाई से मुद्रित रसीद लेंगे, और शांति से आधिकारिक बैंक जाएंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], 0],
+["Your pet cat proudly brings a live, unidentified snake directly into your living room.", "आपकी पालतू बिल्ली गर्व से एक जीवित, अज्ञात सांप को सीधे आपके लिविंग रूम में ले आती है।", ["You will safely isolate the proud cat, calmly open the wide door, and firmly push the wild snake.", "आप सुरक्षित रूप से गर्वित बिल्ली को अलग करेंगे, शांति से चौड़ा दरवाजा खोलेंगे, और दृढ़ता से जंगली सांप को धकेलेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], 0],
+["A colleague accidentally sends their highly confidential salary slip to the entire office email group.", "एक सहकर्मी गलती से अपनी अत्यधिक गोपनीय वेतन पर्ची पूरे कार्यालय ईमेल समूह को भेज देता है।", ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will instantly delete the leaked email, politely inform the shocked colleague, and strictly maintain the professional secrecy.", "आप तुरंत लीक हुए ईमेल को हटा देंगे, विनम्रतापूर्वक हैरान सहकर्मी को सूचित करेंगे, और सख्ती से पेशेवर गोपनीयता बनाए रखेंगे।"], 3],
+["You discover your gym locker has been left wide open by mistake, but nothing is missing.", "आपको पता चलता है कि आपका जिम लॉकर गलती से खुला रह गया है, लेकिन कुछ भी गायब नहीं है।", ["You will safely check the valuable items, firmly lock the open door, and strictly remember the safety rule.", "आप सुरक्षित रूप से मूल्यवान वस्तुओं की जांच करेंगे, दृढ़ता से खुले दरवाजे को बंद करेंगे, और सख्ती से सुरक्षा नियम को याद रखेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], 0],
+["A stray dog snatches a small child's favorite toy and runs a short distance away.", "एक आवारा कुत्ता एक छोटे बच्चे का पसंदीदा खिलौना छीन लेता है और थोड़ी दूर भाग जाता है।", ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will safely distract the hungry dog, calmly retrieve the stolen toy, and politely return the crying child.", "आप सुरक्षित रूप से भूखे कुत्ते का ध्यान भटकाएंगे, शांति से चोरी हुए खिलौने को वापस लाएंगे, और विनम्रतापूर्वक रोते हुए बच्चे को लौटाएंगे।"], 3],
+["A friend introduces their new romantic partner, whom you clearly recognize as a notorious scammer.", "एक दोस्त अपने नए रोमांटिक साथी का परिचय कराता है, जिसे आप स्पष्ट रूप से एक कुख्यात धोखेबाज़ के रूप में पहचानते हैं।", ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will calmly greet the fake partner, safely gather the solid proofs, and strictly warn the innocent friend.", "आप शांति से फर्जी साथी का अभिवादन करेंगे, सुरक्षित रूप से ठोस सबूत इकट्ठा करेंगे, और सख्ती से निर्दोष दोस्त को चेतावनी देंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], 2],
+["A power surge completely fries the office server just five minutes before a major client presentation.", "एक प्रमुख क्लाइंट प्रेजेंटेशन से ठीक पांच मिनट पहले एक पावर सर्ज ऑफिस सर्वर को पूरी तरह से उड़ा देता है।", ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will calmly connect the offline drive, safely present the saved slides, and politely secure the client deal.", "आप शांति से ऑफ़लाइन ड्राइव को कनेक्ट करेंगे, सुरक्षित रूप से सहेजी गई स्लाइड प्रस्तुत करेंगे, और विनम्रतापूर्वक क्लाइंट डील को सुरक्षित करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], 1],
+["You realize the busy cashier forgot to scan a highly expensive item at the cart's bottom.", "आपको एहसास होता है कि व्यस्त कैशियर कार्ट के निचले हिस्से में एक अत्यधिक महंगी वस्तु को स्कैन करना भूल गया।", ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will calmly return the busy counter, politely point the unscanned item, and safely pay the pending amount.", "आप शांति से व्यस्त काउंटर पर लौटेंगे, विनम्रतापूर्वक अनस्कैन किए गए आइटम को इंगित करेंगे, और सुरक्षित रूप से लंबित राशि का भुगतान करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], 2],
+["You find a pen drive labeled 'Confidential Final Exam Papers' in the college corridor.", "आपको कॉलेज के गलियारे में 'गोपनीय अंतिम परीक्षा के पेपर' लेबल वाली एक पेन ड्राइव मिलती है।", ["You will safely pick the secret drive, strictly avoid the internal files, and firmly submit the college principal.", "आप सुरक्षित रूप से गुप्त ड्राइव को उठाएंगे, आंतरिक फाइलों से सख्ती से बचेंगे, और दृढ़ता से कॉलेज के प्रिंसिपल को सौंपेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], 0],
+["During a newly released movie, the person in front of you secretly records the screen.", "एक नई रिलीज़ हुई फिल्म के दौरान, आपके सामने वाला व्यक्ति चुपके से स्क्रीन रिकॉर्ड करता है।", ["You will calmly observe the illegal recording, quietly alert the active guard, and safely stop the digital piracy.", "आप शांति से अवैध रिकॉर्डिंग का निरीक्षण करेंगे, चुपचाप सक्रिय गार्ड को सचेत करेंगे, और सुरक्षित रूप से डिजिटल पायरेसी को रोकेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], 0],
+["The elevator you are in stops between floors, and the emergency alarm button is completely broken.", "आप जिस लिफ्ट में हैं वह मंजिलों के बीच रुक जाती है, और आपातकालीन अलार्म बटन पूरी तरह टूट गया है।", ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will calmly dial the official security, politely comfort the trapped passengers, and safely wait the rescue team.", "आप शांति से आधिकारिक सुरक्षा को डायल करेंगे, विनम्रतापूर्वक फंसे हुए यात्रियों को सांत्वना देंगे, और सुरक्षित रूप से बचाव दल की प्रतीक्षा करेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], 2],
+["You notice a suspicious person putting a weird unknown liquid into the public drinking water cooler.", "आप एक संदिग्ध व्यक्ति को सार्वजनिक पेयजल कूलर में एक अजीब अज्ञात तरल डालते हुए देखते हैं।", ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will firmly stop the suspicious person, safely lock the public cooler, and quickly call the local police.", "आप दृढ़ता से संदिग्ध व्यक्ति को रोकेंगे, सार्वजनिक कूलर को सुरक्षित रूप से लॉक करेंगे, और जल्दी से स्थानीय पुलिस को बुलाएंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], 2],
+["Your rented car gets a flat tire in a strictly restricted, dangerous wildlife zone at dusk.", "शाम के समय एक सख्ती से प्रतिबंधित, खतरनाक वन्यजीव क्षेत्र में आपकी किराए की कार का टायर पंचर हो जाता है।", ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will safely lock the heavy doors, calmly call the official rangers, and quietly wait the professional rescue.", "आप सुरक्षित रूप से भारी दरवाजों को बंद करेंगे, शांति से आधिकारिक रेंजरों को कॉल करेंगे, और चुपचाप पेशेवर बचाव की प्रतीक्षा करेंगे।"], 3],
+["A famous local politician aggressively tries to jump the long queue at a rural medical camp.", "एक प्रसिद्ध स्थानीय राजनेता ग्रामीण चिकित्सा शिविर में आक्रामक रूप से लंबी कतार को कूदने का प्रयास करता है।", ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will calmly approach the arrogant politician, politely explain the strict queue, and firmly ensure the equal treatment.", "आप शांति से अभिमानी राजनेता के पास जाएंगे, विनम्रतापूर्वक सख्त कतार को समझाएंगे, और दृढ़ता से समान उपचार सुनिश्चित करेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], 1],
+["You see a remote-controlled drone hovering uncomfortably close to a female college hostel window.", "आप एक रिमोट-नियंत्रित ड्रोन को महिला कॉलेज हॉस्टल की खिड़की के असहज रूप से करीब मंडराते हुए देखते हैं।", ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will safely record the flying drone, calmly inform the strict warden, and firmly alert the local cops.", "आप सुरक्षित रूप से उड़ते हुए ड्रोन को रिकॉर्ड करेंगे, शांति से सख्त वार्डन को सूचित करेंगे, और दृढ़ता से स्थानीय पुलिस को सचेत करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], 1],
+["You catch a shopkeeper erasing and altering the expiry dates on several baby food boxes.", "आप एक दुकानदार को कई बेबी फूड बॉक्स पर समाप्ति तिथि को मिटाते और बदलते हुए पकड़ते हैं।", ["You will calmly capture the illegal evidence, safely confront the dishonest shopkeeper, and firmly alert the food inspector.", "आप शांति से अवैध सबूत कैप्चर करेंगे, बेईमान दुकानदार का सुरक्षित रूप से सामना करेंगे, और दृढ़ता से खाद्य निरीक्षक को सचेत करेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], 0],
+["While jogging, you spot a weak wooden bridge starting to severely crack under a passing school bus.", "जॉगिंग करते समय, आप एक कमजोर लकड़ी के पुल को गुजरती हुई स्कूल बस के नीचे गंभीर रूप से टूटते हुए देखते हैं।", ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quickly stop the heavy bus, safely evacuate the terrified kids, and firmly block the broken bridge.", "आप जल्दी से भारी बस को रोकेंगे, सुरक्षित रूप से डरे हुए बच्चों को बाहर निकालेंगे, और दृढ़ता से टूटे हुए पुल को रोकेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], 1],
+["You receive a distress text from an unknown number stating they are kidnapped in a moving trunk.", "आपको एक अज्ञात नंबर से एक संकटग्रस्त पाठ प्राप्त होता है जिसमें कहा गया है कि उन्हें चलती ट्रंक में अगवा कर लिया गया है।", ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will safely save the received message, quickly call the official helpline, and firmly share the exact details.", "आप सुरक्षित रूप से प्राप्त संदेश को सहेजेंगे, जल्दी से आधिकारिक हेल्पलाइन पर कॉल करेंगे, और दृढ़ता से सटीक विवरण साझा करेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], 2],
+["A massive swarm of destructive locusts suddenly descends on your village's primary agricultural crop field.", "विनाशकारी टिड्डियों का एक विशाल झुंड अचानक आपके गांव के प्राथमिक कृषि फसल क्षेत्र में उतरता है।", ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will quickly bang the loud utensils, safely light the heavy fires, and firmly protect the green crops.", "आप जल्दी से तेज बर्तनों को पीटेंगे, सुरक्षित रूप से भारी आग जलाएंगे, और दृढ़ता से हरी फसलों की रक्षा करेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], 2],
+["You uncover solid proof that your sports team captain is taking heavy bribes to lose the final match.", "आप ठोस सबूत उजागर करते हैं कि आपकी खेल टीम का कप्तान अंतिम मैच हारने के लिए भारी रिश्वत ले रहा है।", ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will safely secure the solid proofs, calmly inform the strict committee, and firmly protect the fair game.", "आप सुरक्षित रूप से ठोस सबूतों को सुरक्षित करेंगे, शांति से सख्त समिति को सूचित करेंगे, और दृढ़ता से निष्पक्ष खेल की रक्षा करेंगे।"], 3],
+["A sudden dangerous flash flood traps you and a disabled elderly person on a bus shelter roof.", "एक अचानक खतरनाक अचानक बाढ़ आपको और एक विकलांग बुजुर्ग व्यक्ति को बस आश्रय की छत पर फँसा देती है।", ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will safely secure the weak person, calmly wave the bright cloth, and firmly wait the rescue boats.", "आप सुरक्षित रूप से कमजोर व्यक्ति को सुरक्षित करेंगे, शांति से चमकीले कपड़े को लहराएंगे, और दृढ़ता से बचाव नौकाओं की प्रतीक्षा करेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], 2],
+["You discover someone created a fake donation page using your respected NGO's exact logo to collect money.", "आपको पता चलता है कि किसी ने पैसे इकट्ठा करने के लिए आपके सम्मानित एनजीओ (NGO) के सटीक लोगो का उपयोग करके एक नकली दान पृष्ठ बनाया है।", ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quickly report the fake website, safely alert the generous donors, and firmly file the cyber complaint.", "आप जल्दी से फर्जी वेबसाइट की रिपोर्ट करेंगे, उदार दाताओं को सुरक्षित रूप से सचेत करेंगे, और दृढ़ता से साइबर शिकायत दर्ज करेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], 1],
+["An unattended campfire in the dry forest starts spreading dangerously towards a nearby sleeping camping site.", "सूखे जंगल में एक अनुपस्थित अलाव (कैंपफायर) खतरनाक रूप से पास के सोते हुए शिविर स्थल की ओर फैलने लगता है।", ["You will quickly fetch the heavy buckets, safely extinguish the spreading fire, and calmly wake the sleeping campers.", "आप जल्दी से भारी बाल्टियां लाएंगे, सुरक्षित रूप से फैलती आग को बुझाएंगे, और शांति से सोते हुए शिविरार्थियों को जगाएंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], 0],
+["You accidentally discover a tiny hidden surveillance microphone planted directly underneath your private office desk.", "आप गलती से अपने निजी कार्यालय डेस्क के ठीक नीचे लगाया गया एक छोटा छिपा हुआ निगरानी माइक्रोफोन खोजते हैं।", ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will quietly leave the hidden device, safely contact the official security, and firmly track the unknown spy.", "आप चुपचाप छिपे हुए उपकरण को छोड़ देंगे, आधिकारिक सुरक्षा से सुरक्षित रूप से संपर्क करेंगे, और अज्ञात जासूस को दृढ़ता से ट्रैक करेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], 1],
+["A wild adult leopard wanders directly into your highly populated residential society's children playground area.", "एक जंगली वयस्क तेंदुआ सीधे आपकी अत्यधिक आबादी वाली आवासीय सोसायटी के बच्चों के खेल के मैदान में घूमता है।", ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will quickly sound the loud alarm, safely lock the open gates, and firmly call the forest department.", "आप जल्दी से तेज अलार्म बजाएंगे, सुरक्षित रूप से खुले फाटकों को बंद करेंगे, और दृढ़ता से वन विभाग को बुलाएंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], 1],
+["A panicked passenger aggressively tries to open the emergency exit door while the commercial flight is mid-air.", "एक घबराया हुआ यात्री आक्रामक रूप से वाणिज्यिक उड़ान के मध्य हवा में आपातकालीन निकास द्वार खोलने का प्रयास करता है।", ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will quickly tackle the panicked passenger, safely secure the heavy door, and calmly alert the flight crew.", "आप जल्दी से घबराए हुए यात्री से निपटेंगे, भारी दरवाजे को सुरक्षित रूप से सुरक्षित करेंगे, और शांति से उड़ान चालक दल को सचेत करेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], 1],
+["The main structural concrete pillar of an under-construction building starts severely cracking while workers are on top.", "एक निर्माणाधीन इमारत का मुख्य संरचनात्मक कंक्रीट खंभा गंभीर रूप से टूटने लगता है, जबकि श्रमिक शीर्ष पर होते हैं।", ["You will quickly blow the loud whistle, safely evacuate the trapped workers, and firmly cordon the dangerous area.", "आप जल्दी से तेज सीटी बजाएंगे, फंसे हुए श्रमिकों को सुरक्षित रूप से बाहर निकालेंगे, और खतरनाक क्षेत्र को दृढ़ता से घेरेंगे।"], ["You will quietly ignore the dangerous situation, silently leave the crowded area, and strictly abandon the current mission.", "आप चुपचाप खतरनाक स्थिति को नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले क्षेत्र को छोड़ देंगे, और सख्ती से वर्तमान मिशन को छोड़ देंगे।"], ["You will instantly panic the sudden fear, quickly drop the heavy bags, and blindly reach the safe home.", "आप तुरंत अचानक डर में घबराएंगे, जल्दी से भारी बैग गिरा देंगे, और आंख मूंदकर सुरक्षित घर पहुंचेंगे।"], ["You will aggressively attack the annoying people, violently break the heavy objects, and loudly start the huge fight.", "आप गुस्से में कष्टप्रद लोगों पर हमला करेंगे, हिंसक रूप से भारी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल लड़ाई शुरू करेंगे।"], 0]
+];
+
+var T={
+en:{sT:"SRT Mock Test 33",ins:["Total questions: 35 | Time: 30 minutes","Correct answer: +1 mark | Wrong answer: −0.25 mark | Unanswered: 0","Click a question number in the palette to jump to any question","You can switch between English and Hindi anytime","You can submit the test anytime; it auto-submits when time ends"],name:"Enter your name (optional)",start:"Start Test",q:"Question",of:"of",prev:"« Previous",next:"Next »",clr:"Clear",sub:"Submit Test",pal:"Question Console",pg:"Show / Hide Question Console",lA:"Answered",lN:"Not answered",lU:"Not visited",mT:"Submit Test?",mB:function(a,s){return "You have answered "+a+" and left "+s+" unanswered. Do you want to submit?"},mNo:"Cancel",mYes:"Yes, Submit",rT:"Test Result",tot:"Total Score",mk:"Marking: +1 correct, −0.25 wrong",att:"Attempted",skp:"Skipped",cor:"Correct",wro:"Wrong",tq:"Total Questions",neg:"Negative Marks",rv:"View Answers",hv:"Hide Answers",rt:"Retake Test",ok:"Correct",no:"Wrong",sk:"Skipped",ca:"Correct answer",ya:"Your answer"},
+hi:{sT:"एसआरटी मॉक टेस्ट 33",ins:["कुल प्रश्न: 35 | समय: 30 मिनट","सही उत्तर: +1 अंक | गलत उत्तर: −0.25 अंक | बिना उत्तर: 0","किसी भी प्रश्न पर जाने के लिए पैलेट में प्रश्न संख्या दबाएँ","आप कभी भी अंग्रेज़ी और हिन्दी भाषा बदल सकते हैं","आप कभी भी टेस्ट सबमिट कर सकते हैं; समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा"],name:"अपना नाम लिखें (वैकल्पिक)",start:"टेस्ट शुरू करें",q:"प्रश्न",of:"/",prev:"« पिछला",next:"अगला »",clr:"उत्तर हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न कंसोल",pg:"प्रश्न कंसोल दिखाएँ / छिपाएँ",lA:"उत्तर दिया",lN:"उत्तर नहीं दिया",lU:"देखा नहीं",mT:"टेस्ट सबमिट करें?",mB:function(a,s){return "आपने "+a+" प्रश्नों के उत्तर दिए हैं और "+s+" प्रश्न छोड़े हैं। क्या आप सबमिट करना चाहते हैं?"},mNo:"रद्द करें",mYes:"हाँ, सबमिट करें",rT:"टेस्ट परिणाम",tot:"कुल स्कोर",mk:"अंकन: सही +1, गलत −0.25",att:"प्रयास किए",skp:"छोड़े गए",cor:"सही",wro:"गलत",tq:"कुल प्रश्न",neg:"ऋणात्मक अंक",rv:"उत्तर देखें",hv:"उत्तर छिपाएँ",rt:"दोबारा टेस्ट दें",ok:"सही",no:"गलत",sk:"छोड़ा गया",ca:"सही उत्तर",ya:"आपका उत्तर"}
+};
+var lang="en",cur=0,ans=[],vis=[],endAt=0,tick=null,done=false,L="ABCD";
+function $(id){return document.getElementById(id)}
+function t(k){return T[lang][k]}
+function pad(n){return n<10?"0"+n:""+n}
+function fmt(n){return (Math.round(n*100)/100).toString()}
+
+function applyStatic(){
+ $("ttl").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sT").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sIns").innerHTML=t("ins").map(function(x){return "<li>"+x+"</li>"}).join("");
+ $("nm").placeholder=t("name");$("sBtn").textContent=t("start");
+ $("prev").textContent=t("prev");$("next").textContent=t("next");$("clr").textContent=t("clr");$("sub").textContent=t("sub");
+ $("palT").textContent=t("pal");$("ptog").textContent=t("pg");
+ $("lA").textContent=t("lA");$("lN").textContent=t("lN");$("lU").textContent=t("lU");
+ $("mNo").textContent=t("mNo");$("mYes").textContent=t("mYes");$("mT").textContent=t("mT");
+ document.documentElement.lang=lang==="en"?"en":"hi";
+ $("bEn").className=lang==="en"?"on":"";$("bHi").className=lang==="hi"?"on":"";
+}
+function setLang(l){
+ lang=l;applyStatic();
+ if(!$("test").classList.contains("hide"))render();
+ if(!$("result").classList.contains("hide"))showResult();
+ if(!$("modal").classList.contains("hide"))openM();
+}
+function startTest(){
+ for(var i=0;i<Q.length;i++){ans[i]=-1;vis[i]=false}
+ $("start").classList.add("hide");$("test").classList.remove("hide");$("timer").classList.remove("hide");
+ endAt=Date.now()+DURATION*1000;
+ tick=setInterval(upd,500);upd();render();
+ window.scrollTo(0,0);
+}
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(s/60))+":"+pad(s%60);
+ if(s<=300)$("timer").className="timer low";
+ if(s<=0&&!done)finish();
+}
+function render(){
+ vis[cur]=true;var q=Q[cur],i=lang==="en"?0:1;
+ $("qno").textContent=t("q")+" "+(cur+1)+" "+t("of")+" "+Q.length;
+ $("qsts").textContent=ans[cur]>=0?"✔ "+t("lA"):"";
+ $("qtext").textContent=(cur+1)+". "+q[i];
+ var h="";
+ for(var k=0;k<4;k++){h+='<button class="opt'+(ans[cur]===k?" sel":"")+'" onclick="pick('+k+')"><span class="l">'+L[k]+'</span><span>'+esc(q[2+k][i])+'</span></button>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===Q.length-1;
+ pal();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function pal(){
+ var h="";
+ for(var i=0;i<Q.length;i++){
+  var c=ans[i]>=0?"ans":(vis[i]?"vis":"");
+  if(i===cur)c+=" cur";
+  h+='<button class="'+c+'" onclick="jump('+i+')">'+(i+1)+'</button>';
+ }
+ $("pg").innerHTML=h;
+}
+function pick(k){ans[cur]=k;render()}
+function clearAns(){ans[cur]=-1;render()}
+function go(d){var n=cur+d;if(n>=0&&n<Q.length){cur=n;render();window.scrollTo(0,0)}}
+function jump(i){cur=i;render();$("pal").classList.remove("open");window.scrollTo(0,0)}
+function togPal(){$("pal").classList.toggle("open")}
+function counts(){var a=0;for(var i=0;i<ans.length;i++)if(ans[i]>=0)a++;return {a:a,s:Q.length-a}}
+function openM(){var c=counts();$("mB").textContent=t("mB")(c.a,c.s);$("modal").classList.remove("hide")}
+function askSubmit(){openM()}
+function closeM(){$("modal").classList.add("hide")}
+function finish(){
+ if(done&&arguments.length===0&&$("test").classList.contains("hide"))return;
+ done=true;clearInterval(tick);closeM();
+ $("test").classList.add("hide");$("timer").classList.add("hide");$("result").classList.remove("hide");
+ showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var cor=0,wro=0,i;
+ for(i=0;i<Q.length;i++){if(ans[i]>=0){if(ans[i]===Q[i][6])cor++;else wro++}}
+ var att=cor+wro,skp=Q.length-att,neg=wro*MINUS,sc=cor*PLUS-neg;
+ $("rT").textContent=t("rT");
+ var nm=$("nm").value.replace(/^\s+|\s+$/g,"");
+ $("rName").textContent=nm?nm:"";
+ $("rScore").textContent=fmt(sc)+" / "+Q.length;
+ $("rMark").textContent=t("mk");
+ var items=[[t("tq"),Q.length,""],[t("att"),att,""],[t("skp"),skp,""],[t("cor"),cor,"color:#138808"],[t("wro"),wro,"color:#d32f2f"],[t("neg"),"−"+fmt(neg),"color:#d32f2f"]];
+ $("rStats").innerHTML=items.map(function(x){return '<div class="st"><b style="'+x[2]+'">'+x[1]+'</b><span>'+x[0]+'</span></div>'}).join("");
+ $("rvBtn").textContent=$("rev").classList.contains("hide")?t("rv"):t("hv");
+ $("rtBtn").textContent=t("rt");
+ var li=lang==="en"?0:1,h="";
+ for(i=0;i<Q.length;i++){
+  var q=Q[i],st=ans[i]<0?["sk","#6b7686"]:(ans[i]===q[6]?["ok","#138808"]:["no","#d32f2f"]);
+  h+='<div class="rv"><div class="q">'+(i+1)+'. '+esc(q[li])+'<span class="tag" style="background:'+st[1]+'">'+t(st[0])+'</span></div>';
+  for(var k=0;k<4;k++){
+   var c="o";if(k===q[6])c+=" ok";else if(k===ans[i])c+=" no";
+   var m=k===q[6]?" ✔":(k===ans[i]?" ✘ ("+t("ya")+")":"");
+   h+='<div class="'+c+'"><b>'+L[k]+'.</b> '+esc(q[2+k][li])+m+'</div>';
+  }
+  h+='</div>';
+ }
+ $("rev").innerHTML=h;
+}
+function toggleRev(){$("rev").classList.toggle("hide");showResult()}
+window.addEventListener("beforeunload",function(e){if(!done&&!$("test").classList.contains("hide")){e.preventDefault();e.returnValue=""}});
+applyStatic();
+</script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SKC DEFENCE ACADEMY – SRT Mock Test</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:#eef1ec;color:#1b2418;font:16px/1.55 "Segoe UI","Noto Sans Devanagari","Nirmala UI",Mangal,Roboto,Arial,sans-serif}
+.hide{display:none!important}
+header{position:sticky;top:0;z-index:5;background:#1f2e1a;color:#fff;border-bottom:4px solid #c9a227;display:flex;justify-content:space-between;align-items:center;padding:8px 14px;gap:8px}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.logo{width:42px;height:42px;flex:none;border-radius:50%;background:#c9a227;color:#1f2e1a;font-weight:800;font-size:14px;display:flex;align-items:center;justify-content:center;border:2px solid #fff}
+.brand b{display:block;font-size:17px;letter-spacing:.5px;line-height:1.2}
+.brand small{color:#d8dfc9;font-size:12px;display:block}
+.hr{display:flex;align-items:center;gap:8px;flex:none}
+.timer{font:700 18px/1 "Courier New",monospace;background:#0f180d;border:1px solid #c9a227;padding:8px 10px;border-radius:6px}
+.timer.low{background:#a32121;border-color:#fff}
+.lg{cursor:pointer;border:0;border-radius:6px;padding:9px 12px;font:600 14px inherit;background:#c9a227;color:#1f2e1a}
+.wrap{max-width:1060px;margin:0 auto;padding:14px}
+.card{background:#fff;border:1px solid #cfd6c6;border-radius:8px;padding:18px}
+h1{font-size:22px;margin:0 0 6px;color:#1f2e1a}
+h2{font-size:17px;margin:14px 0 6px}
+ul{padding-left:20px;margin:6px 0 16px}li{margin-bottom:6px}
+.btn{cursor:pointer;border:0;border-radius:6px;padding:11px 18px;font:600 15px inherit;background:#3d5a2a;color:#fff}
+.btn.alt{background:#fff;color:#3d5a2a;border:2px solid #3d5a2a}
+.btn.sub{background:#a32121}
+.btn:disabled{opacity:.4;cursor:default}
+.grid{display:flex;gap:14px;align-items:flex-start}
+.main{flex:1;min-width:0}
+.side{width:290px;flex:none}
+#qn{font-weight:700;color:#3d5a2a;margin-bottom:8px}
+#qt{font-size:18px;font-weight:600;margin-bottom:14px}
+.opt{display:flex;gap:10px;width:100%;text-align:left;cursor:pointer;background:#f7f9f4;border:2px solid #cfd6c6;border-radius:8px;padding:11px 12px;margin-bottom:10px;font:15px/1.5 inherit;color:inherit}
+.opt b{flex:none;width:26px;height:26px;border-radius:50%;background:#dfe6d6;text-align:center;line-height:26px;font-size:13px}
+.opt.sel{border-color:#3d5a2a;background:#e4efd9}.opt.sel b{background:#3d5a2a;color:#fff}
+.opt.ok{border-color:#2e7d32;background:#d8f0d9}.opt.ok b{background:#2e7d32;color:#fff}
+.opt.bad{border-color:#b71c1c;background:#fbdcdc}.opt.bad b{background:#b71c1c;color:#fff}
+.nav{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.nav .sp{flex:1}
+.pal{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:10px 0}
+.pb{cursor:pointer;height:40px;border:2px solid #b8c1ad;border-radius:6px;background:#e3e7de;font:600 14px inherit;color:#1b2418}
+.pb.a{background:#3d8b37;color:#fff;border-color:#3d8b37}
+.pb.n{background:#d9822b;color:#fff;border-color:#d9822b}
+.pb.w{background:#b71c1c;color:#fff;border-color:#b71c1c}
+.pb.c{outline:3px solid #1f2e1a;outline-offset:1px}
+.lgd{font-size:13px;display:flex;flex-wrap:wrap;gap:6px 12px}
+.lgd i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0}
+.st{border:1px solid #cfd6c6;border-radius:8px;padding:10px;text-align:center;background:#f7f9f4}
+.st b{display:block;font-size:26px}
+.big{text-align:center;padding:16px;background:#1f2e1a;color:#fff;border-radius:8px;border-bottom:4px solid #c9a227}
+.big b{display:block;font-size:44px;color:#c9a227;line-height:1.2}
+@media(max-width:780px){.grid{display:block}.side{width:100%;margin-top:14px}.brand small{display:none}.brand b{font-size:14px}.logo{width:36px;height:36px}.pal{grid-template-columns:repeat(7,1fr)}}
+@media(max-width:380px){.pal{grid-template-columns:repeat(5,1fr)}}
+</style>
+</head>
+<body>
+<header>
+ <div class="brand"><div class="logo">SKC</div><div><b>SKC DEFENCE ACADEMY</b><small data-k="tag"></small></div></div>
+ <div class="hr"><span id="timer" class="timer hide">30:00</span><button type="button" class="lg" id="lg" onclick="toggleLang()">हिंदी</button></div>
+</header>
+<div class="wrap">
+
+ <div id="start" class="card">
+  <h1 data-k="title"></h1>
+  <h2 data-k="ih"></h2>
+  <ul><li data-k="i1"></li><li data-k="i2"></li><li data-k="i3"></li><li data-k="i4"></li></ul>
+  <button type="button" class="btn" onclick="startTest()" data-k="start"></button>
+ </div>
+
+ <div id="test" class="grid hide">
+  <div class="main card">
+   <div id="qn"></div>
+   <div id="qt"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button type="button" class="btn alt" id="prev" onclick="go(-1)" data-k="prev"></button>
+    <button type="button" class="btn alt" id="next" onclick="go(1)" data-k="next"></button>
+    <button type="button" class="btn alt" id="clr" onclick="clearAns()" data-k="clr"></button>
+    <span class="sp"></span>
+    <button type="button" class="btn sub" id="sub" onclick="subBtn()"></button>
+   </div>
+  </div>
+  <div class="side card">
+   <b data-k="pal"></b>
+   <div class="pal" id="pal"></div>
+   <div class="lgd" id="lgd"></div>
+  </div>
+ </div>
+
+ <div id="res" class="card hide">
+  <h1 data-k="rt"></h1>
+  <div class="big"><span data-k="sc"></span><b id="rsc"></b></div>
+  <div class="stats" id="rst"></div>
+  <button type="button" class="btn" onclick="reviewAns()" data-k="rev"></button>
+  <button type="button" class="btn alt" onclick="location.reload()" data-k="again"></button>
+ </div>
+
+</div>
+<script>
+var TITLE_EN="SRT Test Series – Mock Test 4",TITLE_HI="SRT टेस्ट सीरीज़ – मॉक टेस्ट 4";
+var L={
+en:{tag:"Defence Exam Preparation",title:TITLE_EN,ih:"Instructions",i1:"35 questions • 30 minutes.",i2:"Correct answer: +1 • Wrong answer: −0.25 • Skipped: 0.",i3:"Use the Question Console to open any question directly.",i4:"Switch between English and Hindi anytime. Submit anytime; the test submits automatically when time ends.",start:"Start Test",q:"Question",prev:"‹ Previous",next:"Next ›",clr:"Clear Response",sub:"Submit Test",pal:"Question Console",a:"Answered",n:"Not answered",v:"Not visited",rt:"Your Result",tot:"Total Questions",att:"Attempted",skp:"Skipped",cor:"Correct",wr:"Wrong",sc:"Total Score (out of 35)",rev:"Review Answers",again:"Retake Test",res:"View Result",conf:"Submit the test now?",lgb:"हिंदी",ok:"Correct",bd:"Wrong"},
+hi:{tag:"रक्षा परीक्षा तैयारी",title:TITLE_HI,ih:"निर्देश",i1:"35 प्रश्न • 30 मिनट।",i2:"सही उत्तर: +1 • गलत उत्तर: −0.25 • छोड़ा गया प्रश्न: 0।",i3:"किसी भी प्रश्न पर सीधे जाने के लिए प्रश्न कंसोल का उपयोग करें।",i4:"आप कभी भी अंग्रेज़ी और हिंदी में बदल सकते हैं। कभी भी सबमिट करें; समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा।",start:"टेस्ट शुरू करें",q:"प्रश्न",prev:"‹ पिछला",next:"अगला ›",clr:"उत्तर हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न कंसोल",a:"उत्तर दिया",n:"उत्तर नहीं दिया",v:"देखा नहीं",rt:"आपका परिणाम",tot:"कुल प्रश्न",att:"हल किए",skp:"छोड़े गए",cor:"सही",wr:"गलत",sc:"कुल स्कोर (35 में से)",rev:"उत्तर देखें",again:"दोबारा टेस्ट दें",res:"परिणाम देखें",conf:"क्या आप अभी टेस्ट सबमिट करना चाहते हैं?",lgb:"English",ok:"सही",bd:"गलत"}
+};
+var C={
+G:["Aggressively confront the responsible party, loudly threaten them with a massive lawsuit, and use physical force if they refuse to comply.","जिम्मेदार पक्ष का आक्रामक रूप से सामना करें, जोर-जोर से उन्हें भारी मुकदमे की धमकी दें, और यदि वे अनुपालन करने से इंकार करते हैं तो शारीरिक बल का प्रयोग करें।"],
+M:["Secretly manipulate the situation to your own advantage, bypass all official legal channels, and take the law entirely into your own hands.","गुप्त रूप से अपने लाभ के लिए स्थिति में हेरफेर करें, सभी आधिकारिक कानूनी चैनलों को बायपास करें, और कानून को पूरी तरह से अपने हाथों में लें।"],
+N:["Completely ignore the escalating situation, quietly walk away to avoid any public embarrassment, and accept the personal loss without taking any action.","बढ़ती स्थिति को पूरी तरह से अनदेखा करें, किसी भी सार्वजनिक शर्मिंदगी से बचने के लिए चुपचाप चले जाएं, और बिना कोई कार्रवाई किए व्यक्तिगत नुकसान को स्वीकार करें।"]
+};
+/* [option order (X = correct, G/M/N = common options), question EN, question HI, correct EN, correct HI] */
+var Q=[
+["GXMN","A street food vendor accidentally drops a dirty coin into your food while packing it for you.","एक स्ट्रीट फूड वेंडर आपके लिए खाना पैक करते समय गलती से आपके खाने में एक गंदा सिक्का गिरा देता है।","Politely point out the mistake to the vendor and request him to pack a fresh, clean plate of food.","विनम्रतापूर्वक वेंडर को गलती बताएं और उससे एक नई, साफ प्लेट पैक करने का अनुरोध करें।"],
+["XMNG","You see a toddler wandering alone towards a rapidly moving downward escalator in a crowded shopping mall.","आप एक भीड़भाड़ वाले शॉपिंग मॉल में एक छोटे बच्चे को तेजी से नीचे जा रहे एस्केलेटर की ओर अकेले भटकते हुए देखते हैं।","Quickly intercept the child to ensure their safety, comfort them, and ask mall security to locate the parents.","बच्चे की सुरक्षा सुनिश्चित करने के लिए उसे जल्दी से रोकें, उसे सांत्वना दें, और मॉल सुरक्षा को माता-पिता का पता लगाने के लिए कहें।"],
+["XMNG","A colleague accidentally spills a full glass of water on your laptop just 10 minutes before your major presentation.","आपकी बड़ी प्रेजेंटेशन से ठीक 10 मिनट पहले एक सहकर्मी गलती से आपके लैपटॉप पर पानी का पूरा गिलास गिरा देता है।","Quickly power off the laptop, wipe it dry, and calmly use a backup USB drive on another computer to present.","लैपटॉप को जल्दी से बंद करें, उसे पोंछकर सुखाएं, और पेश करने के लिए दूसरे कंप्यूटर पर शांति से बैकअप यूएसबी (USB) ड्राइव का उपयोग करें।"],
+["MXGN","You find a memory card containing someone's highly personal wedding photos left on a public park bench.","आपको एक सार्वजनिक पार्क की बेंच पर किसी की अत्यधिक व्यक्तिगत शादी की तस्वीरों वाला एक मेमोरी कार्ड मिलता है।","Safely keep the memory card and hand it over to the park's lost-and-found or local police station.","मेमोरी कार्ड को सुरक्षित रखें और इसे पार्क के लॉस्ट-एंड-फाउंड या स्थानीय पुलिस स्टेशन को सौंप दें।"],
+["XMGN","Your cab driver starts nodding off and falling asleep at the wheel while driving on a high-speed expressway.","हाई-स्पीड एक्सप्रेसवे पर गाड़ी चलाते समय आपका कैब ड्राइवर ऊंघने लगता है और स्टीयरिंग व्हील पर सो जाता है।","Firmly wake him up, ask him to pull over safely, and offer to buy him a coffee or take a break.","उसे दृढ़ता से जगाएं, उसे सुरक्षित रूप से गाड़ी रोकने के लिए कहें, और उसे कॉफी पिलाने या ब्रेक लेने की पेशकश करें।"],
+["XGNM","You notice a heavy metal shop signboard is loose and swinging dangerously directly above a busy pedestrian walkway.","आप देखते हैं कि एक भारी धातु की दुकान का साइनबोर्ड ढीला है और एक व्यस्त पैदल मार्ग के ठीक ऊपर खतरनाक रूप से झूल रहा है।","Alert passing pedestrians to avoid the area and immediately inform the shop owner to fix or remove the board.","गुजरने वाले पैदल चलने वालों को क्षेत्र से बचने के लिए सचेत करें और तुरंत दुकान के मालिक को बोर्ड को ठीक करने या हटाने के लिए सूचित करें।"],
+["MXGN","You return a lost wallet to its owner, but they aggressively accuse you of stealing money from it.","आप एक खोया हुआ बटुआ उसके मालिक को लौटाते हैं, लेकिन वे आक्रामक रूप से आप पर उसमें से पैसे चुराने का आरोप लगाते हैं।","Calmly deny the false accusation, stand your ground, and offer to resolve the matter at the nearest police station.","शांति से झूठे आरोप का खंडन करें, अपनी बात पर कायम रहें, और निकटतम पुलिस स्टेशन में मामले को सुलझाने की पेशकश करें।"],
+["XMGN","You buy an expensive concert ticket, but the digital barcode is unreadable at the final entry gate.","आप एक महंगा कॉन्सर्ट टिकट खरीदते हैं, लेकिन अंतिम प्रवेश द्वार पर डिजिटल बारकोड अपठनीय (unreadable) है।","Politely step aside from the line and visit the official help desk with your payment receipt for manual verification.","विनम्रतापूर्वक लाइन से एक तरफ हटें और मैनुअल सत्यापन के लिए अपनी भुगतान रसीद के साथ आधिकारिक सहायता डेस्क पर जाएं।"],
+["MXGN","A close friend confesses to you that they accidentally dented a parked car and drove away without informing anyone.","एक करीबी दोस्त आपके सामने कबूल करता है कि उसने गलती से एक खड़ी कार को टक्कर मार दी और बिना किसी को बताए चला गया।","Firmly advise your friend to take moral responsibility, return to the spot, and leave an apology note with contact details.","अपने मित्र को नैतिक जिम्मेदारी लेने, मौके पर लौटने और संपर्क विवरण के साथ माफी का नोट छोड़ने की दृढ़ता से सलाह दें।"],
+["GXMN","You see a stray dog frantically running around with its head completely stuck inside a plastic jar.","आप एक आवारा कुत्ते को एक प्लास्टिक जार के अंदर पूरी तरह से फंसे सिर के साथ पागलों की तरह दौड़ते हुए देखते हैं।","Approach the dog slowly to avoid scaring it, gently secure it, and carefully pull the plastic jar off its head.","कुत्ते को डराने से बचने के लिए धीरे-धीरे उसके पास पहुंचें, उसे धीरे से सुरक्षित करें, और प्लास्टिक जार को सावधानी से उसके सिर से खींच लें।"],
+["NMGX","Your university online exam portal crashes entirely with only 2 minutes left to submit your final answers.","अपने अंतिम उत्तर जमा करने के लिए केवल 2 मिनट बचे होने पर आपका विश्वविद्यालय ऑनलाइन परीक्षा पोर्टल पूरी तरह से क्रैश हो जाता है।","Immediately take screenshots of the error, email them to the exam coordinator as proof, and request a submission extension.","तुरंत त्रुटि के स्क्रीनशॉट लें, उन्हें प्रमाण के रूप में परीक्षा समन्वयक को ईमेल करें, और सबमिशन विस्तार का अनुरोध करें।"],
+["MNGX","A neighbor is burning toxic plastic waste in their backyard, causing choking, hazardous smoke to enter your house.","एक पड़ोसी अपने पिछवाड़े में जहरीले प्लास्टिक कचरे को जला रहा है, जिससे घुटन भरा, खतरनाक धुआं आपके घर में प्रवेश कर रहा है।","Close your windows, approach the neighbor politely to explain the health hazards, and ask them to extinguish the fire.","अपनी खिड़कियां बंद करें, स्वास्थ्य के खतरों को समझाने के लिए विनम्रतापूर्वक पड़ोसी के पास जाएं, और उन्हें आग बुझाने के लिए कहें।"],
+["XGMN","You accidentally receive a courier package addressed to you that contains highly suspicious and potentially illegal substances.","आपको गलती से आपको संबोधित एक कूरियर पैकेज प्राप्त होता है जिसमें अत्यधिक संदिग्ध और संभावित रूप से अवैध पदार्थ होते हैं।","Do not touch or open the contents further, place the package in a secure spot, and immediately contact the police.","सामग्री को आगे न छुएं और न ही खोलें, पैकेज को सुरक्षित स्थान पर रखें, और तुरंत पुलिस से संपर्क करें।"],
+["MNXG","At a restaurant, you notice a waiter secretly eating food from a customer's plate before serving it to them.","एक रेस्तरां में, आप देखते हैं कि एक वेटर ग्राहकों को परोसने से पहले चुपके से उनकी प्लेट से खाना खा रहा है।","Discreetly record a short video as proof, ask to speak to the restaurant manager privately, and report the unhygienic behavior.","प्रमाण के रूप में चुपचाप एक छोटा वीडियो रिकॉर्ड करें, रेस्तरां प्रबंधक से निजी तौर पर बात करने के लिए कहें, और अस्वच्छ व्यवहार की रिपोर्ट करें।"],
+["GNMX","You get trapped inside a public washroom because the rusted door latch jams completely and won't open.","आप एक सार्वजनिक वाशरूम के अंदर फंस जाते हैं क्योंकि जंग लगा हुआ दरवाजे का कुंडी पूरी तरह से जाम हो जाता है और नहीं खुलता है।","Do not panic, knock loudly on the door to alert people outside, or use your phone to call for help.","घबराएं नहीं, बाहर के लोगों को सतर्क करने के लिए दरवाजे पर जोर से खटखटाएं, या मदद के लिए कॉल करने के लिए अपने फोन का उपयोग करें।"],
+["MGNX","A local pharmacy gives you an expired cough syrup, and the owner aggressively refuses to exchange it when confronted.","एक स्थानीय फार्मेसी आपको एक एक्सपायर्ड कफ सिरप देती है, और सामना करने पर मालिक आक्रामक रूप से इसे बदलने से इंकार कर देता है।","Keep the bill and the bottle as evidence, leave the store calmly, and file a formal complaint with the drug inspector.","बिल और बोतल को साक्ष्य के रूप में रखें, शांति से स्टोर छोड़ दें, और ड्रग इंस्पेक्टर के पास औपचारिक शिकायत दर्ज करें।"],
+["GNMX","You witness a minor boy riding a heavy motorcycle rashly in your residential colony, narrowly missing pedestrians.","आप एक नाबालिग लड़के को अपनी आवासीय कॉलोनी में एक भारी मोटरसाइकिल को लापरवाही से चलाते हुए देखते हैं, जो पैदल चलने वालों से बाल-बाल बचता है।","Note the vehicle number, find out where the boy lives, and firmly speak to his parents about the fatal risks.","वाहन संख्या नोट करें, पता करें कि लड़का कहाँ रहता है, और उसके माता-पिता से घातक जोखिमों के बारे में दृढ़ता से बात करें।"],
+["GMXN","Your flight gets suddenly cancelled after you board the plane, and the ground staff is completely unresponsive to passengers.","आपके विमान में चढ़ने के बाद आपकी उड़ान अचानक रद्द हो जाती है, और ग्राउंड स्टाफ यात्रियों के प्रति पूरी तरह से अनुत्तरदायी है।","Organize the fellow passengers to stay united and calm, and collectively demand to speak with the senior airline duty manager.","एकजुट और शांत रहने के लिए साथी यात्रियों को व्यवस्थित करें, और सामूहिक रूप से वरिष्ठ एयरलाइन ड्यूटी मैनेजर से बात करने की मांग करें।"],
+["XGMN","Someone creates a fake social media account using your sibling's photos to scam people for money online.","कोई व्यक्ति ऑनलाइन पैसे के लिए लोगों को ठगने के लिए आपके भाई/बहन की तस्वीरों का उपयोग करके एक फर्जी सोशल मीडिया अकाउंट बनाता है।","Ask friends to mass-report the fake profile, inform your sibling to alert their network, and file a cyber police complaint.","दोस्तों से फर्जी प्रोफाइल को बड़े पैमाने पर रिपोर्ट करने के लिए कहें, अपने भाई-बहन को उनके नेटवर्क को सतर्क करने के लिए सूचित करें, और साइबर पुलिस में शिकायत दर्ज करें।"],
+["GNXM","You accidentally break an expensive art piece at a friend's house while they are in the other room.","जब आपका दोस्त दूसरे कमरे में होता है, तो आप गलती से उसके घर पर एक महंगी कलाकृति तोड़ देते हैं।","Gather the broken pieces safely, immediately confess the genuine mistake to your friend, and sincerely offer to pay for it.","टूटे हुए टुकड़ों को सुरक्षित रूप से इकट्ठा करें, तुरंत अपने दोस्त के सामने वास्तविक गलती कबूल करें, और ईमानदारी से इसके लिए भुगतान करने की पेशकश करें।"],
+["NXGM","A street beggar forcefully throws a dirty rag on your car windshield at a signal and demands money to clean it.","एक सड़क का भिखारी सिग्नल पर आपकी कार की विंडशील्ड पर बलपूर्वक एक गंदा चीथड़ा फेंकता है और उसे साफ करने के लिए पैसे मांगता है।","Keep the doors locked, turn on the windshield wipers to clear the view, and politely but firmly refuse to pay.","दरवाजे बंद रखें, दृश्य साफ करने के लिए विंडशील्ड वाइपर चालू करें, और विनम्रतापूर्वक लेकिन दृढ़ता से भुगतान करने से इंकार करें।"],
+["GNXM","You realize you have boarded a train in a hurry without buying a ticket, and the Ticket Examiner is approaching.","आपको एहसास होता है कि आप बिना टिकट खरीदे जल्दबाजी में ट्रेन में चढ़ गए हैं, और टिकट परीक्षक आ रहा है।","Proactively approach the Ticket Examiner, explain the emergency situation honestly, and willingly pay the required ticket fare with the fine.","सक्रिय रूप से टिकट परीक्षक से संपर्क करें, आपातकालीन स्थिति को ईमानदारी से समझाएं, और स्वेच्छा से जुर्माना के साथ आवश्यक टिकट किराए का भुगतान करें।"],
+["XMGN","A coworker is secretly recording office gossip and private conversations using a hidden microphone placed under their desk.","एक सहकर्मी अपने डेस्क के नीचे रखे एक छिपे हुए माइक्रोफोन का उपयोग करके कार्यालय गपशप और निजी बातचीत को गुप्त रूप से रिकॉर्ड कर रहा है।","Do not touch the device, take a discreet photo of it, and confidentially report this severe privacy breach to HR.","डिवाइस को न छुएं, इसकी एक गुप्त तस्वीर लें, और इस गंभीर गोपनीयता उल्लंघन की गोपनीय रूप से मानव संसाधन (HR) को रिपोर्ट करें।"],
+["MNXG","You find a distressed, injured bird badly tangled in a sharp glass-coated kite string on your house roof.","आप अपने घर की छत पर तेज कांच-लेपित पतंग की डोरी में बुरी तरह उलझा हुआ एक व्यथित, घायल पक्षी पाते हैं।","Wear thick gloves for safety, gently cut the string using scissors to free the bird, and call a local animal rescue.","सुरक्षा के लिए मोटे दस्ताने पहनें, पक्षी को मुक्त करने के लिए कैंची का उपयोग करके धीरे से डोरी काटें, और स्थानीय पशु बचाव को बुलाएं।"],
+["MGXN","A local gym trainer is secretly filming female clients from inappropriate angles during their workout sessions without consent.","एक स्थानीय जिम ट्रेनर बिना सहमति के वर्कआउट सत्र के दौरान अनुचित कोणों से महिला ग्राहकों की गुप्त रूप से फिल्म बना रहा है।","Quietly capture evidence of his actions, alert the affected female clients, and report him to the gym management and police.","चुपचाप उसके कार्यों के साक्ष्य कैप्चर करें, प्रभावित महिला ग्राहकों को सचेत करें, और जिम प्रबंधन और पुलिस को उसकी रिपोर्ट करें।"],
+["MGNX","You notice a deep, unmarked pothole on a dark road that has already caused two minor bike skids.","आप एक अंधेरी सड़क पर एक गहरे, अचिह्नित गड्ढे को देखते हैं जिसके कारण पहले ही दो मामूली बाइक फिसल चुकी हैं।","Place visible rocks or a warning branch near the hole to alert drivers, and immediately tweet or call the municipal corporation.","ड्राइवरों को सचेत करने के लिए छेद के पास दिखाई देने वाली चट्टानें या एक चेतावनी शाखा रखें, और तुरंत नगर निगम को ट्वीट या कॉल करें।"],
+["XNMG","Your smart TV gets hacked and starts playing highly inappropriate and disturbing content loudly in the middle of the night.","आपका स्मार्ट टीवी हैक हो जाता है और आधी रात को जोर से अत्यधिक अनुचित और परेशान करने वाली सामग्री चलाना शुरू कर देता है।","Immediately unplug the television from the main power socket, reset your home Wi-Fi password, and perform a factory reset later.","टेलीविज़न को तुरंत मुख्य पावर सॉकेट से अनप्लग करें, अपने होम वाई-फाई पासवर्ड को रीसेट करें, और बाद में फ़ैक्टरी रीसेट करें।"],
+["XMNG","You overhear a group of individuals plotting to leak a university entrance exam paper in a local public cafe.","आप एक स्थानीय सार्वजनिक कैफे में लोगों के एक समूह को विश्वविद्यालय प्रवेश परीक्षा के पेपर को लीक करने की साजिश रचते हुए सुनते हैं।","Quietly record their conversation on your phone without drawing attention, leave the cafe safely, and hand the evidence to the police.","ध्यान आकर्षित किए बिना चुपचाप अपने फोन पर उनकी बातचीत रिकॉर्ड करें, सुरक्षित रूप से कैफे छोड़ दें, और पुलिस को सबूत सौंप दें।"],
+["GXNM","An aggressive customer starts physically threatening a young teenage cashier at a supermarket over a minor billing error.","एक आक्रामक ग्राहक एक मामूली बिलिंग त्रुटि को लेकर सुपरमार्केट में एक युवा किशोर कैशियर को शारीरिक रूप से धमकी देने लगता है।","Intervene calmly by standing between them, ask the customer to lower their voice, and signal another staff member to call security.","उनके बीच खड़े होकर शांति से हस्तक्षेप करें, ग्राहक को अपनी आवाज कम करने के लिए कहें, और किसी अन्य स्टाफ सदस्य को सुरक्षा बुलाने का संकेत दें।"],
+["NGMX","You accidentally send a highly confidential company email containing trade secrets to a rival business contact instead of your boss.","आप गलती से अपने बॉस के बजाय एक प्रतिद्वंद्वी व्यावसायिक संपर्क को व्यापार रहस्य युक्त एक अत्यधिक गोपनीय कंपनी ईमेल भेज देते हैं।","Immediately use the 'Recall Email' feature if available, honestly inform your manager about the error, and notify the IT security team.","यदि उपलब्ध हो तो तुरंत 'रिकॉल ईमेल' सुविधा का उपयोग करें, अपने प्रबंधक को त्रुटि के बारे में ईमानदारी से सूचित करें, और आईटी सुरक्षा टीम को सूचित करें।"],
+["NXMG","A highly venomous snake slithers into your camping tent while you are sitting inside it reading a book.","जब आप अंदर बैठकर किताब पढ़ रहे होते हैं तो एक अत्यधिक जहरीला सांप आपके कैंपिंग टेंट में घुस जाता है।","Freeze completely to avoid provoking it, wait for it to slither away or settle, and then slowly and quietly back out.","इसे भड़काने से बचने के लिए पूरी तरह से स्थिर (freeze) हो जाएं, इसके दूर खिसकने या बसने की प्रतीक्षा करें, और फिर धीरे-धीरे और चुपचाप पीछे हटें।"],
+["XGMN","The ATM you just used dispenses visibly counterfeit currency notes instead of real money during a large withdrawal.","आपने जिस एटीएम का उपयोग किया है वह एक बड़ी निकासी के दौरान असली पैसे के बजाय स्पष्ट रूप से नकली मुद्रा नोट निकालता है।","Hold the fake notes in front of the ATM's CCTV camera, keep the transaction receipt, and immediately contact the bank branch manager.","एटीएम के सीसीटीवी कैमरे के सामने नकली नोट रखें, लेन-देन की रसीद रखें, और तुरंत बैंक शाखा प्रबंधक से संपर्क करें।"],
+["GNMX","A group of tourists is blatantly breaking and destroying fragile coral reefs to take selfies while scuba diving near you.","पर्यटकों का एक समूह आपके पास स्कूबा डाइविंग करते समय सेल्फी लेने के लिए नाजुक मूंगा भित्तियों (coral reefs) को खुलेआम तोड़ और नष्ट कर रहा है।","Signal them underwater to stop immediately, capture video evidence using your waterproof camera, and report them to the local marine authorities.","उन्हें पानी के नीचे तुरंत रुकने का संकेत दें, अपने जलरोधक कैमरे का उपयोग करके वीडियो साक्ष्य कैप्चर करें, और स्थानीय समुद्री अधिकारियों को उनकी रिपोर्ट करें।"],
+["XNMG","You find out your landlord has been entering your rented apartment secretly using a master key while you are at work.","आपको पता चलता है कि जब आप काम पर होते हैं तो आपका मकान मालिक मास्टर कुंजी का उपयोग करके चुपके से आपके किराए के अपार्टमेंट में प्रवेश कर रहा है।","Install a hidden camera to record the illegal trespassing, change the locks immediately, and file a formal police complaint with the evidence.","अवैध अतिचार (trespassing) को रिकॉर्ड करने के लिए एक छिपा हुआ कैमरा स्थापित करें, तुरंत ताले बदलें, और सबूत के साथ एक औपचारिक पुलिस शिकायत दर्ज करें।"],
+["GNXM","A rideshare driver starts making highly inappropriate, threatening comments and locks the car doors while driving through a deserted area.","एक राइडशेयर ड्राइवर एक सुनसान इलाके से गाड़ी चलाते समय अत्यधिक अनुचित, धमकी भरी टिप्पणी करना शुरू कर देता है और कार के दरवाजे बंद कर देता है।","Share your live location with a friend, pretend to be on a call with the police, and firmly demand an immediate drop.","एक दोस्त के साथ अपनी लाइव लोकेशन साझा करें, पुलिस के साथ कॉल पर होने का दिखावा करें, और दृढ़ता से तत्काल ड्रॉप की मांग करें।"]
+];
+
+var N=Q.length,cur=0,ans=[],vis=[],lang="en",done=false,end=0,tm=null;
+function $(i){return document.getElementById(i)}
+function t(k){return L[lang][k]}
+function pad(n){return n<10?"0"+n:""+n}
+function li(){return lang==="en"?0:1}
+
+function applyLang(){
+ var e=document.querySelectorAll("[data-k]"),i;
+ for(i=0;i<e.length;i++){e[i].textContent=t(e[i].getAttribute("data-k"))}
+ $("lg").textContent=t("lgb");
+ document.documentElement.lang=lang==="en"?"en":"hi";
+ document.title="SKC DEFENCE ACADEMY – "+t("title");
+ $("lgd").innerHTML='<span><i style="background:#3d8b37"></i>'+t("a")+'</span><span><i style="background:#d9822b"></i>'+t("n")+'</span><span><i style="background:#e3e7de;border:1px solid #b8c1ad"></i>'+t("v")+'</span>';
+ if(!$("test").classList.contains("hide"))render();
+ if(!$("res").classList.contains("hide"))showRes();
+}
+function toggleLang(){lang=lang==="en"?"hi":"en";applyLang()}
+
+function startTest(){
+ $("start").className="card hide";$("test").className="grid";
+ $("timer").className="timer";
+ end=Date.now()+1800000;
+ tm=setInterval(tick,500);tick();render();window.scrollTo(0,0);
+}
+function tick(){
+ var s=Math.max(0,Math.round((end-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(s/60))+":"+pad(s%60);
+ $("timer").className="timer"+(s<300?" low":"");
+ if(s<=0&&!done)submit(true);
+}
+function opts(i){
+ var o=Q[i][0],r=[],k,c;
+ for(k=0;k<4;k++){c=o.charAt(k);r.push(c==="X"?[Q[i][3],Q[i][4]]:C[c])}
+ return r;
+}
+function render(){
+ var q=Q[cur],x=li(),ci=q[0].indexOf("X"),o=opts(cur),h="",k,cl;
+ vis[cur]=1;
+ $("qn").textContent=t("q")+" "+(cur+1)+" / "+N;
+ $("qt").textContent=q[1+x];
+ for(k=0;k<4;k++){
+  cl="opt";
+  if(done){if(k===ci)cl+=" ok";else if(ans[cur]===k)cl+=" bad"}
+  else if(ans[cur]===k)cl+=" sel";
+  h+='<button type="button" class="'+cl+'" onclick="pick('+k+')"><b>'+"ABCD".charAt(k)+"</b><span>"+o[k][x]+"</span></button>";
+ }
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===N-1;
+ $("clr").className="btn alt"+(done?" hide":"");
+ $("sub").textContent=done?t("res"):t("sub");
+ $("sub").className="btn"+(done?"":" sub");
+ pal();
+}
+function pal(){
+ var h="",i,c;
+ for(i=0;i<N;i++){
+  c="pb";
+  if(done){if(ans[i]===undefined)c+="";else c+=(ans[i]===Q[i][0].indexOf("X"))?" a":" w"}
+  else c+=ans[i]!==undefined?" a":(vis[i]?" n":"");
+  if(i===cur)c+=" c";
+  h+='<button type="button" class="'+c+'" onclick="jump('+i+')">'+(i+1)+"</button>";
+ }
+ $("pal").innerHTML=h;
+}
+function pick(k){if(done)return;ans[cur]=k;render()}
+function clearAns(){ans[cur]=undefined;render()}
+function go(d){cur=Math.min(N-1,Math.max(0,cur+d));render();window.scrollTo(0,0)}
+function jump(i){cur=i;render();window.scrollTo(0,0)}
+function stats(){
+ var a=0,c=0,i;
+ for(i=0;i<N;i++){if(ans[i]!==undefined){a++;if(ans[i]===Q[i][0].indexOf("X"))c++}}
+ var w=a-c,s=Math.round((c-w*0.25)*100)/100;
+ return{a:a,c:c,w:w,s:s,k:N-a};
+}
+function subBtn(){if(done)showRes();else submit(false)}
+function submit(auto){
+ var s=stats();
+ if(!auto&&!confirm(t("conf")+"\n\n"+t("att")+": "+s.a+" / "+N+"\n"+t("skp")+": "+s.k))return;
+ clearInterval(tm);done=true;showRes();
+}
+function showRes(){
+ var s=stats();
+ $("test").className="grid hide";$("res").className="card";
+ $("rsc").textContent=s.s+" / "+N;
+ $("rst").innerHTML=[["tot",N],["att",s.a],["skp",s.k],["cor",s.c],["wr",s.w]].map(function(r){return '<div class="st"><b>'+r[1]+"</b>"+t(r[0])+"</div>"}).join("");
+ window.scrollTo(0,0);
+}
+function reviewAns(){$("res").className="card hide";$("test").className="grid";cur=0;render();window.scrollTo(0,0)}
+applyLang();
+</script>
+</body>
+</html>

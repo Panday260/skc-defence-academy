@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test 20</title>
+<style>
+:root{--navy:#0b2a5b;--navy2:#143d86;--saf:#ff9933;--grn:#138808;--bg:#f2f5fa;--card:#fff;--tx:#1b2433;--mut:#6b7686;--bd:#d9e0ec;--red:#d32f2f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal","Nirmala UI",Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5;-webkit-text-size-adjust:100%}
+header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saf);padding:8px 12px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+.hin{display:flex;align-items:center;gap:10px;max-width:1100px;margin:0 auto;flex-wrap:wrap}
+.logo{width:42px;height:42px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;border:3px solid var(--saf);flex:none}
+.brand{flex:1;min-width:150px}
+.brand b{display:block;font-size:18px;letter-spacing:.5px}
+.brand span{font-size:12px;opacity:.85}
+.tools{display:flex;align-items:center;gap:8px}
+.timer{background:#fff;color:var(--navy);font-weight:800;font-size:18px;padding:5px 12px;border-radius:8px;font-variant-numeric:tabular-nums;min-width:84px;text-align:center}
+.timer.low{background:var(--red);color:#fff}
+.btn{border:0;border-radius:8px;padding:10px 16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;touch-action:manipulation}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.b-pri{background:var(--navy2);color:#fff}
+.b-grn{background:var(--grn);color:#fff}
+.b-saf{background:var(--saf);color:#222}
+.b-out{background:#fff;color:var(--navy2);border:2px solid var(--navy2)}
+.lang{display:flex;border-radius:8px;overflow:hidden;border:2px solid var(--saf)}
+.lang button{border:0;background:transparent;color:#fff;padding:6px 10px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.lang button.on{background:var(--saf);color:#222}
+main{max-width:1100px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.hide{display:none!important}
+.start{max-width:640px;margin:20px auto;text-align:center}
+.start h1{color:var(--navy);margin:6px 0}
+.start ul{text-align:left;padding-left:20px}
+.start input{width:100%;padding:12px;font-size:16px;border:2px solid var(--bd);border-radius:8px;margin:8px 0 14px;font-family:inherit}
+.grid{display:grid;grid-template-columns:1fr 300px;gap:12px;align-items:start}
+.qhead{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:8px;font-weight:600}
+.qtext{font-size:18px;font-weight:600;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:10px;font-size:16px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.opt .l{flex:none;width:28px;height:28px;border-radius:50%;background:#e8edf6;color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.opt.sel{border-color:var(--navy2);background:#e9f0ff}
+.opt.sel .l{background:var(--navy2);color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.nav .sp{flex:1}
+.pal h3{margin:0 0 8px;font-size:15px;color:var(--navy)}
+.pg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pg button{height:40px;border-radius:8px;border:2px solid var(--bd);background:#fff;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.pg button.ans{background:var(--grn);border-color:var(--grn);color:#fff}
+.pg button.vis{background:#ffe5e5;border-color:var(--red)}
+.pg button.cur{outline:3px solid var(--saf);outline-offset:1px}
+.leg{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:12px;margin-top:12px;color:var(--mut)}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid var(--bd)}
+.ptog{display:none;width:100%;margin-bottom:10px}
+.res{max-width:760px;margin:10px auto}
+.res h2{text-align:center;color:var(--navy);margin:4px 0}
+.score{text-align:center;font-size:46px;font-weight:800;color:var(--navy2);margin:6px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.st{border-radius:10px;padding:12px;text-align:center;background:#f2f5fa;border:1px solid var(--bd)}
+.st b{display:block;font-size:24px}
+.st span{font-size:12px;color:var(--mut)}
+.rv{border-top:1px solid var(--bd);padding:12px 0}
+.rv .q{font-weight:600;margin-bottom:6px}
+.rv .o{padding:6px 10px;border-radius:6px;margin:4px 0;font-size:15px;border:1px solid var(--bd)}
+.rv .o.ok{background:#e3f5e1;border-color:var(--grn)}
+.rv .o.no{background:#ffe5e5;border-color:var(--red)}
+.tag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;color:#fff;margin-left:6px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal .card{max-width:380px;width:100%;text-align:center}
+footer{text-align:center;font-size:12px;color:var(--mut);padding:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.ptog{display:block}.pal{display:none}.pal.open{display:block}.qtext{font-size:17px}.brand b{font-size:15px}}
+</style>
+</head>
+<body>
+<header><div class="hin">
+ <div class="logo">SKC</div>
+ <div class="brand"><b>SKC DEFENCE ACADEMY</b><span id="ttl">SRT Test Series – Mock Test 20</span></div>
+ <div class="tools">
+  <div class="lang"><button id="bEn" class="on" onclick="setLang('en')">English</button><button id="bHi" onclick="setLang('hi')">हिन्दी</button></div>
+  <div class="timer hide" id="timer">30:00</div>
+ </div>
+</div></header>
+
+<main>
+<section id="start" class="card start">
+ <div class="logo" style="margin:0 auto;width:64px;height:64px;font-size:20px;background:var(--navy);color:#fff">SKC</div>
+ <h1 id="sT">SRT Mock Test 20</h1>
+ <p id="sSub" style="color:var(--mut);margin:0 0 10px">SKC DEFENCE ACADEMY</p>
+ <ul id="sIns"></ul>
+ <input id="nm" type="text" maxlength="40" autocomplete="name">
+ <button class="btn b-grn" id="sBtn" onclick="startTest()" style="width:100%;font-size:17px"></button>
+</section>
+
+<section id="test" class="hide">
+ <button class="btn b-out ptog" id="ptog" onclick="togPal()"></button>
+ <div class="grid">
+  <div class="card">
+   <div class="qhead"><span id="qno"></span><span id="qsts"></span></div>
+   <div class="qtext" id="qtext"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button class="btn b-out" id="prev" onclick="go(-1)"></button>
+    <button class="btn b-saf" id="clr" onclick="clearAns()"></button>
+    <span class="sp"></span>
+    <button class="btn b-pri" id="next" onclick="go(1)"></button>
+   </div>
+   <div style="margin-top:14px"><button class="btn b-grn" id="sub" onclick="askSubmit()" style="width:100%"></button></div>
+  </div>
+  <div class="card pal" id="pal">
+   <h3 id="palT"></h3>
+   <div class="pg" id="pg"></div>
+   <div class="leg">
+    <span><i style="background:var(--grn)"></i><b id="lA"></b></span>
+    <span><i style="background:#ffe5e5;border-color:var(--red)"></i><b id="lN"></b></span>
+    <span><i style="background:#fff"></i><b id="lU"></b></span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="result" class="hide"><div class="card res">
+ <h2 id="rT"></h2>
+ <div style="text-align:center;color:var(--mut)" id="rName"></div>
+ <div class="score" id="rScore"></div>
+ <div style="text-align:center;color:var(--mut);font-size:13px" id="rMark"></div>
+ <div class="stats" id="rStats"></div>
+ <div style="text-align:center"><button class="btn b-pri" id="rvBtn" onclick="toggleRev()"></button> <button class="btn b-out" onclick="location.reload()" id="rtBtn"></button></div>
+ <div id="rev" class="hide" style="margin-top:12px"></div>
+</div></section>
+</main>
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<div class="modal hide" id="modal"><div class="card">
+ <h3 id="mT" style="margin-top:0;color:var(--navy)"></h3>
+ <p id="mB"></p>
+ <div style="display:flex;gap:10px;justify-content:center"><button class="btn b-out" id="mNo" onclick="closeM()"></button><button class="btn b-grn" id="mYes" onclick="finish()"></button></div>
+</div></div>
+
+<script>
+var TITLE_EN="SRT Test Series – Mock Test 20", TITLE_HI="एसआरटी टेस्ट सीरीज़ – मॉक टेस्ट 20";
+var DURATION=30*60, PLUS=1, MINUS=0.25;
+// [question EN, question HI, [A en, A hi], [B], [C], [D], correct index 0-3]
+var Q=[
+["You receive a highly urgent message from a close friend's social media account asking for immediate financial help due to a medical emergency.","आपको एक करीबी दोस्त के सोशल मीडिया अकाउंट से एक अत्यधिक जरूरी संदेश मिलता है जिसमें मेडिकल इमरजेंसी के कारण तत्काल वित्तीय मदद मांगी गई है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly pause the digital transaction completely, safely verify the situation by calling your friend directly, and firmly report the hacked account.","आप डिजिटल लेनदेन को तुरंत पूरी तरह से रोक देंगे, सीधे अपने दोस्त को कॉल करके सुरक्षित रूप से स्थिति को सत्यापित करेंगे, और हैक किए गए खाते की दृढ़ता से रिपोर्ट करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],1],
+["You notice a senior student continuously mocking and verbally abusing a junior student regarding their regional accent during a college cultural event.","आप देखते हैं कि एक सीनियर छात्र कॉलेज के सांस्कृतिक कार्यक्रम के दौरान क्षेत्रीय लहजे को लेकर जूनियर छात्र का लगातार मजाक उड़ाता है और उसे गाली देता है।",
+["You will calmly step between the aggressive senior, politely support the targeted junior student completely, and safely inform the event faculty coordinator.","आप शांति से आक्रामक सीनियर के बीच कदम रखेंगे, लक्षित जूनियर छात्र का पूरी तरह से विनम्रतापूर्वक समर्थन करेंगे, और सुरक्षित रूप से इवेंट फैकल्टी समन्वयक को सूचित करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],0],
+["While travelling in a highly crowded local train, a stranger accidentally keeps leaning heavily onto a female passenger, making her visibly uncomfortable.","अत्यधिक भीड़भाड़ वाली लोकल ट्रेन में यात्रा करते समय, एक अजनबी गलती से एक महिला यात्री पर भारी रूप से झुकता रहता है, जिससे वह स्पष्ट रूप से असहज हो जाती है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will safely position yourself entirely between them, firmly ask the stranger to strictly maintain distance, and calmly offer the lady your seat.","आप सुरक्षित रूप से खुद को पूरी तरह से उनके बीच में रखेंगे, दृढ़ता से अजनबी को सख्ती से दूरी बनाए रखने के लिए कहेंगे, और शांति से महिला को अपनी सीट की पेशकश करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],2],
+["Your team leader strictly demands you to manipulate the monthly sales data to hide a major financial loss before the final board presentation.","आपका टीम लीडर अंतिम बोर्ड प्रस्तुति से पहले एक बड़े वित्तीय नुकसान को छिपाने के लिए आपसे मासिक बिक्री डेटा में हेरफेर करने की सख्ती से मांग करता है।",
+["You will firmly refuse the highly illegal request entirely, safely keep a secure copy of original data, and politely alert the HR department.","आप दृढ़ता से अत्यधिक अवैध अनुरोध को पूरी तरह से अस्वीकार करेंगे, सुरक्षित रूप से मूल डेटा की एक सुरक्षित प्रति रखेंगे, और विनम्रतापूर्वक एचआर विभाग को सतर्क करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],0],
+["A fake anonymous online profile starts posting deeply morphed offensive pictures of your college classmate strictly targeting her character.","एक फर्जी गुमनाम ऑनलाइन प्रोफाइल आपके कॉलेज की सहपाठी के चरित्र को सख्ती से निशाना बनाते हुए उसकी गहराई से बदली गई (morphed) आपत्तिजनक तस्वीरें पोस्ट करना शुरू कर देता है।",
+["You will calmly collect the digital evidence securely, safely support your completely traumatized classmate emotionally, and firmly register a strict cyber police complaint.","आप शांति से डिजिटल साक्ष्य को सुरक्षित रूप से एकत्र करेंगे, अपनी पूरी तरह से आघातित सहपाठी का सुरक्षित रूप से भावनात्मक समर्थन करेंगे, और दृढ़ता से एक सख्त साइबर पुलिस शिकायत दर्ज करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],0],
+["Before a major scholarship exam, a highly competitive coaching batchmate deliberately spills permanent ink perfectly on your crucial handwritten study notes.","एक बड़ी छात्रवृत्ति परीक्षा से पहले, एक अत्यधिक प्रतिस्पर्धी कोचिंग बैचमेट जानबूझकर आपके महत्वपूर्ण हस्तलिखित अध्ययन नोट्स पर पूरी तरह से स्थायी स्याही गिरा देता है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will calmly control your sudden extreme anger completely, safely borrow the notes from another friend, and firmly focus entirely on the exam.","आप शांति से अपने अचानक अत्यधिक क्रोध को पूरी तरह नियंत्रित करेंगे, सुरक्षित रूप से किसी अन्य मित्र से नोट्स उधार लेंगे, और दृढ़ता से पूरी तरह से परीक्षा पर ध्यान केंद्रित करेंगे।"],3],
+["A highly reputed digital wallet app deducts a massive heavy payment twice for a single minor grocery purchase at a local shop.","एक अत्यधिक प्रतिष्ठित डिजिटल वॉलेट ऐप स्थानीय दुकान पर एक ही मामूली किराने की खरीदारी के लिए दो बार बड़े पैमाने पर भारी भुगतान काटता है।",
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will calmly capture the exact digital transaction screenshots, safely raise a formal ticket perfectly via app, and firmly follow up the bank.","आप शांति से सटीक डिजिटल लेनदेन स्क्रीनशॉट कैप्चर करेंगे, सुरक्षित रूप से ऐप के माध्यम से पूरी तरह से एक औपचारिक टिकट बढ़ाएंगे, और दृढ़ता से बैंक से फॉलो अप करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],1],
+["You clearly hear the sound of violent heavy physical beating and a child crying deeply coming from your immediate neighbour's completely locked house.","आप स्पष्ट रूप से हिंसक भारी शारीरिक पिटाई की आवाज और एक बच्चे के गहराई से रोने की आवाज सुनते हैं जो आपके तत्काल पड़ोसी के पूरी तरह से बंद घर से आ रही है।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will safely gather the strict residential society members, firmly knock on the locked door together, and promptly call the local police immediately.","आप सुरक्षित रूप से सख्त आवासीय सोसायटी के सदस्यों को इकट्ठा करेंगे, दृढ़ता से एक साथ बंद दरवाजे पर दस्तक देंगे, और तुरंत स्थानीय पुलिस को कॉल करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],2],
+["A highly senior manager constantly makes extremely inappropriate personal comments entirely targeting a newly joined female employee exactly during office breaks.","एक अत्यधिक वरिष्ठ प्रबंधक लगातार कार्यालय के ब्रेक के दौरान एक नवनियुक्त महिला कर्मचारी को पूरी तरह से निशाना बनाते हुए अत्यधिक अनुचित व्यक्तिगत टिप्पणी करता है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will calmly accompany the new vulnerable employee safely, politely interrupt the senior's highly toxic conversation, and firmly advise her to report HR.","आप शांति से नई कमजोर कर्मचारी का सुरक्षित रूप से साथ देंगे, विनम्रतापूर्वक वरिष्ठ की अत्यधिक विषैली बातचीत को बाधित करेंगे, और दृढ़ता से उसे एचआर को रिपोर्ट करने की सलाह देंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],2],
+["Your closest friend threatens to commit a highly dangerous drastic step entirely because he failed the final board examination completely.","आपका सबसे करीबी दोस्त पूरी तरह से एक अत्यधिक खतरनाक कठोर कदम उठाने की धमकी देता है क्योंकि वह अंतिम बोर्ड परीक्षा में पूरी तरह से विफल हो गया है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will calmly rush to his exact current location, safely comfort him with complete emotional support, and firmly alert his strict parents properly.","आप शांति से उसके सटीक वर्तमान स्थान पर जाएंगे, सुरक्षित रूप से उसे पूर्ण भावनात्मक समर्थन के साथ सांत्वना देंगे, और दृढ़ता से उसके सख्त माता-पिता को ठीक से सतर्क करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],2],
+["You receive a very official-sounding automated voice call claiming your mobile number will be strictly blocked entirely by the telecom department within 2 hours.","आपको एक बहुत ही आधिकारिक लगने वाली स्वचालित वॉइस कॉल प्राप्त होती है जिसमें दावा किया जाता है कि आपका मोबाइल नंबर 2 घंटे के भीतर दूरसंचार विभाग द्वारा सख्ती से पूरी तरह से ब्लॉक कर दिया जाएगा।",
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly disconnect the highly suspicious spam call, safely verify the actual official telecom guidelines, and firmly block the unknown caller number.","आप तुरंत अत्यधिक संदिग्ध स्पैम कॉल को काट देंगे, सुरक्षित रूप से वास्तविक आधिकारिक दूरसंचार दिशानिर्देशों को सत्यापित करेंगे, और दृढ़ता से अज्ञात कॉलर नंबर को ब्लॉक करेंगे।"],3],
+["A heavily drunk person actively starts abusing a poor street vendor strictly over a minor delay in serving food on a busy road.","एक भारी नशे में धुत व्यक्ति एक व्यस्त सड़क पर भोजन परोसने में मामूली देरी पर एक गरीब सड़क विक्रेता को सक्रिय रूप से गाली देना शुरू कर देता है।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will calmly step between the aggressive drunk person, safely pay the poor vendor's pending money, and firmly ask the drunkard to leave.","आप शांति से आक्रामक नशे में धुत व्यक्ति के बीच कदम रखेंगे, सुरक्षित रूप से गरीब विक्रेता के लंबित पैसे का भुगतान करेंगे, और दृढ़ता से शराबी को जाने के लिए कहेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],1],
+["The director of your highly reputed coaching institute suddenly vanishes completely with the heavy advance fees collected strictly for the crash course.","आपके अत्यधिक प्रतिष्ठित कोचिंग संस्थान का निदेशक क्रैश कोर्स के लिए सख्ती से एकत्र की गई भारी अग्रिम फीस के साथ अचानक पूरी तरह से गायब हो जाता है।",
+["You will calmly organize the completely cheated fellow students, safely gather all the original payment receipts, and firmly file a joint police FIR.","आप शांति से पूरी तरह से ठगे गए साथी छात्रों को व्यवस्थित करेंगे, सुरक्षित रूप से सभी मूल भुगतान रसीदें एकत्र करेंगे, और दृढ़ता से एक संयुक्त पुलिस एफआईआर (FIR) दर्ज करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],0],
+["Someone calls strictly claiming your father is heavily injured in a road accident completely and demands urgent money transfer for a life-saving surgery.","कोई व्यक्ति सख्ती से दावा करते हुए कॉल करता है कि आपके पिता सड़क दुर्घटना में पूरी तरह से घायल हो गए हैं और जीवन रक्षक सर्जरी के लिए तत्काल धन हस्तांतरण की मांग करता है।",
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will calmly disconnect the completely unknown fake caller, safely call your actual father directly instantly, and firmly ignore the deep panic trap.","आप शांति से पूरी तरह से अज्ञात फर्जी कॉलर को डिस्कनेक्ट करेंगे, सुरक्षित रूप से अपने वास्तविक पिता को सीधे तुरंत कॉल करेंगे, और दृढ़ता से गहरे घबराहट के जाल को अनदेखा करेंगे।"],3],
+["You accidentally strictly completely attach a highly sensitive confidential client data file exactly in an entirely external public email reply.","आप गलती से एक अत्यधिक संवेदनशील गोपनीय क्लाइंट डेटा फ़ाइल को पूरी तरह से बाहरी सार्वजनिक ईमेल उत्तर में पूरी तरह से संलग्न कर देते हैं।",
+["You will instantly trigger the exact recall email function, safely inform the main IT security team, and calmly notify your immediate senior manager.","आप तुरंत सटीक रिकॉल ईमेल फ़ंक्शन को ट्रिगर करेंगे, सुरक्षित रूप से मुख्य आईटी (IT) सुरक्षा टीम को सूचित करेंगे, और शांति से अपने तत्काल वरिष्ठ प्रबंधक को सूचित करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],0],
+["Your roommate happily shows you the exact highly confidential final question paper completely leaked on a secret telegram group one night before exam.","आपका रूममेट खुशी-खुशी आपको परीक्षा से एक रात पहले एक गुप्त टेलीग्राम ग्रुप पर पूरी तरह से लीक हुआ सटीक अत्यधिक गोपनीय अंतिम प्रश्न पत्र दिखाता है।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will strictly refuse to completely read the paper, safely avoid the entirely illegal unfair practice, and firmly report to the college administration.","आप सख्ती से पेपर को पूरी तरह से पढ़ने से इंकार करेंगे, सुरक्षित रूप से पूरी तरह से अवैध अनुचित व्यवहार से बचेंगे, और दृढ़ता से कॉलेज प्रशासन को रिपोर्ट करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],1],
+["A highly arrogant flat owner strictly refuses to rent his completely vacant apartment to your friend entirely based on his specific religious identity.","एक अत्यधिक अभिमानी फ्लैट मालिक आपके मित्र को उसकी विशिष्ट धार्मिक पहचान के आधार पर अपना पूरी तरह से खाली अपार्टमेंट किराए पर देने से सख्ती से इंकार करता है।",
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will calmly leave the highly toxic discriminatory place, safely support your deeply hurt close friend, and firmly search for a better property.","आप शांति से अत्यधिक विषैले भेदभावपूर्ण स्थान को छोड़ देंगे, सुरक्षित रूप से अपने गहराई से आहत करीबी दोस्त का समर्थन करेंगे, और दृढ़ता से एक बेहतर संपत्ति की खोज करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],1],
+["A highly controversial deepfake video perfectly replacing a famous local teacher's face goes completely viral exactly on the student WhatsApp groups.","एक प्रसिद्ध स्थानीय शिक्षक के चेहरे को पूरी तरह से बदलने वाला एक अत्यधिक विवादास्पद डीपफेक वीडियो छात्र व्हाट्सएप ग्रुप पर पूरी तरह से वायरल हो जाता है।",
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will strictly stop the highly offensive viral forwarding, safely inform the completely innocent targeted teacher, and firmly report the original fake video.","आप अत्यधिक आक्रामक वायरल अग्रेषण (forwarding) को सख्ती से रोकेंगे, सुरक्षित रूप से पूरी तरह से निर्दोष लक्षित शिक्षक को सूचित करेंगे, और दृढ़ता से मूल फर्जी वीडियो की रिपोर्ट करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],1],
+["A local street gang stops your vehicle perfectly completely exactly demanding heavy protection money to strictly allow you to pass the narrow road.","एक स्थानीय सड़क गिरोह आपके वाहन को पूरी तरह से ठीक से रोकता है और आपको संकरी सड़क से गुजरने की सख्ती से अनुमति देने के लिए भारी सुरक्षा राशि (protection money) की मांग करता है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will calmly lock the heavy car doors completely, safely reverse the vehicle exactly backward entirely, and firmly call the official local police.","आप शांति से भारी कार के दरवाजों को पूरी तरह से बंद कर लेंगे, सुरक्षित रूप से वाहन को पूरी तरह से पीछे की ओर ले जाएंगे, और दृढ़ता से आधिकारिक स्थानीय पुलिस को बुलाएंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],1],
+["A highly competitive smart colleague entirely perfectly presents your complete original hard-worked research report exactly as his own completely in the board meeting.","एक अत्यधिक प्रतिस्पर्धी स्मार्ट सहयोगी बोर्ड बैठक में पूरी तरह से आपकी मूल कड़ी मेहनत वाली शोध रिपोर्ट को अपने स्वयं के रूप में प्रस्तुत करता है।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will calmly wait for the exact presentation end, safely project your original digital timestamped drafts, and politely clarify the exact true ownership.","आप शांति से सटीक प्रस्तुति के अंत की प्रतीक्षा करेंगे, सुरक्षित रूप से अपने मूल डिजिटल टाइमस्टैम्प्ड ड्राफ्ट को प्रोजेक्ट करेंगे, और विनम्रतापूर्वक सटीक सही स्वामित्व को स्पष्ट करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],1],
+["Two highly aggressive students start a brutal heavy physical fight completely exactly inside the crowded coaching classroom strictly during a major teacher's absence.","दो अत्यधिक आक्रामक छात्र एक प्रमुख शिक्षक की अनुपस्थिति में भीड़भाड़ वाली कोचिंग कक्षा के ठीक अंदर एक क्रूर भारी शारीरिक लड़ाई शुरू कर देते हैं।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will safely call the strong coaching security guards, calmly ask the other panicked students aside, and firmly stop the highly violent fight.","आप सुरक्षित रूप से मजबूत कोचिंग सुरक्षा गार्डों को बुलाएंगे, शांति से अन्य घबराए हुए छात्रों को एक तरफ कहेंगे, और दृढ़ता से अत्यधिक हिंसक लड़ाई को रोकेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],1],
+["You receive a highly lucrative international job offer strictly asking for a completely heavy non-refundable visa processing fee exactly transferred via cryptocurrency.","आपको एक अत्यधिक आकर्षक अंतर्राष्ट्रीय नौकरी की पेशकश प्राप्त होती है जिसमें सख्ती से क्रिप्टोक्यूरेंसी के माध्यम से पूरी तरह से भारी गैर-वापसी योग्य वीज़ा प्रसंस्करण शुल्क की मांग की जाती है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will safely ignore the completely fake job email, strictly avoid the highly suspicious cryptocurrency payment, and calmly block the entirely unknown sender.","आप सुरक्षित रूप से पूरी तरह से फर्जी नौकरी ईमेल को अनदेखा करेंगे, अत्यधिक संदिग्ध क्रिप्टोक्यूरेंसी भुगतान से सख्ती से बचेंगे, और शांति से पूरी तरह से अज्ञात प्रेषक को ब्लॉक करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],2],
+["At a highly crowded marriage function, a heavily drunk uncle strictly starts passing deeply uncomfortable double-meaning comments perfectly entirely to the young girls.","एक अत्यधिक भीड़भाड़ वाले विवाह समारोह में, एक भारी नशे में धुत चाचा युवतियों पर पूरी तरह से गहराई से असहज करने वाली द्विअर्थी टिप्पणी करना शुरू कर देता है।",
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will calmly intervene the highly toxic dirty conversation, safely escort the deeply uncomfortable young girls, and firmly inform the main event hosts.","आप शांति से अत्यधिक विषैली गंदी बातचीत में हस्तक्षेप करेंगे, सुरक्षित रूप से गहराई से असहज युवतियों को ले जाएंगे, और दृढ़ता से मुख्य कार्यक्रम के मेजबानों को सूचित करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],2],
+["A highly speeding heavy truck perfectly completely hits a poor street dog completely strictly exactly and rapidly runs entirely away perfectly leaving it bleeding.","एक अत्यधिक तेज गति वाला भारी ट्रक एक गरीब सड़क के कुत्ते को पूरी तरह से ठीक टक्कर मारता है और उसे खून से लथपथ छोड़कर पूरी तरह से तेजी से भाग जाता है।",
+["You will safely move the severely injured poor dog, calmly apply the basic clean first aid, and promptly call the animal rescue NGO.","आप सुरक्षित रूप से गंभीर रूप से घायल गरीब कुत्ते को ले जाएंगे, शांति से बुनियादी स्वच्छ प्राथमिक उपचार लागू करेंगे, और तुरंत पशु बचाव एनजीओ (NGO) को बुलाएंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],0],
+["A group of strict senior students forcefully exactly perfectly entirely trap a totally junior student exactly strictly fully entirely for severe ragging entirely.","सख्त सीनियर छात्रों का एक समूह गंभीर रैगिंग के लिए एक जूनियर छात्र को बलपूर्वक पूरी तरह से फंसाता है।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will safely approach the highly aggressive senior group, politely stop the completely illegal forced ragging, and firmly report the strict college authorities.","आप सुरक्षित रूप से अत्यधिक आक्रामक वरिष्ठ समूह से संपर्क करेंगे, विनम्रतापूर्वक पूरी तरह से अवैध मजबूर रैगिंग को रोकेंगे, और दृढ़ता से सख्त कॉलेज अधिकारियों को रिपोर्ट करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],1],
+["An unknown online completely strictly anonymous totally perfectly heavily hacker totally entirely perfectly strictly heavily threatens to completely leak perfectly private photos entirely.","एक अज्ञात ऑनलाइन पूरी तरह से गुमनाम हैकर पूरी तरह से निजी तस्वीरों को पूरी तरह से लीक करने की भारी धमकी देता है।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly toxic blackmailing threats, safely save the exact digital chat screenshots, and firmly file a strict cyber complaint.","आप अत्यधिक विषैले ब्लैकमेलिंग खतरों को पूरी तरह नजरअंदाज करेंगे, सटीक डिजिटल चैट स्क्रीनशॉट को सुरक्षित रूप से सहेजेंगे, और दृढ़ता से एक सख्त साइबर शिकायत दर्ज करेंगे।"],3],
+["Your totally strict fully completely perfectly entirely heavy completely entirely boss perfectly completely deeply fully completely totally strictly totally completely stops perfectly all strictly fully salaries.","आपका सख्त बॉस पूरी तरह से सभी वेतन को पूरी तरह से रोक देता है।",
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will calmly write a highly formal professional email, safely unite the completely unpaid innocent employees, and firmly approach the higher labor authorities.","आप शांति से एक अत्यधिक औपचारिक पेशेवर ईमेल लिखेंगे, पूरी तरह से अवैतनिक निर्दोष कर्मचारियों को सुरक्षित रूप से एकजुट करेंगे, और दृढ़ता से उच्च श्रम अधिकारियों से संपर्क करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],1],
+["A perfectly totally highly deeply aggressive strict heavy totally entirely neighbor completely fully perfectly falsely entirely perfectly accuses perfectly exactly perfectly completely you exactly perfectly fully.","एक अत्यधिक आक्रामक पड़ोसी पूरी तरह से आप पर बिल्कुल झूठा आरोप लगाता है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will calmly listen the highly false aggressive accusations, safely present the exact concrete visual proofs, and politely clear the deep stupid misunderstanding.","आप शांति से अत्यधिक झूठे आक्रामक आरोपों को सुनेंगे, सुरक्षित रूप से सटीक ठोस दृश्य प्रमाण प्रस्तुत करेंगे, और विनम्रतापूर्वक गहरी मूर्खतापूर्ण गलतफहमी को दूर करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],2],
+["A highly brilliant exactly perfectly deeply perfectly entirely totally totally fully completely close strictly entirely perfectly friend completely perfectly totally deeply fully completely perfectly breaks.","एक अत्यधिक शानदार करीबी दोस्त पूरी तरह से मानसिक रूप से टूट जाता है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will calmly sit exactly completely beside him, safely offer the highly immense emotional support, and politely suggest a professional psychological counselor.","आप शांति से बिल्कुल पूरी तरह से उसके बगल में बैठेंगे, सुरक्षित रूप से अत्यधिक विशाल भावनात्मक समर्थन प्रदान करेंगे, और विनम्रतापूर्वक एक पेशेवर मनोवैज्ञानिक परामर्शदाता का सुझाव देंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],2],
+["You completely perfectly clearly exactly entirely totally perfectly closely totally fully strictly heavily notice perfectly exactly completely perfectly deeply exactly suspicious completely skimming fully perfectly device.","आप एटीएम कार्ड स्लॉट पर पूरी तरह से एक संदिग्ध स्किमिंग डिवाइस को बिल्कुल स्पष्ट रूप से देखते हैं।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will safely avoid the completely compromised ATM machine, calmly record the highly suspicious exact device, and firmly alert the official bank guards.","आप सुरक्षित रूप से पूरी तरह से समझौता किए गए एटीएम मशीन से बचेंगे, शांति से अत्यधिक संदिग्ध सटीक डिवाइस को रिकॉर्ड करेंगे, और दृढ़ता से आधिकारिक बैंक गार्डों को सतर्क करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],1],
+["You clearly notice your entirely perfectly fully deeply completely entirely strictly highly perfectly strictly close entirely completely totally entirely deeply perfectly completely deeply perfectly totally friend consuming illegal substances.","आप स्पष्ट रूप से देखते हैं कि आपका करीबी दोस्त कॉलेज के वाशरूम में अवैध पदार्थों का सेवन कर रहा है।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will calmly talk your totally misguided close friend, safely explain the highly dangerous severe consequences, and firmly inform the strict student counselor.","आप शांति से अपने पूरी तरह से गुमराह करीबी दोस्त से बात करेंगे, सुरक्षित रूप से अत्यधिक खतरनाक गंभीर परिणामों की व्याख्या करेंगे, और दृढ़ता से सख्त छात्र परामर्शदाता को सूचित करेंगे।"],3],
+["A highly strict deeply entirely completely fully completely totally perfectly exactly fully entirely entirely completely fully fully perfectly completely entirely manager highly favors deeply unqualified candidate.","प्रबंधक अत्यधिक स्पष्ट रूप से पदोन्नति के लिए कम योग्य उम्मीदवार का पक्ष लेता है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will calmly update your highly professional detailed resume, safely ignore the completely toxic office politics, and firmly search for better outside opportunities.","आप शांति से अपने अत्यधिक पेशेवर विस्तृत रिज्यूमे को अपडेट करेंगे, पूरी तरह से विषैली कार्यालय की राजनीति को सुरक्षित रूप से अनदेखा करेंगे, और दृढ़ता से बेहतर बाहरी अवसरों की खोज करेंगे।"],3],
+["A completely strictly heavily perfectly fully totally entirely deeply fully completely perfectly highly perfectly entirely caterer totally refuses fully completely strictly serving completely lower caste perfectly guests.","एक कैटरर विवाह समारोह में निचली जाति के मेहमानों को भोजन परोसने से इंकार कर देता है।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will firmly stop the highly discriminatory illegal behavior, safely warn the completely arrogant local caterer, and calmly serve the hungry innocent guests.","आप दृढ़ता से अत्यधिक भेदभावपूर्ण अवैध व्यवहार को रोकेंगे, सुरक्षित रूप से पूरी तरह से अभिमानी स्थानीय कैटरर को चेतावनी देंगे, और शांति से भूखे निर्दोष मेहमानों को परोसेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],2],
+["A completely totally highly perfectly strictly deeply heavily exactly fully completely totally entirely fake totally NGO entirely perfectly entirely perfectly completely heavily collects entirely completely strict donations.","आप देखते हैं कि एक फर्जी एनजीओ (NGO) अनाथों के नाम पर भारी दान एकत्र कर रहा है।",
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will calmly verify the completely suspicious fake organization, safely expose the highly fraudulent illegal charity, and firmly report the official cyber crime.","आप शांति से पूरी तरह से संदिग्ध फर्जी संगठन को सत्यापित करेंगे, अत्यधिक धोखाधड़ी वाले अवैध दान को सुरक्षित रूप से उजागर करेंगे, और दृढ़ता से आधिकारिक साइबर अपराध की रिपोर्ट करेंगे।"],
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],2],
+["A completely perfectly highly entirely strictly deeply totally completely fully exactly heavily fully perfectly entirely group perfectly completely strictly completely entirely teases completely strictly entirely perfectly single entirely girl.","उपद्रवियों का एक समूह शाम के समय एक अकेली लड़की को छेड़ रहा है।",
+["You will aggressively attack the highly annoying stupid people, violently break the heavy physical costly objects, and loudly start the massive violent fighting.","आप अत्यधिक कष्टप्रद मूर्ख लोगों पर आक्रामक रूप से हमला करेंगे, हिंसक रूप से भारी भौतिक महंगी वस्तुओं को तोड़ेंगे, और जोर-जोर से विशाल हिंसक लड़ाई शुरू करेंगे।"],
+["You will instantly panic the sudden extreme unexpected fear, quickly drop the heavy tactical daily bags, and blindly reach the safe protected home.","आप तुरंत अचानक अत्यधिक अप्रत्याशित डर में घबराएंगे, जल्दी से भारी सामरिक दैनिक बैग गिरा देंगे, और आंख मूंदकर सुरक्षित संरक्षित घर पहुंचेंगे।"],
+["You will completely ignore the highly dangerous toxic situation, silently leave the crowded busy public area, and strictly mind the personal private business.","आप अत्यधिक खतरनाक विषैली स्थिति को पूरी तरह नजरअंदाज करेंगे, चुपचाप भीड़भाड़ वाले व्यस्त सार्वजनिक क्षेत्र को छोड़ देंगे, और सख्ती से व्यक्तिगत निजी व्यवसाय पर ध्यान देंगे।"],
+["You will safely approach the highly scared lonely girl, firmly confront the completely rowdy cheap boys, and promptly call the active local police.","आप सुरक्षित रूप से अत्यधिक डरी हुई अकेली लड़की के पास जाएंगे, दृढ़ता से पूरी तरह से उपद्रवी सस्ते लड़कों का सामना करेंगे, और तुरंत सक्रिय स्थानीय पुलिस को कॉल करेंगे।"],3]
+];
+
+var T={
+en:{sT:"SRT Mock Test 20",ins:["Total questions: 35 | Time: 30 minutes","Correct answer: +1 mark | Wrong answer: −0.25 mark | Unanswered: 0","Click a question number in the palette to jump to any question","You can switch between English and Hindi anytime","You can submit the test anytime; it auto-submits when time ends"],name:"Enter your name (optional)",start:"Start Test",q:"Question",of:"of",prev:"« Previous",next:"Next »",clr:"Clear",sub:"Submit Test",pal:"Question Console",pg:"Show / Hide Question Console",lA:"Answered",lN:"Not answered",lU:"Not visited",mT:"Submit Test?",mB:function(a,s){return "You have answered "+a+" and left "+s+" unanswered. Do you want to submit?"},mNo:"Cancel",mYes:"Yes, Submit",rT:"Test Result",tot:"Total Score",mk:"Marking: +1 correct, −0.25 wrong",att:"Attempted",skp:"Skipped",cor:"Correct",wro:"Wrong",tq:"Total Questions",neg:"Negative Marks",rv:"View Answers",hv:"Hide Answers",rt:"Retake Test",ok:"Correct",no:"Wrong",sk:"Skipped",ca:"Correct answer",ya:"Your answer"},
+hi:{sT:"एसआरटी मॉक टेस्ट 20",ins:["कुल प्रश्न: 35 | समय: 30 मिनट","सही उत्तर: +1 अंक | गलत उत्तर: −0.25 अंक | बिना उत्तर: 0","किसी भी प्रश्न पर जाने के लिए पैलेट में प्रश्न संख्या दबाएँ","आप कभी भी अंग्रेज़ी और हिन्दी भाषा बदल सकते हैं","आप कभी भी टेस्ट सबमिट कर सकते हैं; समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा"],name:"अपना नाम लिखें (वैकल्पिक)",start:"टेस्ट शुरू करें",q:"प्रश्न",of:"/",prev:"« पिछला",next:"अगला »",clr:"उत्तर हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न कंसोल",pg:"प्रश्न कंसोल दिखाएँ / छिपाएँ",lA:"उत्तर दिया",lN:"उत्तर नहीं दिया",lU:"देखा नहीं",mT:"टेस्ट सबमिट करें?",mB:function(a,s){return "आपने "+a+" प्रश्नों के उत्तर दिए हैं और "+s+" प्रश्न छोड़े हैं। क्या आप सबमिट करना चाहते हैं?"},mNo:"रद्द करें",mYes:"हाँ, सबमिट करें",rT:"टेस्ट परिणाम",tot:"कुल स्कोर",mk:"अंकन: सही +1, गलत −0.25",att:"प्रयास किए",skp:"छोड़े गए",cor:"सही",wro:"गलत",tq:"कुल प्रश्न",neg:"ऋणात्मक अंक",rv:"उत्तर देखें",hv:"उत्तर छिपाएँ",rt:"दोबारा टेस्ट दें",ok:"सही",no:"गलत",sk:"छोड़ा गया",ca:"सही उत्तर",ya:"आपका उत्तर"}
+};
+var lang="en",cur=0,ans=[],vis=[],endAt=0,tick=null,done=false,L="ABCD";
+function $(id){return document.getElementById(id)}
+function t(k){return T[lang][k]}
+function pad(n){return n<10?"0"+n:""+n}
+function fmt(n){return (Math.round(n*100)/100).toString()}
+
+function applyStatic(){
+ $("ttl").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sT").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sIns").innerHTML=t("ins").map(function(x){return "<li>"+x+"</li>"}).join("");
+ $("nm").placeholder=t("name");$("sBtn").textContent=t("start");
+ $("prev").textContent=t("prev");$("next").textContent=t("next");$("clr").textContent=t("clr");$("sub").textContent=t("sub");
+ $("palT").textContent=t("pal");$("ptog").textContent=t("pg");
+ $("lA").textContent=t("lA");$("lN").textContent=t("lN");$("lU").textContent=t("lU");
+ $("mNo").textContent=t("mNo");$("mYes").textContent=t("mYes");$("mT").textContent=t("mT");
+ document.documentElement.lang=lang==="en"?"en":"hi";
+ $("bEn").className=lang==="en"?"on":"";$("bHi").className=lang==="hi"?"on":"";
+}
+function setLang(l){
+ lang=l;applyStatic();
+ if(!$("test").classList.contains("hide"))render();
+ if(!$("result").classList.contains("hide"))showResult();
+ if(!$("modal").classList.contains("hide"))openM();
+}
+function startTest(){
+ for(var i=0;i<Q.length;i++){ans[i]=-1;vis[i]=false}
+ $("start").classList.add("hide");$("test").classList.remove("hide");$("timer").classList.remove("hide");
+ endAt=Date.now()+DURATION*1000;
+ tick=setInterval(upd,500);upd();render();
+ window.scrollTo(0,0);
+}
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(s/60))+":"+pad(s%60);
+ if(s<=300)$("timer").className="timer low";
+ if(s<=0&&!done)finish();
+}
+function render(){
+ vis[cur]=true;var q=Q[cur],i=lang==="en"?0:1;
+ $("qno").textContent=t("q")+" "+(cur+1)+" "+t("of")+" "+Q.length;
+ $("qsts").textContent=ans[cur]>=0?"✔ "+t("lA"):"";
+ $("qtext").textContent=(cur+1)+". "+q[i];
+ var h="";
+ for(var k=0;k<4;k++){h+='<button class="opt'+(ans[cur]===k?" sel":"")+'" onclick="pick('+k+')"><span class="l">'+L[k]+'</span><span>'+esc(q[2+k][i])+'</span></button>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===Q.length-1;
+ pal();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function pal(){
+ var h="";
+ for(var i=0;i<Q.length;i++){
+  var c=ans[i]>=0?"ans":(vis[i]?"vis":"");
+  if(i===cur)c+=" cur";
+  h+='<button class="'+c+'" onclick="jump('+i+')">'+(i+1)+'</button>';
+ }
+ $("pg").innerHTML=h;
+}
+function pick(k){ans[cur]=k;render()}
+function clearAns(){ans[cur]=-1;render()}
+function go(d){var n=cur+d;if(n>=0&&n<Q.length){cur=n;render();window.scrollTo(0,0)}}
+function jump(i){cur=i;render();$("pal").classList.remove("open");window.scrollTo(0,0)}
+function togPal(){$("pal").classList.toggle("open")}
+function counts(){var a=0;for(var i=0;i<ans.length;i++)if(ans[i]>=0)a++;return {a:a,s:Q.length-a}}
+function openM(){var c=counts();$("mB").textContent=t("mB")(c.a,c.s);$("modal").classList.remove("hide")}
+function askSubmit(){openM()}
+function closeM(){$("modal").classList.add("hide")}
+function finish(){
+ if(done&&arguments.length===0&&$("test").classList.contains("hide"))return;
+ done=true;clearInterval(tick);closeM();
+ $("test").classList.add("hide");$("timer").classList.add("hide");$("result").classList.remove("hide");
+ showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var cor=0,wro=0,i;
+ for(i=0;i<Q.length;i++){if(ans[i]>=0){if(ans[i]===Q[i][6])cor++;else wro++}}
+ var att=cor+wro,skp=Q.length-att,neg=wro*MINUS,sc=cor*PLUS-neg;
+ $("rT").textContent=t("rT");
+ var nm=$("nm").value.replace(/^\s+|\s+$/g,"");
+ $("rName").textContent=nm?nm:"";
+ $("rScore").textContent=fmt(sc)+" / "+Q.length;
+ $("rMark").textContent=t("mk");
+ var items=[[t("tq"),Q.length,""],[t("att"),att,""],[t("skp"),skp,""],[t("cor"),cor,"color:#138808"],[t("wro"),wro,"color:#d32f2f"],[t("neg"),"−"+fmt(neg),"color:#d32f2f"]];
+ $("rStats").innerHTML=items.map(function(x){return '<div class="st"><b style="'+x[2]+'">'+x[1]+'</b><span>'+x[0]+'</span></div>'}).join("");
+ $("rvBtn").textContent=$("rev").classList.contains("hide")?t("rv"):t("hv");
+ $("rtBtn").textContent=t("rt");
+ var li=lang==="en"?0:1,h="";
+ for(i=0;i<Q.length;i++){
+  var q=Q[i],st=ans[i]<0?["sk","#6b7686"]:(ans[i]===q[6]?["ok","#138808"]:["no","#d32f2f"]);
+  h+='<div class="rv"><div class="q">'+(i+1)+'. '+esc(q[li])+'<span class="tag" style="background:'+st[1]+'">'+t(st[0])+'</span></div>';
+  for(var k=0;k<4;k++){
+   var c="o";if(k===q[6])c+=" ok";else if(k===ans[i])c+=" no";
+   var m=k===q[6]?" ✔":(k===ans[i]?" ✘ ("+t("ya")+")":"");
+   h+='<div class="'+c+'"><b>'+L[k]+'.</b> '+esc(q[2+k][li])+m+'</div>';
+  }
+  h+='</div>';
+ }
+ $("rev").innerHTML=h;
+}
+function toggleRev(){$("rev").classList.toggle("hide");showResult()}
+window.addEventListener("beforeunload",function(e){if(!done&&!$("test").classList.contains("hide")){e.preventDefault();e.returnValue=""}});
+applyStatic();
+</script>
+</body>
+</html>

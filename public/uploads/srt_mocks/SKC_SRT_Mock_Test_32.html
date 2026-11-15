@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SKC DEFENCE ACADEMY - SRT Mock Test 32</title>
+<style>
+:root{--navy:#0b2a5b;--navy2:#143d86;--saf:#ff9933;--grn:#138808;--bg:#f2f5fa;--card:#fff;--tx:#1b2433;--mut:#6b7686;--bd:#d9e0ec;--red:#d32f2f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans Devanagari","Mangal","Nirmala UI",Arial,sans-serif;background:var(--bg);color:var(--tx);line-height:1.5;-webkit-text-size-adjust:100%}
+header{background:var(--navy);color:#fff;border-bottom:4px solid var(--saf);padding:8px 12px;padding-top:calc(8px + env(safe-area-inset-top,0px))}
+.hin{display:flex;align-items:center;gap:10px;max-width:1100px;margin:0 auto;flex-wrap:wrap}
+.logo{width:42px;height:42px;border-radius:50%;background:#fff;color:var(--navy);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;border:3px solid var(--saf);flex:none}
+.brand{flex:1;min-width:150px}
+.brand b{display:block;font-size:18px;letter-spacing:.5px}
+.brand span{font-size:12px;opacity:.85}
+.tools{display:flex;align-items:center;gap:8px}
+.timer{background:#fff;color:var(--navy);font-weight:800;font-size:18px;padding:5px 12px;border-radius:8px;font-variant-numeric:tabular-nums;min-width:84px;text-align:center}
+.timer.low{background:var(--red);color:#fff}
+.btn{border:0;border-radius:8px;padding:10px 16px;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit;touch-action:manipulation}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.b-pri{background:var(--navy2);color:#fff}
+.b-grn{background:var(--grn);color:#fff}
+.b-saf{background:var(--saf);color:#222}
+.b-out{background:#fff;color:var(--navy2);border:2px solid var(--navy2)}
+.lang{display:flex;border-radius:8px;overflow:hidden;border:2px solid var(--saf)}
+.lang button{border:0;background:transparent;color:#fff;padding:6px 10px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit}
+.lang button.on{background:var(--saf);color:#222}
+main{max-width:1100px;margin:0 auto;padding:12px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.hide{display:none!important}
+.start{max-width:640px;margin:20px auto;text-align:center}
+.start h1{color:var(--navy);margin:6px 0}
+.start ul{text-align:left;padding-left:20px}
+.start input{width:100%;padding:12px;font-size:16px;border:2px solid var(--bd);border-radius:8px;margin:8px 0 14px;font-family:inherit}
+.grid{display:grid;grid-template-columns:1fr 300px;gap:12px;align-items:start}
+.qhead{display:flex;justify-content:space-between;font-size:13px;color:var(--mut);margin-bottom:8px;font-weight:600}
+.qtext{font-size:18px;font-weight:600;margin-bottom:14px}
+.opt{display:flex;gap:10px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:2px solid var(--bd);border-radius:10px;padding:12px;margin-bottom:10px;font-size:16px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.opt .l{flex:none;width:28px;height:28px;border-radius:50%;background:#e8edf6;color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center;font-size:14px}
+.opt.sel{border-color:var(--navy2);background:#e9f0ff}
+.opt.sel .l{background:var(--navy2);color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.nav .sp{flex:1}
+.pal h3{margin:0 0 8px;font-size:15px;color:var(--navy)}
+.pg{display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.pg button{height:40px;border-radius:8px;border:2px solid var(--bd);background:#fff;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;color:var(--tx);touch-action:manipulation}
+.pg button.ans{background:var(--grn);border-color:var(--grn);color:#fff}
+.pg button.vis{background:#ffe5e5;border-color:var(--red)}
+.pg button.cur{outline:3px solid var(--saf);outline-offset:1px}
+.leg{display:flex;flex-wrap:wrap;gap:8px 12px;font-size:12px;margin-top:12px;color:var(--mut)}
+.leg i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:-1px;border:1px solid var(--bd)}
+.ptog{display:none;width:100%;margin-bottom:10px}
+.res{max-width:760px;margin:10px auto}
+.res h2{text-align:center;color:var(--navy);margin:4px 0}
+.score{text-align:center;font-size:46px;font-weight:800;color:var(--navy2);margin:6px 0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
+.st{border-radius:10px;padding:12px;text-align:center;background:#f2f5fa;border:1px solid var(--bd)}
+.st b{display:block;font-size:24px}
+.st span{font-size:12px;color:var(--mut)}
+.rv{border-top:1px solid var(--bd);padding:12px 0}
+.rv .q{font-weight:600;margin-bottom:6px}
+.rv .o{padding:6px 10px;border-radius:6px;margin:4px 0;font-size:15px;border:1px solid var(--bd)}
+.rv .o.ok{background:#e3f5e1;border-color:var(--grn)}
+.rv .o.no{background:#ffe5e5;border-color:var(--red)}
+.tag{font-size:12px;font-weight:700;padding:2px 8px;border-radius:10px;color:#fff;margin-left:6px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;padding:16px;z-index:50}
+.modal .card{max-width:380px;width:100%;text-align:center}
+footer{text-align:center;font-size:12px;color:var(--mut);padding:14px}
+@media(max-width:820px){.grid{grid-template-columns:1fr}.ptog{display:block}.pal{display:none}.pal.open{display:block}.qtext{font-size:17px}.brand b{font-size:15px}}
+</style>
+</head>
+<body>
+<header><div class="hin">
+ <div class="logo">SKC</div>
+ <div class="brand"><b>SKC DEFENCE ACADEMY</b><span id="ttl">SRT Test Series – Mock Test 32</span></div>
+ <div class="tools">
+  <div class="lang"><button id="bEn" class="on" onclick="setLang('en')">English</button><button id="bHi" onclick="setLang('hi')">हिन्दी</button></div>
+  <div class="timer hide" id="timer">30:00</div>
+ </div>
+</div></header>
+
+<main>
+<section id="start" class="card start">
+ <div class="logo" style="margin:0 auto;width:64px;height:64px;font-size:20px;background:var(--navy);color:#fff">SKC</div>
+ <h1 id="sT">SRT Mock Test 32</h1>
+ <p id="sSub" style="color:var(--mut);margin:0 0 10px">SKC DEFENCE ACADEMY</p>
+ <ul id="sIns"></ul>
+ <input id="nm" type="text" maxlength="40" autocomplete="name">
+ <button class="btn b-grn" id="sBtn" onclick="startTest()" style="width:100%;font-size:17px"></button>
+</section>
+
+<section id="test" class="hide">
+ <button class="btn b-out ptog" id="ptog" onclick="togPal()"></button>
+ <div class="grid">
+  <div class="card">
+   <div class="qhead"><span id="qno"></span><span id="qsts"></span></div>
+   <div class="qtext" id="qtext"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button class="btn b-out" id="prev" onclick="go(-1)"></button>
+    <button class="btn b-saf" id="clr" onclick="clearAns()"></button>
+    <span class="sp"></span>
+    <button class="btn b-pri" id="next" onclick="go(1)"></button>
+   </div>
+   <div style="margin-top:14px"><button class="btn b-grn" id="sub" onclick="askSubmit()" style="width:100%"></button></div>
+  </div>
+  <div class="card pal" id="pal">
+   <h3 id="palT"></h3>
+   <div class="pg" id="pg"></div>
+   <div class="leg">
+    <span><i style="background:var(--grn)"></i><b id="lA"></b></span>
+    <span><i style="background:#ffe5e5;border-color:var(--red)"></i><b id="lN"></b></span>
+    <span><i style="background:#fff"></i><b id="lU"></b></span>
+   </div>
+  </div>
+ </div>
+</section>
+
+<section id="result" class="hide"><div class="card res">
+ <h2 id="rT"></h2>
+ <div style="text-align:center;color:var(--mut)" id="rName"></div>
+ <div class="score" id="rScore"></div>
+ <div style="text-align:center;color:var(--mut);font-size:13px" id="rMark"></div>
+ <div class="stats" id="rStats"></div>
+ <div style="text-align:center"><button class="btn b-pri" id="rvBtn" onclick="toggleRev()"></button> <button class="btn b-out" onclick="location.reload()" id="rtBtn"></button></div>
+ <div id="rev" class="hide" style="margin-top:12px"></div>
+</div></section>
+</main>
+<footer>© SKC DEFENCE ACADEMY</footer>
+
+<div class="modal hide" id="modal"><div class="card">
+ <h3 id="mT" style="margin-top:0;color:var(--navy)"></h3>
+ <p id="mB"></p>
+ <div style="display:flex;gap:10px;justify-content:center"><button class="btn b-out" id="mNo" onclick="closeM()"></button><button class="btn b-grn" id="mYes" onclick="finish()"></button></div>
+</div></div>
+
+<script>
+var TITLE_EN="SRT Test Series – Mock Test 32", TITLE_HI="एसआरटी टेस्ट सीरीज़ – मॉक टेस्ट 32";
+var DURATION=30*60, PLUS=1, MINUS=0.25;
+// [question EN, question HI, [A en, A hi], [B], [C], [D], correct index 0-3]
+var Q=[
+["You accidentally send a highly critical message about your boss to the official office group instead of your friend.","आप गलती से अपने दोस्त के बजाय आधिकारिक कार्यालय समूह (ग्रुप) में अपने बॉस के बारे में एक अत्यधिक आलोचनात्मक संदेश भेज देते हैं।",
+["Pretend your phone was hacked or accessed by someone else to completely avoid taking any professional responsibility.","यह दिखावा करें कि आपका फोन हैक हो गया था या किसी और ने एक्सेस किया था ताकि आप किसी भी पेशेवर जिम्मेदारी से पूरी तरह बच सकें।"],
+["Quickly leave the group chat and switch off your phone to avoid facing immediate backlash from your colleagues.","अपने सहयोगियों से तत्काल प्रतिक्रिया का सामना करने से बचने के लिए जल्दी से ग्रुप चैट छोड़ दें और अपना फोन बंद कर दें।"],
+["Immediately delete the message for everyone, apologize privately to the boss, and explain it was a misunderstanding.","तुरंत सभी के लिए संदेश हटा दें, निजी तौर पर बॉस से माफी मांगें, और समझाएं कि यह एक गलतफहमी थी।"],
+["Loudly argue in the group that your criticism is valid and challenge the boss to improve their behavior.","समूह में जोर-शोर से बहस करें कि आपकी आलोचना वैध है और बॉस को अपना व्यवहार सुधारने की चुनौती दें।"],2],
+
+["You find a beautiful wallet on a park bench. It contains old, precious family photos but absolutely no money or ID cards.","आपको पार्क की बेंच पर एक खूबसूरत बटुआ मिलता है। इसमें पुरानी, कीमती पारिवारिक तस्वीरें हैं लेकिन बिल्कुल कोई पैसा या आईडी कार्ड नहीं है।",
+["Leave the wallet exactly where it is, assuming the owner will eventually retrace their steps to find it.","बटुए को वहीं छोड़ दें जहां वह है, यह मानकर कि मालिक अंततः इसे खोजने के लिए अपने कदमों पर वापस आएगा।"],
+["Hand it over to the park authorities or local police station, emphasizing the emotional value of the photographs.","तस्वीरों के भावनात्मक मूल्य पर जोर देते हुए इसे पार्क अधिकारियों या स्थानीय पुलिस स्टेशन को सौंप दें।"],
+["Take the photos out and pin them on a nearby notice board so the owner can spot them easily.","तस्वीरों को बाहर निकालें और उन्हें पास के नोटिस बोर्ड पर पिन करें ताकि मालिक उन्हें आसानी से देख सके।"],
+["Throw the empty wallet in the dustbin as it contains no cash or legal identification of any real use.","खाली बटुए को कूड़ेदान में फेंक दें क्योंकि इसमें किसी भी वास्तविक उपयोग की कोई नकदी या कानूनी पहचान नहीं है।"],1],
+
+["You are reading in a quiet corner of a massive public library and realize you have been locked inside after closing hours.","आप एक विशाल सार्वजनिक पुस्तकालय के एक शांत कोने में पढ़ रहे हैं और महसूस करते हैं कि आपको बंद होने के समय के बाद अंदर बंद कर दिया गया है।",
+["Make yourself comfortable on a couch and decide to sleep in the library until the staff arrives the next morning.","काउच पर खुद को आरामदायक बनाएं और अगली सुबह कर्मचारियों के आने तक पुस्तकालय में सोने का फैसला करें।"],
+["Try to break the glass windows using heavy books or furniture to escape before it gets too dark inside.","अंदर बहुत अंधेरा होने से पहले भागने के लिए भारी किताबों या फर्नीचर का उपयोग करके कांच की खिड़कियों को तोड़ने की कोशिश करें।"],
+["Start shouting loudly from the windows and throw objects outside to grab the attention of passersby on the street.","खिड़कियों से जोर-जोर से चिल्लाना शुरू करें और सड़क पर राहगीरों का ध्यान खींचने के लिए चीजों को बाहर फेंक दें।"],
+["Call the emergency numbers or local police immediately to explain your situation and wait calmly for them to open the doors.","अपनी स्थिति समझाने के लिए तुरंत आपातकालीन नंबरों या स्थानीय पुलिस को कॉल करें और दरवाजे खोलने के लिए शांति से प्रतीक्षा करें।"],3],
+
+["A guest visiting your house accidentally breaks their own expensive watch and angrily blames your pet dog for knocking it over.","आपके घर आने वाला एक मेहमान गलती से अपनी ही महंगी घड़ी तोड़ देता है और गुस्से में आपके पालतू कुत्ते को उसे गिराने का दोष देता है।",
+["Apologize profusely, accept the blame on behalf of your pet, and promise to pay for the full cost of the watch.","क्षमा मांगें, अपने पालतू जानवर की ओर से दोष स्वीकार करें, और घड़ी की पूरी कीमत चुकाने का वादा करें।"],
+["Maintain your composure, politely but firmly defend your pet, and offer to help them find a good repair shop.","अपना संयम बनाए रखें, विनम्रतापूर्वक लेकिन दृढ़ता से अपने पालतू जानवर का बचाव करें, और उन्हें एक अच्छी मरम्मत की दुकान खोजने में मदद करने की पेशकश करें।"],
+["Silently take your dog to another room and ignore the guest until they calm down and realize their own mistake.","चुपचाप अपने कुत्ते को दूसरे कमरे में ले जाएं और मेहमान को तब तक नजरअंदाज करें जब तक कि वे शांत न हो जाएं और अपनी गलती का एहसास न कर लें।"],
+["Aggressively argue back, accuse them of being careless, and immediately ask them to leave your house for insulting your pet.","आक्रामक रूप से वापस बहस करें, उन पर लापरवाह होने का आरोप लगाएं, और अपने पालतू जानवर का अपमान करने के लिए तुरंत उन्हें अपने घर से जाने के लिए कहें।"],1],
+
+["You are halfway through a 10-hour road trip when you realize you forgot your daily critical prescription medication at home.","आप 10 घंटे की सड़क यात्रा के बीच में हैं जब आपको एहसास होता है कि आप अपनी दैनिक महत्वपूर्ण डॉक्टर के पर्चे की दवा घर पर भूल गए हैं।",
+["Stop at a local pharmacy and aggressively demand they give you the medicine without a prescription due to your emergency.","एक स्थानीय फार्मेसी में रुकें और आक्रामक रूप से मांग करें कि वे आपकी आपात स्थिति के कारण आपको बिना पर्चे के दवा दें।"],
+["Consult a doctor online immediately, explain your medical history, and get a digital prescription to buy medicines at the next town.","तुरंत ऑनलाइन एक डॉक्टर से परामर्श लें, अपना चिकित्सा इतिहास बताएं, और अगले शहर में दवाएं खरीदने के लिए एक डिजिटल नुस्खा प्राप्त करें।"],
+["Ignore the missing medication and continue the road trip, hoping that skipping a few doses won't cause any major health issues.","गायब दवा को अनदेखा करें और सड़क यात्रा जारी रखें, यह उम्मीद करते हुए कि कुछ खुराक छोड़ने से कोई बड़ी स्वास्थ्य समस्या नहीं होगी।"],
+["Turn the car around immediately and drive 5 hours back home, completely ruining the trip but ensuring your absolute safety.","कार को तुरंत घुमाएं और 5 घंटे वापस घर चलाएं, यात्रा को पूरी तरह से बर्बाद कर दें लेकिन अपनी पूर्ण सुरक्षा सुनिश्चित करें।"],1],
+
+["You are staying in a hotel and hear a loud, continuous false fire alarm in the middle of the night.","आप एक होटल में ठहरे हुए हैं और आधी रात को एक तेज, लगातार बजने वाला झूठा फायर अलार्म सुनते हैं।",
+["Assume it is just a drill or a false alarm, put on your earphones, and go back to sleep peacefully.","मान लें कि यह सिर्फ एक ड्रिल या झूठा अलार्म है, अपने इयरफ़ोन लगाएं, और शांति से वापस सो जाएं।"],
+["Angrily call the reception desk multiple times, complaining about the noise and demanding they turn the alarm off immediately.","गुस्से में कई बार रिसेप्शन डेस्क पर कॉल करें, शोर के बारे में शिकायत करें और मांग करें कि वे तुरंत अलार्म बंद कर दें।"],
+["Start banging on all the neighboring doors, shouting aggressively to wake everyone up and creating a huge panic on the floor.","सभी पड़ोसी दरवाजों को पीटना शुरू करें, सभी को जगाने के लिए आक्रामक रूप से चिल्लाएं और फर्श पर एक बड़ी दहशत पैदा करें।"],
+["Quickly grab your essentials, use the stairs to evacuate safely, and verify the situation with the hotel staff outside.","जल्दी से अपनी आवश्यक चीजें पकड़ें, सुरक्षित रूप से बाहर निकलने के लिए सीढ़ियों का उपयोग करें, और बाहर होटल के कर्मचारियों के साथ स्थिति की पुष्टि करें।"],3],
+
+["You invite a friend for dinner, but they arrive two hours late without any prior notice or valid explanation.","आप एक दोस्त को रात के खाने के लिए आमंत्रित करते हैं, लेकिन वे बिना किसी पूर्व सूचना या वैध स्पष्टीकरण के दो घंटे देरी से पहुंचते हैं।",
+["Serve them completely cold food without speaking a single word throughout the dinner to show your extreme displeasure.","अपनी अत्यधिक नाराजगी दिखाने के लिए रात के खाने के दौरान एक भी शब्द बोले बिना उन्हें पूरी तरह से ठंडा खाना परोसें।"],
+["Refuse to open the door, send them a harsh text message, and permanently end your friendship over their lack of punctuality.","दरवाजा खोलने से इंकार करें, उन्हें एक कठोर पाठ संदेश भेजें, और समय की पाबंदी की कमी के कारण अपनी दोस्ती को स्थायी रूप से समाप्त कर दें।"],
+["Smile and pretend nothing happened, suppressing your anger to completely avoid any uncomfortable confrontation with your friend.","मुस्कुराएं और दिखावा करें कि कुछ नहीं हुआ, अपने दोस्त के साथ किसी भी असुविधाजनक टकराव से पूरी तरह बचने के लिए अपने गुस्से को दबा दें।"],
+["Welcome them politely, serve the food, and later gently communicate how their unannounced delay inconvenienced you.","विनम्रतापूर्वक उनका स्वागत करें, खाना परोसें, और बाद में धीरे से बताएं कि उनकी अघोषित देरी से आपको कैसे असुविधा हुई।"],3],
+
+["You discover a colleague has been secretly taking home small office supplies like pens and notepads on a daily basis.","आपको पता चलता है कि एक सहकर्मी रोजाना पेन और नोटपैड जैसी छोटी ऑफिस की आपूर्ति (सप्लाई) चुपके से घर ले जा रहा है।",
+["Ignore the situation entirely, assuming that minor office supplies do not cost much and it is none of your business.","स्थिति को पूरी तरह से अनदेखा करें, यह मानते हुए कि मामूली कार्यालय आपूर्ति में बहुत अधिक खर्च नहीं होता है और इससे आपका कोई मतलब नहीं है।"],
+["Start secretly taking office supplies yourself, believing that since others are doing it, it must be an acceptable practice.","खुद भी चुपके से कार्यालय की आपूर्ति लेना शुरू करें, यह मानते हुए कि चूंकि अन्य लोग ऐसा कर रहे हैं, यह एक स्वीकार्य अभ्यास होना चाहिए।"],
+["Publicly expose them in the middle of the office floor, loudly shaming them in front of all other team members.","कार्यालय के फर्श के बीच में उन्हें सार्वजनिक रूप से बेनकाब करें, अन्य सभी टीम के सदस्यों के सामने उन्हें जोर-शोर से शर्मिंदा करें।"],
+["Talk to the colleague privately, warning them that this behavior is unethical and could risk their job if discovered by management.","सहकर्मी से निजी तौर पर बात करें, उन्हें चेतावनी दें कि यह व्यवहार अनैतिक है और प्रबंधन द्वारा खोजे जाने पर उनकी नौकरी को जोखिम में डाल सकता है।"],3],
+
+["You receive a delivery package meant for your neighbor, but the box is badly torn and the contents are visible.","आपको अपने पड़ोसी के लिए एक डिलीवरी पैकेज प्राप्त होता है, लेकिन बॉक्स बुरी तरह से फटा हुआ है और सामग्री दिखाई दे रही है।",
+["Secretly tape the box perfectly to hide the damage before giving it to the neighbor, so they don't blame you.","पड़ोसी को देने से पहले नुकसान को छिपाने के लिए बॉक्स को चुपके से पूरी तरह से टेप करें, ताकि वे आपको दोष न दें।"],
+["Throw the damaged package away in the trash, assuming the neighbor can just claim a refund from the shopping website.","क्षतिग्रस्त पैकेज को कूड़ेदान में फेंक दें, यह मानकर कि पड़ोसी शॉपिंग वेबसाइट से धनवापसी का दावा कर सकता है।"],
+["Hand it over to the neighbor immediately, clearly explaining the condition it arrived in to avoid any misunderstandings.","किसी भी गलतफहमी से बचने के लिए जिस स्थिति में यह आया था उसे स्पष्ट रूप से समझाते हुए इसे तुरंत पड़ोसी को सौंप दें।"],
+["Aggressively fight with the delivery agent, refusing to accept the package and demanding they return it to the warehouse.","डिलीवरी एजेंट के साथ आक्रामक रूप से लड़ें, पैकेज को स्वीकार करने से इंकार करें और मांग करें कि वे इसे गोदाम में वापस कर दें।"],2],
+
+["While boarding a flight, you realize you accidentally packed a prohibited sharp tool in your cabin baggage.","उड़ान में चढ़ते समय, आपको एहसास होता है कि आपने गलती से अपने केबिन बैगेज में एक प्रतिबंधित तेज उपकरण पैक कर लिया है।",
+["Argue loudly with the security guards, claiming the tool is highly essential for your work and demanding to take it aboard.","सुरक्षा गार्डों के साथ जोर-शोर से बहस करें, यह दावा करते हुए कि उपकरण आपके काम के लिए अत्यधिक आवश्यक है और इसे विमान में ले जाने की मांग करें।"],
+["Try to cleverly hide the tool deep inside your clothes, hoping the security scanners will miss it during the check.","चेकिंग के दौरान सुरक्षा स्कैनर इसे मिस कर देंगे, यह उम्मीद करते हुए उपकरण को चतुराई से अपने कपड़ों के अंदर गहराई में छिपाने की कोशिश करें।"],
+["Promptly inform the security personnel at the checkpoint, explain the honest mistake, and voluntarily surrender the prohibited item.","चेकपॉइंट पर सुरक्षाकर्मियों को तुरंत सूचित करें, ईमानदार गलती की व्याख्या करें, और स्वेच्छा से निषिद्ध वस्तु को सरेंडर करें।"],
+["Panic and run away from the security line, abandoning your luggage entirely out of fear of getting arrested.","घबराएं और सुरक्षा पंक्ति से भाग जाएं, गिरफ्तार होने के डर से अपना सामान पूरी तरह से छोड़ दें।"],2],
+
+["You are judging a local talent competition and realize the most deserving winner cheated, but they are from a very poor background.","आप एक स्थानीय प्रतिभा प्रतियोगिता को जज कर रहे हैं और महसूस करते हैं कि सबसे योग्य विजेता ने धोखा दिया, लेकिन वे बहुत गरीब पृष्ठभूमि से हैं।",
+["Publicly humiliate them on the stage, calling out their cheating in front of the entire audience to teach them a lesson.","उन्हें सबक सिखाने के लिए पूरे दर्शकों के सामने उनकी धोखाधड़ी को पुकारते हुए, मंच पर उन्हें सार्वजनिक रूप से अपमानित करें।"],
+["Resign from the judging panel immediately to avoid making a tough moral decision, leaving the problem to other judges.","कठोर नैतिक निर्णय लेने से बचने के लिए तुरंत जजिंग पैनल से इस्तीफा दे दें, समस्या को अन्य जजों पर छोड़ दें।"],
+["Ignore the cheating entirely out of deep sympathy for their poverty and declare them the winner to change their life.","उनकी गरीबी के लिए गहरी सहानुभूति से धोखाधड़ी को पूरी तरह से अनदेखा करें और उनका जीवन बदलने के लिए उन्हें विजेता घोषित करें।"],
+["Strictly follow the rules to disqualify them for cheating, but privately offer them mentorship or financial guidance later.","धोखाधड़ी के लिए उन्हें अयोग्य घोषित करने के नियमों का सख्ती से पालन करें, लेकिन बाद में उन्हें निजी तौर पर सलाह या वित्तीय मार्गदर्शन प्रदान करें।"],3],
+
+["You move into a rented house and discover a locked hidden room that the landlord strictly forbade you from opening.","आप एक किराए के घर में जाते हैं और एक बंद छिपा हुआ कमरा पाते हैं जिसे मकान मालिक ने आपको खोलने से सख्ती से मना किया था।",
+["Respect the landlord's property rights and privacy boundaries, completely ignore the locked room, and mind your own business.","मकान मालिक के संपत्ति अधिकारों और गोपनीयता सीमाओं का सम्मान करें, बंद कमरे को पूरी तरह से अनदेखा करें, और अपने काम से काम रखें।"],
+["Secretly drill a small hole in the door to peek inside, violating the agreement while trying to satisfy your deep curiosity.","अपनी गहरी जिज्ञासा को संतुष्ट करने की कोशिश करते हुए समझौते का उल्लंघन करते हुए, अंदर झांकने के लिए दरवाजे में चुपके से एक छोटा सा छेद ड्रिल करें।"],
+["Call the local police immediately and file a suspicious activity report against the landlord without any concrete evidence.","बिना किसी ठोस सबूत के तुरंत स्थानीय पुलिस को फोन करें और मकान मालिक के खिलाफ संदिग्ध गतिविधि रिपोर्ट दर्ज करें।"],
+["Aggressively break the lock using heavy tools to uncover the secret, assuming the landlord is hiding something highly illegal.","यह मानकर कि मकान मालिक कुछ अत्यधिक अवैध छिपा रहा है, रहस्य को उजागर करने के लिए भारी उपकरणों का उपयोग करके आक्रामक रूप से ताला तोड़ें।"],0],
+
+["You accidentally witness a widely respected local politician shoplifting an inexpensive item from a small boutique.","आप गलती से एक व्यापक रूप से सम्मानित स्थानीय राजनेता को एक छोटे से बुटीक से एक सस्ती वस्तु की चोरी करते हुए देखते हैं।",
+["Discreetly inform the boutique owner about the incident with facts, allowing them to handle the situation professionally and legally.","तथ्यों के साथ बुटीक मालिक को घटना के बारे में गुप्त रूप से सूचित करें, जिससे वे स्थिति को पेशेवर और कानूनी रूप से संभाल सकें।"],
+["Record a video secretly and use it to blackmail the politician later for a large sum of illegal money.","चुपके से एक वीडियो रिकॉर्ड करें और बाद में बड़ी रकम के अवैध पैसे के लिए राजनेता को ब्लैकमेल करने के लिए इसका उपयोग करें।"],
+["Ignore the incident completely, convincing yourself that powerful people are above the law and you shouldn't get involved.","घटना को पूरी तरह से अनदेखा करें, खुद को यह विश्वास दिलाएं कि शक्तिशाली लोग कानून से ऊपर हैं और आपको शामिल नहीं होना चाहिए।"],
+["Loudly confront the politician in front of the entire crowd, trying to create a massive public scandal for fame.","प्रसिद्धि के लिए बड़े पैमाने पर सार्वजनिक घोटाला बनाने की कोशिश करते हुए, पूरी भीड़ के सामने जोर-शोर से राजनेता का सामना करें।"],0],
+
+["Your neighbor urgently asks you to hold a heavy, locked briefcase for a day but doesn't return even after a week.","आपका पड़ोसी तत्काल आपको एक दिन के लिए एक भारी, बंद ब्रीफकेस रखने के लिए कहता है लेकिन एक सप्ताह के बाद भी वापस नहीं आता है।",
+["Keep the briefcase hidden in your closet for years, silently waiting for the neighbor to return without taking any action.","बिना कोई कार्रवाई किए चुपचाप पड़ोसी के लौटने का इंतजार करते हुए, ब्रीफकेस को सालों तक अपनी अलमारी में छिपा कर रखें।"],
+["Throw the heavy briefcase into a nearby river, getting rid of it entirely to avoid dealing with the neighbor's problems.","पड़ोसी की समस्याओं से निपटने से बचने के लिए इसे पूरी तरह से छुटकारा पाने के लिए भारी ब्रीफकेस को पास की नदी में फेंक दें।"],
+["Forcefully break the lock to check if there is huge cash inside, planning to keep the money for yourself.","खुद के लिए पैसे रखने की योजना बनाते हुए, यह देखने के लिए कि क्या अंदर भारी नकदी है, बलपूर्वक ताला तोड़ें।"],
+["Submit the locked briefcase to the nearest police station, explaining the situation and avoiding any potential legal complications.","स्थिति को समझाते हुए और किसी भी संभावित कानूनी जटिलताओं से बचते हुए, बंद ब्रीफकेस को निकटतम पुलिस स्टेशन में जमा करें।"],3],
+
+["You realize the drinking water supplied to your residential society has a weird chemical smell today.","आपको एहसास होता है कि आज आपके आवासीय समाज में आपूर्ति किए गए पीने के पानी में एक अजीब रासायनिक गंध है।",
+["Quietly buy bottled water for your own family and ignore the risk it poses to the rest of the unaware society.","चुपचाप अपने परिवार के लिए बोतलबंद पानी खरीदें और अनभिज्ञ समाज के बाकी हिस्सों के लिए यह जो जोखिम पैदा करता है उसे नजरअंदाज करें।"],
+["Assume it is just extra chlorine added by the municipality and continue drinking it without telling anyone else.","मान लें कि यह नगरपालिका द्वारा जोड़ा गया अतिरिक्त क्लोरीन है और किसी और को बताए बिना इसे पीना जारी रखें।"],
+["Immediately inform the society management, warn neighbors not to consume it, and request an urgent water quality inspection.","तुरंत सोसायटी प्रबंधन को सूचित करें, पड़ोसियों को इसका सेवन न करने की चेतावनी दें, और तत्काल जल गुणवत्ता निरीक्षण का अनुरोध करें।"],
+["Aggressively protest outside the municipal office, blocking the main road and violently demanding clean water instantly.","मुख्य सड़क को अवरुद्ध करते हुए और हिंसक रूप से तुरंत स्वच्छ पानी की मांग करते हुए, नगर निगम कार्यालय के बाहर आक्रामक रूप से विरोध करें।"],2],
+
+["During a final job interview, the HR manager suddenly breaks down crying due to a severe personal tragedy.","अंतिम नौकरी के साक्षात्कार के दौरान, एक गंभीर व्यक्तिगत त्रासदी के कारण एचआर (HR) प्रबंधक अचानक रोने लगता है।",
+["Silently walk out of the room without saying a single word, abandoning the job opportunity out of extreme awkwardness.","अत्यधिक अजीबोगरीब स्थिति के कारण नौकरी के अवसर को छोड़ते हुए, एक भी शब्द कहे बिना चुपचाप कमरे से बाहर निकलें।"],
+["Aggressively demand to see another manager, complaining that this emotional unprofessionalism is wasting your valuable time.","आक्रामक रूप से एक अन्य प्रबंधक को देखने की मांग करें, यह शिकायत करते हुए कि यह भावनात्मक गैर-व्यावसायिकता आपका कीमती समय बर्बाद कर रही है।"],
+["Politely offer them water, express genuine empathy, and gently ask if they would like to reschedule the interview.","विनम्रतापूर्वक उन्हें पानी की पेशकश करें, वास्तविक सहानुभूति व्यक्त करें, और धीरे से पूछें कि क्या वे साक्षात्कार को पुनर्निर्धारित करना चाहेंगे।"],
+["Start crying loudly along with them to show extreme fake sympathy, hoping it will guarantee you the job offer.","अत्यधिक नकली सहानुभूति दिखाने के लिए उनके साथ जोर-जोर से रोना शुरू करें, यह उम्मीद करते हुए कि यह आपको नौकरी की पेशकश की गारंटी देगा।"],2],
+
+["You find a USB drive in a cafe that contains documented evidence of a massive local political scam.","आपको एक कैफे में एक USB ड्राइव मिलती है जिसमें एक बड़े पैमाने पर स्थानीय राजनीतिक घोटाले के प्रलेखित साक्ष्य हैं।",
+["Format the USB drive completely and use it for storing your own personal movies, entirely ignoring the massive scam.","विशाल घोटाले को पूरी तरह से अनदेखा करते हुए, यूएसबी ड्राइव को पूरी तरह से प्रारूपित (format) करें और इसका उपयोग अपनी निजी फिल्मों को संग्रहीत करने के लिए करें।"],
+["Use the confidential evidence to heavily blackmail the local politicians, demanding a huge sum of money for your silence.","अपनी चुप्पी के लिए भारी रकम की मांग करते हुए, स्थानीय राजनेताओं को भारी ब्लैकमेल करने के लिए गोपनीय साक्ष्य का उपयोग करें।"],
+["Anonymously submit the USB drive to a reputed national news agency or anti-corruption bureau for a proper legal investigation.","उचित कानूनी जांच के लिए एक प्रतिष्ठित राष्ट्रीय समाचार एजेंसी या भ्रष्टाचार निरोधक ब्यूरो को गुमनाम रूप से यूएसबी (USB) ड्राइव जमा करें।"],
+["Upload all the sensitive documents directly to your personal social media accounts to become instantly famous overnight.","रातों-रात तुरंत प्रसिद्ध होने के लिए सभी संवेदनशील दस्तावेजों को सीधे अपने व्यक्तिगत सोशल मीडिया खातों पर अपलोड करें।"],2],
+
+["You accidentally knock over a glass display in a supermarket, causing a huge domino effect of breaking expensive bottles.","आप गलती से एक सुपरमार्केट में एक ग्लास डिस्प्ले को गिरा देते हैं, जिससे महंगी बोतलों के टूटने का एक बड़ा डोमिनोज़ प्रभाव होता है।",
+["Freeze in extreme panic, start crying loudly on the floor, and refuse to speak to the angry store manager.","अत्यधिक घबराहट में सुन्न हो जाएं, फर्श पर जोर-जोर से रोना शुरू करें, और क्रुद्ध स्टोर मैनेजर से बात करने से इंकार कर दें।"],
+["Immediately run out of the supermarket as fast as possible to escape paying for the massive heavy damages.","बड़े पैमाने पर भारी नुकसान के भुगतान से बचने के लिए तुरंत जितनी जल्दी हो सके सुपरमार्केट से बाहर भागें।"],
+["Aggressively blame the supermarket staff, shouting that the fragile display was kept dangerously close to the walking aisle.","आक्रामक रूप से सुपरमार्केट के कर्मचारियों को दोष दें, चिल्लाते हुए कि नाजुक डिस्प्ले को चलने वाले गलियारे के खतरनाक रूप से करीब रखा गया था।"],
+["Calmly apologize to the store manager, explain it was a genuine accident, and politely offer to help clean or compensate.","शांति से स्टोर मैनेजर से माफी मांगें, समझाएं कि यह एक वास्तविक दुर्घटना थी, और विनम्रतापूर्वक साफ करने या मुआवजा देने की पेशकश करें।"],3],
+
+["You are on a flight and the passenger next to you starts having a severe panic attack during heavy turbulence.","आप एक उड़ान पर हैं और भारी टर्बुलेंस के दौरान आपके बगल वाले यात्री को गंभीर पैनिक अटैक आने लगता है।",
+["Aggressively shout at them to shut up, complaining that their panic is making you extremely uncomfortable and irritated.","चुप रहने के लिए उन पर आक्रामक रूप से चिल्लाएं, यह शिकायत करते हुए कि उनकी घबराहट आपको बेहद असहज और चिड़चिड़ा बना रही है।"],
+["Panic yourself, unbuckle your seatbelt, and try to forcefully run towards the cockpit to ask the pilot to land.","खुद घबराएं, अपना सीटबेल्ट खोलें, और पायलट को उतरने के लिए कहने के लिए बलपूर्वक कॉकपिट की ओर दौड़ने की कोशिश करें।"],
+["Ignore them completely, put on your noise-canceling headphones, and close your eyes until the heavy turbulence stops entirely.","उन्हें पूरी तरह से अनदेखा करें, अपने शोर-रद्द करने वाले हेडफ़ोन लगाएं, और भारी टर्बुलेंस पूरी तरह से बंद होने तक अपनी आँखें बंद कर लें।"],
+["Calmly speak to them in a soothing voice, encourage deep breathing, and press the call button for the flight attendant.","शांति से उनसे सुखदायक आवाज में बात करें, गहरी सांस लेने को प्रोत्साहित करें, और फ्लाइट अटेंडेंट के लिए कॉल बटन दबाएं।"],3],
+
+["You see a physically disabled person struggling to board a crowded bus, but the bus conductor is ignoring them to save time.","आप एक शारीरिक रूप से अक्षम व्यक्ति को भीड़भाड़ वाली बस में चढ़ने के लिए संघर्ष करते देखते हैं, लेकिन बस कंडक्टर समय बचाने के लिए उन्हें अनदेखा कर रहा है।",
+["Aggressively beat the bus conductor, violently break the bus windows, and loudly incite the passengers to riot.","आक्रामक रूप से बस कंडक्टर को पीटें, हिंसक रूप से बस की खिड़कियां तोड़ें, और जोर-जोर से यात्रियों को दंगा करने के लिए उकसाएं।"],
+["Completely ignore the helpless situation, silently board the bus yourself, and strictly focus on reaching your own destination.","असहाय स्थिति को पूरी तरह नजरअंदाज करें, चुपचाप खुद बस में चढ़ें, और सख्ती से अपने गंतव्य तक पहुंचने पर ध्यान केंद्रित करें।"],
+["Stand outside and start recording a dramatic video for social media without actually helping the struggling disabled person.","बाहर खड़े हों और वास्तव में संघर्षरत विकलांग व्यक्ति की मदद किए बिना सोशल मीडिया के लिए एक नाटकीय वीडियो रिकॉर्ड करना शुरू करें।"],
+["Firmly request the conductor to wait, safely assist the disabled person in boarding, and calmly offer them your seat.","दृढ़ता से कंडक्टर से प्रतीक्षा करने का अनुरोध करें, सुरक्षित रूप से विकलांग व्यक्ति को चढ़ने में सहायता करें, और शांति से उन्हें अपनी सीट प्रदान करें।"],3],
+
+["You discover a hidden camera disguised as a hook in the changing room of a reputed clothing store.","आप एक प्रतिष्ठित कपड़ों की दुकान के चेंजिंग रूम में एक हुक के रूप में प्रच्छन्न (disguised) एक छिपा हुआ कैमरा खोजते हैं।",
+["Secretly steal the hidden camera to sell it online, strictly focusing on making a quick profit from the illegal device.","अवैध डिवाइस से त्वरित लाभ कमाने पर सख्ती से ध्यान केंद्रित करते हुए, ऑनलाइन बेचने के लिए गुप्त रूप से छिपे हुए कैमरे को चुरा लें।"],
+["Silently leave the store without telling anyone, completely ignoring the severe privacy threat to other unaware innocent customers.","किसी को बताए बिना चुपचाप स्टोर से बाहर निकल जाएं, अन्य अनजान निर्दोष ग्राहकों के लिए गंभीर गोपनीयता खतरे को पूरी तरह नजरअंदाज कर दें।"],
+["Quietly cover the camera, step out safely, firmly confront the store manager, and immediately call the cyber police.","चुपचाप कैमरे को कवर करें, सुरक्षित रूप से बाहर निकलें, दृढ़ता से स्टोर मैनेजर का सामना करें, और तुरंत साइबर पुलिस को कॉल करें।"],
+["Aggressively smash the entire changing room mirrors, violently attack the store staff, and loudly create a massive riot.","आक्रामक रूप से पूरे चेंजिंग रूम के शीशे तोड़ दें, हिंसक रूप से स्टोर के कर्मचारियों पर हमला करें, और जोर-जोर से एक बड़ा दंगा करें।"],2],
+
+["You are at a restaurant and notice a disgruntled chef secretly spitting in the food before serving it to a rude customer.","आप एक रेस्तरां में हैं और देखते हैं कि एक असंतुष्ट शेफ एक असभ्य ग्राहक को परोसने से पहले गुप्त रूप से भोजन में थूक रहा है।",
+["Discreetly inform the restaurant manager about the hygiene breach, ensuring the customer gets fresh food without causing a public scene.","स्वच्छता उल्लंघन के बारे में रेस्तरां प्रबंधक को गुप्त रूप से सूचित करें, यह सुनिश्चित करते हुए कि ग्राहक को सार्वजनिक दृश्य बनाए बिना ताजा भोजन मिले।"],
+["Record the act and blackmail the chef, demanding free meals for a year in exchange for keeping the dirty secret.","गंदा रहस्य रखने के बदले में एक साल के लिए मुफ्त भोजन की मांग करते हुए, कृत्य को रिकॉर्ड करें और शेफ को ब्लैकमेल करें।"],
+["Completely ignore the disgusting act, silently eat your own food, and strictly believe the rude customer deserved the punishment.","घृणित कृत्य को पूरी तरह नजरअंदाज करें, चुपचाप अपना खाना खाएं, और सख्ती से विश्वास करें कि असभ्य ग्राहक सजा का हकदार था।"],
+["Aggressively confront the chef, violently throw the hot food on him, and loudly shout to shut the restaurant down.","आक्रामक रूप से शेफ का सामना करें, हिंसक रूप से उस पर गर्म भोजन फेंक दें, और रेस्तरां को बंद करने के लिए जोर से चिल्लाएं।"],0],
+
+["You find a lost 5-year-old child in a mall who is terrified and refuses to speak to anyone except you.","आपको एक मॉल में एक 5 साल का खोया हुआ बच्चा मिलता है जो डरा हुआ है और आपके अलावा किसी से भी बात करने से इंकार करता है।",
+["Calmly stay with the child, gently walk them to the mall security desk, and politely wait until the parents arrive.","शांति से बच्चे के साथ रहें, धीरे से उन्हें मॉल सुरक्षा डेस्क पर ले जाएं, और माता-पिता के आने तक विनम्रतापूर्वक प्रतीक्षा करें।"],
+["Completely ignore the lost child, silently assume someone else will help, and strictly continue your personal shopping spree.","खोए हुए बच्चे को पूरी तरह से अनदेखा करें, चुपचाप मान लें कि कोई और मदद करेगा, और सख्ती से अपनी व्यक्तिगत खरीदारी की होड़ जारी रखें।"],
+["Take the child to your own home without informing the mall security, planning to search for the parents the next day.","मॉल सुरक्षा को सूचित किए बिना बच्चे को अपने घर ले जाएं, अगले दिन माता-पिता की तलाश करने की योजना बनाएं।"],
+["Aggressively scold the crying child for getting lost, forcefully leave them at a random shop, and walk away quickly.","रोते हुए बच्चे को खो जाने के लिए आक्रामक रूप से डांटें, बलपूर्वक उन्हें एक यादृच्छिक दुकान पर छोड़ दें, और जल्दी से चले जाएं।"],0],
+
+["You witness a hit-and-run accident where the culprit is clearly the son of a powerful and dangerous local politician.","आप एक हिट-एंड-रन दुर्घटना देखते हैं जहां अपराधी स्पष्ट रूप से एक शक्तिशाली और खतरनाक स्थानीय राजनेता का बेटा है।",
+["Contact the corrupt politician directly, secretly offering to destroy the evidence in exchange for a massive illegal cash reward.","भ्रष्ट राजनेता से सीधे संपर्क करें, गुप्त रूप से एक बड़े अवैध नकद इनाम के बदले सबूत नष्ट करने की पेशकश करें।"],
+["Aggressively chase the politician's car, violently drag him out, and loudly encourage the public to beat him heavily.","आक्रामक रूप से राजनेता की कार का पीछा करें, हिंसक रूप से उसे बाहर खींचें, और जनता को उसे भारी रूप से पीटने के लिए जोर-शोर से प्रोत्साहित करें।"],
+["Completely ignore the bleeding victim, silently run away from the spot, and strictly avoid becoming an eyewitness out of fear.","खून बह रहे पीड़ित को पूरी तरह नजरअंदाज करें, चुपचाप मौके से भाग जाएं, और डर के मारे चश्मदीद गवाह बनने से सख्ती से बचें।"],
+["Safely note down the exact vehicle details, calmly provide first aid to the victim, and firmly give a truthful police statement.","सुरक्षित रूप से सटीक वाहन विवरण नोट करें, शांति से पीड़ित को प्राथमिक उपचार प्रदान करें, और दृढ़ता से एक सच्चा पुलिस बयान दें।"],3],
+
+["You receive a misdelivered courier containing highly confidential trade secrets meant for your company's biggest corporate rival.","आपको एक गलत तरीके से डिलीवर किया गया कूरियर प्राप्त होता है जिसमें आपकी कंपनी के सबसे बड़े कॉर्पोरेट प्रतिद्वंद्वी के लिए अत्यधिक गोपनीय व्यापार रहस्य होते हैं।",
+["Secretly read all the confidential documents, completely steal the rival's business strategies, and strictly use them to get promoted.","गुप्त रूप से सभी गोपनीय दस्तावेजों को पढ़ें, प्रतिद्वंद्वी की व्यापार रणनीतियों को पूरी तरह से चुरा लें, और पदोन्नत होने के लिए उनका सख्ती से उपयोग करें।"],
+["Completely burn the highly confidential documents, silently dispose of the ashes, and strictly pretend the courier never arrived.","अत्यधिक गोपनीय दस्तावेजों को पूरी तरह से जला दें, चुपचाप राख का निपटान करें, और सख्ती से दिखावा करें कि कूरियर कभी नहीं आया।"],
+["Aggressively call the rival company, violently threaten to leak their trade secrets, and loudly demand a heavy extortion fee.","आक्रामक रूप से प्रतिद्वंद्वी कंपनी को कॉल करें, हिंसक रूप से उनके व्यापार रहस्यों को लीक करने की धमकी दें, और जोर-शोर से भारी जबरन वसूली शुल्क की मांग करें।"],
+["Firmly maintain professional ethics, completely avoid reading the confidential documents, and safely return the courier to the delivery service.","दृढ़ता से पेशेवर नैतिकता बनाए रखें, गोपनीय दस्तावेजों को पढ़ने से पूरी तरह बचें, और सुरक्षित रूप से कूरियर को डिलीवरी सेवा को वापस कर दें।"],3],
+
+["You are trapped in a stalled elevator for hours with a pregnant woman who suddenly goes into severe labor pain.","आप एक गर्भवती महिला के साथ घंटों तक रुकी हुई लिफ्ट में फंसे हुए हैं जिसे अचानक प्रसव पीड़ा होने लगती है।",
+["Calmly reassure the panicked woman, firmly use the emergency intercom for medical guidance, and safely prepare to assist if necessary.","शांति से घबराई हुई महिला को आश्वस्त करें, चिकित्सा मार्गदर्शन के लिए आपातकालीन इंटरकॉम का दृढ़ता से उपयोग करें, और यदि आवश्यक हो तो सुरक्षित रूप से सहायता के लिए तैयार रहें।"],
+["Completely ignore her severe painful cries, silently sit in the far corner, and strictly browse your phone to pass time.","उसकी गंभीर दर्दनाक चीखों को पूरी तरह नजरअंदाज करें, चुपचाप दूर के कोने में बैठें, और समय गुजारने के लिए सख्ती से अपना फोन ब्राउज़ करें।"],
+["Instantly panic in extreme fear, quickly start screaming louder than the woman, and blindly hit all the elevator buttons repeatedly.","अत्यधिक डर में तुरंत घबराएं, जल्दी से महिला से अधिक जोर से चिल्लाना शुरू करें, और आंख मूंदकर लिफ्ट के सभी बटनों को बार-बार मारें।"],
+["Aggressively try to pry open the heavy steel doors with your bare hands, violently risking a fatal fall into the shaft.","अपने नंगे हाथों से भारी स्टील के दरवाजों को खोलने का आक्रामक प्रयास करें, शाफ्ट में घातक रूप से गिरने का हिंसक जोखिम उठाएं।"],0],
+
+["You notice a suspicious, ticking package left unattended right under a seat in a highly crowded premier movie theater.","आप देखते हैं कि एक अत्यधिक भीड़भाड़ वाले प्रमुख मूवी थियेटर में एक सीट के ठीक नीचे एक संदिग्ध, टिक-टिक करता हुआ पैकेज लावारिस छोड़ दिया गया है।",
+["Boldly pick up the ticking explosive package, forcefully try to open it yourself, and blindly attempt to defuse it like movies.","टिक-टिक करने वाले विस्फोटक पैकेज को बहादुरी से उठाएं, बलपूर्वक इसे खुद खोलने की कोशिश करें, और आंख मूंदकर फिल्मों की तरह इसे डिफ्यूज करने का प्रयास करें।"],
+["Aggressively shout 'Bomb!' at the top of your lungs, violently causing a massive stampede, and loudly run over innocent people.","अपनी पूरी ताकत से 'बम!' आक्रामक रूप से चिल्लाएं, हिंसक रूप से एक बड़ी भगदड़ का कारण बनें, और जोर-जोर से निर्दोष लोगों के ऊपर से भागें।"],
+["Quietly walk out to alert the cinema management, safely request a calm evacuation, and firmly instruct them to call police.","सिनेमा प्रबंधन को सतर्क करने के लिए चुपचाप बाहर निकलें, सुरक्षित रूप से एक शांत निकासी का अनुरोध करें, और दृढ़ता से उन्हें पुलिस को बुलाने का निर्देश दें।"],
+["Completely ignore the highly suspicious ticking package, silently continue watching the movie, and strictly convince yourself it is a toy.","अत्यधिक संदिग्ध टिक-टिक करने वाले पैकेज को पूरी तरह नजरअंदाज करें, चुपचाप फिल्म देखना जारी रखें, और सख्ती से खुद को आश्वस्त करें कि यह एक खिलौना है।"],2],
+
+["You are camping deep in a forest and hear someone crying desperately for help from the pitch-dark woods at 2 AM.","आप जंगल में गहराई में डेरा डाले हुए हैं और रात 2 बजे घने अंधेरे जंगल से किसी को मदद के लिए बेतहाशा रोते हुए सुनते हैं।",
+["Aggressively run blindly into the dark forest with a small knife, violently putting yourself in the path of wild predators.","एक छोटे चाकू के साथ आक्रामक रूप से अंधेरे जंगल में आंख मूंदकर दौड़ें, हिंसक रूप से खुद को जंगली शिकारियों के रास्ते में डालें।"],
+["Safely stay near your secured camp, calmly use a powerful flashlight to scan, and firmly call emergency services via satellite phone.","सुरक्षित रूप से अपने सुरक्षित शिविर के पास रहें, स्कैन करने के लिए शांति से एक शक्तिशाली टॉर्च का उपयोग करें, और सैटेलाइट फोन के माध्यम से आपातकालीन सेवाओं को दृढ़ता से कॉल करें।"],
+["Completely ignore the terrifying cries for help, silently pack your entire camping gear, and strictly drive away immediately.","मदद के लिए भयानक रोने को पूरी तरह नजरअंदाज करें, चुपचाप अपना पूरा कैंपिंग गियर पैक करें, और सख्ती से तुरंत दूर चले जाएं।"],
+["Instantly panic out of extreme fear, quickly extinguish your campfire, and blindly hide inside your sleeping bag shivering.","अत्यधिक डर के मारे तुरंत घबरा जाएं, अपनी कैम्प फायर को जल्दी से बुझा दें, और आंख मूंदकर अपने स्लीपिंग बैग के अंदर छिपकर कांपें।"],1],
+
+["You find a massive sum of cash in an unmarked envelope on your doorstep with a note demanding you to ruin a rival's business.","आप अपने दरवाजे पर एक अचिह्नित लिफाफे में एक बड़ी रकम पाते हैं जिसमें एक प्रतिद्वंद्वी के व्यवसाय को बर्बाद करने की मांग की गई है।",
+["Instantly panic in extreme fear, quickly burn the money and the note, and blindly flee the city the same night.","अत्यधिक डर में तुरंत घबराएं, जल्दी से पैसे और नोट को जला दें, और उसी रात आंख मूंदकर शहर से भाग जाएं।"],
+["Secretly keep the heavy cash, completely ignore the threatening note, and strictly plan to spend it all on luxury goods.","गुप्त रूप से भारी नकदी रखें, धमकी भरे नोट को पूरी तरह नजरअंदाज करें, और सख्ती से इसे लक्जरी सामानों पर खर्च करने की योजना बनाएं।"],
+["Aggressively accept the criminal offer, violently sabotage your rival's entire business, and loudly celebrate your newly acquired illegal wealth.","आपराधिक प्रस्ताव को आक्रामक रूप से स्वीकार करें, अपने प्रतिद्वंद्वी के पूरे व्यवसाय को हिंसक रूप से तोड़-फोड़ करें, और अपने नए अर्जित अवैध धन का जोर-शोर से जश्न मनाएं।"],
+["Firmly refuse the illegal bribe, safely take the envelope untouched to the police, and calmly file an extortion report.","दृढ़ता से अवैध रिश्वत से इंकार करें, सुरक्षित रूप से बिना छुए लिफाफे को पुलिस के पास ले जाएं, और शांति से जबरन वसूली की रिपोर्ट दर्ज करें।"],3],
+
+["You discover your business partner has been heavily siphoning company funds, but reveals it was to pay for their child's life-saving organ transplant.","आपको पता चलता है कि आपका व्यावसायिक भागीदार कंपनी के फंड को भारी रूप से निकाल रहा है, लेकिन पता चलता है कि यह उनके बच्चे के जीवन रक्षक अंग प्रत्यारोपण के भुगतान के लिए था।",
+["Instantly panic and drain the remaining company funds yourself, quickly escape to a foreign country, and blindly ruin everyone's lives.","तुरंत घबराएं और बचे हुए कंपनी के फंड को खुद ही निकाल लें, जल्दी से किसी विदेशी देश में भाग जाएं, और आंख मूंदकर सभी का जीवन बर्बाद कर दें।"],
+["Completely ignore the massive financial theft, silently allow them to steal more money, and strictly jeopardize the company's entire future.","बड़े पैमाने पर वित्तीय चोरी को पूरी तरह नजरअंदाज करें, उन्हें चुपचाप और पैसे चुराने की अनुमति दें, और कंपनी के पूरे भविष्य को सख्ती से खतरे में डालें।"],
+["Aggressively beat your business partner, violently throw them out of the office, and loudly expose their crime on national television.","आक्रामक रूप से अपने बिजनेस पार्टनर को पीटें, हिंसक रूप से उन्हें ऑफिस से बाहर फेंक दें, और राष्ट्रीय टेलीविजन पर उनके अपराध को जोर-शोर से उजागर करें।"],
+["Calmly explain that fraud is unacceptable, safely audit the business accounts, and firmly structure a legal repayment plan avoiding prison.","शांति से समझाएं कि धोखाधड़ी अस्वीकार्य है, व्यावसायिक खातों का सुरक्षित रूप से ऑडिट करें, और जेल से बचते हुए दृढ़ता से कानूनी पुनर्भुगतान योजना तैयार करें।"],3],
+
+["You witness a high-ranking police officer explicitly accepting a massive cash bribe from a known, extremely dangerous local drug cartel leader.","आप एक उच्च पदस्थ पुलिस अधिकारी को एक ज्ञात, बेहद खतरनाक स्थानीय ड्रग कार्टेल नेता से बड़े पैमाने पर नकद रिश्वत को स्पष्ट रूप से स्वीकार करते हुए देखते हैं।",
+["Quickly approach the corrupt police officer, boldly demand a fifty percent share of the illegal bribe, and actively join the criminal cartel.","भ्रष्ट पुलिस अधिकारी के पास जल्दी पहुंचें, बहादुरी से अवैध रिश्वत के पचास प्रतिशत हिस्से की मांग करें, और आपराधिक कार्टेल में सक्रिय रूप से शामिल हों।"],
+["Silently record the highly illicit transaction from a safe hidden distance, securely back up the evidence, and firmly alert the central vigilance commission.","एक सुरक्षित छिपी हुई दूरी से अत्यधिक अवैध लेनदेन को चुपचाप रिकॉर्ड करें, सबूतों का सुरक्षित रूप से बैकअप लें, और दृढ़ता से केंद्रीय सतर्कता आयोग को सतर्क करें।"],
+["Aggressively jump in front of the drug cartel leader, violently attempt to snatch the bribe money, and loudly start a fistfight.","ड्रग कार्टेल नेता के सामने आक्रामक रूप से कूदें, रिश्वत के पैसे छीनने का हिंसक प्रयास करें, और जोर-शोर से मुट्ठी भर लड़ाई शुरू करें।"],
+["Completely ignore the highly corrupt situation, silently walk away as fast as possible, and strictly erase the memory out of deep fear.","अत्यधिक भ्रष्ट स्थिति को पूरी तरह नजरअंदाज करें, चुपचाप जितनी जल्दी हो सके चले जाएं, और गहरे डर के कारण स्मृति को सख्ती से मिटा दें।"],1],
+
+["You are on a tourist boat that starts rapidly sinking in deep sea. There are only 5 life jackets left, but 8 panicked people remain.","आप एक पर्यटक नाव पर हैं जो गहरे समुद्र में तेजी से डूबने लगती है। केवल 5 जीवन रक्षक जैकेट (लाइफ जैकेट) बचे हैं, लेकिन 8 घबराए हुए लोग शेष हैं।",
+["Completely ignore the screaming sinking people, silently put on two life jackets for extra safety, and strictly float away alone.","चीखते डूबते लोगों को पूरी तरह नजरअंदाज करें, अतिरिक्त सुरक्षा के लिए चुपचाप दो लाइफ जैकेट पहनें, और सख्ती से अकेले तैरते हुए दूर चले जाएं।"],
+["Aggressively punch the other terrified passengers, violently snatch a life jacket for yourself, and loudly jump into the ocean abandoning everyone.","आक्रामक रूप से अन्य भयभीत यात्रियों को मुक्का मारें, हिंसक रूप से अपने लिए एक लाइफ जैकेट छीन लें, और सभी को छोड़कर समुद्र में जोर से कूदें।"],
+["Calmly distribute the life jackets to the children and elderly first, safely gather buoyant debris for the rest, and firmly coordinate group survival.","शांति से बच्चों और बुजुर्गों को पहले लाइफ जैकेट बांटें, सुरक्षित रूप से बाकी लोगों के लिए तैरने वाले मलबे को इकट्ठा करें, और दृढ़ता से समूह अस्तित्व का समन्वय करें।"],
+["Instantly panic in extreme dread, quickly lock yourself inside the sinking cabin, and blindly accept death without trying to swim.","अत्यधिक भय में तुरंत घबराएं, जल्दी से डूबते हुए केबिन के अंदर खुद को बंद कर लें, और तैरने की कोशिश किए बिना आंख मूंदकर मृत्यु को स्वीकार करें।"],2],
+
+["You find a heartbreaking suicide note written by a quiet classmate who has been officially missing for two days.","आपको एक शांत सहपाठी द्वारा लिखा गया एक दिल तोड़ने वाला सुसाइड नोट मिलता है जो दो दिनों से आधिकारिक तौर पर लापता है।",
+["Instantly panic out of extreme trauma, quickly hide the suicide note under your mattress, and blindly refuse to speak for a week.","अत्यधिक आघात के कारण तुरंत घबरा जाएं, जल्दी से सुसाइड नोट को अपने गद्दे के नीचे छिपा दें, और एक सप्ताह तक बोलने से आंख मूंदकर इंकार कर दें।"],
+["Completely ignore the highly sensitive letter, silently tear it into pieces, and strictly mind your own business to avoid police questioning.","अत्यधिक संवेदनशील पत्र को पूरी तरह नजरअंदाज करें, चुपचाप इसे टुकड़ों में फाड़ दें, और पुलिस पूछताछ से बचने के लिए सख्ती से अपने काम से काम रखें।"],
+["Aggressively post the private suicide note on all social media platforms, violently blaming the college teachers, and loudly inciting student protests.","आक्रामक रूप से सभी सोशल मीडिया प्लेटफार्मों पर निजी सुसाइड नोट पोस्ट करें, कॉलेज के शिक्षकों को हिंसक रूप से दोष दें, और छात्र विरोध को जोर-शोर से भड़काएं।"],
+["Firmly preserve the tragic original note untouched, safely rush it directly to the investigating police officers, and calmly assist in the search.","दुखद मूल नोट को दृढ़ता से अछूता रखें, सुरक्षित रूप से इसे सीधे जांच कर रहे पुलिस अधिकारियों के पास ले जाएं, और खोज में शांति से सहायता करें।"],3],
+
+["You discover a critical mathematical flaw in a massive bridge design you worked on. The bridge is scheduled to be inaugurated by the Prime Minister tomorrow.","आप एक विशाल पुल डिजाइन में एक महत्वपूर्ण गणितीय दोष की खोज करते हैं जिस पर आपने काम किया था। कल प्रधानमंत्री द्वारा पुल का उद्घाटन किया जाना है।",
+["Instantly panic and delete all your engineering files, quickly book a flight to a foreign country, and blindly run away from responsibility.","तुरंत घबराएं और अपनी सभी इंजीनियरिंग फ़ाइलें हटा दें, जल्दी से किसी विदेशी देश के लिए उड़ान बुक करें, और जिम्मेदारी से आंख मूंदकर भागें।"],
+["Aggressively sabotage the bridge construction site at night with explosives, violently ensuring it cannot be opened, and loudly getting arrested for terrorism.","रात में विस्फोटकों के साथ पुल निर्माण स्थल को आक्रामक रूप से तोड़-फोड़ करें, हिंसक रूप से यह सुनिश्चित करें कि इसे खोला नहीं जा सकता, और आतंकवाद के लिए जोर-शोर से गिरफ्तार हों।"],
+["Calmly compile the exact technical proofs, firmly escalate the critical flaw to the chief engineer, and safely demand an immediate halt to the inauguration.","शांति से सटीक तकनीकी प्रमाण संकलित करें, मुख्य अभियंता को महत्वपूर्ण खामी के बारे में दृढ़ता से बताएं, और सुरक्षित रूप से उद्घाटन को तत्काल रोकने की मांग करें।"],
+["Completely ignore the highly dangerous structural flaw, silently attend the grand inauguration, and strictly hope the bridge doesn't collapse during your lifetime.","अत्यधिक खतरनाक संरचनात्मक खामी को पूरी तरह नजरअंदाज करें, भव्य उद्घाटन में चुपचाप शामिल हों, और सख्ती से आशा करें कि पुल आपके जीवनकाल में नहीं गिरेगा।"],2],
+
+["You are trapped in a burning high-rise building, and the only exit staircase is completely blocked by heavy flaming wooden debris.","आप एक जलती हुई गगनचुंबी इमारत में फंसे हुए हैं, और एकमात्र निकास सीढ़ी भारी जलते हुए लकड़ी के मलबे से पूरी तरह अवरुद्ध है।",
+["Completely ignore the highly lethal spreading fire, silently sit on your office chair, and strictly finish your pending paperwork before dying.","अत्यधिक घातक फैलती आग को पूरी तरह नजरअंदाज करें, चुपचाप अपनी कार्यालय की कुर्सी पर बैठें, और मरने से पहले अपने लंबित कागजी काम को सख्ती से पूरा करें।"],
+["Aggressively jump blindly into the heavy flaming debris, violently attempting to run through the massive fire, and loudly burning yourself alive.","भारी जलते हुए मलबे में आंख मूंदकर आक्रामक रूप से कूदें, विशाल आग के माध्यम से भागने का हिंसक प्रयास करें, और जोर-जोर से खुद को जिंदा जलाएं।"],
+["Instantly panic out of extreme terror, quickly lock yourself inside a small wooden cupboard, and blindly suffocate due to the toxic smoke.","अत्यधिक आतंक से तुरंत घबराएं, जल्दी से खुद को एक छोटी लकड़ी की अलमारी के अंदर बंद कर लें, और जहरीले धुएं के कारण आंख मूंदकर दम घुटने दें।"],
+["Safely retreat to an outer room with a window, calmly seal the door gaps with wet cloth, and firmly wave bright objects for aerial rescue.","खिड़की वाले बाहरी कमरे में सुरक्षित रूप से पीछे हटें, गीले कपड़े से दरवाजे के अंतराल को शांति से सील करें, और हवाई बचाव के लिए चमकदार वस्तुओं को दृढ़ता से हिलाएं।"],3]
+];
+
+var T={
+en:{sT:"SRT Mock Test 32",ins:["Total questions: 35 | Time: 30 minutes","Correct answer: +1 mark | Wrong answer: −0.25 mark | Unanswered: 0","Click a question number in the palette to jump to any question","You can switch between English and Hindi anytime","You can submit the test anytime; it auto-submits when time ends"],name:"Enter your name (optional)",start:"Start Test",q:"Question",of:"of",prev:"« Previous",next:"Next »",clr:"Clear",sub:"Submit Test",pal:"Question Console",pg:"Show / Hide Question Console",lA:"Answered",lN:"Not answered",lU:"Not visited",mT:"Submit Test?",mB:function(a,s){return "You have answered "+a+" and left "+s+" unanswered. Do you want to submit?"},mNo:"Cancel",mYes:"Yes, Submit",rT:"Test Result",tot:"Total Score",mk:"Marking: +1 correct, −0.25 wrong",att:"Attempted",skp:"Skipped",cor:"Correct",wro:"Wrong",tq:"Total Questions",neg:"Negative Marks",rv:"View Answers",hv:"Hide Answers",rt:"Retake Test",ok:"Correct",no:"Wrong",sk:"Skipped",ca:"Correct answer",ya:"Your answer"},
+hi:{sT:"एसआरटी मॉक टेस्ट 32",ins:["कुल प्रश्न: 35 | समय: 30 मिनट","सही उत्तर: +1 अंक | गलत उत्तर: −0.25 अंक | बिना उत्तर: 0","किसी भी प्रश्न पर जाने के लिए पैलेट में प्रश्न संख्या दबाएँ","आप कभी भी अंग्रेज़ी और हिन्दी भाषा बदल सकते हैं","आप कभी भी टेस्ट सबमिट कर सकते हैं; समय समाप्त होने पर टेस्ट अपने आप सबमिट हो जाएगा"],name:"अपना नाम लिखें (वैकल्पिक)",start:"टेस्ट शुरू करें",q:"प्रश्न",of:"/",prev:"« पिछला",next:"अगला »",clr:"उत्तर हटाएँ",sub:"टेस्ट सबमिट करें",pal:"प्रश्न कंसोल",pg:"प्रश्न कंसोल दिखाएँ / छिपाएँ",lA:"उत्तर दिया",lN:"उत्तर नहीं दिया",lU:"देखा नहीं",mT:"टेस्ट सबमिट करें?",mB:function(a,s){return "आपने "+a+" प्रश्नों के उत्तर दिए हैं और "+s+" प्रश्न छोड़े हैं। क्या आप सबमिट करना चाहते हैं?"},mNo:"रद्द करें",mYes:"हाँ, सबमिट करें",rT:"टेस्ट परिणाम",tot:"कुल स्कोर",mk:"अंकन: सही +1, गलत −0.25",att:"प्रयास किए",skp:"छोड़े गए",cor:"सही",wro:"गलत",tq:"कुल प्रश्न",neg:"ऋणात्मक अंक",rv:"उत्तर देखें",hv:"उत्तर छिपाएँ",rt:"दोबारा टेस्ट दें",ok:"सही",no:"गलत",sk:"छोड़ा गया",ca:"सही उत्तर",ya:"आपका उत्तर"}
+};
+var lang="en",cur=0,ans=[],vis=[],endAt=0,tick=null,done=false,L="ABCD";
+function $(id){return document.getElementById(id)}
+function t(k){return T[lang][k]}
+function pad(n){return n<10?"0"+n:""+n}
+function fmt(n){return (Math.round(n*100)/100).toString()}
+
+function applyStatic(){
+ $("ttl").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sT").textContent=lang==="en"?TITLE_EN:TITLE_HI;
+ $("sIns").innerHTML=t("ins").map(function(x){return "<li>"+x+"</li>"}).join("");
+ $("nm").placeholder=t("name");$("sBtn").textContent=t("start");
+ $("prev").textContent=t("prev");$("next").textContent=t("next");$("clr").textContent=t("clr");$("sub").textContent=t("sub");
+ $("palT").textContent=t("pal");$("ptog").textContent=t("pg");
+ $("lA").textContent=t("lA");$("lN").textContent=t("lN");$("lU").textContent=t("lU");
+ $("mNo").textContent=t("mNo");$("mYes").textContent=t("mYes");$("mT").textContent=t("mT");
+ document.documentElement.lang=lang==="en"?"en":"hi";
+ $("bEn").className=lang==="en"?"on":"";$("bHi").className=lang==="hi"?"on":"";
+}
+function setLang(l){
+ lang=l;applyStatic();
+ if(!$("test").classList.contains("hide"))render();
+ if(!$("result").classList.contains("hide"))showResult();
+ if(!$("modal").classList.contains("hide"))openM();
+}
+function startTest(){
+ for(var i=0;i<Q.length;i++){ans[i]=-1;vis[i]=false}
+ $("start").classList.add("hide");$("test").classList.remove("hide");$("timer").classList.remove("hide");
+ endAt=Date.now()+DURATION*1000;
+ tick=setInterval(upd,500);upd();render();
+ window.scrollTo(0,0);
+}
+function upd(){
+ var s=Math.max(0,Math.round((endAt-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(s/60))+":"+pad(s%60);
+ if(s<=300)$("timer").className="timer low";
+ if(s<=0&&!done)finish();
+}
+function render(){
+ vis[cur]=true;var q=Q[cur],i=lang==="en"?0:1;
+ $("qno").textContent=t("q")+" "+(cur+1)+" "+t("of")+" "+Q.length;
+ $("qsts").textContent=ans[cur]>=0?"✔ "+t("lA"):"";
+ $("qtext").textContent=(cur+1)+". "+q[i];
+ var h="";
+ for(var k=0;k<4;k++){h+='<button class="opt'+(ans[cur]===k?" sel":"")+'" onclick="pick('+k+')"><span class="l">'+L[k]+'</span><span>'+esc(q[2+k][i])+'</span></button>'}
+ $("opts").innerHTML=h;
+ $("prev").disabled=cur===0;$("next").disabled=cur===Q.length-1;
+ pal();
+}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+function pal(){
+ var h="";
+ for(var i=0;i<Q.length;i++){
+  var c=ans[i]>=0?"ans":(vis[i]?"vis":"");
+  if(i===cur)c+=" cur";
+  h+='<button class="'+c+'" onclick="jump('+i+')">'+(i+1)+'</button>';
+ }
+ $("pg").innerHTML=h;
+}
+function pick(k){ans[cur]=k;render()}
+function clearAns(){ans[cur]=-1;render()}
+function go(d){var n=cur+d;if(n>=0&&n<Q.length){cur=n;render();window.scrollTo(0,0)}}
+function jump(i){cur=i;render();$("pal").classList.remove("open");window.scrollTo(0,0)}
+function togPal(){$("pal").classList.toggle("open")}
+function counts(){var a=0;for(var i=0;i<ans.length;i++)if(ans[i]>=0)a++;return {a:a,s:Q.length-a}}
+function openM(){var c=counts();$("mB").textContent=t("mB")(c.a,c.s);$("modal").classList.remove("hide")}
+function askSubmit(){openM()}
+function closeM(){$("modal").classList.add("hide")}
+function finish(){
+ if(done&&arguments.length===0&&$("test").classList.contains("hide"))return;
+ done=true;clearInterval(tick);closeM();
+ $("test").classList.add("hide");$("timer").classList.add("hide");$("result").classList.remove("hide");
+ showResult();window.scrollTo(0,0);
+}
+function showResult(){
+ var cor=0,wro=0,i;
+ for(i=0;i<Q.length;i++){if(ans[i]>=0){if(ans[i]===Q[i][6])cor++;else wro++}}
+ var att=cor+wro,skp=Q.length-att,neg=wro*MINUS,sc=cor*PLUS-neg;
+ $("rT").textContent=t("rT");
+ var nm=$("nm").value.replace(/^\s+|\s+$/g,"");
+ $("rName").textContent=nm?nm:"";
+ $("rScore").textContent=fmt(sc)+" / "+Q.length;
+ $("rMark").textContent=t("mk");
+ var items=[[t("tq"),Q.length,""],[t("att"),att,""],[t("skp"),skp,""],[t("cor"),cor,"color:#138808"],[t("wro"),wro,"color:#d32f2f"],[t("neg"),"−"+fmt(neg),"color:#d32f2f"]];
+ $("rStats").innerHTML=items.map(function(x){return '<div class="st"><b style="'+x[2]+'">'+x[1]+'</b><span>'+x[0]+'</span></div>'}).join("");
+ $("rvBtn").textContent=$("rev").classList.contains("hide")?t("rv"):t("hv");
+ $("rtBtn").textContent=t("rt");
+ var li=lang==="en"?0:1,h="";
+ for(i=0;i<Q.length;i++){
+  var q=Q[i],st=ans[i]<0?["sk","#6b7686"]:(ans[i]===q[6]?["ok","#138808"]:["no","#d32f2f"]);
+  h+='<div class="rv"><div class="q">'+(i+1)+'. '+esc(q[li])+'<span class="tag" style="background:'+st[1]+'">'+t(st[0])+'</span></div>';
+  for(var k=0;k<4;k++){
+   var c="o";if(k===q[6])c+=" ok";else if(k===ans[i])c+=" no";
+   var m=k===q[6]?" ✔":(k===ans[i]?" ✘ ("+t("ya")+")":"");
+   h+='<div class="'+c+'"><b>'+L[k]+'.</b> '+esc(q[2+k][li])+m+'</div>';
+  }
+  h+='</div>';
+ }
+ $("rev").innerHTML=h;
+}
+function toggleRev(){$("rev").classList.toggle("hide");showResult()}
+window.addEventListener("beforeunload",function(e){if(!done&&!$("test").classList.contains("hide")){e.preventDefault();e.returnValue=""}});
+applyStatic();
+</script>
+</body>
+</html>

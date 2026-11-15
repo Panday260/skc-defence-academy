@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b2447">
+<title>SRT Mock 46 | SKC DEFENCE ACADEMY</title>
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans Devanagari","Nirmala UI","Mangal",Roboto,Arial,sans-serif;background:#eef2f7;color:#1b2430;line-height:1.5;-webkit-text-size-adjust:100%}
+button{font-family:inherit;cursor:pointer}
+.hide{display:none!important}
+/* header */
+.top{background:#0b2447;color:#fff;padding:8px 14px;padding-top:calc(8px + env(safe-area-inset-top,0px));display:flex;align-items:center;justify-content:space-between;gap:10px;position:sticky;top:0;z-index:20;box-shadow:0 2px 6px rgba(0,0,0,.25)}
+.brand{display:flex;align-items:center;gap:10px;min-width:0}
+.brand svg{width:40px;height:40px;flex:none}
+.brand b{display:block;font-size:16px;letter-spacing:.8px;color:#ffc93c;line-height:1.1}
+.brand span{display:block;font-size:11px;opacity:.85}
+.tools{display:flex;align-items:center;gap:8px}
+.timer{background:#13315f;border:1px solid #2f5aa0;border-radius:8px;padding:5px 10px;font-weight:700;font-size:18px;font-variant-numeric:tabular-nums;min-width:78px;text-align:center}
+.timer.warn{background:#b3261e;border-color:#ff8a80;animation:bl 1s infinite}
+@keyframes bl{50%{opacity:.65}}
+.lang{display:flex;border:1px solid #ffc93c;border-radius:8px;overflow:hidden}
+.lang button{background:transparent;border:0;color:#ffc93c;padding:7px 11px;font-size:14px;font-weight:700}
+.lang button.on{background:#ffc93c;color:#0b2447}
+/* screens */
+.screen{max-width:1100px;margin:0 auto;padding:14px}
+.card{background:#fff;border-radius:12px;box-shadow:0 1px 4px rgba(0,0,0,.1);padding:18px}
+.btn{border:0;border-radius:8px;padding:11px 20px;font-size:15px;font-weight:700}
+.b-pri{background:#0b2447;color:#fff}
+.b-gold{background:#ffc93c;color:#0b2447}
+.b-red{background:#c62828;color:#fff}
+.b-grey{background:#e3e8ef;color:#1b2430}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+/* start */
+.start h1{margin:0 0 4px;font-size:24px;color:#0b2447}
+.start .sub{color:#5b6777;margin-bottom:14px}
+.info{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:14px 0}
+.info div{background:#f3f6fb;border-radius:10px;padding:12px;text-align:center}
+.info b{display:block;font-size:22px;color:#0b2447}
+.info small{color:#5b6777}
+.start ul{padding-left:20px;margin:8px 0 18px}
+.start li{margin-bottom:6px}
+/* test */
+.layout{display:grid;grid-template-columns:1fr 300px;gap:14px;align-items:start}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-weight:700;color:#0b2447}
+.qhead span.tag{font-size:12px;background:#e8eefb;border-radius:20px;padding:3px 10px;color:#2a4a85}
+.qtext{font-size:17px;font-weight:600;margin-bottom:16px}
+.opt{display:flex;gap:12px;align-items:flex-start;width:100%;text-align:left;background:#fff;border:2px solid #d5dce8;border-radius:10px;padding:12px 14px;margin-bottom:10px;font-size:15.5px;color:#1b2430}
+.opt:hover{border-color:#7f9bd0}
+.opt i{flex:none;width:28px;height:28px;border-radius:50%;background:#e8eefb;color:#0b2447;font-style:normal;font-weight:700;display:flex;align-items:center;justify-content:center}
+.opt.sel{border-color:#0b2447;background:#eaf0fc}
+.opt.sel i{background:#0b2447;color:#fff}
+.nav{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;padding-top:14px;border-top:1px solid #e3e8ef}
+.nav .sp{flex:1}
+/* palette */
+.side h3{margin:0 0 10px;font-size:15px;color:#0b2447}
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.pn{border:2px solid #cfd7e4;background:#fff;border-radius:8px;height:42px;font-weight:700;font-size:15px;color:#1b2430}
+.pn.vis{background:#fde7e7;border-color:#e57373;color:#b3261e}
+.pn.ans{background:#2e9e4f;border-color:#2e9e4f;color:#fff}
+.pn.cur{outline:3px solid #ffc93c;outline-offset:1px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;margin-top:14px;font-size:12.5px;color:#4a5668}
+.legend span:before{content:"";display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:5px;vertical-align:-1px;border:2px solid #cfd7e4;background:#fff}
+.legend .l2:before{background:#2e9e4f;border-color:#2e9e4f}
+.legend .l3:before{background:#fde7e7;border-color:#e57373}
+.cnt{margin-top:12px;font-size:13px;color:#4a5668}
+.fab{display:none}
+/* modal */
+.modal{position:fixed;left:0;right:0;top:0;bottom:0;background:rgba(10,20,40,.6);display:flex;align-items:center;justify-content:center;z-index:50;padding:16px}
+.modal .box{background:#fff;border-radius:14px;max-width:400px;width:100%;padding:22px}
+.modal h2{margin:0 0 8px;color:#0b2447;font-size:20px}
+.modal .row{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}
+/* result */
+.score{text-align:center;background:linear-gradient(135deg,#0b2447,#1d4380);color:#fff;border-radius:14px;padding:22px 14px}
+.score .big{font-size:48px;font-weight:800;color:#ffc93c;line-height:1.1}
+.score small{opacity:.85}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:14px 0}
+.stat{background:#fff;border-radius:10px;padding:14px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+.stat b{display:block;font-size:26px}
+.stat small{color:#5b6777}
+.s-ok b{color:#2e9e4f}.s-bad b{color:#c62828}.s-skip b{color:#e08a00}.s-att b{color:#1d4380}
+.rv{border-left:5px solid #cfd7e4;margin-top:12px}
+.rv.ok{border-color:#2e9e4f}.rv.bad{border-color:#c62828}.rv.sk{border-color:#e08a00}
+.rv h4{margin:0 0 6px;font-size:15px}
+.ro{padding:7px 10px;border-radius:8px;margin-top:6px;font-size:14.5px;background:#f3f6fb}
+.ro.c{background:#dff3e5;border:1px solid #2e9e4f}
+.ro.w{background:#fde7e7;border:1px solid #e57373}
+.ro em{font-style:normal;font-size:12px;font-weight:700;margin-left:6px}
+.foot{text-align:center;color:#6b7788;font-size:12px;padding:16px 10px calc(16px + env(safe-area-inset-bottom,0px))}
+/* mobile */
+@media(max-width:860px){
+ .layout{grid-template-columns:1fr}
+ .side{position:fixed;left:0;right:0;bottom:0;background:#fff;z-index:40;border-radius:16px 16px 0 0;padding:16px;padding-bottom:calc(16px + env(safe-area-inset-bottom,0px));box-shadow:0 -4px 16px rgba(0,0,0,.3);transform:translateY(105%);transition:transform .25s;max-height:75%;overflow:auto}
+ .side.open{transform:translateY(0)}
+ .grid{grid-template-columns:repeat(6,1fr)}
+ .fab{display:block;position:fixed;right:14px;bottom:calc(14px + env(safe-area-inset-bottom,0px));background:#ffc93c;color:#0b2447;border:0;border-radius:30px;padding:12px 18px;font-weight:800;font-size:14px;box-shadow:0 3px 10px rgba(0,0,0,.35);z-index:30}
+ #test{padding-bottom:80px}
+ .brand span{display:none}
+ .brand b{font-size:13px}
+ .brand svg{width:34px;height:34px}
+ .timer{font-size:16px;min-width:66px}
+ .btn{padding:11px 14px}
+}
+@media(max-width:380px){.lang button{padding:7px 8px}.brand b{font-size:11.5px}}
+</style>
+</head>
+<body>
+
+<div class="top">
+ <div class="brand">
+  <svg viewBox="0 0 64 64" aria-hidden="true"><path d="M32 3 8 12v18c0 15 10 26 24 31 14-5 24-16 24-31V12z" fill="#13315f" stroke="#ffc93c" stroke-width="3"/><path d="m32 16 4.6 9.6 10.4 1.4-7.6 7.3 1.9 10.4L32 39.5l-9.3 5.2 1.9-10.4L17 27l10.4-1.4z" fill="#ffc93c"/></svg>
+  <div><b>SKC DEFENCE ACADEMY</b><span data-i="tag">SSB • SRT Mock Test Series</span></div>
+ </div>
+ <div class="tools">
+  <div class="timer hide" id="timer">30:00</div>
+  <div class="lang"><button id="bEn" class="on" type="button">English</button><button id="bHi" type="button">हिन्दी</button></div>
+ </div>
+</div>
+
+<!-- START -->
+<div class="screen start" id="start">
+ <div class="card">
+  <h1>SRT Mock 46</h1>
+  <div class="sub" data-i="sSub">Situation Reaction Test – SKC Defence Academy Test Series</div>
+  <div class="info">
+   <div><b>35</b><small data-i="iQ">Questions</small></div>
+   <div><b>30</b><small data-i="iT">Minutes</small></div>
+   <div><b>+1</b><small data-i="iC">Correct</small></div>
+   <div><b>-0.25</b><small data-i="iW">Wrong</small></div>
+  </div>
+  <ul>
+   <li data-i="r1">Each question has 4 options; choose the best reaction.</li>
+   <li data-i="r2">Timer is 30 minutes. The test auto-submits when time ends.</li>
+   <li data-i="r3">Use the question palette to jump to any question.</li>
+   <li data-i="r4">Unanswered questions carry no marks (0).</li>
+   <li data-i="r5">You can switch between English and Hindi at any time.</li>
+   <li data-i="r6">You can submit the test at any time using the Submit button.</li>
+  </ul>
+  <button class="btn b-gold" id="startBtn" type="button" data-i="start">Start Test</button>
+ </div>
+</div>
+
+<!-- TEST -->
+<div class="screen hide" id="test">
+ <div class="layout">
+  <div class="card">
+   <div class="qhead"><div id="qno"></div><span class="tag" id="qtag"></span></div>
+   <div class="qtext" id="qtext"></div>
+   <div id="opts"></div>
+   <div class="nav">
+    <button class="btn b-grey" id="prev" type="button" data-i="prev">Previous</button>
+    <button class="btn b-grey" id="clear" type="button" data-i="clear">Clear</button>
+    <span class="sp"></span>
+    <button class="btn b-pri" id="next" type="button" data-i="next">Next</button>
+    <button class="btn b-red" id="submit" type="button" data-i="submit">Submit</button>
+   </div>
+  </div>
+  <div class="side" id="side">
+   <h3 data-i="pal">Question Palette</h3>
+   <div class="grid" id="grid"></div>
+   <div class="legend"><span class="l2" data-i="lAns">Answered</span><span class="l3" data-i="lNot">Not answered</span><span data-i="lNv">Not visited</span></div>
+   <div class="cnt" id="cnt"></div>
+   <button class="btn b-grey fab-close" id="closeSide" type="button" style="margin-top:12px;width:100%;display:none" data-i="close">Close</button>
+  </div>
+ </div>
+ <button class="fab" id="fab" type="button" data-i="qs">Questions</button>
+</div>
+
+<!-- RESULT -->
+<div class="screen hide" id="result">
+ <div class="score">
+  <small data-i="yourScore">Your Score</small>
+  <div class="big" id="rScore">0</div>
+  <small id="rOut"></small>
+ </div>
+ <div class="stats" id="stats"></div>
+ <div style="text-align:center;margin:8px 0 4px">
+  <button class="btn b-gold" id="showRv" type="button" data-i="review">Review Answers</button>
+  <button class="btn b-pri" id="retake" type="button" data-i="retake">Retake Test</button>
+ </div>
+ <div id="rv" class="hide"></div>
+</div>
+
+<div class="foot">© SKC DEFENCE ACADEMY &nbsp;|&nbsp; SRT Mock 46</div>
+
+<!-- CONFIRM -->
+<div class="modal hide" id="modal">
+ <div class="box">
+  <h2 data-i="cTitle">Submit Test?</h2>
+  <div id="cBody"></div>
+  <div class="row">
+   <button class="btn b-grey" id="cNo" type="button" data-i="cancel">Cancel</button>
+   <button class="btn b-red" id="cYes" type="button" data-i="yes">Yes, Submit</button>
+  </div>
+ </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- QUESTION DATA ----------
+ [Q_en, Q_hi, A_en, A_hi, B_en, B_hi, C_en, C_hi, D_en, D_hi, correctIndex(0=A..3=D)] */
+var RAW=[
+["You are going for your crucial SSB Interview, but your bicycle breaks down completely in the middle of a dense, dark jungle.", "आप अपने महत्वपूर्ण एसएसबी (SSB) साक्षात्कार के लिए जा रहे हैं, लेकिन आपकी साइकिल घने, अंधेरे जंगल के बीच में पूरी तरह से खराब हो जाती है।", "You will helplessly cry the deeply bitter tears, silently accept the extremely humiliating defeat, and cowardly abandon the highly important interview.", "आप बेबस होकर अत्यधिक कड़वे आंसू रोएंगे, चुपचाप अत्यंत अपमानजनक हार को स्वीकार करेंगे, और कायरतापूर्वक अत्यधिक महत्वपूर्ण साक्षात्कार को छोड़ देंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 0],
+["You wake up at midnight in your hostel and see a large, highly venomous snake resting directly on your roommate's chest.", "आप अपने छात्रावास में आधी रात को उठते हैं और एक बड़े, अत्यधिक विषैले सांप को सीधे अपने रूममेट की छाती पर आराम करते हुए देखते हैं।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will silently feel the intensely agonizing jealousy, cowardly hide the deeply broken emotions, and completely sever the long personal friendship.", "आप चुपचाप अत्यधिक दर्दनाक ईर्ष्या महसूस करेंगे, कायरतापूर्वक गहराई से टूटी हुई भावनाओं को छिपाएंगे, और लंबी व्यक्तिगत दोस्ती को पूरी तरह से तोड़ देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", 1],
+["During a critical field exercise, your group completely mutinies against you, violently refusing to follow your tactical leadership plan entirely.", "एक महत्वपूर्ण फील्ड अभ्यास के दौरान, आपका समूह पूरी तरह से आपके खिलाफ विद्रोह कर देता है, हिंसक रूप से आपकी सामरिक नेतृत्व योजना का पालन करने से पूरी तरह से इंकार कर देता है।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will cowardly drop the heavy loaded weapon, pathetically beg the heavily armed mutineers, and silently surrender the completely broken command.", "आप कायरतापूर्वक भारी हथियारों को गिरा देंगे, दयनीय रूप से भारी हथियारों से लैस विद्रोहियों से भीख मांगेंगे, और चुपचाप पूरी तरह से टूटी हुई कमान को आत्मसमर्पण कर देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", 2],
+["You find a senior officer's lost, highly confidential briefcase, and someone immediately falsely accuses you of stealing it publicly.", "आपको एक वरिष्ठ अधिकारी का खोया हुआ, अत्यधिक गोपनीय अटैची मिलता है, और कोई व्यक्ति तुरंत सार्वजनिक रूप से आप पर इसे चुराने का झूठा आरोप लगाता है।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will silently accept the totally false accusations, cowardly face the highly brutal police, and helplessly spend the entirely ruined life.", "आप चुपचाप पूरी तरह से झूठे आरोपों को स्वीकार करेंगे, कायरतापूर्वक अत्यधिक क्रूर पुलिस का सामना करेंगे, और बेबस होकर पूरी तरह से बर्बाद जीवन व्यतीत करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", 1],
+["Your sister's marriage is tomorrow, but the groom's family suddenly demands a massive dowry, and you are completely bankrupt.", "आपकी बहन की शादी कल है, लेकिन दूल्हे का परिवार अचानक भारी दहेज की मांग करता है, और आप पूरी तरह से दिवालिया हैं।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will helplessly watch the totally broken marriage, silently suffer the extremely unbearable humiliation, and pathetically weep the deeply depressing tears.", "आप बेबस होकर पूरी तरह से टूटी हुई शादी को देखेंगे, चुपचाप अत्यंत असहनीय अपमान सहेंगे, और दयनीय रूप से बहुत ही निराशाजनक आंसू रोएंगे।", 3],
+["Your best friend gets selected for the defense forces, while you fail completely, and he publicly mocks your utter failure.", "आपके सबसे अच्छे दोस्त का रक्षा बलों के लिए चयन हो जाता है, जबकि आप पूरी तरह से विफल हो जाते हैं, और वह सार्वजनिक रूप से आपकी पूर्ण विफलता का मज़ाक उड़ाता है।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will silently feel the intensely agonizing jealousy, cowardly hide the deeply broken emotions, and completely sever the long personal friendship.", "आप चुपचाप अत्यधिक दर्दनाक ईर्ष्या महसूस करेंगे, कायरतापूर्वक गहराई से टूटी हुई भावनाओं को छिपाएंगे, और लंबी व्यक्तिगत दोस्ती को पूरी तरह से तोड़ देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 1],
+["You are trekking with a group when your captain falls down a steep cliff, getting severely injured, and nobody has rations left.", "आप एक समूह के साथ ट्रेकिंग कर रहे हैं जब आपका कप्तान एक खड़ी चट्टान से नीचे गिर जाता है, गंभीर रूप से घायल हो जाता है, और किसी के पास राशन नहीं बचा है।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will cowardly flee the highly dangerous ambush, silently abandon the severely injured victims, and pathetically save the entirely selfish life.", "आप कायरतापूर्वक अत्यधिक खतरनाक घात (ambush) से भाग जाएंगे, चुपचाप गंभीर रूप से घायल पीड़ितों को छोड़ देंगे, और दयनीय रूप से पूरी तरह से स्वार्थी जीवन बचाएंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", 2],
+["A massive fire breaks out in your neighborhood at night. Your own house is burning, and your family is trapped inside.", "रात में आपके पड़ोस में भीषण आग लग जाती है। आपका अपना घर जल रहा है, और आपका परिवार अंदर फंसा हुआ है।", "You will helplessly watch the fiercely burning flames, cowardly ignore the loudly screaming victims, and pathetically mourn the utterly massive loss.", "आप बेबस होकर भयंकर रूप से जलती हुई लपटों को देखेंगे, कायरतापूर्वक जोर-जोर से चीखते पीड़ितों को नजरअंदाज करेंगे, और दयनीय रूप से पूरी तरह से भारी नुकसान का शोक मनाएंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", 0],
+["You are caught boarding the wrong train without a ticket by a highly aggressive Ticket Examiner who threatens to throw you out.", "आप एक अत्यधिक आक्रामक टिकट परीक्षक द्वारा बिना टिकट के गलत ट्रेन में चढ़ते हुए पकड़े जाते हैं, जो आपको बाहर फेंकने की धमकी देता है।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will pathetically accept the completely false charges, silently face the highly brutal prison, and helplessly ruin the entirely innocent life.", "आप दयनीय रूप से पूरी तरह से झूठे आरोपों को स्वीकार करेंगे, चुपचाप अत्यधिक क्रूर जेल का सामना करेंगे, और बेबस होकर पूरी तरह से निर्दोष जीवन को बर्बाद कर देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", 2],
+["While on a border patrol, you are suddenly surrounded by highly hostile armed locals demanding you surrender your classified communication codes.", "सीमा गश्त पर होने के दौरान, आप अचानक अत्यधिक शत्रुतापूर्ण सशस्त्र स्थानीय लोगों से घिर जाते हैं जो आपसे अपने वर्गीकृत संचार कोड आत्मसमर्पण करने की मांग करते हैं।", "You will silently surrender the highly classified secrets, cowardly accept the deeply traumatizing blackmail, and completely betray the beloved native country.", "आप चुपचाप अत्यधिक वर्गीकृत रहस्यों को आत्मसमर्पण करेंगे, कायरतापूर्वक गहराई से दर्दनाक ब्लैकमेल को स्वीकार करेंगे, और पूरी तरह से प्यारे मूल देश को धोखा देंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", 0],
+["A foreign enemy agent approaches you and blackmails you with highly morphed, obscene photos to force you to leak troop movements.", "एक विदेशी दुश्मन एजेंट आपसे संपर्क करता है और आपको सैनिकों की गतिविधियों को लीक करने के लिए मजबूर करने के लिए अत्यधिक बदली गई (morphed), अश्लील तस्वीरों के साथ ब्लैकमेल करता है।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will silently surrender the highly classified secrets, cowardly accept the deeply traumatizing blackmail, and completely betray the beloved native country.", "आप चुपचाप अत्यधिक वर्गीकृत रहस्यों को आत्मसमर्पण करेंगे, कायरतापूर्वक गहराई से दर्दनाक ब्लैकमेल को स्वीकार करेंगे, और पूरी तरह से प्यारे मूल देश को धोखा देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 1],
+["The overcrowded passenger boat you are on starts sinking rapidly in the middle of a deep river, and you cannot swim.", "जिस खचाखच भरी यात्री नाव पर आप सवार हैं वह गहरी नदी के बीच में तेजी से डूबने लगती है, और आप तैर नहीं सकते।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will pathetically beg the completely useless help, helplessly swallow the deeply murky water, and silently accept the extremely horrifying drowning.", "आप दयनीय रूप से पूरी तरह से बेकार मदद की भीख मांगेंगे, बेबस होकर गहरा धुंधला पानी निगलेंगे, और चुपचाप बेहद भयानक डूबने को स्वीकार करेंगे।", 3],
+["Heavily armed terrorists attack the shopping mall you are in. They strap an explosive vest to you and hold you hostage.", "भारी हथियारों से लैस आतंकवादी उस शॉपिंग मॉल पर हमला करते हैं जिसमें आप हैं। वे आपको एक विस्फोटक जैकेट पहना देते हैं और आपको बंधक बना लेते हैं।", "You will pathetically cry the deeply terrified tears, silently accept the totally dark captivity, and helplessly await the highly gruesome murder.", "आप दयनीय रूप से गहराई से भयभीत आंसू रोएंगे, चुपचाप पूरी तरह से अंधेरी कैद को स्वीकार करेंगे, और बेबस होकर अत्यधिक भीषण हत्या की प्रतीक्षा करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", 0],
+["You are wrongly accused of mass cheating during a highly competitive final exam and are publicly rusticated by the strict college dean.", "आप पर अत्यधिक प्रतिस्पर्धी अंतिम परीक्षा के दौरान सामूहिक धोखाधड़ी का गलत आरोप लगाया गया है और सख्त कॉलेज डीन द्वारा सार्वजनिक रूप से निष्कासित कर दिया गया है।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will silently accept the totally false framing, cowardly face the highly brutal imprisonment, and helplessly watch the completely ruined career.", "आप चुपचाप पूरी तरह से झूठी रूपरेखा (framing) को स्वीकार करेंगे, कायरतापूर्वक अत्यधिक क्रूर कारावास का सामना करेंगे, और बेबस होकर पूरी तरह से बर्बाद हुए करियर को देखेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 2],
+["During a harsh border patrol ambush, your fellow soldier gets a fatal bullet hit, is bleeding heavily, and you are completely out of ammo.", "एक कठोर सीमा गश्ती घात (ambush) के दौरान, आपके साथी सैनिक को एक घातक गोली लग जाती है, भारी खून बह रहा है, और आपके पास बारूद पूरी तरह खत्म हो गया है।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will cowardly flee the entirely bloody scene, silently abandon the severely injured animal, and helplessly hide the deeply shameful guilt.", "आप कायरतापूर्वक पूरी तरह से खूनी दृश्य से भाग जाएंगे, चुपचाप गंभीर रूप से घायल जानवर (या साथी) को छोड़ देंगे, और बेबस होकर गहराई से शर्मनाक अपराधबोध को छिपाएंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", 1],
+["A vicious family dispute over property turns highly aggressive, and your own siblings completely throw you out of your ancestral house onto the streets.", "संपत्ति को लेकर एक शातिर पारिवारिक विवाद अत्यधिक आक्रामक हो जाता है, और आपके अपने भाई-बहन आपको आपके पैतृक घर से पूरी तरह से सड़कों पर फेंक देते हैं।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will pathetically leave the heavily auctioned house, silently accept the totally miserable poverty, and helplessly wander the completely empty streets.", "आप दयनीय रूप से भारी नीलाम किए गए घर को छोड़ देंगे, चुपचाप पूरी तरह से दयनीय गरीबी को स्वीकार करेंगे, और असहाय रूप से पूरी तरह से खाली सड़कों पर भटकेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", 1],
+["You are completely lost in a dense jungle during night navigation. Your compass is broken, and aggressive wild predators are howling very close by.", "आप रात के नेविगेशन के दौरान घने जंगल में पूरी तरह से खो गए हैं। आपका कंपास टूट गया है, और आक्रामक जंगली शिकारी बहुत करीब से चिल्ला रहे हैं।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will helplessly accept the extremely terrifying fate, silently weep the deeply miserable tears, and cowardly await the brutally violent death.", "आप बेबस होकर अत्यंत भयानक भाग्य को स्वीकार करेंगे, चुपचाप अत्यंत दयनीय आंसू रोएंगे, और कायरतापूर्वक क्रूरतापूर्ण हिंसक मृत्यु की प्रतीक्षा करेंगे।", 3],
+["While driving down a highly steep mountain hill, your car brakes completely fail, and you are speeding directly toward a crowded local market.", "एक अत्यधिक खड़ी पहाड़ी पहाड़ी से नीचे ड्राइव करते समय, आपकी कार के ब्रेक पूरी तरह से विफल हो जाते हैं, और आप सीधे एक भीड़भाड़ वाले स्थानीय बाजार की ओर तेजी से बढ़ रहे हैं।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will blindly close the deeply terrified eyes, helplessly accept the wildly fatal crash, and completely freeze the entirely paralyzed body.", "आप आंख मूंदकर गहरी डरी हुई आंखें बंद करेंगे, बेबस होकर बेतहाशा घातक दुर्घटना को स्वीकार करेंगे, और पूरी तरह से लकवाग्रस्त शरीर को पूरी तरह से स्थिर कर देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", 1],
+["You are fast asleep when you hear a desperate cry for help at midnight, but you realize it is a highly dangerous ambush setup.", "आप गहरी नींद में हैं जब आपको आधी रात को मदद के लिए हताश रोने की आवाज सुनाई देती है, लेकिन आपको एहसास होता है कि यह एक अत्यधिक खतरनाक घात (ambush) सेटअप है।", "You will cowardly hide the entirely dark corner, silently shiver the extremely freezing cold, and helplessly weep the deeply desperate tears.", "आप कायरतापूर्वक पूरी तरह से अंधेरे कोने को छिपाएंगे, चुपचाप अत्यधिक जमने वाली ठंड से कांपेंगे, और बेबस होकर गहराई से हताश आंसू रोएंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 0],
+["You are accidentally caught in a massive stampede at a highly crowded religious festival, and you fall down heavily on the hard ground.", "आप एक अत्यधिक भीड़भाड़ वाले धार्मिक उत्सव में बड़े पैमाने पर भगदड़ में गलती से फंस जाते हैं, और आप कठोर जमीन पर भारी रूप से गिर जाते हैं।", "You will helplessly fall the brutally hard ground, silently accept the heavily crushing weight, and pathetically suffer the extremely agonizing suffocation.", "आप बेबस होकर बेरहमी से कठोर जमीन पर गिरेंगे, चुपचाप भारी कुचलने वाले वजन को स्वीकार करेंगे, और दयनीय रूप से अत्यंत दर्दनाक घुटन सहेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", 0],
+["You are bitten by a massive King Cobra deep in the jungle. You have absolutely no anti-venom, and you only have 10 minutes to live.", "जंगल में गहराई तक एक विशाल किंग कोबरा ने आपको काट लिया है। आपके पास बिल्कुल भी एंटी-वेनम नहीं है, और आपके पास जीने के लिए केवल 10 मिनट हैं।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will silently sit the deeply muddy ground, helplessly accept the highly fatal venom, and pathetically await the totally unavoidable death.", "आप चुपचाप गहरी कीचड़ वाली जमीन पर बैठेंगे, बेबस होकर अत्यधिक घातक जहर को स्वीकार करेंगे, और दयनीय रूप से पूरी तरह से अपरिहार्य मृत्यु की प्रतीक्षा करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", 1],
+["You missed the last bus to your crucial SSB center, and you are stranded alone in a highly volatile, riot-hit area at 2 AM.", "आप अपने महत्वपूर्ण एसएसबी (SSB) केंद्र के लिए अंतिम बस से चूक गए, और आप रात 2 बजे अत्यधिक अस्थिर, दंगा-प्रभावित क्षेत्र में अकेले फंसे हुए हैं।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will cowardly hide the entirely dark corner, silently shiver the extremely freezing cold, and helplessly weep the deeply desperate tears.", "आप कायरतापूर्वक पूरी तरह से अंधेरे कोने को छिपाएंगे, चुपचाप अत्यधिक जमने वाली ठंड से कांपेंगे, और बेबस होकर गहराई से हताश आंसू रोएंगे।", 3],
+["A massive earthquake strikes your city, and you are instantly trapped under heavy concrete rubble, entirely unable to breathe or move your limbs.", "आपके शहर में एक बड़ा भूकंप आता है, और आप तुरंत भारी कंक्रीट के मलबे के नीचे फंस जाते हैं, सांस लेने या अपने अंगों को हिलाने में पूरी तरह असमर्थ हैं।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will helplessly breathe the totally toxic dust, silently accept the heavily crushing debris, and pathetically await the extremely slow death.", "आप बेबस होकर पूरी तरह से जहरीली धूल में सांस लेंगे, चुपचाप भारी कुचलने वाले मलबे को स्वीकार करेंगे, और दयनीय रूप से बेहद धीमी मौत का इंतजार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 1],
+["Your vindictive roommates secretly plant heavy illegal drugs in your bag and actively call the corrupt local police to completely ruin your life.", "आपके तामसिक (vindictive) रूममेट्स गुप्त रूप से आपके बैग में भारी अवैध दवाएं (drugs) लगाते हैं और आपके जीवन को पूरी तरह से बर्बाद करने के लिए भ्रष्ट स्थानीय पुलिस को सक्रिय रूप से बुलाते हैं।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will silently accept the totally false accusations, cowardly face the highly brutal police, and helplessly spend the entirely ruined life.", "आप चुपचाप पूरी तरह से झूठे आरोपों को स्वीकार करेंगे, कायरतापूर्वक अत्यधिक क्रूर पुलिस का सामना करेंगे, और बेबस होकर पूरी तरह से बर्बाद जीवन व्यतीत करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", 1],
+["Due to a severe financial crisis in your family, the bank aggressively auctions your ancestral home, forcing you completely onto the dark streets.", "आपके परिवार में गंभीर वित्तीय संकट के कारण, बैंक आक्रामक रूप से आपके पैतृक घर की नीलामी करता है, जिससे आप पूरी तरह से अंधेरी सड़कों पर आ जाते हैं।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will pathetically leave the heavily auctioned house, silently accept the totally miserable poverty, and helplessly wander the completely empty streets.", "आप दयनीय रूप से भारी नीलाम किए गए घर को छोड़ देंगे, चुपचाप पूरी तरह से दयनीय गरीबी को स्वीकार करेंगे, और असहाय रूप से पूरी तरह से खाली सड़कों पर भटकेंगे।", 3],
+["Highly armed terrorists capture your school during an event, brutally demanding that you, as the head boy, execute a younger student immediately.", "भारी हथियारों से लैस आतंकवादी एक कार्यक्रम के दौरान आपके स्कूल पर कब्जा कर लेते हैं, क्रूरतापूर्वक यह मांग करते हैं कि आप, हेड बॉय के रूप में, तुरंत एक छोटे छात्र को मार डालें।", "You will cowardly kill the completely innocent student, silently obey the highly ruthless terrorists, and helplessly carry the deeply permanent trauma.", "आप कायरतापूर्वक पूरी तरह से निर्दोष छात्र को मार डालेंगे, चुपचाप अत्यधिक क्रूर आतंकवादियों की बात मानेंगे, और बेबस होकर गहरा स्थायी आघात सहेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 0],
+["A totally fake viral video spreads rapidly across national television falsely claiming that you are a highly dangerous anti-national spy selling country secrets.", "एक पूरी तरह से नकली वायरल वीडियो राष्ट्रीय टेलीविजन पर तेजी से फैलता है जिसमें झूठा दावा किया जाता है कि आप देश के रहस्य बेचने वाले एक अत्यधिक खतरनाक राष्ट्र-विरोधी जासूस हैं।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will silently delete the entirely personal accounts, helplessly accept the totally ruined reputation, and cowardly hide the deeply shamed face.", "आप चुपचाप पूरी तरह से व्यक्तिगत खातों को हटा देंगे, बेबस होकर पूरी तरह से बर्बाद प्रतिष्ठा को स्वीकार करेंगे, और कायरतापूर्वक गहराई से शर्मिंदा चेहरा छिपाएंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 1],
+["You suffer a severe spinal injury during the tough military obstacle course, leaving you permanently paralyzed completely from the neck down forever.", "कठिन सैन्य बाधा कोर्स के दौरान आपको रीढ़ की हड्डी में गंभीर चोट लगती है, जिससे आप हमेशा के लिए गर्दन से नीचे तक पूरी तरह से लकवाग्रस्त हो जाते हैं।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will helplessly accept the totally paralyzed body, silently weep the deeply miserable tears, and pathetically live the entirely dependent life.", "आप बेबस होकर पूरी तरह से लकवाग्रस्त शरीर को स्वीकार करेंगे, चुपचाप बहुत ही दयनीय आँसू रोएंगे, और दयनीय रूप से पूरी तरह से आश्रित जीवन जिएंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", 1],
+["Your aggressive subordinate publicly slaps you across the face during a highly important troop briefing and violently challenges your command in front of everyone.", "आपका आक्रामक अधीनस्थ एक अत्यधिक महत्वपूर्ण सेना ब्रीफिंग के दौरान सार्वजनिक रूप से आपके चेहरे पर थप्पड़ मारता है और सभी के सामने हिंसक रूप से आपकी कमान को चुनौती देता है।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will silently accept the highly public slap, cowardly ignore the completely shattered authority, and helplessly weep the deeply humiliating tears.", "आप चुपचाप अत्यधिक सार्वजनिक थप्पड़ को स्वीकार करेंगे, कायरतापूर्वक पूरी तरह से टूटे हुए अधिकार को नजरअंदाज करेंगे, और बेबस होकर अत्यधिक अपमानजनक आंसू रोएंगे।", 3],
+["A seemingly helpless foreign tourist asks you to hold their heavy bag, which actually contains massive illegal drugs, just as the strict police arrive.", "एक प्रतीत होता है असहाय विदेशी पर्यटक आपको अपना भारी बैग पकड़ने के लिए कहता है, जिसमें वास्तव में बड़े पैमाने पर अवैध दवाएं (drugs) होती हैं, ठीक उसी समय सख्त पुलिस आ जाती है।", "You will pathetically accept the completely false charges, silently face the highly brutal prison, and helplessly ruin the entirely innocent life.", "आप दयनीय रूप से पूरी तरह से झूठे आरोपों को स्वीकार करेंगे, चुपचाप अत्यधिक क्रूर जेल का सामना करेंगे, और बेबस होकर पूरी तरह से निर्दोष जीवन को बर्बाद कर देंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", 0],
+["A catastrophic heavy flood washes away your entire family's house instantly, and you are left hopelessly holding onto a weak, completely cracking tree branch.", "एक विनाशकारी भारी बाढ़ आपके पूरे परिवार के घर को तुरंत बहा ले जाती है, और आप निराशाजनक रूप से एक कमजोर, पूरी तरह से दरकती हुई पेड़ की शाखा को पकड़े रह जाते हैं।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will cowardly release the entirely slippery branch, silently watch the totally drowning family, and helplessly save the completely selfish life.", "आप कायरतापूर्वक पूरी तरह से फिसलन वाली शाखा को छोड़ देंगे, चुपचाप पूरी तरह से डूबते हुए परिवार को देखेंगे, और बेबस होकर पूरी तरह से स्वार्थी जीवन बचाएंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 1],
+["Your most trusted friend brutally betrays you by stealing your entire brilliant million-dollar startup idea and successfully getting a massive venture funding purely in his name.", "आपका सबसे भरोसेमंद दोस्त आपके पूरे शानदार मिलियन-डॉलर स्टार्टअप विचार को चुराकर और विशुद्ध रूप से अपने नाम पर बड़े पैमाने पर उद्यम निधि (venture funding) सफलतापूर्वक प्राप्त करके आपको बेरहमी से धोखा देता है।", "You will silently watch the highly successful thief, helplessly accept the totally massive betrayal, and pathetically cry the deeply miserable tears.", "आप चुपचाप अत्यधिक सफल चोर को देखेंगे, बेबस होकर पूरी तरह से बड़े पैमाने पर विश्वासघात को स्वीकार करेंगे, और दयनीय रूप से बहुत ही दयनीय आंसू रोएंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 0],
+["A heavily violent armed mob totally surrounds your personal car, screaming aggressively demanding that you hand over your minority religion friend sitting strictly beside you.", "एक भारी हिंसक सशस्त्र भीड़ आपकी निजी कार को पूरी तरह से घेर लेती है, आक्रामक रूप से चिल्लाते हुए मांग करती है कि आप अपने अल्पसंख्यक धर्म के मित्र को सौंप दें जो आपके ठीक बगल में बैठा है।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will cowardly surrender the completely innocent friend, silently ignore the highly violent mob, and helplessly save the entirely worthless life.", "आप कायरतापूर्वक पूरी तरह से निर्दोष दोस्त को आत्मसमर्पण करेंगे, चुपचाप अत्यधिक हिंसक भीड़ को नजरअंदाज करेंगे, और बेबस होकर पूरी तरह से बेकार जीवन बचाएंगे।", 3],
+["You accidentally discover a highly confidential enemy document clearly proving that your own respected father is actually a major traitor actively selling national military secrets.", "आप गलती से एक अत्यधिक गोपनीय दुश्मन दस्तावेज की खोज करते हैं जो स्पष्ट रूप से साबित करता है कि आपके अपने सम्मानित पिता वास्तव में एक प्रमुख गद्दार हैं जो सक्रिय रूप से राष्ट्रीय सैन्य रहस्यों को बेच रहे हैं।", "You will silently hide the highly treasonous evidence, cowardly protect the completely traitorous father, and helplessly betray the entirely trusting nation.", "आप चुपचाप अत्यधिक राजद्रोहपूर्ण साक्ष्य छिपाएंगे, कायरतापूर्वक पूरी तरह से देशद्रोही पिता की रक्षा करेंगे, और बेबस होकर पूरी तरह से भरोसेमंद राष्ट्र को धोखा देंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", 0],
+["A deadly poisonous toxic gas leak suddenly locks down the industrial factory doors completely automatically, and the highly lethal toxic green gas is rapidly filling your room.", "एक घातक जहरीली जहरीली गैस का रिसाव अचानक औद्योगिक कारखाने के दरवाजों को पूरी तरह से स्वचालित रूप से बंद कर देता है, और अत्यधिक घातक जहरीली हरी गैस तेजी से आपके कमरे में भर रही है।", "You will secretly plant the massive explosive bomb, maliciously detonate the completely crowded building, and ruthlessly murder the totally unaware civilians.", "आप गुप्त रूप से बड़े पैमाने पर विस्फोटक बम लगाएंगे, पूरी तरह से भीड़भाड़ वाली इमारत को दुर्भावनापूर्ण रूप से उड़ाएंगे, और पूरी तरह से अनजान नागरिकों की बेरहमी से हत्या करेंगे।", "You will helplessly inhale the completely toxic fumes, silently accept the highly agonizing pain, and pathetically await the totally inescapable death.", "आप बेबस होकर पूरी तरह से जहरीले धुएं को अंदर लेंगे, चुपचाप अत्यधिक दर्दनाक दर्द को स्वीकार करेंगे, और दयनीय रूप से पूरी तरह से अपरिहार्य मृत्यु की प्रतीक्षा करेंगे।", "You will violently attack the completely innocent bystanders, aggressively destroy the highly expensive properties, and loudly cause the massive bloody massacre.", "आप पूरी तरह से निर्दोष दर्शकों पर हिंसक हमला करेंगे, अत्यधिक महंगी संपत्तियों को आक्रामक रूप से नष्ट करेंगे, और जोर-जोर से बड़े पैमाने पर खूनी नरसंहार करेंगे।", "You will instantly consume the highly toxic poison, violently slit the deeply bleeding wrists, and permanently end the miserable pathetic life.", "आप तुरंत अत्यधिक जहरीले जहर का सेवन करेंगे, गहरे खून बहने वाली कलाई को हिंसक रूप से काटेंगे, और दयनीय दयनीय जीवन को स्थायी रूप से समाप्त कर देंगे।", 1]
+];
+
+var TOTAL=35, DURATION=30*60, CORRECT=1, WRONG=0.25;
+
+var UI={
+ en:{tag:"SSB • SRT Mock Test Series",sSub:"Situation Reaction Test – SKC Defence Academy Test Series",iQ:"Questions",iT:"Minutes",iC:"Correct",iW:"Wrong",
+  r1:"Each question has 4 options; choose the best reaction.",r2:"Timer is 30 minutes. The test auto-submits when time ends.",r3:"Use the question palette to jump to any question.",r4:"Unanswered questions carry no marks (0).",r5:"You can switch between English and Hindi at any time.",r6:"You can submit the test at any time using the Submit button.",
+  start:"Start Test",prev:"Previous",clear:"Clear",next:"Next",submit:"Submit",pal:"Question Palette",lAns:"Answered",lNot:"Not answered",lNv:"Not visited",close:"Close",qs:"Questions",
+  yourScore:"Your Score",review:"Review Answers",hideRv:"Hide Review",retake:"Retake Test",cTitle:"Submit Test?",cancel:"Cancel",yes:"Yes, Submit",
+  q:"Question",of:"of",ans:"Answered",unans:"Not answered",sure:"Are you sure you want to submit?",left:"Time left",
+  total:"Total Questions",att:"Attempted",skip:"Skipped",cor:"Correct",wr:"Wrong",acc:"Accuracy",outOf:"out of",marks:"marks",
+  yours:"Your answer",right:"Correct answer",none:"Not attempted",timeUp:"Time is up! Your test has been submitted."},
+ hi:{tag:"SSB • SRT मॉक टेस्ट सीरीज़",sSub:"सिचुएशन रिएक्शन टेस्ट – SKC डिफेंस एकेडमी टेस्ट सीरीज़",iQ:"प्रश्न",iT:"मिनट",iC:"सही उत्तर",iW:"गलत उत्तर",
+  r1:"प्रत्येक प्रश्न में 4 विकल्प हैं; सबसे उचित प्रतिक्रिया चुनें।",r2:"समय 30 मिनट है। समय समाप्त होने पर टेस्ट अपने-आप सबमिट हो जाएगा।",r3:"किसी भी प्रश्न पर जाने के लिए प्रश्न पैलेट का उपयोग करें।",r4:"बिना उत्तर वाले प्रश्नों के कोई अंक नहीं (0) मिलेंगे।",r5:"आप कभी भी अंग्रेज़ी और हिंदी के बीच बदल सकते हैं।",r6:"आप सबमिट बटन से कभी भी टेस्ट सबमिट कर सकते हैं।",
+  start:"टेस्ट शुरू करें",prev:"पिछला",clear:"हटाएँ",next:"अगला",submit:"सबमिट",pal:"प्रश्न पैलेट",lAns:"उत्तर दिया",lNot:"उत्तर नहीं दिया",lNv:"नहीं देखा",close:"बंद करें",qs:"प्रश्न",
+  yourScore:"आपका स्कोर",review:"उत्तर देखें",hideRv:"समीक्षा छुपाएँ",retake:"दोबारा दें",cTitle:"टेस्ट सबमिट करें?",cancel:"रद्द करें",yes:"हाँ, सबमिट करें",
+  q:"प्रश्न",of:"/",ans:"उत्तर दिए",unans:"बिना उत्तर",sure:"क्या आप वाकई सबमिट करना चाहते हैं?",left:"शेष समय",
+  total:"कुल प्रश्न",att:"प्रयास किए",skip:"छोड़े गए",cor:"सही",wr:"गलत",acc:"सटीकता",outOf:"में से",marks:"अंक",
+  yours:"आपका उत्तर",right:"सही उत्तर",none:"प्रयास नहीं किया",timeUp:"समय समाप्त! आपका टेस्ट सबमिट कर दिया गया है।"}
+};
+
+var Q=[],i;
+for(i=0;i<RAW.length;i++){var r=RAW[i];Q.push({q:[r[0],r[1]],o:[[r[2],r[3]],[r[4],r[5]],[r[6],r[7]],[r[8],r[9]]],a:r[10]});}
+
+var S={cur:0,lang:"en",ans:[],vis:[],end:0,tid:null,done:false,running:false};
+for(i=0;i<TOTAL;i++){S.ans.push(-1);S.vis.push(false);}
+
+function $(id){return document.getElementById(id);}
+function L(){return S.lang==="en"?0:1;}
+function t(k){return UI[S.lang][k];}
+function pad(n){return n<10?"0"+n:""+n;}
+function fmt(n){var s=(Math.round(n*100)/100).toFixed(2);return s.replace(/\.?0+$/,"");}
+function show(id){["start","test","result"].forEach(function(x){$(x).classList.toggle("hide",x!==id);});window.scrollTo(0,0);}
+
+function applyLang(){
+ var els=document.querySelectorAll("[data-i]"),k;
+ for(k=0;k<els.length;k++){var key=els[k].getAttribute("data-i");if(UI[S.lang][key])els[k].textContent=UI[S.lang][key];}
+ document.documentElement.lang=S.lang==="en"?"en":"hi";
+ $("bEn").classList.toggle("on",S.lang==="en");
+ $("bHi").classList.toggle("on",S.lang==="hi");
+ if(S.running)render();
+ if(S.done)renderResult();
+}
+
+function render(){
+ var q=Q[S.cur],k;
+ S.vis[S.cur]=true;
+ $("qno").textContent=t("q")+" "+(S.cur+1)+" "+t("of")+" "+TOTAL;
+ $("qtag").textContent="+1 / -0.25";
+ $("qtext").textContent=q.q[L()];
+ var box=$("opts");box.innerHTML="";
+ for(k=0;k<4;k++){(function(k){
+  var b=document.createElement("button");
+  b.type="button";b.className="opt"+(S.ans[S.cur]===k?" sel":"");
+  var l=document.createElement("i");l.textContent="ABCD".charAt(k);
+  var s=document.createElement("span");s.textContent=q.o[k][L()];
+  b.appendChild(l);b.appendChild(s);
+  b.onclick=function(){S.ans[S.cur]=k;render();};
+  box.appendChild(b);
+ })(k);}
+ $("prev").disabled=S.cur===0;
+ $("next").disabled=S.cur===TOTAL-1;
+ $("clear").disabled=S.ans[S.cur]===-1;
+ renderPalette();
+}
+
+function counts(){var a=0,k;for(k=0;k<TOTAL;k++)if(S.ans[k]!==-1)a++;return a;}
+
+function renderPalette(){
+ var g=$("grid");g.innerHTML="";
+ for(var k=0;k<TOTAL;k++){(function(k){
+  var b=document.createElement("button");b.type="button";
+  var c="pn";
+  if(S.ans[k]!==-1)c+=" ans";else if(S.vis[k])c+=" vis";
+  if(k===S.cur)c+=" cur";
+  b.className=c;b.textContent=k+1;
+  b.onclick=function(){go(k);$("side").classList.remove("open");};
+  g.appendChild(b);
+ })(k);}
+ var a=counts();
+ $("cnt").textContent=t("ans")+": "+a+"  |  "+t("unans")+": "+(TOTAL-a);
+}
+
+function go(n){if(n<0||n>=TOTAL)return;S.cur=n;render();window.scrollTo(0,0);}
+
+/* timer */
+function tick(){
+ var rem=Math.max(0,Math.ceil((S.end-Date.now())/1000));
+ $("timer").textContent=pad(Math.floor(rem/60))+":"+pad(rem%60);
+ $("timer").classList.toggle("warn",rem<=300);
+ if(rem<=0){finish(true);}
+}
+
+function startTest(){
+ S.running=true;S.end=Date.now()+DURATION*1000;
+ $("timer").classList.remove("hide");
+ show("test");render();tick();
+ S.tid=setInterval(tick,500);
+}
+
+function openConfirm(){
+ var a=counts();
+ $("cBody").innerHTML="";
+ var p=document.createElement("p");
+ p.textContent=t("sure");
+ var d=document.createElement("p");
+ d.style.fontWeight="700";
+ d.textContent=t("ans")+": "+a+" | "+t("unans")+": "+(TOTAL-a);
+ $("cBody").appendChild(p);$("cBody").appendChild(d);
+ $("modal").classList.remove("hide");
+}
+
+function finish(auto){
+ if(S.done)return;
+ S.done=true;S.running=false;
+ clearInterval(S.tid);
+ $("modal").classList.add("hide");
+ $("timer").classList.add("hide");
+ $("side").classList.remove("open");
+ show("result");renderResult();
+ if(auto)setTimeout(function(){alert(t("timeUp"));},100);
+}
+
+function calc(){
+ var c=0,w=0,k;
+ for(k=0;k<TOTAL;k++){if(S.ans[k]===-1)continue;if(S.ans[k]===Q[k].a)c++;else w++;}
+ var att=c+w;
+ return {c:c,w:w,att:att,skip:TOTAL-att,score:c*CORRECT-w*WRONG};
+}
+
+function renderResult(){
+ var R=calc();
+ $("rScore").textContent=fmt(R.score);
+ $("rOut").textContent=t("outOf")+" "+TOTAL+" "+t("marks");
+ var acc=R.att?Math.round(R.c*100/R.att):0;
+ var items=[["s-att",R.att,t("att")],["s-skip",R.skip,t("skip")],["s-ok",R.c,t("cor")+" (+"+fmt(R.c*CORRECT)+")"],["s-bad",R.w,t("wr")+" (-"+fmt(R.w*WRONG)+")"],["",TOTAL,t("total")],["s-att",acc+"%",t("acc")]];
+ var st=$("stats");st.innerHTML="";
+ items.forEach(function(it){
+  var d=document.createElement("div");d.className="stat "+it[0];
+  var b=document.createElement("b");b.textContent=it[1];
+  var s=document.createElement("small");s.textContent=it[2];
+  d.appendChild(b);d.appendChild(s);st.appendChild(d);
+ });
+ renderReview();
+}
+
+function renderReview(){
+ var box=$("rv");box.innerHTML="";
+ Q.forEach(function(q,k){
+  var u=S.ans[k],cls=u===-1?"sk":(u===q.a?"ok":"bad");
+  var d=document.createElement("div");d.className="card rv "+cls;
+  var h=document.createElement("h4");h.textContent=(k+1)+". "+q.q[L()];d.appendChild(h);
+  for(var j=0;j<4;j++){
+   var o=document.createElement("div");
+   var c2="ro";if(j===q.a)c2+=" c";else if(j===u)c2+=" w";
+   o.className=c2;
+   o.textContent="ABCD".charAt(j)+". "+q.o[j][L()];
+   if(j===q.a||j===u){var em=document.createElement("em");em.textContent=j===q.a?"✔ "+t("right"):"✘ "+t("yours");o.appendChild(em);}
+   d.appendChild(o);
+  }
+  if(u===-1){var n=document.createElement("div");n.style.cssText="margin-top:8px;font-size:13px;color:#e08a00;font-weight:700";n.textContent=t("none");d.appendChild(n);}
+  box.appendChild(d);
+ });
+}
+
+/* events */
+$("bEn").onclick=function(){S.lang="en";applyLang();};
+$("bHi").onclick=function(){S.lang="hi";applyLang();};
+$("startBtn").onclick=startTest;
+$("prev").onclick=function(){go(S.cur-1);};
+$("next").onclick=function(){go(S.cur+1);};
+$("clear").onclick=function(){S.ans[S.cur]=-1;render();};
+$("submit").onclick=openConfirm;
+$("cNo").onclick=function(){$("modal").classList.add("hide");};
+$("cYes").onclick=function(){finish(false);};
+$("fab").onclick=function(){$("side").classList.add("open");$("closeSide").style.display="block";};
+$("closeSide").onclick=function(){$("side").classList.remove("open");};
+$("showRv").onclick=function(){
+ var b=$("rv"),hid=b.classList.toggle("hide");
+ $("showRv").textContent=hid?t("review"):t("hideRv");
+};
+$("retake").onclick=function(){location.reload();};
+document.addEventListener("keydown",function(e){
+ if(!S.running)return;
+ if(e.key==="ArrowRight")go(S.cur+1);
+ else if(e.key==="ArrowLeft")go(S.cur-1);
+});
+window.addEventListener("beforeunload",function(e){
+ if(S.running){e.preventDefault();e.returnValue="";return "";}
+});
+/* recompute timer instantly when tab becomes visible again (mobile browsers pause timers in background) */
+document.addEventListener("visibilitychange",function(){if(S.running)tick();});
+
+applyLang();
+})();
+</script>
+</body>
+</html>
