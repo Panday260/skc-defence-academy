@@ -1115,19 +1115,21 @@ app.get('/api/current-affairs', (req, res) => {
 });
 
 app.post('/api/current-affairs', requireAdmin, (req, res) => {
-  const { type, title, date, summary, highlights, pdfUrl, pages, size } = req.body;
+  const { type, title, date, summary, highlights, pdfUrl, pages, size, month, week, questionsCount, durationMins, isFreeDemo, badge } = req.body;
   const db = readDb();
   db.currentAffairs = db.currentAffairs || { weekly: [], monthly: [] };
 
   if (type === 'monthly') {
     const item = {
       id: 'ca_m_' + Date.now(),
-      title: title || 'Monthly Defence Digest',
-      date: date || 'Current Month',
+      month: month || 'November 2026',
+      title: title || 'Monthly Defence Digest & Practice Set',
+      date: date || 'Current Month Edition',
       summary: summary || '',
-      size: size || '5.5 MB',
-      pages: Number(pages) || 60,
-      pdfUrl: pdfUrl || '/uploads/pdfs/ca_monthly_oct_2026.pdf'
+      size: size || '6.5 MB',
+      pages: Number(pages) || 75,
+      badge: badge || 'Monthly Edition',
+      pdfUrl: pdfUrl || '/uploads/pdfs/ca_monthly_nov_2026.pdf'
     };
     db.currentAffairs.monthly.unshift(item);
     writeDb(db);
@@ -1135,11 +1137,17 @@ app.post('/api/current-affairs', requireAdmin, (req, res) => {
   } else {
     const item = {
       id: 'ca_w_' + Date.now(),
-      title: title || 'Weekly Defence Current Affairs',
+      month: month || 'November 2026',
+      week: week || 'Week 1',
+      title: title || 'Weekly Defence & National Mock Test',
       date: date || 'Current Week',
+      questionsCount: Number(questionsCount) || 30,
+      durationMins: Number(durationMins) || 25,
+      isFreeDemo: !!isFreeDemo,
+      badge: isFreeDemo ? 'Free Demo Mock' : (badge || 'Batch Exclusive'),
       summary: summary || '',
       highlights: highlights || [],
-      pdfUrl: pdfUrl || '/uploads/pdfs/ca_weekly_oct_w4.pdf'
+      pdfUrl: pdfUrl || '/uploads/pdfs/ca_weekly_nov_w1.pdf'
     };
     db.currentAffairs.weekly.unshift(item);
     writeDb(db);

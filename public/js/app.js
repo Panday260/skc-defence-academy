@@ -16,7 +16,9 @@ const App = {
     syllabus: [],
     phase2Batches: [],
     srtScenarios: [],
-    currentAffairs: { weekly: [], monthly: [] },
+    currentAffairs: { batchInfo: {}, months: [], weekly: [], monthly: [] },
+    caActiveSection: 'weekly',
+    caSelectedMonth: null,
     selections: [],
     users: [],
     orders: [],
@@ -332,6 +334,8 @@ const App = {
     if (purchased.includes(batchId)) return true;
     // Flagship GD+SRT batch (phase2_1) includes phase2_2 as well
     if (batchId === 'phase2_2' && purchased.includes('phase2_1')) return true;
+    // Current Affairs Special Batch (₹99 Batch)
+    if ((batchId === 'ca_batch' || batchId === 'ca_99') && (purchased.includes('ca_batch') || purchased.includes('ca_99'))) return true;
     return false;
   },
 
@@ -3185,156 +3189,572 @@ ${eb.previewText || 'Sample preview chapter...'}
     `;
   },
 
-  // 10. Current Affairs
-  // "Current Affairs: In this we have 02 section First :weekly Second: Monthly"
-  selectCaCategory(cat) {
-    this.state.selectedCaCategory = cat;
+  // 10. Current Affairs (Two-Tier Hierarchy: Weekly with Month-drilldown & Monthly Digests)
+  // "Keep first option Current affairs jo main page par appear h"
+  // "Uske बाद usme दो section bana do: पहला WEEKLY, दूसरा MONTHLY"
+  // "Weekly wale options me जब student click kare to usko screen par only Months Name Show kare use"
+  // "Month name ke upar Click karne baad use weekly mock show kare"
+  selectCaSection(sec) {
+    this.state.caActiveSection = sec || 'weekly';
+    this.state.caSelectedMonth = null; // Reset drilldown when switching sections
     this.renderCurrentAffairs();
   },
 
+  selectCaMonth(monthName) {
+    this.state.caSelectedMonth = monthName;
+    this.renderCurrentAffairs();
+    const area = document.getElementById('ca-content-area');
+    if (area) area.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  },
+
+  backToCaMonths() {
+    this.state.caSelectedMonth = null;
+    this.renderCurrentAffairs();
+  },
+
+  startCaWeeklyMock(mockId) {
+    const ca = this.state.currentAffairs || { weekly: [], monthly: [] };
+    const mock = (ca.weekly || []).find(w => w.id === mockId);
+    if (!mock) return alert('Mock test not found');
+
+    const hasAccess = this.hasBatchAccess('ca_batch') || this.hasBatchAccess('ca_99');
+    if (!hasAccess && !mock.isFreeDemo) {
+      if (confirm(`🔒 This Weekly CBT Mock Test (${mock.week || 'Mock'}) is exclusive to the Current Affairs Batch.\n\nSpecial Offer Price: ₹99/- (Discounted from ₹199/-)\n\nWould you like to unlock the complete Current Affairs Batch with all weekly mocks and monthly digests now?`)) {
+        this.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', 99);
+      }
+      return;
+    }
+
+    // Build or use CBT questions
+    const questions = (mock.mockQuestions && mock.mockQuestions.length > 0)
+      ? mock.mockQuestions
+      : this.generateCaMockQuestions(mock);
+
+    const testObj = {
+      id: mock.id,
+      title: mock.title || `${mock.month} ${mock.week} CBT Mock Test`,
+      category: 'Current Affairs',
+      duration: mock.durationMins || 25,
+      maxMarks: questions.length,
+      positiveMark: 1,
+      negativeMark: 0.25,
+      instructions: 'Bilingual CBT Mock Test (Hindi / English). +1 Mark for Correct Answer, -0.25 Negative Marking. Timer starts upon test initialization.',
+      questions: questions
+    };
+
+    this.navigateTo('test-viewport');
+    window.cbtEngineInstance = new CBTTestEngine(testObj, (result) => {
+      App.showScorecard(result);
+    });
+    window.cbtEngineInstance.start();
+  },
+
+  generateCaMockQuestions(mock) {
+    const highlights = mock.highlights || [
+      'DRDO successfully flight-tests new generation air defence missile systems',
+      'Indian Armed Forces conduct tri-service joint operations exercise',
+      'Defence Acquisition Council clears major indigenisation procurements',
+      'Strategic infrastructure and high-altitude tunnels operationalized along frontiers'
+    ];
+
+    const samplePool = [
+      {
+        question: "DRDO recently conducted successful flight trials of which indigenously developed short-range air defence missile system?",
+        options: ["Very Short Range Air Defence System (VSHORADS)", "Akash-NG Surface-to-Air Missile", "Quick Reaction SAM (QRSAM)", "Medium Range SAM (MRSAM)"],
+        answer: 0,
+        explanation: "DRDO successfully flight-tested the VSHORADS missile system with state-of-the-art miniaturized reaction control and dual-thrust solid motor propulsion."
+      },
+      {
+        question: "Which multilateral naval maritime exercise was recently conducted by the Indian Navy with Quad partner nations?",
+        options: ["Exercise MALABAR", "Exercise VARUNA", "Exercise SIMBEX", "Exercise MILAN"],
+        answer: 0,
+        explanation: "Exercise MALABAR is a high-tempo multilateral maritime exercise featuring the navies of India, the United States, Japan, and Australia."
+      },
+      {
+        question: "Who among the following chairs the Defence Acquisition Council (DAC), the highest decision-making body for defence capital procurements?",
+        options: ["Chief of Defence Staff (CDS)", "Union Defence Minister", "Prime Minister of India", "National Security Advisor (NSA)"],
+        answer: 1,
+        explanation: "The Defence Acquisition Council (DAC) is chaired by the Union Defence Minister of India."
+      },
+      {
+        question: "What is the code name of the biennial pan-India coastal defence exercise conducted by the Indian Navy and Coast Guard?",
+        options: ["Operation Sagar Bandhu", "Exercise Sea Vigil", "Exercise Sagar Kavach", "Exercise Paschim Lehar"],
+        answer: 1,
+        explanation: "Exercise 'Sea Vigil' evaluates maritime coastal defence readiness across all 7,516 km of the Indian coastline and Exclusive Economic Zone (EEZ)."
+      },
+      {
+        question: "Which Indian Naval Ship was commissioned as the second nuclear-powered ballistic missile submarine (SSBN) of the Arihant class?",
+        options: ["INS Arighat (S3)", "INS Chakra (S71)", "INS Khanderi (S22)", "INS Vagir (S25)"],
+        answer: 0,
+        explanation: "INS Arighat (S3) is India's second indigenously built Arihant-class nuclear ballistic missile submarine strengthening the nuclear triad."
+      },
+      {
+        question: "Which north-eastern state houses the strategically vital Sela and Nechiphu tunnels constructed by the Border Roads Organisation (BRO)?",
+        options: ["Sikkim", "Arunachal Pradesh", "Ladakh", "Uttarakhand"],
+        answer: 1,
+        explanation: "The Sela and Nechiphu tunnels provide all-weather, high-altitude strategic connectivity to Tawang in Arunachal Pradesh."
+      },
+      {
+        question: "Who is the current Chief of the Air Staff (CAS) of the Indian Air Force?",
+        options: ["Air Chief Marshal Amar Preet Singh", "Air Chief Marshal V.R. Chaudhari", "Air Chief Marshal Rakesh Bhadauria", "Air Chief Marshal Birender Dhanoa"],
+        answer: 0,
+        explanation: "Air Chief Marshal Amar Preet Singh took charge as the 28th Chief of the Air Staff of the Indian Air Force."
+      },
+      {
+        question: "The 25-tonne 'Zorawar' combat light tank indigenously designed by DRDO & L&T is optimized primarily for operations in which terrain?",
+        options: ["High-altitude mountain warfare along LAC (Ladakh & Sikkim)", "Island amphibious combat", "Dense tropical rainforest warfare", "Exclusive urban tactical combat"],
+        answer: 0,
+        explanation: "Zorawar light tank is specifically engineered for high-altitude mountainous operations in Eastern Ladakh and Sikkim with exceptional mobility."
+      },
+      {
+        question: "India signed landmark export contracts for Pinaka Multi-Barrel Rocket Launcher (MBRL) systems with which partner nation?",
+        options: ["Armenia", "Vietnam", "Philippines", "Egypt"],
+        answer: 0,
+        explanation: "Armenia procured indigenously manufactured Pinaka MBRL systems and guided munitions from India in a landmark defence export deal."
+      },
+      {
+        question: "Which variant of the Light Combat Aircraft (LCA) features the Uttam AESA Radar and advanced indigenous Electronic Warfare (EW) suite?",
+        options: ["LCA Tejas Mk-1A", "LCA Navy Prototype 1", "AMCA Prototype", "TEDBF"],
+        answer: 0,
+        explanation: "LCA Tejas Mk-1A incorporates modern AESA radar, self-protection jammer pods, and improved maintenance turnaround capabilities."
+      }
+    ];
+
+    return samplePool;
+  },
+
   renderCurrentAffairs() {
-    const navContainer = document.getElementById('ca-folder-nav');
+    const bannerContainer = document.getElementById('ca-batch-banner');
+    const tabsContainer = document.getElementById('ca-section-tabs');
     const crumbContainer = document.getElementById('ca-folder-breadcrumb');
     const contentArea = document.getElementById('ca-content-area');
     if (!contentArea) return;
 
-    const weekly = (this.state.currentAffairs && this.state.currentAffairs.weekly) || [];
-    const monthly = (this.state.currentAffairs && this.state.currentAffairs.monthly) || [];
-    const totalCount = weekly.length + monthly.length;
+    const ca = this.state.currentAffairs || { batchInfo: {}, months: [], weekly: [], monthly: [] };
+    const batchInfo = ca.batchInfo || {
+      id: 'ca_batch',
+      title: 'Current Affairs Special Batch (Daily • Weekly • Monthly)',
+      originalPrice: 199,
+      offerPrice: 99,
+      posterUrl: '/uploads/current_affairs_batch_poster.jpg',
+      helpline: '+91 8058010219'
+    };
 
-    const activeCat = this.state.selectedCaCategory || 'all';
+    const weekly = ca.weekly || [];
+    const monthly = ca.monthly || [];
 
-    let folderLabel = 'All Defence Current Affairs';
-    let folderIcon = '📁';
+    // Distinct list of months
+    const defaultMonths = [
+      { name: 'November 2026', isCurrent: true, badge: '🟢 Active Month • 4 Weekly Mocks', icon: '🔥', count: 4 },
+      { name: 'October 2026', isCurrent: false, badge: 'Completed • 4 Mocks & Digest', icon: '📁', count: 4 },
+      { name: 'September 2026', isCurrent: false, badge: 'Completed • 4 Mocks & Digest', icon: '📁', count: 4 },
+      { name: 'August 2026', isCurrent: false, badge: 'Archive • 4 Mocks & Digest', icon: '📁', count: 4 }
+    ];
 
-    if (activeCat === 'weekly') {
-      folderLabel = 'Weekly Defence Capsules Folder';
-      folderIcon = '📅';
-    } else if (activeCat === 'monthly') {
-      folderLabel = 'Monthly Defence Digests Folder';
-      folderIcon = '📖';
-    }
+    const months = (ca.months && ca.months.length > 0) ? ca.months : defaultMonths;
 
-    if (navContainer) {
-      navContainer.innerHTML = `
-        <button class="folder-tab-btn ${activeCat === 'all' ? 'active' : ''}" onclick="App.selectCaCategory('all')">
-          📁 All Current Affairs Folder <span class="folder-tab-badge">${totalCount}</span>
-        </button>
-        <button class="folder-tab-btn ${activeCat === 'weekly' ? 'active' : ''}" onclick="App.selectCaCategory('weekly')">
-          📅 Weekly Capsules Folder <span class="folder-tab-badge">${weekly.length}</span>
-        </button>
-        <button class="folder-tab-btn ${activeCat === 'monthly' ? 'active' : ''}" onclick="App.selectCaCategory('monthly')">
-          📖 Monthly Digests Folder <span class="folder-tab-badge">${monthly.length}</span>
-        </button>
-      `;
-    }
-
-    if (crumbContainer) {
-      crumbContainer.innerHTML = `
-        <div class="folder-breadcrumb">
-          <span class="crumb-root">📁 Defence_Intelligence</span>
-          <span class="crumb-sep">›</span>
-          <span>Current_Affairs_Vault</span>
-          <span class="crumb-sep">›</span>
-          <span class="crumb-current">${folderIcon} ${folderLabel}/</span>
-          <span class="crumb-count">${activeCat === 'all' ? totalCount : (activeCat === 'weekly' ? weekly.length : monthly.length)} Items</span>
-        </div>
-      `;
-    }
-
+    const activeSec = this.state.caActiveSection || 'weekly';
+    const selectedMonth = this.state.caSelectedMonth;
+    const hasBatch = this.hasBatchAccess('ca_batch') || this.hasBatchAccess('ca_99');
     const isAdmin = !!(this.state.user && this.state.user.role === 'admin');
 
-    const renderWeeklyCards = () => weekly.map(w => `
-      <div class="content-card" style="margin-bottom:1rem;">
-        <div class="content-card-body">
-          <span class="batch-badge" style="background:#ccfbf1; color:#0f766e;">Weekly Defence Capsule • ${w.date}</span>
-          <h3>${w.title}</h3>
-          <p>${w.summary}</p>
-          <div style="background:#f8fafc; border-radius:8px; padding:0.75rem; margin-bottom:1rem;">
-            <strong style="font-size:0.85rem; color:#0f172a;">Key Defence Highlights:</strong>
-            <ul style="font-size:0.82rem; color:#475569; margin-left:1.25rem; margin-top:0.35rem;">
-              ${(w.highlights || []).map(h => `<li>${h}</li>`).join('')}
-            </ul>
-          </div>
-          <div style="display:flex; gap:0.5rem; margin-top:auto;">
-            <button class="btn btn-defence" style="flex:1;" onclick="App.downloadWatermarkedPdf('${w.pdfUrl}')">
-              ⬇ Download Weekly PDF (Watermarked)
-            </button>
-          </div>
-          ${isAdmin ? `
-          <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
-            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('current-affairs', '${w.id}', 'weekly')">
-              ✏️ Edit
-            </button>
-            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('current-affairs', '${w.id}', 'weekly')">
-              🗑️ Delete
-            </button>
-          </div>
-          ` : ''}
-        </div>
-      </div>
-    `).join('');
+    // 1. RENDER BATCH SHOWCASE / PAID OFFER BANNER
+    if (bannerContainer) {
+      bannerContainer.innerHTML = `
+        <div class="ca-batch-hero-card" style="background:linear-gradient(135deg, #0a192f 0%, #0f172a 60%, #1e293b 100%); border:1.5px solid #0284c7; border-radius:16px; padding:1.25rem; color:#fff; box-shadow:0 8px 24px rgba(2,132,199,0.18); margin-bottom:1.25rem;">
+          <div style="display:flex; flex-direction:row; flex-wrap:wrap; gap:1.25rem; align-items:center;">
+            
+            <!-- Poster Thumbnail -->
+            <div style="flex:0 0 160px; max-width:180px; text-align:center;">
+              <img src="/uploads/current_affairs_batch_poster.jpg" alt="Current Affairs Batch Poster" style="width:100%; border-radius:10px; border:2px solid #38bdf8; box-shadow:0 6px 18px rgba(0,0,0,0.4); display:block; cursor:pointer;" onclick="App.openMediaModal('/uploads/current_affairs_batch_poster.jpg', 'Current Affairs Batch Poster')">
+              <span style="display:inline-block; margin-top:0.35rem; font-size:0.7rem; color:#94a3b8;">🔍 Click to enlarge</span>
+            </div>
 
-    const renderMonthlyCards = () => monthly.map(m => `
-      <div class="content-card" style="margin-bottom:1rem;">
-        <div class="content-card-body">
-          <span class="batch-badge" style="background:#e0f2fe; color:#0369a1;">Monthly E-Magazine • ${m.pages} Pages</span>
-          <h3>${m.title}</h3>
-          <p>${m.summary}</p>
-          <div class="card-pricing-row" style="margin-top:auto;">
-            <span style="font-size:0.85rem; color:#64748b;">Includes 200+ Practice MCQs</span>
-            <button class="btn btn-primary" onclick="App.downloadWatermarkedPdf('${m.pdfUrl}')">
-              ⬇ Download Magazine
-            </button>
-          </div>
-          ${isAdmin ? `
-          <div style="display:flex; gap:0.5rem; margin-top:0.6rem; border-top:1px dashed #e2e8f0; padding-top:0.6rem;">
-            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem;" onclick="App.openEditModal('current-affairs', '${m.id}', 'monthly')">
-              ✏️ Edit
-            </button>
-            <button class="btn btn-outline" style="flex:1; font-size:0.8rem; padding:0.35rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('current-affairs', '${m.id}', 'monthly')">
-              🗑️ Delete
-            </button>
-          </div>
-          ` : ''}
-        </div>
-      </div>
-    `).join('');
+            <!-- Batch Details & Pricing -->
+            <div style="flex:1; min-width:260px;">
+              <div style="display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap; margin-bottom:0.4rem;">
+                <span class="batch-badge" style="background:#0284c7; color:#fff; font-weight:800; font-size:0.72rem; padding:0.25rem 0.6rem;">
+                  ⭐ NEW BATCH 2026-27
+                </span>
+                <span class="batch-badge" style="background:#f59e0b; color:#0f172a; font-weight:800; font-size:0.72rem; padding:0.25rem 0.6rem;">
+                  🔥 DAILY • WEEKLY • MONTHLY
+                </span>
+                ${hasBatch ? `
+                  <span class="batch-badge" style="background:#16a34a; color:#fff; font-weight:800; font-size:0.72rem; padding:0.25rem 0.6rem;">
+                    ✓ BATCH ACTIVE & UNLOCKED
+                  </span>
+                ` : ''}
+              </div>
 
-    if (activeCat === 'weekly') {
-      contentArea.innerHTML = `
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:2.5rem;">
-          ${weekly.length === 0 ? '<div class="empty-folder-box" style="grid-column:1/-1;">No Weekly capsules found.</div>' : renderWeeklyCards()}
+              <h2 style="font-size:1.45rem; font-weight:900; color:#fff; margin:0 0 0.35rem 0; letter-spacing:0.5px;">
+                ${batchInfo.title || 'Current Affairs Special Batch (Daily • Weekly • Monthly)'}
+              </h2>
+              <p style="margin:0 0 0.75rem 0; font-size:0.86rem; color:#cbd5e1; line-height:1.4;">
+                Targeted Defence & National Current Affairs for <strong>Airforce Group X/Y, Navy SSR/MR, ICG, NDA & CDS</strong>.
+              </p>
+
+              <!-- Features Grid -->
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:0.35rem 0.75rem; margin-bottom:0.9rem; font-size:0.8rem; color:#e2e8f0;">
+                <div><span style="color:#38bdf8;">✓</span> <strong>Daily</strong> Current Affairs Briefs</div>
+                <div><span style="color:#38bdf8;">✓</span> <strong>Weekly</strong> High-Yield CBT Mocks</div>
+                <div><span style="color:#38bdf8;">✓</span> <strong>Monthly</strong> Comprehensive Digests (70+ Pgs)</div>
+                <div><span style="color:#38bdf8;">✓</span> <strong>Monthly</strong> Mega Revision Mock Tests with AIR</div>
+              </div>
+
+              <!-- Price & CTA Bar -->
+              <div style="display:flex; align-items:center; gap:0.85rem; flex-wrap:wrap; border-top:1px dashed rgba(255,255,255,0.15); padding-top:0.75rem;">
+                <div>
+                  <span style="text-decoration:line-through; color:#94a3b8; font-size:0.9rem; margin-right:0.35rem;">Original: ₹${batchInfo.originalPrice || 199}/-</span>
+                  <span style="font-size:1.5rem; font-weight:900; color:#4ade80;">Offer: ₹${batchInfo.offerPrice || 99}/-</span>
+                  <span style="font-size:0.72rem; background:rgba(74,222,128,0.18); color:#4ade80; padding:0.15rem 0.45rem; border-radius:6px; margin-left:0.3rem; font-weight:700;">LIMITED TIME OFFER</span>
+                </div>
+
+                <div style="display:flex; gap:0.5rem; margin-left:auto; flex-wrap:wrap;">
+                  ${hasBatch ? `
+                    <div style="background:#15803d; color:#fff; font-weight:700; font-size:0.85rem; padding:0.5rem 1rem; border-radius:8px; display:flex; align-items:center; gap:0.35rem;">
+                      <span>✓</span> All Weekly Mocks & Monthly Compendiums Unlocked!
+                    </div>
+                  ` : `
+                    <button class="btn btn-primary" style="background:#16a34a; border-color:#16a34a; font-weight:800; font-size:0.92rem; padding:0.55rem 1.25rem; box-shadow:0 4px 12px rgba(22,163,74,0.35);" onclick="App.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', ${batchInfo.offerPrice || 99})">
+                      ⚡ ENROLL NOW FOR ₹${batchInfo.offerPrice || 99}
+                    </button>
+                    <a href="tel:${(batchInfo.helpline || '+918058010219').replace(/\s/g,'')}" class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.3); font-size:0.82rem; padding:0.5rem 0.85rem; text-decoration:none;">
+                      📞 Call: ${batchInfo.helpline || '+91 8058010219'}
+                    </a>
+                  `}
+                </div>
+              </div>
+
+            </div>
+
+          </div>
         </div>
       `;
-    } else if (activeCat === 'monthly') {
-      contentArea.innerHTML = `
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:2.5rem;">
-          ${monthly.length === 0 ? '<div class="empty-folder-box" style="grid-column:1/-1;">No Monthly digests found.</div>' : renderMonthlyCards()}
-        </div>
+    }
+
+    // 2. RENDER TWO SECTION NAVIGATION TABS (पहला WEEKLY, दूसरा MONTHLY)
+    if (tabsContainer) {
+      tabsContainer.innerHTML = `
+        <button class="folder-tab-btn ${activeSec === 'weekly' ? 'active' : ''}" onclick="App.selectCaSection('weekly')" style="${activeSec === 'weekly' ? 'background:#0284c7; color:#fff; font-weight:800;' : ''}">
+          📅 पहला: WEEKLY CURRENT AFFAIRS <span class="folder-tab-badge" style="${activeSec === 'weekly' ? 'background:#fff; color:#0284c7;' : ''}">${weekly.length} Mocks</span>
+        </button>
+        <button class="folder-tab-btn ${activeSec === 'monthly' ? 'active' : ''}" onclick="App.selectCaSection('monthly')" style="${activeSec === 'monthly' ? 'background:#0284c7; color:#fff; font-weight:800;' : ''}">
+          📖 दूसरा: MONTHLY CURRENT AFFAIRS <span class="folder-tab-badge" style="${activeSec === 'monthly' ? 'background:#fff; color:#0284c7;' : ''}">${monthly.length} Digests</span>
+        </button>
       `;
-    } else {
-      contentArea.innerHTML = `
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
+    }
+
+    // 3. RENDER BREADCRUMB
+    if (crumbContainer) {
+      if (activeSec === 'weekly') {
+        if (!selectedMonth) {
+          crumbContainer.innerHTML = `
+            <div class="folder-breadcrumb" style="margin:0.75rem 0 1.25rem;">
+              <span class="crumb-root">📁 Current_Affairs_Vault</span>
+              <span class="crumb-sep">›</span>
+              <span style="font-weight:700; color:#0284c7;">📅 WEEKLY_SECTION</span>
+              <span class="crumb-sep">›</span>
+              <span class="crumb-current">🗓️ Select a Month (Showing All Months)</span>
+              <span class="crumb-count" style="margin-left:auto;">${months.length} Months Available</span>
+            </div>
+          `;
+        } else {
+          crumbContainer.innerHTML = `
+            <div class="folder-breadcrumb" style="margin:0.75rem 0 1.25rem; display:flex; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+              <span class="crumb-root" style="cursor:pointer;" onclick="App.selectCaSection('weekly')">📁 Current_Affairs</span>
+              <span class="crumb-sep">›</span>
+              <span style="cursor:pointer; color:#0284c7; font-weight:700;" onclick="App.backToCaMonths()">📅 WEEKLY (All Months)</span>
+              <span class="crumb-sep">›</span>
+              <span class="crumb-current">🗓️ ${selectedMonth}/</span>
+              <button class="btn btn-outline" style="margin-left:auto; padding:0.25rem 0.65rem; font-size:0.78rem; font-weight:700;" onclick="App.backToCaMonths()">
+                ← Back to All Months
+              </button>
+            </div>
+          `;
+        }
+      } else {
+        crumbContainer.innerHTML = `
+          <div class="folder-breadcrumb" style="margin:0.75rem 0 1.25rem;">
+            <span class="crumb-root">📁 Current_Affairs_Vault</span>
+            <span class="crumb-sep">›</span>
+            <span class="crumb-current" style="color:#0284c7; font-weight:700;">📖 MONTHLY_DIGESTS_VAULT/</span>
+            <span class="crumb-count" style="margin-left:auto;">${monthly.length} Editions Available</span>
+          </div>
+        `;
+      }
+    }
+
+    // 4. RENDER CONTENT AREA
+    if (activeSec === 'weekly') {
+
+      // CASE A: NO MONTH SELECTED -> DISPLAY ONLY MONTHS NAMES
+      // "Weekly wale options me जब student click kare to usko screen par only Months Name Show kare use"
+      if (!selectedMonth) {
+        contentArea.innerHTML = `
+          <div style="margin-bottom:1.5rem;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:2px solid #e2e8f0; padding-bottom:0.5rem;">
+              <div>
+                <h3 style="font-size:1.3rem; color:#0a192f; margin:0; font-weight:800;">
+                  🗓️ Select Month for Weekly Mock Tests
+                </h3>
+                <p style="margin:0.2rem 0 0 0; font-size:0.85rem; color:#64748b;">
+                  Click on any month below to open that month's Weekly CBT Mock Tests and Capsules.
+                </p>
+              </div>
+            </div>
+
+            <!-- Months Grid -->
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem;">
+              ${months.map(m => {
+                const monthMocks = weekly.filter(w => (w.month || '').trim().toLowerCase() === m.name.trim().toLowerCase());
+                const count = monthMocks.length || m.count || 4;
+                return `
+                  <div class="ca-month-card" onclick="App.selectCaMonth('${m.name}')" style="cursor:pointer; background:#fff; border:2px solid ${m.isCurrent ? '#0284c7' : '#e2e8f0'}; border-radius:14px; padding:1.25rem 1.4rem; transition:all 0.25s ease; box-shadow:0 4px 14px rgba(0,0,0,0.05); display:flex; flex-direction:column; position:relative; overflow:hidden;">
+                    ${m.isCurrent ? `<div style="position:absolute; top:0; right:0; background:#0284c7; color:#fff; font-size:0.65rem; font-weight:800; padding:0.2rem 0.65rem; border-bottom-left-radius:8px;">ACTIVE MONTH</div>` : ''}
+                    
+                    <div style="display:flex; align-items:center; gap:0.9rem; margin-bottom:0.85rem;">
+                      <div style="width:52px; height:52px; border-radius:12px; background:${m.isCurrent ? '#eff6ff' : '#f8fafc'}; color:${m.isCurrent ? '#0284c7' : '#64748b'}; font-size:1.75rem; display:flex; align-items:center; justify-content:center; border:1px solid ${m.isCurrent ? '#bfdbfe' : '#cbd5e1'};">
+                        ${m.icon || '🗓️'}
+                      </div>
+                      <div>
+                        <span class="batch-badge" style="background:${m.isCurrent ? '#dbeafe' : '#f1f5f9'}; color:${m.isCurrent ? '#1d4ed8' : '#475569'}; font-size:0.75rem; font-weight:700;">
+                          ${m.badge || `${count} Weekly Mocks`}
+                        </span>
+                        <h3 style="margin:0.25rem 0 0.1rem 0; font-size:1.3rem; color:#0a192f; font-weight:900;">${m.name}</h3>
+                      </div>
+                    </div>
+
+                    <p style="margin:0 0 1rem 0; font-size:0.82rem; color:#64748b; line-height:1.4;">
+                      Contains Week 01, Week 02, Week 03 & Week 04 CBT Mock Tests with detailed solutions & PDF capsules.
+                    </p>
+
+                    <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f1f5f9; padding-top:0.75rem;">
+                      <span style="font-size:0.85rem; font-weight:700; color:#0284c7;">
+                        Explore Weekly Mocks (${count})
+                      </span>
+                      <span style="font-size:1.25rem; font-weight:900; color:#0284c7; transition:transform 0.2s ease;">→</span>
+                    </div>
+                  </div>
+                `;
+              }).join('')}
+            </div>
+          </div>
+        `;
+      } 
+      // CASE B: MONTH SELECTED -> DRILL DOWN TO WEEKLY MOCKS
+      // "Month name ke upar Click karne baad use weekly mock show kare"
+      else {
+        const filteredWeekly = weekly.filter(w => (w.month || '').trim().toLowerCase() === selectedMonth.trim().toLowerCase());
+
+        contentArea.innerHTML = `
           <div>
-            <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #0284c7; padding-bottom:0.4rem; display:flex; justify-content:space-between; align-items:center;">
-              <span>📅 Weekly Defence Capsules</span>
-              <span style="font-size:0.75rem; background:#e0f2fe; color:#0284c7; padding:0.15rem 0.5rem; border-radius:12px;">${weekly.length} items</span>
-            </h3>
-            <div id="ca-weekly-list">${renderWeeklyCards()}</div>
+            <!-- Header with Back Button -->
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem; margin-bottom:1.25rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:0.85rem 1.25rem;">
+              <div>
+                <button class="btn btn-outline" onclick="App.backToCaMonths()" style="font-size:0.82rem; font-weight:700; padding:0.35rem 0.75rem; margin-bottom:0.35rem;">
+                  ← Back to All Months
+                </button>
+                <h3 style="font-size:1.35rem; color:#0a192f; margin:0; font-weight:900;">
+                  🗓️ ${selectedMonth} — Weekly Current Affairs Mocks
+                </h3>
+                <span style="font-size:0.82rem; color:#64748b;">Showing all weekly CBT simulation tests and capsule PDFs for this month</span>
+              </div>
+              <div style="font-size:0.82rem; font-weight:700; color:#0284c7; background:#eff6ff; border:1px solid #bfdbfe; padding:0.4rem 0.8rem; border-radius:8px;">
+                Total Mocks: ${filteredWeekly.length}
+              </div>
+            </div>
+
+            <!-- Weekly Cards Grid -->
+            ${filteredWeekly.length === 0 ? `
+              <div class="empty-folder-box" style="text-align:center; padding:3rem; background:#f8fafc; border-radius:12px; border:2px dashed #cbd5e1;">
+                <p style="font-size:1.1rem; color:#64748b;">No weekly mocks found for ${selectedMonth} yet.</p>
+                <button class="btn btn-outline" onclick="App.backToCaMonths()">← Return to Months List</button>
+              </div>
+            ` : `
+              <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:2.5rem;">
+                ${filteredWeekly.map(w => {
+                  const isUnlocked = hasBatch || w.isFreeDemo;
+                  return `
+                    <div class="content-card" style="border:1.5px solid ${isUnlocked ? '#bfdbfe' : '#e2e8f0'}; border-radius:14px; box-shadow:0 4px 14px rgba(0,0,0,0.06); display:flex; flex-direction:column; background:#fff; overflow:hidden;">
+                      <div class="content-card-body" style="padding:1.25rem; display:flex; flex-direction:column; height:100%;">
+                        
+                        <!-- Top Meta Header -->
+                        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; margin-bottom:0.5rem; flex-wrap:wrap;">
+                          <span class="batch-badge" style="background:#0284c7; color:#fff; font-weight:800; font-size:0.75rem;">
+                            ${w.week || 'Weekly Mock'}
+                          </span>
+                          <span style="font-size:0.75rem; color:#64748b; font-weight:600;">
+                            🗓️ ${w.date || w.month}
+                          </span>
+                          ${w.isFreeDemo ? `
+                            <span class="batch-badge" style="background:#16a34a; color:#fff; font-weight:800; font-size:0.72rem;">
+                              🔓 FREE DEMO MOCK
+                            </span>
+                          ` : (!hasBatch ? `
+                            <span class="batch-badge" style="background:#fef2f2; color:#dc2626; border:1px solid #fecaca; font-weight:800; font-size:0.72rem;">
+                              🔒 BATCH EXCLUSIVE
+                            </span>
+                          ` : `
+                            <span class="batch-badge" style="background:#dcfce7; color:#15803d; font-weight:800; font-size:0.72rem;">
+                              ✓ UNLOCKED
+                            </span>
+                          `)}
+                        </div>
+
+                        <!-- Title -->
+                        <h3 style="font-size:1.15rem; color:#0a192f; margin:0.35rem 0 0.5rem 0; font-weight:800; line-height:1.35;">
+                          ${w.title}
+                        </h3>
+
+                        <!-- Test Specs Row -->
+                        <div style="display:flex; gap:0.75rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:0.4rem 0.65rem; margin-bottom:0.75rem; font-size:0.78rem; color:#334155; flex-wrap:wrap;">
+                          <span>📝 <strong>${w.questionsCount || 30} Qs</strong></span>
+                          <span>⏱️ <strong>${w.durationMins || 25} Mins</strong></span>
+                          <span>⚖️ <strong>+1, -0.25 Marking</strong></span>
+                          <span>🌐 <strong>Bilingual</strong></span>
+                        </div>
+
+                        <p style="margin:0 0 0.75rem 0; font-size:0.83rem; color:#475569; line-height:1.4;">
+                          ${w.summary || ''}
+                        </p>
+
+                        <!-- Key Defence Highlights Box -->
+                        ${(w.highlights && w.highlights.length > 0) ? `
+                          <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:0.65rem 0.85rem; margin-bottom:1rem; font-size:0.8rem;">
+                            <strong style="color:#166534; display:block; margin-bottom:0.3rem;">⚡ Major Topics Covered:</strong>
+                            <ul style="margin:0; padding-left:1.15rem; color:#14532d; font-size:0.78rem; line-height:1.4;">
+                              ${w.highlights.slice(0, 4).map(h => `<li>${h}</li>`).join('')}
+                            </ul>
+                          </div>
+                        ` : ''}
+
+                        <!-- Action Buttons -->
+                        <div style="margin-top:auto; display:flex; flex-direction:column; gap:0.5rem;">
+                          ${isUnlocked ? `
+                            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                              <button class="btn btn-primary" style="flex:1; min-width:140px; font-weight:800; font-size:0.85rem; padding:0.55rem; background:#0284c7; border-color:#0284c7;" onclick="App.startCaWeeklyMock('${w.id}')">
+                                🚀 Attempt Weekly CBT Mock
+                              </button>
+                              <button class="btn btn-defence" style="flex:1; min-width:140px; font-weight:700; font-size:0.82rem; padding:0.55rem;" onclick="App.downloadWatermarkedPdf('${w.pdfUrl}')">
+                                📥 Capsule PDF
+                              </button>
+                            </div>
+                          ` : `
+                            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                              <button class="btn btn-primary" style="flex:1; min-width:140px; font-weight:800; font-size:0.85rem; padding:0.55rem; background:#16a34a; border-color:#16a34a;" onclick="App.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', ${batchInfo.offerPrice || 99})">
+                                🔒 Unlock Batch (₹${batchInfo.offerPrice || 99})
+                              </button>
+                              <button class="btn btn-outline" style="flex:1; min-width:140px; font-size:0.82rem; padding:0.55rem; opacity:0.65;" onclick="alert('This Weekly Capsule PDF is locked. Please enroll in the Current Affairs batch for ₹99 to download.')">
+                                🔒 PDF Locked
+                              </button>
+                            </div>
+                          `}
+
+                          ${isAdmin ? `
+                            <div style="display:flex; gap:0.5rem; margin-top:0.4rem; border-top:1px dashed #e2e8f0; padding-top:0.5rem;">
+                              <button class="btn btn-outline" style="flex:1; font-size:0.78rem; padding:0.3rem;" onclick="App.openEditModal('current-affairs', '${w.id}', 'weekly')">
+                                ✏️ Edit
+                              </button>
+                              <button class="btn btn-outline" style="flex:1; font-size:0.78rem; padding:0.3rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('current-affairs', '${w.id}', 'weekly')">
+                                🗑️ Delete
+                              </button>
+                            </div>
+                          ` : ''}
+                        </div>
+
+                      </div>
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            `}
+          </div>
+        `;
+      }
+
+    } 
+    // ACTIVE SECTION: MONTHLY COMPENDIUMS
+    else if (activeSec === 'monthly') {
+      contentArea.innerHTML = `
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; border-bottom:2px solid #e2e8f0; padding-bottom:0.5rem;">
+            <div>
+              <h3 style="font-size:1.3rem; color:#0a192f; margin:0; font-weight:800;">
+                📖 Monthly Defence Digests & Revision Mock Sets
+              </h3>
+              <p style="margin:0.2rem 0 0 0; font-size:0.85rem; color:#64748b;">
+                Comprehensive 70+ Page Monthly Compendiums covering all defence developments, bilateral summits, and 200 high-yield MCQs.
+              </p>
+            </div>
           </div>
 
-          <div>
-            <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #f59e0b; padding-bottom:0.4rem; display:flex; justify-content:space-between; align-items:center;">
-              <span>📖 Monthly Defence Digests</span>
-              <span style="font-size:0.75rem; background:#fef3c7; color:#b45309; padding:0.15rem 0.5rem; border-radius:12px;">${monthly.length} items</span>
-            </h3>
-            <div id="ca-monthly-list">${renderMonthlyCards()}</div>
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:2.5rem;">
+            ${monthly.map(m => {
+              const isUnlocked = hasBatch || isAdmin;
+              return `
+                <div class="content-card" style="border:1.5px solid ${isUnlocked ? '#bfdbfe' : '#e2e8f0'}; border-radius:14px; box-shadow:0 4px 14px rgba(0,0,0,0.06); display:flex; flex-direction:column; background:#fff; overflow:hidden;">
+                  <div class="content-card-body" style="padding:1.25rem; display:flex; flex-direction:column; height:100%;">
+                    
+                    <!-- Header -->
+                    <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
+                      <span class="batch-badge" style="background:#0284c7; color:#fff; font-weight:800; font-size:0.75rem;">
+                        ${m.badge || 'Monthly Edition'}
+                      </span>
+                      <span style="font-size:0.75rem; color:#64748b; font-weight:600;">
+                        📖 ${m.pages || 70} Pages • ${m.size || '6.5 MB'}
+                      </span>
+                    </div>
+
+                    <h3 style="font-size:1.15rem; color:#0a192f; margin:0.35rem 0 0.5rem 0; font-weight:800; line-height:1.35;">
+                      ${m.title}
+                    </h3>
+
+                    <p style="margin:0 0 0.85rem 0; font-size:0.83rem; color:#475569; line-height:1.4;">
+                      ${m.summary || ''}
+                    </p>
+
+                    <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:8px; padding:0.6rem 0.8rem; margin-bottom:1rem; font-size:0.8rem; color:#1e40af;">
+                      🎯 <strong>Includes 200+ Practice MCQs</strong> with comprehensive explanations and revision summaries.
+                    </div>
+
+                    <!-- Actions -->
+                    <div style="margin-top:auto; display:flex; flex-direction:column; gap:0.5rem;">
+                      ${isUnlocked ? `
+                        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                          <button class="btn btn-primary" style="flex:1; min-width:140px; font-weight:800; font-size:0.85rem; padding:0.55rem; background:#0284c7; border-color:#0284c7;" onclick="App.downloadWatermarkedPdf('${m.pdfUrl}')">
+                            ⬇ Download Digest PDF
+                          </button>
+                        </div>
+                      ` : `
+                        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                          <button class="btn btn-primary" style="flex:1; min-width:140px; font-weight:800; font-size:0.85rem; padding:0.55rem; background:#16a34a; border-color:#16a34a;" onclick="App.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', ${batchInfo.offerPrice || 99})">
+                            🔒 Unlock Monthly Digest (₹${batchInfo.offerPrice || 99})
+                          </button>
+                        </div>
+                      `}
+
+                      ${isAdmin ? `
+                        <div style="display:flex; gap:0.5rem; margin-top:0.4rem; border-top:1px dashed #e2e8f0; padding-top:0.5rem;">
+                          <button class="btn btn-outline" style="flex:1; font-size:0.78rem; padding:0.3rem;" onclick="App.openEditModal('current-affairs', '${m.id}', 'monthly')">
+                            ✏️ Edit
+                          </button>
+                          <button class="btn btn-outline" style="flex:1; font-size:0.78rem; padding:0.3rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('current-affairs', '${m.id}', 'monthly')">
+                            🗑️ Delete
+                          </button>
+                        </div>
+                      ` : ''}
+                    </div>
+
+                  </div>
+                </div>
+              `;
+            }).join('')}
           </div>
         </div>
       `;
     }
   },
+
 
   // 11. My Courses / Student Library
   // "My Courses / My Library: जहाँ स्टूडेंट अपने खरीदे हुए 'Paid Courses' और 'Paid Test Series' देख सकें"
@@ -5798,14 +6218,33 @@ ${eb.previewText || 'Sample preview chapter...'}
       modalTitle.innerText = `✏️ Edit ${type === 'monthly' ? 'Monthly Digest' : 'Weekly Capsule'}`;
       modalBody.innerHTML = `
         <form onsubmit="App.handleEditCurrentAffairs(event, '${type}', '${itemId}')">
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
+            <div class="form-group">
+              <label class="form-label">Month Name (Folder)</label>
+              <input type="text" id="eca-month" class="form-control" value="${item.month || 'November 2026'}" required>
+            </div>
+            ${type === 'weekly' ? `
+              <div class="form-group">
+                <label class="form-label">Week</label>
+                <input type="text" id="eca-week" class="form-control" value="${item.week || 'Week 1'}">
+              </div>
+            ` : `
+              <div class="form-group">
+                <label class="form-label">Date Edition</label>
+                <input type="text" id="eca-date" class="form-control" required value="${item.date || ''}">
+              </div>
+            `}
+          </div>
           <div class="form-group" style="margin-bottom:0.75rem;">
             <label class="form-label">Title</label>
             <input type="text" id="eca-title" class="form-control" required value="${item.title || ''}">
           </div>
-          <div class="form-group" style="margin-bottom:0.75rem;">
-            <label class="form-label">Date / Period</label>
-            <input type="text" id="eca-date" class="form-control" required value="${item.date || ''}">
-          </div>
+          ${type === 'weekly' ? `
+            <div class="form-group" style="margin-bottom:0.75rem;">
+              <label class="form-label">Date Range</label>
+              <input type="text" id="eca-date" class="form-control" required value="${item.date || ''}">
+            </div>
+          ` : ''}
           <div class="form-group" style="margin-bottom:0.75rem;">
             <label class="form-label">Summary</label>
             <textarea id="eca-summary" class="form-control" rows="2">${item.summary || ''}</textarea>
@@ -5814,6 +6253,12 @@ ${eb.previewText || 'Sample preview chapter...'}
             <div class="form-group" style="margin-bottom:0.75rem;">
               <label class="form-label">Key Highlights (comma-separated)</label>
               <input type="text" id="eca-highlights" class="form-control" value="${(item.highlights || []).join(', ')}">
+            </div>
+            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.85rem;">
+              <input type="checkbox" id="eca-freedemo" ${item.isFreeDemo ? 'checked' : ''} style="width:18px; height:18px;">
+              <label for="eca-freedemo" style="font-size:0.85rem; font-weight:700; color:#16a34a; margin:0; cursor:pointer;">
+                🔓 Mark as Free Demo Mock (Unlocked for all students)
+              </label>
             </div>
           ` : `
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.75rem; margin-bottom:0.75rem;">
@@ -6740,6 +7185,16 @@ ${eb.previewText || 'Sample preview chapter...'}
         summary: document.getElementById('eca-summary').value.trim(),
         pdfUrl
       };
+      if (document.getElementById('eca-month')) {
+        bodyData.month = document.getElementById('eca-month').value.trim();
+      }
+      if (document.getElementById('eca-week')) {
+        bodyData.week = document.getElementById('eca-week').value.trim();
+      }
+      if (document.getElementById('eca-freedemo')) {
+        bodyData.isFreeDemo = !!document.getElementById('eca-freedemo').checked;
+        bodyData.badge = bodyData.isFreeDemo ? 'Free Demo Mock' : 'Batch Exclusive';
+      }
       if (document.getElementById('eca-highlights')) {
         bodyData.highlights = document.getElementById('eca-highlights').value.split(',').map(s => s.trim()).filter(Boolean);
       }

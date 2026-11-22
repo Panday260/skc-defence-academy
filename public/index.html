@@ -90,77 +90,76 @@
            ========================================================= -->
       <section class="dashboard-section">
         <div class="home-buttons-grid">
-          
-          <!-- 1. Paid Courses -->
+          <!-- 1. Current Affairs (FLAGSHIP FIRST OPTION) -->
+          <div class="home-btn-card" data-view="current-affairs" onclick="App.navigateTo('current-affairs')" style="border-color:#0284c7; background:#f0f9ff; box-shadow:0 4px 14px rgba(2,132,199,0.12);">
+            <div class="card-icon-bubble bubble-ca">📰</div>
+            <div style="display:inline-block; font-size:0.7rem; font-weight:800; background:#0284c7; color:#fff; padding:0.15rem 0.5rem; border-radius:12px; margin-bottom:0.35rem;">NEW 2026-27 BATCH</div>
+            <h3>Current Affairs</h3>
+            <p>Daily • Weekly Mocks • Monthly Defence Digest</p>
+          </div>
+
+          <!-- 2. Paid Courses -->
           <div class="home-btn-card" data-view="paid-courses" onclick="App.navigateTo('paid-courses')">
             <div class="card-icon-bubble bubble-courses">🎓</div>
             <h3>Paid Courses</h3>
             <p>Video Lectures, HTML Mock Tests & Class Notes</p>
           </div>
 
-          <!-- 2. Free Test Series -->
+          <!-- 3. Free Test Series -->
           <div class="home-btn-card" data-view="free-test-series" onclick="App.navigateTo('free-test-series')">
             <div class="card-icon-bubble bubble-freetest">📝</div>
             <h3>Free Test Series</h3>
             <p>All-India Mock CBT Tests & Question Paper PDFs</p>
           </div>
 
-          <!-- 3. OUR Selections -->
+          <!-- 4. OUR Selections -->
           <div class="home-btn-card" data-view="our-selections" onclick="App.navigateTo('our-selections')">
             <div class="card-icon-bubble bubble-selections">🎖️</div>
             <h3>OUR Selections</h3>
             <p>Our Proud Warriors in Armed Forces Slideshow</p>
           </div>
 
-          <!-- 4. Paid Test Series -->
+          <!-- 5. Paid Test Series -->
           <div class="home-btn-card" data-view="paid-test-series" onclick="App.navigateTo('paid-test-series')">
             <div class="card-icon-bubble bubble-paidtest">🎯</div>
             <h3>Paid Test Series</h3>
             <p>Airforce, Navy, ICG & Army Targeted Test Series</p>
           </div>
 
-          <!-- 5. E-Books -->
+          <!-- 6. E-Books -->
           <div class="home-btn-card" data-view="ebooks" onclick="App.navigateTo('ebooks')">
             <div class="card-icon-bubble bubble-ebooks">📚</div>
             <h3>E-Books</h3>
             <p>Special English & Defence GK Golden E-Book</p>
           </div>
 
-          <!-- 6. PYQ PDFs -->
+          <!-- 7. PYQ PDFs -->
           <div class="home-btn-card" data-view="pyq-pdfs" onclick="App.navigateTo('pyq-pdfs')">
             <div class="card-icon-bubble bubble-pyq">📄</div>
             <h3>PYQ PDFs</h3>
             <p>Previous Year Question Papers with Answer Key</p>
           </div>
 
-          <!-- 7. Syllabus -->
+          <!-- 8. Syllabus -->
           <div class="home-btn-card" data-view="syllabus" onclick="App.navigateTo('syllabus')">
             <div class="card-icon-bubble bubble-syllabus">📋</div>
             <h3>Syllabus</h3>
             <p>Complete Exam Pattern & Topic-wise Weightage PDFs</p>
           </div>
 
-          <!-- 8. Social Links -->
+          <!-- 9. Social Links -->
           <div class="home-btn-card" data-view="social-links" onclick="App.navigateTo('social-links')">
             <div class="card-icon-bubble bubble-social">🌐</div>
             <h3>Social Links</h3>
             <p>YouTube, Telegram, Instagram & Govt Portals</p>
           </div>
 
-          <!-- 9. Phase-II (GD & SRT) -->
+          <!-- 10. Phase-II (GD & SRT) -->
           <div class="home-btn-card" data-view="phase2" onclick="App.navigateTo('phase2')" style="border-color:#f59e0b; background:#fffbeb;">
             <div class="card-icon-bubble bubble-phase2">⚡</div>
             <h3>Phase-II (GD & SRT)</h3>
             <p>02 Batches: GD + SRT Batch & Interactive SRT HTML</p>
           </div>
-
-          <!-- 10. Current Affairs -->
-          <div class="home-btn-card" data-view="current-affairs" onclick="App.navigateTo('current-affairs')">
-            <div class="card-icon-bubble bubble-ca">📰</div>
-            <h3>Current Affairs</h3>
-            <p>Weekly Capsules & Monthly Defence Digest</p>
-          </div>
-
         </div>
 
         <!-- =========================================================
@@ -408,12 +407,12 @@
       </div>
     </div>
 
-    <!-- ======================== 10. CURRENT AFFAIRS VIEW ======================== -->
+    <!-- ======================== CURRENT AFFAIRS VIEW (WEEKLY & MONTHLY) ======================== -->
     <div id="view-current-affairs" class="view-section">
       <div class="view-header" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
         <div>
           <h2>📰 Defence Current Affairs (Weekly & Monthly)</h2>
-          <p style="margin:0; font-size:0.85rem; color:#64748b;">Weekly high-yield capsules & monthly defence digests</p>
+          <p style="margin:0; font-size:0.85rem; color:#64748b;">Daily capsules, weekly CBT mock tests & monthly defence digests</p>
         </div>
         <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
           <button class="btn btn-secondary admin-only-btn" style="display:none; background:#0a192f; color:#fff;" onclick="App.openUploadModal('current-affairs')">
@@ -422,25 +421,18 @@
           <button class="btn btn-outline" onclick="App.navigateTo('home')">← Back to Dashboard</button>
         </div>
       </div>
-      <div id="ca-folder-nav" class="folder-nav-tabs"></div>
-      <div id="ca-folder-breadcrumb"></div>
-      <div id="ca-content-area">
-        <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.5rem; margin-bottom:2.5rem;">
-          <div>
-            <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #0284c7; padding-bottom:0.4rem;">
-              📅 Weekly Defence Capsules
-            </h3>
-            <div id="ca-weekly-list"></div>
-          </div>
 
-          <div>
-            <h3 style="font-size:1.2rem; color:#0a192f; margin-bottom:1rem; border-bottom:2px solid #f59e0b; padding-bottom:0.4rem;">
-              📖 Monthly Defence Digests
-            </h3>
-            <div id="ca-monthly-list"></div>
-          </div>
-        </div>
-      </div>
+      <!-- Batch Showcase / Paid Offer Banner -->
+      <div id="ca-batch-banner" style="margin-top:1rem;"></div>
+
+      <!-- Two Main Section Navigation Tabs (पहला WEEKLY, दूसरा MONTHLY) -->
+      <div id="ca-section-tabs" class="folder-nav-tabs" style="margin-top:1.25rem;"></div>
+
+      <!-- Breadcrumbs & Status Indicator -->
+      <div id="ca-folder-breadcrumb"></div>
+
+      <!-- Dynamic Content Area -->
+      <div id="ca-content-area"></div>
     </div>
 
     <!-- ======================== STUDENT LIBRARY / MY COURSES ======================== -->

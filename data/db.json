@@ -206,7 +206,24 @@
     }
   ],
   "selections": [],
-  "courses": [],
+  "courses": [
+    {
+      "id": "ca_batch",
+      "title": "Current Affairs Special Batch (Daily • Weekly • Monthly)",
+      "price": 99,
+      "originalPrice": 199,
+      "badge": "⭐ NEW BATCH 2026-27",
+      "poster": "/uploads/current_affairs_batch_poster.jpg",
+      "description": "Complete Defence & National Current Affairs for Airforce Group X/Y, Navy SSR/AA, NDA, and CDS. Includes Daily Updates, Weekly CBT Mock Tests, and Monthly Defence Digests.",
+      "features": [
+        "Daily Current Affairs Capsules & Defence Briefs",
+        "Weekly High-Yield CBT Mock Tests with Live Analytics",
+        "Monthly Comprehensive Defence Digests (70+ Pages)",
+        "Monthly Mega Revision Mock Tests with All India Ranking",
+        "Bilingual Explanations (Hindi & English)"
+      ]
+    }
+  ],
   "freeTests": [],
   "paidTestSeries": [
     {
@@ -36061,51 +36078,383 @@
     }
   ],
   "currentAffairs": {
-    "weekly": [
+    "batchInfo": {
+      "id": "ca_batch",
+      "title": "Current Affairs Special Batch (Daily • Weekly • Monthly)",
+      "originalPrice": 199,
+      "offerPrice": 99,
+      "posterUrl": "/uploads/current_affairs_batch_poster.jpg",
+      "helpline": "+91 8058010219",
+      "badge": "🔥 Limited Time Offer ₹99",
+      "description": "Master Defence & National Current Affairs for Airforce Group X/Y, Navy SSR/AA, NDA, and CDS with daily capsules, weekly CBT mock tests, and comprehensive monthly digests.",
+      "features": [
+        "Daily Current Affairs Capsules & Defence Briefs",
+        "Weekly High-Yield CBT Mock Tests with Live Analytics",
+        "Monthly Comprehensive Defence Digests (70+ Pages)",
+        "Monthly Mega Revision Mock Tests with All India Ranking",
+        "Bilingual Explanations (Hindi & English)"
+      ]
+    },
+    "months": [
       {
-        "id": "ca_w1",
-        "title": "Weekly Defence Current Affairs - October 2026 (Week 4)",
-        "date": "October 2026",
-        "summary": "Joint Military Exercise updates, successful flight test of new generation VSHORADS missile, and Indian Air Force modernisation milestones.",
-        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w4.pdf",
-        "highlights": [
-          "DRDO successfully flight-tests Very Short Range Air Defence System (VSHORADS)",
-          "Indian Navy conducts Malabar multilateral maritime exercise with Quad partners",
-          "Indian Army inducts new indigenous heavy-duty logistics drones in high-altitude Ladakh",
-          "Defence Acquisition Council (DAC) accords AoN for 114 Multi-Role Fighter Aircraft (MRFA)"
-        ]
+        "name": "November 2026",
+        "isCurrent": true,
+        "badge": "🟢 Active Month • 4 Weekly Mocks",
+        "icon": "🔥",
+        "count": 4
       },
       {
-        "id": "ca_w2",
-        "title": "Weekly Defence Current Affairs - October 2026 (Week 3)",
-        "date": "October 2026",
-        "summary": "IAF celebrates Air Force Day with mega airshow, new appointments in Armed Forces, and border infrastructure updates.",
-        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w3.pdf",
+        "name": "October 2026",
+        "isCurrent": false,
+        "badge": "Completed • 4 Mocks & Digest",
+        "icon": "📁",
+        "count": 4
+      },
+      {
+        "name": "September 2026",
+        "isCurrent": false,
+        "badge": "Completed • 4 Mocks & Digest",
+        "icon": "📁",
+        "count": 4
+      },
+      {
+        "name": "August 2026",
+        "isCurrent": false,
+        "badge": "Archive • 4 Mocks & Digest",
+        "icon": "📁",
+        "count": 4
+      }
+    ],
+    "weekly": [
+      {
+        "id": "ca_w_nov_2026_w1",
+        "month": "November 2026",
+        "week": "Week 1",
+        "title": "November 2026 - Week 01 Defence & National Mock Test",
+        "date": "01 Nov - 07 Nov 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": true,
+        "badge": "Free Demo Mock",
+        "summary": "Key highlights include DRDO VSHORADS successful flight test, Exercise MALABAR 2026 concluding phases, DAC AoN approvals, and LCA Tejas Mk-1A upgrades.",
         "highlights": [
-          "Indian Air Force showcases Tejas Mk-1A and indigenous combat aircraft at Annual Air Display",
-          "Border Roads Organisation (BRO) completes high-altitude strategic tunnel in Arunachal Pradesh",
-          "INS Imphal conducts successful anti-ship missile firing in the Arabian Sea"
-        ]
+          "DRDO conducts successful flight trials of indigenously developed VSHORADS missile",
+          "Indian Navy concludes 28th edition of multilateral maritime Exercise MALABAR",
+          "DAC accords AoN for defence capital procurements worth ₹1.45 lakh crore",
+          "IAF deploys advanced indigenous electronic warfare pods on frontline fighter jets"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_nov_w1.pdf"
+      },
+      {
+        "id": "ca_w_nov_2026_w2",
+        "month": "November 2026",
+        "week": "Week 2",
+        "title": "November 2026 - Week 02 Defence & National Mock Test",
+        "date": "08 Nov - 14 Nov 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Batch Exclusive",
+        "summary": "Covers Coastal Defence Exercise Sea Vigil-24, Pinaka MBRL export updates, BRO strategic tunnels, and Chief of Defence Staff tri-service review.",
+        "highlights": [
+          "Indian Navy & Coast Guard conduct pan-India coastal security exercise 'Sea Vigil'",
+          "India expands indigenous Pinaka rocket launcher export deliveries to partner nations",
+          "BRO operationalizes key high-altitude mountain tunnels along the Northern LAC",
+          "Tri-Services Cyber & Space Commands test integrated electronic warfare response"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_nov_w2.pdf"
+      },
+      {
+        "id": "ca_w_nov_2026_w3",
+        "month": "November 2026",
+        "week": "Week 3",
+        "title": "November 2026 - Week 03 Defence & National Mock Test",
+        "date": "15 Nov - 21 Nov 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Batch Exclusive",
+        "summary": "Focuses on INS Arighat operational milestones, Agni-Prime strategic missile trials, Airforce Agniveer intake updates, and bilateral army exercises.",
+        "highlights": [
+          "Second Arihant-class nuclear ballistic missile submarine (SSBN) INS Arighat sea trials update",
+          "Strategic Forces Command successfully validates operational readiness of Agni-Prime",
+          "Indian Army conducts joint combat training exercise 'Garuda Shakti' with Indonesia",
+          "New guidelines issued for Agniveervayu technical and non-technical recruitment streams"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_nov_w3.pdf"
+      },
+      {
+        "id": "ca_w_nov_2026_w4",
+        "month": "November 2026",
+        "week": "Week 4",
+        "title": "November 2026 - Week 04 Defence & National Mock Test",
+        "date": "22 Nov - 30 Nov 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Batch Exclusive",
+        "summary": "Latest updates on National Security Strategy, indigenous Zorawar Light Tank trials, Navy Submarine Project-75I milestones, and Defence Summit 2026.",
+        "highlights": [
+          "DRDO & L&T advance high-altitude trials of Zorawar 25-tonne light combat tank",
+          "Ministry of Defence finalizes key milestones for Project-75 (India) AIP submarines",
+          "Chief of Air Staff outlines roadmap for 4.5+ Generation indigenous fighter fleets",
+          "Comprehensive monthly wrap-up & high-yield revision points for upcoming CBT exams"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_nov_w4.pdf"
+      },
+      {
+        "id": "ca_w_oct_2026_w1",
+        "month": "October 2026",
+        "week": "Week 1",
+        "title": "October 2026 - Week 01 Defence & National Mock Test",
+        "date": "01 Oct - 07 Oct 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Completed",
+        "summary": "Indian Air Force Day special edition, Tejas Mk1A aerial displays, border surveillance tech, and UN Peacekeeping mission updates.",
+        "highlights": [
+          "Indian Air Force marks 94th Anniversary with mega airshow and flypast",
+          "Indigenous anti-drone systems deployed along sensitive international frontiers",
+          "Indian Army contingent departs for multilateral peacekeeping deployment"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w1.pdf"
+      },
+      {
+        "id": "ca_w_oct_2026_w2",
+        "month": "October 2026",
+        "week": "Week 2",
+        "title": "October 2026 - Week 02 Defence & National Mock Test",
+        "date": "08 Oct - 14 Oct 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Completed",
+        "summary": "Joint military exercises 'Yudh Abhyas', new appointments in Armed Forces, and naval fleet upgrades.",
+        "highlights": [
+          "Indo-US joint army Exercise Yudh Abhyas conducted with focus on counter-terrorism",
+          "Appointments of senior commanders across Northern and Eastern Air Commands",
+          "Indian Navy commissions upgraded fast attack craft for littoral security"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w2.pdf"
+      },
+      {
+        "id": "ca_w_oct_2026_w3",
+        "month": "October 2026",
+        "week": "Week 3",
+        "title": "October 2026 - Week 03 Defence & National Mock Test",
+        "date": "15 Oct - 21 Oct 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Completed",
+        "summary": "Border infrastructure acceleration, BrahMos supersonic missile test firing, and Defence Space Agency exercises.",
+        "highlights": [
+          "Indian Navy conducts precision anti-ship strike firing with BrahMos from stealth frigate",
+          "Defence Space Agency simulates space situational awareness and satellite defense",
+          "BRO sets new record in border road construction in Eastern Ladakh"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w3.pdf"
+      },
+      {
+        "id": "ca_w_oct_2026_w4",
+        "month": "October 2026",
+        "week": "Week 4",
+        "title": "October 2026 - Week 04 Defence & National Mock Test",
+        "date": "22 Oct - 31 Oct 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Completed",
+        "summary": "Defence budget mid-year review, indigenous drone procurement, and Quad naval interoperability drills.",
+        "highlights": [
+          "Cabinet Committee on Security (CCS) clears mega procurement for indigenous combat gear",
+          "Indian Army inducts tethered surveillance drone systems for mountain observation",
+          "Combined Commanders Conference discusses theaterisation and joint logistics"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w4.pdf"
+      },
+      {
+        "id": "ca_w_sep_2026_w1",
+        "month": "September 2026",
+        "week": "Week 1",
+        "title": "September 2026 - Week 01 Defence & National Mock Test",
+        "date": "01 Sep - 07 Sep 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Archive",
+        "summary": "Naval Aviation golden jubilee, new defence startups funding under iDEX, and bilateral defence talks.",
+        "highlights": [
+          "iDEX awards ₹100 crore innovation challenges to defence tech startups",
+          "Naval Aviation showcases MiG-29K operations on INS Vikrant"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_sep_w1.pdf"
+      },
+      {
+        "id": "ca_w_sep_2026_w2",
+        "month": "September 2026",
+        "week": "Week 2",
+        "title": "September 2026 - Week 02 Defence & National Mock Test",
+        "date": "08 Sep - 14 Sep 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Archive",
+        "summary": "Joint air combat exercise 'Tarang Shakti' debrief, missile propulsion advances, and international maritime security.",
+        "highlights": [
+          "IAF successfully hosts Phase-II of multinational air exercise Tarang Shakti",
+          "DRDO tests next-gen solid fuel ducted ramjet (SFDR) technology"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_sep_w2.pdf"
+      },
+      {
+        "id": "ca_w_sep_2026_w3",
+        "month": "September 2026",
+        "week": "Week 3",
+        "title": "September 2026 - Week 03 Defence & National Mock Test",
+        "date": "15 Sep - 21 Sep 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Archive",
+        "summary": "Special forces training exercises, border outpost modernization, and naval diplomacy port calls.",
+        "highlights": [
+          "Indian Special Forces complete desert warfare evaluation drills",
+          "INS Tabar completes goodwill port calls across European and African ports"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_sep_w3.pdf"
+      },
+      {
+        "id": "ca_w_sep_2026_w4",
+        "month": "September 2026",
+        "week": "Week 4",
+        "title": "September 2026 - Week 04 Defence & National Mock Test",
+        "date": "22 Sep - 30 Sep 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Archive",
+        "summary": "Monthly wrap-up, national security council directives, and tri-service integration milestones.",
+        "highlights": [
+          "National Security Council reviews cyber resilience of strategic defence installations",
+          "Comprehensive September revision mock questions for Defence CBT exams"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_sep_w4.pdf"
+      },
+      {
+        "id": "ca_w_aug_2026_w1",
+        "month": "August 2026",
+        "week": "Week 1",
+        "title": "August 2026 - Week 01 Defence & National Mock Test",
+        "date": "01 Aug - 07 Aug 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Archive",
+        "summary": "Independence Day defence preparations, gallantry awards announcements, and border security vigilance.",
+        "highlights": [
+          "Ministry of Defence announces gallantry award citations for Armed Forces personnel",
+          "Advanced air defence cover deployed for national security celebrations"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_aug_w1.pdf"
+      },
+      {
+        "id": "ca_w_aug_2026_w2",
+        "month": "August 2026",
+        "week": "Week 2",
+        "title": "August 2026 - Week 02 Defence & National Mock Test",
+        "date": "08 Aug - 14 Aug 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Archive",
+        "summary": "Indigenous ammunition manufacturing boosts, joint army exercise 'Mitra Shakti', and naval patrol operations.",
+        "highlights": [
+          "Indian Army & Sri Lankan Army conduct joint exercise Mitra Shakti",
+          "Private defence manufacturing lines commissioned for 155mm artillery shells"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_aug_w2.pdf"
+      },
+      {
+        "id": "ca_w_aug_2026_w3",
+        "month": "August 2026",
+        "week": "Week 3",
+        "title": "August 2026 - Week 03 Defence & National Mock Test",
+        "date": "15 Aug - 21 Aug 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Archive",
+        "summary": "Aatmanirbhar Bharat defence milestone, LCA Tejas weapon integration tests, and maritime domain awareness.",
+        "highlights": [
+          "Tejas aircraft successfully fires indigenous Astra Beyond Visual Range (BVR) missile",
+          "Information Fusion Centre - Indian Ocean Region (IFC-IOR) tracks maritime traffic"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_aug_w3.pdf"
+      },
+      {
+        "id": "ca_w_aug_2026_w4",
+        "month": "August 2026",
+        "week": "Week 4",
+        "title": "August 2026 - Week 04 Defence & National Mock Test",
+        "date": "22 Aug - 31 Aug 2026",
+        "questionsCount": 30,
+        "durationMins": 25,
+        "isFreeDemo": false,
+        "badge": "Archive",
+        "summary": "Monthly comprehensive summary, joint logistics node inaugurations, and military medicine advancements.",
+        "highlights": [
+          "Third Joint Logistics Node operationalized to streamline supply chain for all three wings",
+          "August complete monthly capsule with 200 high-yield revision MCQs"
+        ],
+        "pdfUrl": "/uploads/pdfs/ca_weekly_aug_w4.pdf"
       }
     ],
     "monthly": [
       {
-        "id": "ca_m1",
-        "title": "Monthly Defence Digest & National Current Affairs - October 2026",
-        "date": "October 2026 Edition",
-        "size": "6.4 MB",
-        "pages": 72,
-        "pdfUrl": "/uploads/pdfs/ca_monthly_oct_2026.pdf",
-        "summary": "Full 72-page comprehensive monthly edition. Covers all major national events, defence procurements, bilateral military exercises, bilateral treaties, and 200 high-yield MCQs for upcoming exams."
+        "id": "ca_m_nov_2026",
+        "month": "November 2026",
+        "title": "November 2026 - Complete Monthly Defence Digest & 200 MCQ Practice Set",
+        "date": "November 2026 Edition",
+        "size": "7.2 MB",
+        "pages": 84,
+        "badge": "🔥 Latest Edition",
+        "pdfUrl": "/uploads/pdfs/ca_monthly_nov_2026.pdf",
+        "summary": "Comprehensive 84-page November 2026 edition. Full coverage of DRDO missile tests, Exercise Malabar, Exercise Sea Vigil, DAC approvals, appointments, international summits, and 200 high-yield CBT MCQs with detailed explanations."
       },
       {
-        "id": "ca_m2",
-        "title": "Monthly Defence Digest & National Current Affairs - September 2026",
+        "id": "ca_m_oct_2026",
+        "month": "October 2026",
+        "title": "October 2026 - Complete Monthly Defence Digest & 200 MCQ Practice Set",
+        "date": "October 2026 Edition",
+        "size": "6.8 MB",
+        "pages": 76,
+        "badge": "Completed",
+        "pdfUrl": "/uploads/pdfs/ca_monthly_oct_2026.pdf",
+        "summary": "Full 76-page October edition covering Air Force Day milestones, LCA Tejas Mk1A demonstrations, Indo-US Yudh Abhyas, BRO tunnel inaugurations, and 200 practice MCQs."
+      },
+      {
+        "id": "ca_m_sep_2026",
+        "month": "September 2026",
+        "title": "September 2026 - Complete Monthly Defence Digest & 200 MCQ Practice Set",
         "date": "September 2026 Edition",
-        "size": "5.8 MB",
-        "pages": 68,
+        "size": "6.1 MB",
+        "pages": 72,
+        "badge": "Completed",
         "pdfUrl": "/uploads/pdfs/ca_monthly_sep_2026.pdf",
-        "summary": "Comprehensive September edition with complete coverage of G20 defence initiatives, naval commissioning, and tri-service exercises."
+        "summary": "Full 72-page September edition with complete coverage of multinational Exercise Tarang Shakti, iDEX startup initiatives, naval fleet exercises, and 200 practice MCQs."
+      },
+      {
+        "id": "ca_m_aug_2026",
+        "month": "August 2026",
+        "title": "August 2026 - Complete Monthly Defence Digest & 200 MCQ Practice Set",
+        "date": "August 2026 Edition",
+        "size": "5.9 MB",
+        "pages": 68,
+        "badge": "Archive",
+        "pdfUrl": "/uploads/pdfs/ca_monthly_aug_2026.pdf",
+        "summary": "Comprehensive 68-page August edition covering Independence Day gallantry awards, Astra BVR missile firings from Tejas, Exercise Mitra Shakti, and 200 practice MCQs."
       }
     ]
   },
