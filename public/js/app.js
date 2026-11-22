@@ -3189,11 +3189,8 @@ ${eb.previewText || 'Sample preview chapter...'}
     `;
   },
 
-  // 10. Current Affairs (Two-Tier Hierarchy: Weekly with Month-drilldown & Monthly Digests)
-  // "Keep first option Current affairs jo main page par appear h"
-  // "Uske बाद usme दो section bana do: पहला WEEKLY, दूसरा MONTHLY"
-  // "Weekly wale options me जब student click kare to usko screen par only Months Name Show kare use"
-  // "Month name ke upar Click karne baad use weekly mock show kare"
+  // 10. Current Affairs (Strictly Paid: No Login & No Payment = No Access)
+  // "enko paid me rkho bina log in ir pese ke Koi bhi na dekh ske"
   selectCaSection(sec) {
     this.state.caActiveSection = sec || 'weekly';
     this.state.caSelectedMonth = null; // Reset drilldown when switching sections
@@ -3201,6 +3198,17 @@ ${eb.previewText || 'Sample preview chapter...'}
   },
 
   selectCaMonth(monthName) {
+    if (!this.state.user) {
+      alert('🔒 बिना लॉगिन के कोई भी मॉक टेस्ट या मैटेरियल नहीं देखा जा सकता। कृपया पहले अपने मोबाइल नंबर से लॉगिन करें।');
+      this.openLoginModal();
+      return;
+    }
+    const hasAccess = this.hasBatchAccess('ca_batch') || this.hasBatchAccess('ca_99') || (this.state.user && this.state.user.role === 'admin');
+    if (!hasAccess) {
+      alert(`🔒 ${monthName} के Weekly Mocks केवल Current Affairs पेड बैच (₹99) के छात्रों के लिए हैं।\n\nबिना फीस (₹99) पेमेंट किए कोई भी मॉक टेस्ट या पीडीएफ नहीं देखा जा सकता।\n\nकृपया अभी बैच एनरोल करें।`);
+      this.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', 99);
+      return;
+    }
     this.state.caSelectedMonth = monthName;
     this.renderCurrentAffairs();
     const area = document.getElementById('ca-content-area');
@@ -3213,17 +3221,21 @@ ${eb.previewText || 'Sample preview chapter...'}
   },
 
   startCaWeeklyMock(mockId) {
+    if (!this.state.user) {
+      alert('🔒 बिना लॉगिन के कोई भी मॉक टेस्ट नहीं दिया जा सकता। कृपया पहले लॉगिन करें।');
+      this.openLoginModal();
+      return;
+    }
+    const hasAccess = this.hasBatchAccess('ca_batch') || this.hasBatchAccess('ca_99') || (this.state.user && this.state.user.role === 'admin');
+    if (!hasAccess) {
+      alert('🔒 यह टेस्ट केवल Current Affairs पेड बैच (₹99) के छात्रों के लिए है। बिना फीस जमा किए इसे नहीं दिया जा सकता।\n\nकृपया अभी बैच एनरोल करें।');
+      this.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', 99);
+      return;
+    }
+
     const ca = this.state.currentAffairs || { weekly: [], monthly: [] };
     const mock = (ca.weekly || []).find(w => w.id === mockId);
     if (!mock) return alert('Mock test not found');
-
-    const hasAccess = this.hasBatchAccess('ca_batch') || this.hasBatchAccess('ca_99');
-    if (!hasAccess && !mock.isFreeDemo) {
-      if (confirm(`🔒 This Weekly CBT Mock Test (${mock.week || 'Mock'}) is exclusive to the Current Affairs Batch.\n\nSpecial Offer Price: ₹99/- (Discounted from ₹199/-)\n\nWould you like to unlock the complete Current Affairs Batch with all weekly mocks and monthly digests now?`)) {
-        this.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', 99);
-      }
-      return;
-    }
 
     // Build or use CBT questions
     const questions = (mock.mockQuestions && mock.mockQuestions.length > 0)
@@ -3250,13 +3262,6 @@ ${eb.previewText || 'Sample preview chapter...'}
   },
 
   generateCaMockQuestions(mock) {
-    const highlights = mock.highlights || [
-      'DRDO successfully flight-tests new generation air defence missile systems',
-      'Indian Armed Forces conduct tri-service joint operations exercise',
-      'Defence Acquisition Council clears major indigenisation procurements',
-      'Strategic infrastructure and high-altitude tunnels operationalized along frontiers'
-    ];
-
     const samplePool = [
       {
         question: "DRDO recently conducted successful flight trials of which indigenously developed short-range air defence missile system?",
@@ -3345,18 +3350,19 @@ ${eb.previewText || 'Sample preview chapter...'}
 
     // Distinct list of months
     const defaultMonths = [
-      { name: 'November 2026', isCurrent: true, badge: '🟢 Active Month • 4 Weekly Mocks', icon: '🔥', count: 4 },
-      { name: 'October 2026', isCurrent: false, badge: 'Completed • 4 Mocks & Digest', icon: '📁', count: 4 },
-      { name: 'September 2026', isCurrent: false, badge: 'Completed • 4 Mocks & Digest', icon: '📁', count: 4 },
-      { name: 'August 2026', isCurrent: false, badge: 'Archive • 4 Mocks & Digest', icon: '📁', count: 4 }
+      { name: 'November 2026', isCurrent: true, badge: '🔒 PAID BATCH • 4 Weekly Mocks', icon: '🔥', count: 4 },
+      { name: 'October 2026', isCurrent: false, badge: '🔒 PAID BATCH • 4 Mocks & Digest', icon: '📁', count: 4 },
+      { name: 'September 2026', isCurrent: false, badge: '🔒 PAID BATCH • 4 Mocks & Digest', icon: '📁', count: 4 },
+      { name: 'August 2026', isCurrent: false, badge: '🔒 PAID BATCH • 4 Mocks & Digest', icon: '📁', count: 4 }
     ];
 
     const months = (ca.months && ca.months.length > 0) ? ca.months : defaultMonths;
 
+    const user = this.state.user;
+    const hasBatch = this.hasBatchAccess('ca_batch') || this.hasBatchAccess('ca_99');
+    const isAdmin = !!(user && user.role === 'admin');
     const activeSec = this.state.caActiveSection || 'weekly';
     const selectedMonth = this.state.caSelectedMonth;
-    const hasBatch = this.hasBatchAccess('ca_batch') || this.hasBatchAccess('ca_99');
-    const isAdmin = !!(this.state.user && this.state.user.role === 'admin');
 
     // 1. RENDER BATCH SHOWCASE / PAID OFFER BANNER
     if (bannerContainer) {
@@ -3383,7 +3389,11 @@ ${eb.previewText || 'Sample preview chapter...'}
                   <span class="batch-badge" style="background:#16a34a; color:#fff; font-weight:800; font-size:0.72rem; padding:0.25rem 0.6rem;">
                     ✓ BATCH ACTIVE & UNLOCKED
                   </span>
-                ` : ''}
+                ` : `
+                  <span class="batch-badge" style="background:#fee2e2; color:#dc2626; font-weight:800; font-size:0.72rem; padding:0.25rem 0.6rem;">
+                    🔒 100% PAID BATCH (लॉगिन और फीस अनिवार्य)
+                  </span>
+                `}
               </div>
 
               <h2 style="font-size:1.45rem; font-weight:900; color:#fff; margin:0 0 0.35rem 0; letter-spacing:0.5px;">
@@ -3418,6 +3428,11 @@ ${eb.previewText || 'Sample preview chapter...'}
                     <button class="btn btn-primary" style="background:#16a34a; border-color:#16a34a; font-weight:800; font-size:0.92rem; padding:0.55rem 1.25rem; box-shadow:0 4px 12px rgba(22,163,74,0.35);" onclick="App.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', ${batchInfo.offerPrice || 99})">
                       ⚡ ENROLL NOW FOR ₹${batchInfo.offerPrice || 99}
                     </button>
+                    ${!user ? `
+                      <button class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.4); font-size:0.82rem; padding:0.5rem 0.85rem;" onclick="App.openLoginModal()">
+                        🔑 Student Login
+                      </button>
+                    ` : ''}
                     <a href="tel:${(batchInfo.helpline || '+918058010219').replace(/\s/g,'')}" class="btn btn-outline" style="color:#fff; border-color:rgba(255,255,255,0.3); font-size:0.82rem; padding:0.5rem 0.85rem; text-decoration:none;">
                       📞 Call: ${batchInfo.helpline || '+91 8058010219'}
                     </a>
@@ -3444,7 +3459,50 @@ ${eb.previewText || 'Sample preview chapter...'}
       `;
     }
 
-    // 3. RENDER BREADCRUMB
+    // 3. STRICT GATING: IF USER IS NOT LOGGED IN -> NO ACCESS AT ALL!
+    // "enko paid me rkho bina log in ir pese ke Koi bhi na dekh ske"
+    if (!user) {
+      if (crumbContainer) {
+        crumbContainer.innerHTML = `
+          <div class="folder-breadcrumb" style="margin:0.75rem 0 1.25rem;">
+            <span class="crumb-root">📁 Current_Affairs_Vault</span>
+            <span class="crumb-sep">›</span>
+            <span style="color:#dc2626; font-weight:800;">🔒 LOGIN & FEE REQUIRED • लॉगिन और फीस अनिवार्य</span>
+          </div>
+        `;
+      }
+
+      contentArea.innerHTML = `
+        <div style="max-width:680px; margin:2rem auto; background:#ffffff; border:2px solid #0284c7; border-radius:16px; padding:2.2rem 1.75rem; box-shadow:0 12px 30px rgba(0,0,0,0.08); text-align:center;">
+          <div style="width:72px; height:72px; margin:0 auto 1.25rem; border-radius:50%; background:#eff6ff; display:flex; align-items:center; justify-content:center; font-size:2.4rem; border:2px solid #bfdbfe;">
+            🔐
+          </div>
+          <span class="batch-badge" style="background:#fee2e2; color:#dc2626; font-weight:800; font-size:0.85rem; padding:0.35rem 0.9rem; border-radius:20px;">
+            🔒 STRICT ACCESS GATE • लॉगिन और फीस अनिवार्य
+          </span>
+          <h3 style="font-size:1.45rem; color:#0a192f; margin:1rem 0 0.5rem; font-weight:900;">
+            Current Affairs Paid Batch (Daily • Weekly • Monthly)
+          </h3>
+          <p style="color:#475569; font-size:0.95rem; line-height:1.6; max-width:540px; margin:0 auto 1.5rem;">
+            यह कंटेंट केवल <strong>पेड बैच (₹99)</strong> के एनरोल्ड छात्रों के लिए सुरक्षित है। बिना लॉगिन किए और बिना फीस (₹99) पेमेंट किए कोई भी मॉक टेस्ट या पीडीएफ नहीं देखा जा सकता।
+          </p>
+          <div style="display:flex; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
+            <button class="btn btn-primary" style="padding:0.65rem 1.5rem; font-size:0.95rem; font-weight:800; background:#0284c7; border-color:#0284c7;" onclick="App.openLoginModal()">
+              🔑 Login with Mobile Number (लॉगिन करें)
+            </button>
+            <button class="btn btn-primary" style="padding:0.65rem 1.5rem; font-size:0.95rem; font-weight:800; background:#16a34a; border-color:#16a34a;" onclick="App.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', ${batchInfo.offerPrice || 99})">
+              ⚡ Enroll Now for ₹${batchInfo.offerPrice || 99} (फीस जमा करें)
+            </button>
+          </div>
+          <div style="margin-top:1.25rem; font-size:0.82rem; color:#64748b;">
+            📞 Helpline / WhatsApp Support: <strong>${batchInfo.helpline || '+91 8058010219'}</strong>
+          </div>
+        </div>
+      `;
+      return;
+    }
+
+    // 4. RENDER BREADCRUMB (FOR LOGGED IN USERS)
     if (crumbContainer) {
       if (activeSec === 'weekly') {
         if (!selectedMonth) {
@@ -3484,11 +3542,10 @@ ${eb.previewText || 'Sample preview chapter...'}
       }
     }
 
-    // 4. RENDER CONTENT AREA
+    // 5. RENDER CONTENT AREA
     if (activeSec === 'weekly') {
 
       // CASE A: NO MONTH SELECTED -> DISPLAY ONLY MONTHS NAMES
-      // "Weekly wale options me जब student click kare to usko screen par only Months Name Show kare use"
       if (!selectedMonth) {
         contentArea.innerHTML = `
           <div style="margin-bottom:1.5rem;">
@@ -3509,16 +3566,16 @@ ${eb.previewText || 'Sample preview chapter...'}
                 const monthMocks = weekly.filter(w => (w.month || '').trim().toLowerCase() === m.name.trim().toLowerCase());
                 const count = monthMocks.length || m.count || 4;
                 return `
-                  <div class="ca-month-card" onclick="App.selectCaMonth('${m.name}')" style="cursor:pointer; background:#fff; border:2px solid ${m.isCurrent ? '#0284c7' : '#e2e8f0'}; border-radius:14px; padding:1.25rem 1.4rem; transition:all 0.25s ease; box-shadow:0 4px 14px rgba(0,0,0,0.05); display:flex; flex-direction:column; position:relative; overflow:hidden;">
+                  <div class="ca-month-card" onclick="App.selectCaMonth('${m.name}')" style="cursor:pointer; background:#fff; border:2px solid ${hasBatch ? '#0284c7' : '#e2e8f0'}; border-radius:14px; padding:1.25rem 1.4rem; transition:all 0.25s ease; box-shadow:0 4px 14px rgba(0,0,0,0.05); display:flex; flex-direction:column; position:relative; overflow:hidden;">
                     ${m.isCurrent ? `<div style="position:absolute; top:0; right:0; background:#0284c7; color:#fff; font-size:0.65rem; font-weight:800; padding:0.2rem 0.65rem; border-bottom-left-radius:8px;">ACTIVE MONTH</div>` : ''}
                     
                     <div style="display:flex; align-items:center; gap:0.9rem; margin-bottom:0.85rem;">
-                      <div style="width:52px; height:52px; border-radius:12px; background:${m.isCurrent ? '#eff6ff' : '#f8fafc'}; color:${m.isCurrent ? '#0284c7' : '#64748b'}; font-size:1.75rem; display:flex; align-items:center; justify-content:center; border:1px solid ${m.isCurrent ? '#bfdbfe' : '#cbd5e1'};">
-                        ${m.icon || '🗓️'}
+                      <div style="width:52px; height:52px; border-radius:12px; background:${hasBatch ? '#eff6ff' : '#f8fafc'}; color:${hasBatch ? '#0284c7' : '#64748b'}; font-size:1.75rem; display:flex; align-items:center; justify-content:center; border:1px solid ${hasBatch ? '#bfdbfe' : '#cbd5e1'};">
+                        ${hasBatch ? (m.icon || '🗓️') : '🔒'}
                       </div>
                       <div>
-                        <span class="batch-badge" style="background:${m.isCurrent ? '#dbeafe' : '#f1f5f9'}; color:${m.isCurrent ? '#1d4ed8' : '#475569'}; font-size:0.75rem; font-weight:700;">
-                          ${m.badge || `${count} Weekly Mocks`}
+                        <span class="batch-badge" style="background:${hasBatch ? '#dbeafe' : '#fee2e2'}; color:${hasBatch ? '#1d4ed8' : '#dc2626'}; font-size:0.75rem; font-weight:700;">
+                          ${hasBatch ? (m.badge || `${count} Weekly Mocks`) : '🔒 PAID BATCH ONLY'}
                         </span>
                         <h3 style="margin:0.25rem 0 0.1rem 0; font-size:1.3rem; color:#0a192f; font-weight:900;">${m.name}</h3>
                       </div>
@@ -3529,10 +3586,10 @@ ${eb.previewText || 'Sample preview chapter...'}
                     </p>
 
                     <div style="margin-top:auto; display:flex; justify-content:space-between; align-items:center; border-top:1px solid #f1f5f9; padding-top:0.75rem;">
-                      <span style="font-size:0.85rem; font-weight:700; color:#0284c7;">
-                        Explore Weekly Mocks (${count})
+                      <span style="font-size:0.85rem; font-weight:700; color:${hasBatch ? '#0284c7' : '#dc2626'};">
+                        ${hasBatch ? `Explore Weekly Mocks (${count})` : '🔒 Unlock Batch for ₹99'}
                       </span>
-                      <span style="font-size:1.25rem; font-weight:900; color:#0284c7; transition:transform 0.2s ease;">→</span>
+                      <span style="font-size:1.25rem; font-weight:900; color:${hasBatch ? '#0284c7' : '#dc2626'}; transition:transform 0.2s ease;">→</span>
                     </div>
                   </div>
                 `;
@@ -3541,9 +3598,44 @@ ${eb.previewText || 'Sample preview chapter...'}
           </div>
         `;
       } 
-      // CASE B: MONTH SELECTED -> DRILL DOWN TO WEEKLY MOCKS
-      // "Month name ke upar Click karne baad use weekly mock show kare"
+      // CASE B: MONTH SELECTED
       else {
+        // STRICT PAID GATE: If student is logged in but hasn't paid, do NOT show the mocks!
+        if (!hasBatch && !isAdmin) {
+          contentArea.innerHTML = `
+            <div style="max-width:680px; margin:2rem auto; background:#ffffff; border:2px solid #ef4444; border-radius:16px; padding:2.2rem 1.75rem; box-shadow:0 12px 30px rgba(0,0,0,0.08); text-align:center;">
+              <div style="width:72px; height:72px; margin:0 auto 1.25rem; border-radius:50%; background:#fee2e2; display:flex; align-items:center; justify-content:center; font-size:2.4rem; border:2px solid #fecaca;">
+                🔒
+              </div>
+              <span class="batch-badge" style="background:#fee2e2; color:#dc2626; font-weight:800; font-size:0.85rem; padding:0.35rem 0.9rem; border-radius:20px;">
+                🔒 CONTENT LOCKED • BATCH ENROLLMENT REQUIRED
+              </span>
+              <h3 style="font-size:1.4rem; color:#0a192f; margin:1rem 0 0.5rem; font-weight:900;">
+                ${selectedMonth} Weekly Mock Tests & Capsules
+              </h3>
+              <p style="color:#475569; font-size:0.95rem; line-height:1.6; max-width:540px; margin:0 auto 1.5rem;">
+                प्रिय <strong>${user.name || 'Candidate'}</strong>, यह Current Affairs स्पेशल बैच का एक्सक्लूसिव कंटेंट है। इसके सभी वीकली मॉक टेस्ट (CBT Mocks) और मंथली डाइजेस्ट केवल फीस (₹99) जमा करने के बाद ही अनलॉक होते हैं।
+              </p>
+              <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:1rem; max-width:500px; margin:0 auto 1.5rem; text-align:left; font-size:0.85rem; color:#334155;">
+                <div>✓ <strong>Daily:</strong> Current Affairs Capsules & Briefs</div>
+                <div>✓ <strong>Weekly:</strong> 16 High-Yield CBT Mock Tests (4 Mocks / Month)</div>
+                <div>✓ <strong>Monthly:</strong> 70+ Pages Defence Digests + 200 Practice MCQs</div>
+                <div>✓ <strong>Exam:</strong> Airforce Group X/Y, Navy SSR/AA, NDA & CDS</div>
+              </div>
+              <div style="display:flex; justify-content:center; gap:0.75rem; flex-wrap:wrap;">
+                <button class="btn btn-primary" style="padding:0.7rem 1.6rem; font-size:0.98rem; font-weight:800; background:#16a34a; border-color:#16a34a; box-shadow:0 4px 14px rgba(22,163,74,0.35);" onclick="App.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', ${batchInfo.offerPrice || 99})">
+                  ⚡ Unlock Full Batch for ₹${batchInfo.offerPrice || 99} Only
+                </button>
+                <button class="btn btn-outline" onclick="App.backToCaMonths()">
+                  ← Back to Months
+                </button>
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        // UNLOCKED VIEW (FOR PAID STUDENTS & ADMIN)
         const filteredWeekly = weekly.filter(w => (w.month || '').trim().toLowerCase() === selectedMonth.trim().toLowerCase());
 
         contentArea.innerHTML = `
@@ -3572,100 +3664,76 @@ ${eb.previewText || 'Sample preview chapter...'}
               </div>
             ` : `
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:1.25rem; margin-bottom:2.5rem;">
-                ${filteredWeekly.map(w => {
-                  const isUnlocked = hasBatch || w.isFreeDemo;
-                  return `
-                    <div class="content-card" style="border:1.5px solid ${isUnlocked ? '#bfdbfe' : '#e2e8f0'}; border-radius:14px; box-shadow:0 4px 14px rgba(0,0,0,0.06); display:flex; flex-direction:column; background:#fff; overflow:hidden;">
-                      <div class="content-card-body" style="padding:1.25rem; display:flex; flex-direction:column; height:100%;">
-                        
-                        <!-- Top Meta Header -->
-                        <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; margin-bottom:0.5rem; flex-wrap:wrap;">
-                          <span class="batch-badge" style="background:#0284c7; color:#fff; font-weight:800; font-size:0.75rem;">
-                            ${w.week || 'Weekly Mock'}
-                          </span>
-                          <span style="font-size:0.75rem; color:#64748b; font-weight:600;">
-                            🗓️ ${w.date || w.month}
-                          </span>
-                          ${w.isFreeDemo ? `
-                            <span class="batch-badge" style="background:#16a34a; color:#fff; font-weight:800; font-size:0.72rem;">
-                              🔓 FREE DEMO MOCK
-                            </span>
-                          ` : (!hasBatch ? `
-                            <span class="batch-badge" style="background:#fef2f2; color:#dc2626; border:1px solid #fecaca; font-weight:800; font-size:0.72rem;">
-                              🔒 BATCH EXCLUSIVE
-                            </span>
-                          ` : `
-                            <span class="batch-badge" style="background:#dcfce7; color:#15803d; font-weight:800; font-size:0.72rem;">
-                              ✓ UNLOCKED
-                            </span>
-                          `)}
+                ${filteredWeekly.map(w => `
+                  <div class="content-card" style="border:1.5px solid #bfdbfe; border-radius:14px; box-shadow:0 4px 14px rgba(0,0,0,0.06); display:flex; flex-direction:column; background:#fff; overflow:hidden;">
+                    <div class="content-card-body" style="padding:1.25rem; display:flex; flex-direction:column; height:100%;">
+                      
+                      <!-- Top Meta Header -->
+                      <div style="display:flex; justify-content:space-between; align-items:center; gap:0.5rem; margin-bottom:0.5rem; flex-wrap:wrap;">
+                        <span class="batch-badge" style="background:#0284c7; color:#fff; font-weight:800; font-size:0.75rem;">
+                          ${w.week || 'Weekly Mock'}
+                        </span>
+                        <span style="font-size:0.75rem; color:#64748b; font-weight:600;">
+                          🗓️ ${w.date || w.month}
+                        </span>
+                        <span class="batch-badge" style="background:#dcfce7; color:#15803d; font-weight:800; font-size:0.72rem;">
+                          ✓ UNLOCKED
+                        </span>
+                      </div>
+
+                      <!-- Title -->
+                      <h3 style="font-size:1.15rem; color:#0a192f; margin:0.35rem 0 0.5rem 0; font-weight:800; line-height:1.35;">
+                        ${w.title}
+                      </h3>
+
+                      <!-- Test Specs Row -->
+                      <div style="display:flex; gap:0.75rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:0.4rem 0.65rem; margin-bottom:0.75rem; font-size:0.78rem; color:#334155; flex-wrap:wrap;">
+                        <span>📝 <strong>${w.questionsCount || 30} Qs</strong></span>
+                        <span>⏱️ <strong>${w.durationMins || 25} Mins</strong></span>
+                        <span>⚖️ <strong>+1, -0.25 Marking</strong></span>
+                        <span>🌐 <strong>Bilingual</strong></span>
+                      </div>
+
+                      <p style="margin:0 0 0.75rem 0; font-size:0.83rem; color:#475569; line-height:1.4;">
+                        ${w.summary || ''}
+                      </p>
+
+                      <!-- Key Defence Highlights Box -->
+                      ${(w.highlights && w.highlights.length > 0) ? `
+                        <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:0.65rem 0.85rem; margin-bottom:1rem; font-size:0.8rem;">
+                          <strong style="color:#166534; display:block; margin-bottom:0.3rem;">⚡ Major Topics Covered:</strong>
+                          <ul style="margin:0; padding-left:1.15rem; color:#14532d; font-size:0.78rem; line-height:1.4;">
+                            ${w.highlights.slice(0, 4).map(h => `<li>${h}</li>`).join('')}
+                          </ul>
+                        </div>
+                      ` : ''}
+
+                      <!-- Action Buttons -->
+                      <div style="margin-top:auto; display:flex; flex-direction:column; gap:0.5rem;">
+                        <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+                          <button class="btn btn-primary" style="flex:1; min-width:140px; font-weight:800; font-size:0.85rem; padding:0.55rem; background:#0284c7; border-color:#0284c7;" onclick="App.startCaWeeklyMock('${w.id}')">
+                            🚀 Attempt Weekly CBT Mock
+                          </button>
+                          <button class="btn btn-defence" style="flex:1; min-width:140px; font-weight:700; font-size:0.82rem; padding:0.55rem;" onclick="App.downloadWatermarkedPdf('${w.pdfUrl}')">
+                            📥 Capsule PDF
+                          </button>
                         </div>
 
-                        <!-- Title -->
-                        <h3 style="font-size:1.15rem; color:#0a192f; margin:0.35rem 0 0.5rem 0; font-weight:800; line-height:1.35;">
-                          ${w.title}
-                        </h3>
-
-                        <!-- Test Specs Row -->
-                        <div style="display:flex; gap:0.75rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:0.4rem 0.65rem; margin-bottom:0.75rem; font-size:0.78rem; color:#334155; flex-wrap:wrap;">
-                          <span>📝 <strong>${w.questionsCount || 30} Qs</strong></span>
-                          <span>⏱️ <strong>${w.durationMins || 25} Mins</strong></span>
-                          <span>⚖️ <strong>+1, -0.25 Marking</strong></span>
-                          <span>🌐 <strong>Bilingual</strong></span>
-                        </div>
-
-                        <p style="margin:0 0 0.75rem 0; font-size:0.83rem; color:#475569; line-height:1.4;">
-                          ${w.summary || ''}
-                        </p>
-
-                        <!-- Key Defence Highlights Box -->
-                        ${(w.highlights && w.highlights.length > 0) ? `
-                          <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:8px; padding:0.65rem 0.85rem; margin-bottom:1rem; font-size:0.8rem;">
-                            <strong style="color:#166534; display:block; margin-bottom:0.3rem;">⚡ Major Topics Covered:</strong>
-                            <ul style="margin:0; padding-left:1.15rem; color:#14532d; font-size:0.78rem; line-height:1.4;">
-                              ${w.highlights.slice(0, 4).map(h => `<li>${h}</li>`).join('')}
-                            </ul>
+                        ${isAdmin ? `
+                          <div style="display:flex; gap:0.5rem; margin-top:0.4rem; border-top:1px dashed #e2e8f0; padding-top:0.5rem;">
+                            <button class="btn btn-outline" style="flex:1; font-size:0.78rem; padding:0.3rem;" onclick="App.openEditModal('current-affairs', '${w.id}', 'weekly')">
+                              ✏️ Edit
+                            </button>
+                            <button class="btn btn-outline" style="flex:1; font-size:0.78rem; padding:0.3rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('current-affairs', '${w.id}', 'weekly')">
+                              🗑️ Delete
+                            </button>
                           </div>
                         ` : ''}
-
-                        <!-- Action Buttons -->
-                        <div style="margin-top:auto; display:flex; flex-direction:column; gap:0.5rem;">
-                          ${isUnlocked ? `
-                            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-                              <button class="btn btn-primary" style="flex:1; min-width:140px; font-weight:800; font-size:0.85rem; padding:0.55rem; background:#0284c7; border-color:#0284c7;" onclick="App.startCaWeeklyMock('${w.id}')">
-                                🚀 Attempt Weekly CBT Mock
-                              </button>
-                              <button class="btn btn-defence" style="flex:1; min-width:140px; font-weight:700; font-size:0.82rem; padding:0.55rem;" onclick="App.downloadWatermarkedPdf('${w.pdfUrl}')">
-                                📥 Capsule PDF
-                              </button>
-                            </div>
-                          ` : `
-                            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
-                              <button class="btn btn-primary" style="flex:1; min-width:140px; font-weight:800; font-size:0.85rem; padding:0.55rem; background:#16a34a; border-color:#16a34a;" onclick="App.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', ${batchInfo.offerPrice || 99})">
-                                🔒 Unlock Batch (₹${batchInfo.offerPrice || 99})
-                              </button>
-                              <button class="btn btn-outline" style="flex:1; min-width:140px; font-size:0.82rem; padding:0.55rem; opacity:0.65;" onclick="alert('This Weekly Capsule PDF is locked. Please enroll in the Current Affairs batch for ₹99 to download.')">
-                                🔒 PDF Locked
-                              </button>
-                            </div>
-                          `}
-
-                          ${isAdmin ? `
-                            <div style="display:flex; gap:0.5rem; margin-top:0.4rem; border-top:1px dashed #e2e8f0; padding-top:0.5rem;">
-                              <button class="btn btn-outline" style="flex:1; font-size:0.78rem; padding:0.3rem;" onclick="App.openEditModal('current-affairs', '${w.id}', 'weekly')">
-                                ✏️ Edit
-                              </button>
-                              <button class="btn btn-outline" style="flex:1; font-size:0.78rem; padding:0.3rem; color:#dc2626; border-color:#fca5a5;" onclick="App.deleteSectionItem('current-affairs', '${w.id}', 'weekly')">
-                                🗑️ Delete
-                              </button>
-                            </div>
-                          ` : ''}
-                        </div>
-
                       </div>
+
                     </div>
-                  `;
-                }).join('')}
+                  </div>
+                `).join('')}
               </div>
             `}
           </div>
@@ -3754,7 +3822,6 @@ ${eb.previewText || 'Sample preview chapter...'}
       `;
     }
   },
-
 
   // 11. My Courses / Student Library
   // "My Courses / My Library: जहाँ स्टूडेंट अपने खरीदे हुए 'Paid Courses' और 'Paid Test Series' देख सकें"
@@ -5358,6 +5425,19 @@ ${eb.previewText || 'Sample preview chapter...'}
   // 13. Dynamic PDF Watermarking Download
   // "Piracy Protection:- when students download pdf automatically SKC DEFENCE ACADEMY watermark comes in downloaded pdf file"
   downloadWatermarkedPdf(pdfPath) {
+    if (pdfPath && (pdfPath.includes('ca_weekly') || pdfPath.includes('ca_monthly'))) {
+      if (!this.state.user) {
+        alert('🔒 बिना लॉगिन के कोई भी पीडीएफ डाउनलोड नहीं की जा सकती। कृपया पहले लॉगिन करें।');
+        this.openLoginModal();
+        return;
+      }
+      const hasAccess = this.hasBatchAccess('ca_batch') || this.hasBatchAccess('ca_99') || (this.state.user && this.state.user.role === 'admin');
+      if (!hasAccess) {
+        alert('🔒 बिना फीस (₹99) जमा किए Current Affairs पीडीएफ डाउनलोड नहीं की जा सकती। कृपया पहले बैच एनरोल करें।');
+        this.openCheckoutModal('course', 'ca_batch', 'Current Affairs Special Batch (Daily • Weekly • Monthly)', 99);
+        return;
+      }
+    }
     const user = this.state.user || { name: 'Aspirant', phone: 'Verified', id: 'SKC-999' };
     const cleanFilename = pdfPath.split('/').pop();
     const downloadUrl = `/api/pdf/download?file=${cleanFilename}&studentName=${encodeURIComponent(user.name)}&studentPhone=${encodeURIComponent(user.phone)}&studentId=${encodeURIComponent(user.id)}`;

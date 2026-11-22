@@ -36134,8 +36134,8 @@
         "date": "01 Nov - 07 Nov 2026",
         "questionsCount": 30,
         "durationMins": 25,
-        "isFreeDemo": true,
-        "badge": "Free Demo Mock",
+        "isFreeDemo": false,
+        "badge": "🔒 Batch Exclusive",
         "summary": "Key highlights include DRDO VSHORADS successful flight test, Exercise MALABAR 2026 concluding phases, DAC AoN approvals, and LCA Tejas Mk-1A upgrades.",
         "highlights": [
           "DRDO conducts successful flight trials of indigenously developed VSHORADS missile",
@@ -36154,7 +36154,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Batch Exclusive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Covers Coastal Defence Exercise Sea Vigil-24, Pinaka MBRL export updates, BRO strategic tunnels, and Chief of Defence Staff tri-service review.",
         "highlights": [
           "Indian Navy & Coast Guard conduct pan-India coastal security exercise 'Sea Vigil'",
@@ -36173,7 +36173,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Batch Exclusive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Focuses on INS Arighat operational milestones, Agni-Prime strategic missile trials, Airforce Agniveer intake updates, and bilateral army exercises.",
         "highlights": [
           "Second Arihant-class nuclear ballistic missile submarine (SSBN) INS Arighat sea trials update",
@@ -36192,7 +36192,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Batch Exclusive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Latest updates on National Security Strategy, indigenous Zorawar Light Tank trials, Navy Submarine Project-75I milestones, and Defence Summit 2026.",
         "highlights": [
           "DRDO & L&T advance high-altitude trials of Zorawar 25-tonne light combat tank",
@@ -36211,7 +36211,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Completed",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Indian Air Force Day special edition, Tejas Mk1A aerial displays, border surveillance tech, and UN Peacekeeping mission updates.",
         "highlights": [
           "Indian Air Force marks 94th Anniversary with mega airshow and flypast",
@@ -36229,7 +36229,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Completed",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Joint military exercises 'Yudh Abhyas', new appointments in Armed Forces, and naval fleet upgrades.",
         "highlights": [
           "Indo-US joint army Exercise Yudh Abhyas conducted with focus on counter-terrorism",
@@ -36247,7 +36247,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Completed",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Border infrastructure acceleration, BrahMos supersonic missile test firing, and Defence Space Agency exercises.",
         "highlights": [
           "Indian Navy conducts precision anti-ship strike firing with BrahMos from stealth frigate",
@@ -36265,7 +36265,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Completed",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Defence budget mid-year review, indigenous drone procurement, and Quad naval interoperability drills.",
         "highlights": [
           "Cabinet Committee on Security (CCS) clears mega procurement for indigenous combat gear",
@@ -36283,7 +36283,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Archive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Naval Aviation golden jubilee, new defence startups funding under iDEX, and bilateral defence talks.",
         "highlights": [
           "iDEX awards ₹100 crore innovation challenges to defence tech startups",
@@ -36300,7 +36300,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Archive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Joint air combat exercise 'Tarang Shakti' debrief, missile propulsion advances, and international maritime security.",
         "highlights": [
           "IAF successfully hosts Phase-II of multinational air exercise Tarang Shakti",
@@ -36317,7 +36317,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Archive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Special forces training exercises, border outpost modernization, and naval diplomacy port calls.",
         "highlights": [
           "Indian Special Forces complete desert warfare evaluation drills",
@@ -36334,7 +36334,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Archive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Monthly wrap-up, national security council directives, and tri-service integration milestones.",
         "highlights": [
           "National Security Council reviews cyber resilience of strategic defence installations",
@@ -36351,7 +36351,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Archive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Independence Day defence preparations, gallantry awards announcements, and border security vigilance.",
         "highlights": [
           "Ministry of Defence announces gallantry award citations for Armed Forces personnel",
@@ -36368,7 +36368,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Archive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Indigenous ammunition manufacturing boosts, joint army exercise 'Mitra Shakti', and naval patrol operations.",
         "highlights": [
           "Indian Army & Sri Lankan Army conduct joint exercise Mitra Shakti",
@@ -36385,7 +36385,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Archive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Aatmanirbhar Bharat defence milestone, LCA Tejas weapon integration tests, and maritime domain awareness.",
         "highlights": [
           "Tejas aircraft successfully fires indigenous Astra Beyond Visual Range (BVR) missile",
@@ -36402,7 +36402,7 @@
         "questionsCount": 30,
         "durationMins": 25,
         "isFreeDemo": false,
-        "badge": "Archive",
+        "badge": "🔒 Batch Exclusive",
         "summary": "Monthly comprehensive summary, joint logistics node inaugurations, and military medicine advancements.",
         "highlights": [
           "Third Joint Logistics Node operationalized to streamline supply chain for all three wings",
