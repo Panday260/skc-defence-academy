@@ -36086,375 +36086,2920 @@
       "posterUrl": "/uploads/current_affairs_batch_poster.jpg",
       "helpline": "+91 8058010219",
       "badge": "🔥 Limited Time Offer ₹99",
-      "description": "Master Defence & National Current Affairs for Airforce Group X/Y, Navy SSR/AA, NDA, and CDS with daily capsules, weekly CBT mock tests, and comprehensive monthly digests.",
+      "description": "Master Defence & National Current Affairs for Airforce Group X/Y, Navy SSR/AA, NDA, and CDS with weekly CBT mock tests and comprehensive monthly digests.",
       "features": [
-        "Daily Current Affairs Capsules & Defence Briefs",
         "Weekly High-Yield CBT Mock Tests with Live Analytics",
-        "Monthly Comprehensive Defence Digests (70+ Pages)",
-        "Monthly Mega Revision Mock Tests with All India Ranking",
-        "Bilingual Explanations (Hindi & English)"
+        "Downloadable Official Weekly & Monthly PDFs",
+        "Exact Matching Mock Test Questions & PDF Content",
+        "Standard Exam Calibrated Timers (1 min / question)",
+        "Detailed Explanations for Every Question"
       ]
     },
     "months": [
       {
-        "name": "November 2026",
-        "isCurrent": true,
-        "badge": "🟢 Active Month • 4 Weekly Mocks",
-        "icon": "🔥",
+        "name": "January 2026",
+        "badge": "📁 4 Weekly Mocks & PDF",
+        "icon": "📅",
         "count": 4
       },
       {
-        "name": "October 2026",
-        "isCurrent": false,
-        "badge": "Completed • 4 Mocks & Digest",
-        "icon": "📁",
+        "name": "February 2026",
+        "badge": "📁 4 Weekly Mocks & PDF",
+        "icon": "📅",
         "count": 4
       },
       {
-        "name": "September 2026",
-        "isCurrent": false,
-        "badge": "Completed • 4 Mocks & Digest",
-        "icon": "📁",
+        "name": "March 2026",
+        "badge": "📁 4 Weekly Mocks & PDF",
+        "icon": "📅",
         "count": 4
       },
       {
-        "name": "August 2026",
-        "isCurrent": false,
-        "badge": "Archive • 4 Mocks & Digest",
-        "icon": "📁",
+        "name": "April 2026",
+        "badge": "📁 4 Weekly Mocks & PDF",
+        "icon": "📅",
         "count": 4
       }
     ],
     "weekly": [
       {
-        "id": "ca_w_nov_2026_w1",
-        "month": "November 2026",
+        "id": "ca_w_jan_2026_w1",
+        "month": "January 2026",
         "week": "Week 1",
-        "title": "November 2026 - Week 01 Defence & National Mock Test",
-        "date": "01 Nov - 07 Nov 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "January 2026 - Week 01 Current Affairs & Defence CBT Mock Test",
+        "date": "01 Jan - 07 Jan 2026",
+        "questionsCount": 10,
+        "durationMins": 10,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Key highlights include DRDO VSHORADS successful flight test, Exercise MALABAR 2026 concluding phases, DAC AoN approvals, and LCA Tejas Mk-1A upgrades.",
+        "summary": "Comprehensive January 2026 Week 1 Current Affairs & Defence Mock Test. Contains 10 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "DRDO conducts successful flight trials of indigenously developed VSHORADS missile",
-          "Indian Navy concludes 28th edition of multilateral maritime Exercise MALABAR",
-          "DAC accords AoN for defence capital procurements worth ₹1.45 lakh crore",
-          "IAF deploys advanced indigenous electronic warfare pods on frontline fighter jets"
+          "Which country has formally taken over the G20 presidency for the year 2026?...",
+          "India's first Vande Bharat Sleeper train will operate between which two cities?...",
+          "The Indian Army has declared the year 2026 as the 'Year of _____'. ( x 2026 '_____ x' )...",
+          "Which Indian city is aiming to become India's first 'slum-free' city in the 70-80 lakh pop..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_nov_w1.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_jan_w1.pdf",
+        "mockQuestions": [
+          {
+            "question": "Which country has formally taken over the G20 presidency for the year 2026?",
+            "options": [
+              "Brazil",
+              "India",
+              "United States",
+              "South Africa"
+            ],
+            "answer": 2,
+            "explanation": "The United States took over the G20 presidency for 2026 from South Africa."
+          },
+          {
+            "question": "India's first Vande Bharat Sleeper train will operate between which two cities?",
+            "options": [
+              "Delhi - Mumbai",
+              "Guwahati - Howrah",
+              "Chennai - Bengaluru",
+              "Patna - Kolkata"
+            ],
+            "answer": 1,
+            "explanation": "The inaugural route of India's first Vande Bharat sleeper train, built for comfortable overnight journeys, will run between Guwahati (Assam) and Howrah (West Bengal). ( x (y) ( ) )"
+          },
+          {
+            "question": "The Indian Army has declared the year 2026 as the 'Year of _____'. ( x 2026 '_____ x' )",
+            "options": [
+              "Networking & Data Centricity",
+              "Technology Absorption",
+              "Women Empowerment",
+              "Jointness and Integration"
+            ],
+            "answer": 0,
+            "explanation": "The Indian Army declared 2026 as the Year of Networking & Data Centricity to boost digital communication and combat readiness. ( 2026 ' x' )"
+          },
+          {
+            "question": "Which Indian city is aiming to become India's first 'slum-free' city in the 70-80 lakh population category?",
+            "options": [
+              "Indore",
+              "Surat",
+              "Ahmedabad",
+              "Pune"
+            ],
+            "answer": 1,
+            "explanation": "Surat has reduced its slum population from 36% in 2006 to 5% and is actively working on proper housing to achieve full slum-free status for its massive population. \n( y z 2006 36% 5% x - )"
+          },
+          {
+            "question": "India recently surpassed which country to become the world's largest rice producer?",
+            "options": [
+              "Vietnam",
+              "Thailand",
+              "China",
+              "Bangladesh"
+            ],
+            "answer": 2,
+            "explanation": "In January 2026, data revealed India produced 150.18 million tonnes of rice, surpassing China's 145.28 million tonnes to become the global leader."
+          },
+          {
+            "question": "Where were the 2nd Khelo India Beach Games held in January 2026?",
+            "options": [
+              "Goa",
+              "Kerala",
+              "Diu",
+              "Andaman & Nicobar"
+            ],
+            "answer": 2,
+            "explanation": "The 2nd Khelo India Beach Games kicked off at Ghoghla Beach in Diu, featuring over 2,100 athletes."
+          },
+          {
+            "question": "Pradhan Mantri Matru Vandana Yojana (PMMVY) is implemented under which sub-scheme of Mission Shakti? ( (PMMVY) - ?",
+            "options": [
+              "Sambal",
+              "Samarthya",
+              "Vatsalya",
+              "Ujjwala"
+            ],
+            "answer": 1,
+            "explanation": "PMMVY, which provides financial support to pregnant women and lactating mothers, completed 9 years on Jan 1, 2026. It falls under the 'Samarthya' sub-scheme. ( x 'x' - yx z )"
+          },
+          {
+            "question": "Which State/UT plans to declare 'Human Rabies' a notifiable disease under the Epidemic Diseases Act?",
+            "options": [
+              "Kerala",
+              "Maharashtra",
+              "Delhi",
+              "Karnataka"
+            ],
+            "answer": 2,
+            "explanation": "The Delhi Government plans to make it mandatory for all human rabies cases to be reported to health authorities to improve tracking and prevention."
+          },
+          {
+            "question": "India's first high-speed bullet train corridor will operate between which two cities?",
+            "options": [
+              "Delhi - Varanasi",
+              "Mumbai - Ahmedabad",
+              "Chennai - Mysuru",
+              "Delhi - Jaipur"
+            ],
+            "answer": 1,
+            "explanation": "The high-speed rail project is being developed with Japanese assistance to drastically cut travel time between Mumbai and Ahmedabad."
+          },
+          {
+            "question": "Which state government approved the first Jallikattu event of 2026?",
+            "options": [
+              "Karnataka",
+              "Andhra Pradesh",
+              "Kerala",
+              "Tamil Nadu"
+            ],
+            "answer": 3,
+            "explanation": "The Tamil Nadu government approved the first bull-taming event (Jallikattu) of the year at Thatchankurichi village under strict animal welfare and safety SOPs."
+          }
+        ]
       },
       {
-        "id": "ca_w_nov_2026_w2",
-        "month": "November 2026",
+        "id": "ca_w_jan_2026_w2",
+        "month": "January 2026",
         "week": "Week 2",
-        "title": "November 2026 - Week 02 Defence & National Mock Test",
-        "date": "08 Nov - 14 Nov 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "January 2026 - Week 02 Current Affairs & Defence CBT Mock Test",
+        "date": "08 Jan - 14 Jan 2026",
+        "questionsCount": 10,
+        "durationMins": 10,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Covers Coastal Defence Exercise Sea Vigil-24, Pinaka MBRL export updates, BRO strategic tunnels, and Chief of Defence Staff tri-service review.",
+        "summary": "Comprehensive January 2026 Week 2 Current Affairs & Defence Mock Test. Contains 10 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Indian Navy & Coast Guard conduct pan-India coastal security exercise 'Sea Vigil'",
-          "India expands indigenous Pinaka rocket launcher export deliveries to partner nations",
-          "BRO operationalizes key high-altitude mountain tunnels along the Northern LAC",
-          "Tri-Services Cyber & Space Commands test integrated electronic warfare response"
+          "Who will be the Chief Guest at India's 77th Republic Day celebrations in 2026y...",
+          "India took over the presidency of which major international organization for the year 2026...",
+          "Where was India's first government AI clinic launchedy...",
+          "Which state government renamed the Aralam Wildlife Sanctuary as its first Butterfly Sanctu..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_nov_w2.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_jan_w2.pdf",
+        "mockQuestions": [
+          {
+            "question": "Who will be the Chief Guest at India's 77th Republic Day celebrations in 2026y",
+            "options": [
+              "Emmanuel Macron",
+              "António Costa",
+              "Joe Biden",
+              "Vladimir Putin"
+            ],
+            "answer": 1,
+            "explanation": "António Costa, the President of the European Council (and former Prime Minister of Portugal), was announced as the Chief Guest for India's 77th Republic Day parade."
+          },
+          {
+            "question": "India took over the presidency of which major international organization for the year 2026y",
+            "options": [
+              "G7",
+              "ASEAN",
+              "BRICS",
+              "SAARC"
+            ],
+            "answer": 2,
+            "explanation": "India took over the chairmanship of BRICS for 2026 from Brazil, with the official theme “Building for Resilience, Innovation, Cooperation, and Sustainability ."
+          },
+          {
+            "question": "Where was India's first government AI clinic launchedy",
+            "options": [
+              "AIIMS New Delhi",
+              "GIMS Greater Noida",
+              "PGIMER Chandigarh",
+              "JIPMER Puducherry"
+            ],
+            "answer": 1,
+            "explanation": "The Government Institute of Medical Sciences (GIMS) in Greater Noida launched India's first government AI clinic, integrating Artificial Intelligence in diagnosis and treatment planning. (x (GIMS), zx AI )"
+          },
+          {
+            "question": "Which state government renamed the Aralam Wildlife Sanctuary as its first Butterfly Sanctuaryy",
+            "options": [
+              "Karnataka",
+              "Tamil Nadu",
+              "Kerala",
+              "Odisha"
+            ],
+            "answer": 2,
+            "explanation": "The Kerala government renamed the Aralam Wildlife Sanctuary to Aralam Butterfly Sanctuary, making it the first such sanctuary in the state dedicated to butterflies."
+          },
+          {
+            "question": "The rare Sandalwood Leopard was recently spotted for the first time in which district of Karnatakay",
+            "options": [
+              "Hassan",
+              "Mysuru",
+              "Vijayanagar",
+              "Udupi"
+            ],
+            "answer": 1,
+            "explanation": "The ultra-rare Sandalwood Leopard was sighted and documented in the Mysuru district, drawing significant attention from wildlife conservationists."
+          },
+          {
+            "question": "Which panchayat became the first fully organic panchayat in Rajasthany",
+            "options": [
+              "Bamanwas Kankar",
+              "Odan",
+              "Naurangdeshar",
+              "Piplantri"
+            ],
+            "answer": 0,
+            "explanation": "Bamanwas Kankar Panchayat in Rajasthan became the first village body in the state to be officially certified as fully organic. ( z )"
+          },
+          {
+            "question": "A new species of reed snake named Calamaria mizoramensis was recently discovered in which Indian statey",
+            "options": [
+              "Meghalaya",
+              "Manipur",
+              "Mizoram",
+              "Nagaland"
+            ],
+            "answer": 2,
+            "explanation": "A new species of reed snake was discovered in Mizoram and was named Calamaria mizoramensis after the state. ( )"
+          },
+          {
+            "question": "The Vishnugad-Pipalkoti Hydroelectric Project, recently in the news, is situated on which rivery",
+            "options": [
+              "Bhagirathi",
+              "Alaknanda",
+              "Kosi",
+              "Tons"
+            ],
+            "answer": 1,
+            "explanation": "It is a run-of-river hydropower project located on the Alaknanda River in the Chamoli district of Uttarakhand. ( y -- )"
+          },
+          {
+            "question": "Which became the only Indian agricultural university to join the BRICS Network University in January 2026y",
+            "options": [
+              "Banaras Hindu University",
+              "Punjab Agricultural University, Ludhiana",
+              "G. B. Pant University",
+              "Tamil Nadu Agricultural University"
+            ],
+            "answer": 1,
+            "explanation": "Punjab Agricultural University (PAU), Ludhiana, achieved this milestone to collaborate on agricultural innovation with other BRICS nations. ( (PAU), y )"
+          },
+          {
+            "question": "What percentage of India's broad-gauge railway network was reported to be electrified by the end of 2025/January 2026y",
+            "options": [
+              "85",
+              "90.5",
+              "95",
+              "99.2"
+            ],
+            "answer": 3,
+            "explanation": "Government data revealed that Indian Railways has successfully electrified 99.2\n of its broad-gauge network, bringing it closer to its 100\n target."
+          }
+        ]
       },
       {
-        "id": "ca_w_nov_2026_w3",
-        "month": "November 2026",
+        "id": "ca_w_jan_2026_w3",
+        "month": "January 2026",
         "week": "Week 3",
-        "title": "November 2026 - Week 03 Defence & National Mock Test",
-        "date": "15 Nov - 21 Nov 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "January 2026 - Week 03 Current Affairs & Defence CBT Mock Test",
+        "date": "15 Jan - 21 Jan 2026",
+        "questionsCount": 10,
+        "durationMins": 10,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Focuses on INS Arighat operational milestones, Agni-Prime strategic missile trials, Airforce Agniveer intake updates, and bilateral army exercises.",
+        "summary": "Comprehensive January 2026 Week 3 Current Affairs & Defence Mock Test. Contains 10 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Second Arihant-class nuclear ballistic missile submarine (SSBN) INS Arighat sea trials update",
-          "Strategic Forces Command successfully validates operational readiness of Agni-Prime",
-          "Indian Army conducts joint combat training exercise 'Garuda Shakti' with Indonesia",
-          "New guidelines issued for Agniveervayu technical and non-technical recruitment streams"
+          "On 23rd January 2026, President Droupadi Murmu inaugurated 'Granth Kutir', which houses a ...",
+          "India hosted the 16th BRICS Health Ministers' Meeting in January 2026. Which city hosted t...",
+          "'Glaw Lake' was recently designated as India's 101st Ramsar Site. In which state is it loc...",
+          "Which railway station recently introduced a humanoid robot named ASC ARJUN to assist passe..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_nov_w3.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_jan_w3.pdf",
+        "mockQuestions": [
+          {
+            "question": "On 23rd January 2026, President Droupadi Murmu inaugurated 'Granth Kutir', which houses a rich collection of classical manuscripts. Where is it located?",
+            "options": [
+              "Parliament House",
+              "Rashtrapati Bhavan",
+              "Prime Minister's Office",
+              "National Museum"
+            ],
+            "answer": 1,
+            "explanation": "It was inaugurated at Rashtrapati Bhavan to showcase India's rich cultural, philosophical, and intellectual heritage, featuring books and manuscripts in 11 classical Indian languages. ( x 11 ´)"
+          },
+          {
+            "question": "India hosted the 16th BRICS Health Ministers' Meeting in January 2026. Which city hosted this event?",
+            "options": [
+              "New Delhi",
+              "Gandhinagar",
+              "Chandigarh",
+              "Pune"
+            ],
+            "answer": 2,
+            "explanation": "As the Chair of BRICS for the year 2026, India hosted the 16th BRICS Health Ministers' Meeting in Chandigarh to discuss international health cooperation. (x 2026 y , yx x – 16 ´)"
+          },
+          {
+            "question": "'Glaw Lake' was recently designated as India's 101st Ramsar Site. In which state is it located?",
+            "options": [
+              "Arunachal Pradesh",
+              "Sikkim",
+              "Uttarakhand",
+              "Himachal Pradesh"
+            ],
+            "answer": 0,
+            "explanation": "Glaw Lake, situated in Arunachal Pradesh, was officially designated as the 101st wetland of international importance (Ramsar Site) in India. (y y 101 x ( ) ´)"
+          },
+          {
+            "question": "Which railway station recently introduced a humanoid robot named ASC ARJUN to assist passengers and enhance station services?",
+            "options": [
+              "Chhatrapati Shivaji Maharaj Terminus",
+              "Visakhapatnam Railway Station",
+              "Howrah Railway Station",
+              "New Delhi Railway Station"
+            ],
+            "answer": 1,
+            "explanation": "The Indian Railways deployed the AI-powered humanoid robot ASC ARJUN at the Visakhapatnam Railway Station for modern passenger assistance. ( AI- ASC ARJUN ´)"
+          },
+          {
+            "question": "India has nominated the 'Living Root Bridges' (Jingkieng Jri) for UNESCO World Heritage status. They are famous in which state? ( ' ' ( ) ´ ?",
+            "options": [
+              "Nagaland",
+              "Assam",
+              "Meghalaya",
+              "Manipur"
+            ],
+            "answer": 2,
+            "explanation": "The Living Root Bridges are culturally and ecologically significant suspension bridges made from rubber fig roots, meticulously guided by indigenous tribes in Meghalaya over decades. ( x , x ´)"
+          },
+          {
+            "question": "What is the name of India's first privately developed orbital rocket launched by Skyroot Aerospace? \n( (orbital rocket) ?",
+            "options": [
+              "Vikram-1",
+              "Agnikul-1",
+              "Kalam-100",
+              "Prarambh-2"
+            ],
+            "answer": 0,
+            "explanation": "Vikram-1 is a multi-stage orbital launch vehicle developed by the Indian private space startup Skyroot Aerospace, marking a major milestone in India's private space sector. (-1 y xy , y ´)"
+          },
+          {
+            "question": "The 'Shiveluch Volcano', which was recently in the news for powerful ash eruptions, is located in which region?",
+            "options": [
+              "Kamchatka Peninsula, Russia",
+              "Sumatra, Indonesia",
+              "Sicily, Italy",
+              "Hawaii, USA"
+            ],
+            "answer": 0,
+            "explanation": "Shiveluch is one of the largest and most active volcanoes in Russia's Kamchatka Peninsula. It recently erupted, sending ash plumes nearly 9,000 meters high. \n( ´ , 9,000 ´)"
+          },
+          {
+            "question": "Which Indian state recently launched 'Project ±ero' as a public anti-corruption initiative?",
+            "options": [
+              "Tamil Nadu",
+              "Kerala",
+              "Odisha",
+              "Gujarat"
+            ],
+            "answer": 1,
+            "explanation": "The Kerala Vigilance and Anti-Corruption Bureau launched Project ±ero – Vigilance Whistle as a major drive to curb corruption in public offices. ( x x x y y - ´)"
+          },
+          {
+            "question": "NASA has open-sourced which AI system to accelerate global exoplanet discovery?",
+            "options": [
+              "Kepler AI",
+              "ExoMiner++",
+              "AstroFind",
+              "NovaScan"
+            ],
+            "answer": 1,
+            "explanation": "ExoMiner++ is an open-source Artificial Intelligence system developed by NASA to accurately detect and validate exoplanets from Kepler and TESS space mission data. (ExoMiner++ -x x TESS y ´)"
+          },
+          {
+            "question": "Who became the first Indian woman scientist to receive the prestigious COSPAR Vikram Sarabhai Medal in 2026?",
+            "options": [
+              "Ritu Karidhal",
+              "Annapurni Subramaniam",
+              "Muthayya Vanitha",
+              "Tessy Thomas"
+            ],
+            "answer": 1,
+            "explanation": "Dr. Annapurni Subramaniam, Director of the Indian Institute of Astrophysics, was awarded the COSPAR Vikram Sarabhai Medal for her outstanding contributions to space research. ( . y y y COSPAR ´)"
+          }
+        ]
       },
       {
-        "id": "ca_w_nov_2026_w4",
-        "month": "November 2026",
+        "id": "ca_w_jan_2026_w4",
+        "month": "January 2026",
         "week": "Week 4",
-        "title": "November 2026 - Week 04 Defence & National Mock Test",
-        "date": "22 Nov - 30 Nov 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "January 2026 - Week 04 Current Affairs & Defence CBT Mock Test",
+        "date": "22 Jan - 31 Jan 2026",
+        "questionsCount": 20,
+        "durationMins": 20,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Latest updates on National Security Strategy, indigenous Zorawar Light Tank trials, Navy Submarine Project-75I milestones, and Defence Summit 2026.",
+        "summary": "Comprehensive January 2026 Week 4 Current Affairs & Defence Mock Test. Contains 20 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "DRDO & L&T advance high-altitude trials of Zorawar 25-tonne light combat tank",
-          "Ministry of Defence finalizes key milestones for Project-75 (India) AIP submarines",
-          "Chief of Air Staff outlines roadmap for 4.5+ Generation indigenous fighter fleets",
-          "Comprehensive monthly wrap-up & high-yield revision points for upcoming CBT exams"
+          "Every year on January 23, 'Parakram Diwas' is celebrated to commemorate the birth annivers...",
+          "On which date is National Girl Child Day celebrated in India?...",
+          "When is National Voters' Day celebrated across India?...",
+          "Where was the six-day national culture and tourism festival, 'Bharat Parv 2026', inaugurat..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_nov_w4.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_jan_w4.pdf",
+        "mockQuestions": [
+          {
+            "question": "Every year on January 23, 'Parakram Diwas' is celebrated to commemorate the birth anniversary of which great freedom fighter?",
+            "options": [
+              "Sardar Vallabhbhai Patel",
+              "Netaji Subhas Chandra Bose",
+              "Bhagat Singh",
+              "Chandra Shekhar Azad"
+            ],
+            "answer": 1,
+            "explanation": "Parakram Diwas honors the valor, indomitable spirit, and selfless service of Netaji Subhas Chandra Bose towards the nation. (¤ª⇧⃖¨ ↗¡­° ª⇧⃠ ⇵ ⃪↙ £⇵⇧⇨ °↛§⇧¯ ⇸⃧ ¦⇰° ⇭ ­⇨ª⇧, y¡ð© °⇧±° {ª ↙£­⇧ x °⇵­⇧ ⇧ °ð¨⇧£ ª£⇵ ⇵ ⌭« ¨£⇧©⇧ ⇧⇧ ±⇶)"
+          },
+          {
+            "question": "On which date is National Girl Child Day celebrated in India?",
+            "options": [
+              "22 January",
+              "24 January",
+              "25 January",
+              "26 January"
+            ],
+            "answer": 1,
+            "explanation": "National Girl Child Day is observed on January 24th to promote awareness about the rights of the girl child and to address the inequalities they face. \n(ª⇧⃠⇩© ¦⇧⌭«⇧ ↗¡­° 24 £­ª⇩ ⇰ ¦⇧⌭«⇧z⇸ ⇵ y⌲¢⇧ª∏ ⇵ ¦⇧ª⇵ ¨∋ ⇧⇄⇧ ¦Á⇧£⇵ {ª £⇵ °⇧¨£⇵ z£⇵ ­⇧«⇩..."
+          },
+          {
+            "question": "When is National Voters' Day celebrated across India?",
+            "options": [
+              "24 January",
+              "25 January",
+              "26 January",
+              "30 January"
+            ],
+            "answer": 1,
+            "explanation": "It is celebrated on January 25th to mark the foundation day of the Election Commission of India (established in 1950) and to encourage young voters to participate in the electoral process. (©± §⇧ª ⇵ ↛£⇧­ z©⇰ (1950 ¨∋  ⇧⌰¤) ⇵  ⇧¤£⇧ ↗¡­° ⇰ ⌲↚£..."
+          },
+          {
+            "question": "Where was the six-day national culture and tourism festival, 'Bharat Parv 2026', inaugurated on 26th January 2026?",
+            "options": [
+              "India Gate, New Delhi",
+              "Red Fort, New Delhi",
+              "Gateway of India, Mumbai",
+              "Taj Mahal, Agra"
+            ],
+            "answer": 1,
+            "explanation": "The Ministry of Tourism organized 'Bharat Parv 2026' at the Red Fort lawns to showcase India's rich cultural diversity and heritage. (¤©x£ ¨⇸⃥⇧«© £⇵ §⇧ª ⇭ °¨↟∴¢ °⇧⇸↟↙ ⌰­⌰­¢⇧ {ª ⌰­ª⇧° ⇰ ⃪¡⌭®x ª£⇵ ⇵ ⌭« «⇧« ⌯«⇵ ⇵ ¨⇶¡⇧£ ¨∋ '§⇧ª ¤­x 2026' ..."
+          },
+          {
+            "question": "Who was the Chief Guest for India's 77th Republic Day parade on 26 January 2026?",
+            "options": [
+              "Emmanuel Macron",
+              "Joe Biden",
+              "Antnio Costa",
+              "Vladimir Putin"
+            ],
+            "answer": 2,
+            "explanation": "The President of the European Council, Antnio Costa, attended India's 77th Republic Day celebrations as the Chief Guest. (©↝ª⇰¤⇨© ¤↖ª¯¡ ⇵ yê©² ⇸⇰↙£©⇰ ⇰⇧ £⇵ §⇧ª ⇵ 77­∋ ⇸⃥ ↗¡­° °¨⇧ª⇰± ¨∋ ¨↛Ù© y↙⌲  ⇵ ⇄¤ ¨∋ §⇧ ⌭«©⇧)"
+          },
+          {
+            "question": "Which country won the ICC Under-19 Cricket World Cup in January 2026?",
+            "options": [
+              "Australia",
+              "South Africa",
+              "England",
+              "India"
+            ],
+            "answer": 3,
+            "explanation": "The Indian Under-19 cricket team emerged victorious in the ICC U-19 Men's Cricket World Cup finals held in early 2026. (§⇧ª⇨© y⇸ª-19 ⌯⃖⇵ ⇩¨ £⇵ 2026 ⇭ ®↛⇃z ¨∋ z©⇰↚ ICC U-19 ¤↛⇃¯ ⌯⃖⇵ ⌰­­ ¤ ¥⇧£« ¨∋ ⇨ ±⇧⌭°« ⇭)"
+          },
+          {
+            "question": "Which Indian player made headlines by scoring a record 175 runs in the final of the ICC Under-19 Cricket World Cup 2026?",
+            "options": [
+              "Uday Saharan",
+              "Musheer Khan",
+              "Vaibhav Suryavanshi",
+              "Arshin Kulkarni"
+            ],
+            "answer": 2,
+            "explanation": "Vaibhav Suryavanshi played a historic and match-winning knock of 175 runs in the U-19 World Cup Final. (­⇶§­ °↝©x­⇸®⇨ £⇵ y⇸ª-19 ⌰­­ ¤ ⇵ ¥⇧£« ¨∋ 175 ª£∏ ⇭ ↙±⇧⌭° {ª ¨⇶ ↚⇧ ¤⇧ª⇩ ⇵«⇩)"
+          },
+          {
+            "question": "What was the theme of the New Delhi World Book Fair 2026?",
+            "options": [
+              "Books for Climate Action",
+              "Indian Military History: Valour and Wisdom @ 75",
+              "Digital Reading for south",
+              "Women in Literature"
+            ],
+            "answer": 1,
+            "explanation": "The theme was chosen to foster a deeper understanding and appreciation of India's rich military heritage on the occasion of its 75-year milestone as a republic. (©± ⌰­¯© §⇧ª ⇵  ⇸⃥ ⇵ ⇄¤ ¨∋ 75 °⇧« ¤↝ª⇵ ±⇰£⇵ ⇵ y­°ª ¤ª §⇧ª ⇭ °¨↟∴¢ °⇶ë© ⌰­ª⇧° ..."
+          },
+          {
+            "question": "Which country participated as the 'Guest of Honour' at the New Delhi World Book Fair 2026?",
+            "options": [
+              "France",
+              "Russia",
+              "Germany",
+              "Japan"
+            ],
+            "answer": 2,
+            "explanation": "Germany was invited as the Guest of Honour nation for the 2026 edition of the Book Fair to promote literary and cultural exchange. (°⇧↗±↚ç© {ª °⇧⇸↟↙ z¡⇧£-⃪¡⇧£ ⇰ ¦Á⇧­⇧ ¡⇵£⇵ ⇵ ⌭« ¨x£⇨ ⇰ 2026 ⇵ ¤↛ ¨⇵«⇵ ⇵ ⌭« ⇵ ¥ £ª ª⇧⃠ ⇵ ⇄¤ ¨∋ z¨⇸↘⃥ ⌯©⇧..."
+          },
+          {
+            "question": "The 'Somnath Swabhiman Parv' was observed in January 2026 to commemorate how many years of the first recorded attack on the Somnath Temple by Mahmud of Ghazni?",
+            "options": [
+              "500 years",
+              "800 years",
+              "1,000 years",
+              "1,200 years"
+            ],
+            "answer": 2,
+            "explanation": "The event commemorated 1,000 years since the first invasion, representing a pivotal moment in India's history of resilience and architectural reconstruction. (©± ⇧©x⃖¨ ¤±«⇵ z⃖¨ ⇵ 1,000 °⇧« ¤↝ª⇵ ±⇰£⇵ ⇭ ©⇧¡ ¨∋ ¨£⇧©⇧ ©⇧, ⇰ §⇧ª ⇵ «⇨«⇵¤£ {ª ­⇧↛⌭..."
+          },
+          {
+            "question": "Which artificial intelligence platform signed a ⴞ270 crore sponsorship deal with the BCCI ahead of the 2026 Indian Premier League (IPL)? (2026 ⇸⌱©£ ⃪⇨⌭¨©ª «⇩ (IPL) °⇵ ¤±«⇵ ⌯° z↗x⌯¥⌭®©« ⇸⇵⌭«∋° ì«⇵¥⇮¨x £⇵ BCCI ⇵ °⇧  ⴞ270 ª⇰À ⇵ ⃪⇧©⇰£ °⇱¡⇵ ¤ª ±⇧²ª ⌯?",
+            "options": [
+              "ChatGPT",
+              "Gemini",
+              "Claude",
+              "Copilot"
+            ],
+            "answer": 1,
+            "explanation": "Google's AI platform Gemini signed a major ⴞ270 crore sponsorship deal with the BCCI for the 2026 IPL season. (Google ⇵ AI ì«⇵¥⇮¨x ⇵⌭¨£⇨ £⇵ 2026 IPL °⇨»£ ⇵ ⌭« BCCI ⇵ °⇧  ⦽270 ª⇰À ⇵  ¦À⇵ ⃪⇧©⇰£ °⇱¡⇵ ¤ª ±⇧²ª ⌯)"
+          },
+          {
+            "question": "Which state became the first in India to announce a separate 'Elderly Budget' for the welfare of senior citizens in January 2026? (£­ª⇩ 2026 ¨∋ ­↖ª £⇧↖ª∏ ⇵ ©⇧ ⇵ ⌭« y« '¦↛↛x ¦' (Elderly Budget) ⇭ ⇰¯⇧ ª£⇵ ­⇧«⇧ §⇧ª ⇧ ¤±«⇧ ª⇧ß© ⇱£ °⇧ ¦£ ©⇧?",
+            "options": [
+              "Kerala",
+              "Tamil Nadu",
+              "Maharashtra",
+              "Gujarat"
+            ],
+            "answer": 0,
+            "explanation": "Kerala led the way by introducing India's first exclusive budget aimed at addressing the healthcare, financial, and social needs of its aging population. (⇵ª« £⇵ y¤£⇨ ¦Á⇨ ⃮ ­⇧«⇩ z¦⇧¡⇩ ⇭ ­⇧è© ¡⇵§⇧«, ⌰­Ⅹ⇨© {ª °⇧¨⇧↚ ⇄ª∏ ⇰ ¤↝ª⇧ ª£⇵ ⇵ ∴¡⇵© °⇵ §..."
+          },
+          {
+            "question": "Where was India's largest integrated inland Rainbow Trout fish farm inaugurated in January 2026? (£­ª⇩ 2026 ¨∋ §⇧ª ⇵ °¦°⇵ ¦À⇵ ⇭↟ y⇸¡⇼®⇨© ª⇵£¦⇰ ⃠⇧ (¨«⇩) ¥⇧¨x ⇧ ∴⇧£ ±⇧⇷ ⌯©⇧ ©⇧?",
+            "options": [
+              "Uttarakhand",
+              "Himachal Pradesh",
+              "Sikkim",
+              "Arunachal Pradesh"
+            ],
+            "answer": 1,
+            "explanation": "The facility in Himachal Pradesh is expected to significantly boost local economies through aquaculture and create rural employment opportunities. (↗±¨⇧« ⃪¡⇵® ¨∋ ° °↛⌰­¢⇧ °⇵ ¨«⇩ ¤⇧«£ ⇵ ¨⇧ê©¨ °⇵  ⇧£⇨© y x©­ ⇧z⇸ ⇰ ⇧¥⇭ ¦Á⇧­⇧ ⌭¨«£⇵ {ª ⃘⇧¨⇨ ª⇰⇧ª ..."
+          },
+          {
+            "question": "'Operation Absolute Resolve', which was in the news in January 2026, was a military operation conducted by the USA in which country?",
+            "options": [
+              "semen",
+              "Syria",
+              "Venezuela",
+              "Iran"
+            ],
+            "answer": 2,
+            "explanation": "The US military conducted Operation Absolute Resolve in Venezuela, which reportedly resulted in the capture of President Nicolys Maduro. (y¨⇵↖ª⇭ °⇵£⇧ £⇵ ­⇵£⇵↛«⇧ ¨∋ ¤ª⇵®£ î°⇰©↝ ↖ª»⇮­ «⇧©⇧, ↚°⇵ ¤↖ª⇧¨­⇄¤ ⌲  ⇱ª ¤ª ª⇧⃠¤↙ ↙£⇰«° ¨⇧¡↛ª⇰ ⇰ ¤À ⌭«..."
+          },
+          {
+            "question": "Which judicial district in Kerala became India's first fully paperless court system in January 2026?",
+            "options": [
+              "Wayanad",
+              "Ernakulam",
+              "Kalpetta",
+              "Thiruvananthapuram"
+            ],
+            "answer": 2,
+            "explanation": "The Kalpetta judicial district in Kerala completely digitized its workflow, becoming the nation's first fully paperless court to improve judicial efficiency. (⇵ª« ⇵ «¤⇵∰⇧ ë©⇧↙© ↚«⇵ £⇵ ë©⇧↙© ¡²⇧ ¨∋ °↛¢⇧ª ⇵ ⌭« y¤£⇵ ⇧©x⃪­⇧± ⇰ ¤↝ª⇩ ª± °⇵ ⌱↚..."
+          },
+          {
+            "question": "What is the name of India's first cooperative-based ride-hailing platform launched in New Delhi in January 2026?",
+            "options": [
+              "Bharat Taxi",
+              "satri Nivas",
+              "Namma satri",
+              "Coop Ride"
+            ],
+            "answer": 0,
+            "explanation": "'Bharat Taxi' was launched as a cooperative initiative to ensure fair earnings for drivers and transparent pricing for riders in the capital. (ª⇧¢⇧£⇨ ¨∋ ⃢⇧­ª∏ ⇵ ⌭« ⌲ ¨⇧ {ª ©⇧↘⃥©∏ ⇵ ⌭« ¤⇧ª¡®⇾ ¨↝© ↙£¢⇧xª °↛↙£↚ ª£⇵ ⇵ ⌭«  °±⇧ª⇩ ¤±« ⇵ ⇄¤ ¨∋..."
+          },
+          {
+            "question": "In January 2026, India agreed to establish a Joint Working Group to strengthen cooperation in agriculture and food security with which Pacific Island country?",
+            "options": [
+              "Papua New Guinea",
+              "Fiji",
+              "Samoa",
+              "Tonga"
+            ],
+            "answer": 1,
+            "explanation": "India and Fiji formed a Joint Working Group to share technology, resources, and best practices to boost agricultural productivity. (§⇧ª {ª ⌯¥⇨ £⇵ ↟⌰¯ ç¤⇧¡⇧ ¦Á⇧£⇵ ⇵ ⌭« ⃪⇱∴©⇰⌲⇭, °⇸°⇧¢£∏ {ª °­∄Ⅹ¨ ⃪ ⇧z⇸ ⇰ °⇧⇧ ª£⇵ ⇵ ⌭«  °⇸©↛Ø ⇧©x °¨↝± ⇧ ..."
+          },
+          {
+            "question": "Where was India's first open-sea marine fish farming project launched in January 2026?",
+            "options": [
+              "Gulf of Kutch, Gujarat",
+              "North Bay, Andaman Sea",
+              "Lakshadweep Islands",
+              "Coromandel Coast, Tamil Nadu"
+            ],
+            "answer": 1,
+            "explanation": "This pioneering open-sea farming initiative at North Bay aims to revolutionize marine aquaculture and boost India's seafood export capacity. (£⇮ x ¦⇵ ¨∋ ©± y⃘⇨ ↛«⇵ °¨↛⃧ ¨∋ ⇵⇨ ⇭ ¤±« °¨↛⃧⇩ «⇩© ↟⌰¯ ¨∋ ⃖⇧⇸↙ «⇧£⇵ {ª §⇧ª ⇭ °¨↛⃧⇩ §⇰£ ↙£©⇧x ²¨⇧..."
+          },
+          {
+            "question": "Which one-stop digital platform for election-related services was launched by the Election Commission of India in January 2026?",
+            "options": [
+              "ECINET",
+              "Voter Portal",
+              "E-Chunav",
+              "Garuda 2.0"
+            ],
+            "answer": 0,
+            "explanation": "The Election Commission of India launched ECINET to provide voters and candidates with a centralized digital portal for all election-related services and information. (§⇧ª ⇵ ↛£⇧­ z©⇰ £⇵ ¨¡⇧⇧z⇸ {ª ð¨⇨¡­⇧ª∏ ⇰ °§⇨ ↛£⇧­ °⇸¦⇸¢⇨ °⇵­⇧z⇸ {ª °↝£⇧z⇸ ..."
+          },
+          {
+            "question": "Samir Putatundu, who passed away in January 2026, was a veteran political leader prominently associated with which movements?",
+            "options": [
+              "Narmada Bachao Andolan",
+              "Chipko Movement",
+              "Singur and Nandigram movements",
+              "Silent Valley movement"
+            ],
+            "answer": 2,
+            "explanation": "He was a prominent Left leader in West Bengal who played a crucial role during the historic Singur and Nandigram anti-land acquisition movements. (­⇵ ¤↚¨ ¦⇸⇧« ⇵  ⃪¨↛ ­⇧¨¤⇸ ⇨ £⇵⇧  ⇵ ↚ë±∏£⇵ ↙±⇧⌭° ⌭°⇸↝ª {ª £⇸¡⇩⃘⇧¨ §↝⌭¨ y⌲¢⃘± ⌰­ª⇰¢⇨ z⇸¡⇰«£∏ ⇵..."
+          }
+        ]
       },
       {
-        "id": "ca_w_oct_2026_w1",
-        "month": "October 2026",
+        "id": "ca_w_feb_2026_w1",
+        "month": "February 2026",
         "week": "Week 1",
-        "title": "October 2026 - Week 01 Defence & National Mock Test",
-        "date": "01 Oct - 07 Oct 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "February 2026 - Week 01 Current Affairs & Defence CBT Mock Test",
+        "date": "01 Feb - 07 Feb 2026",
+        "questionsCount": 10,
+        "durationMins": 10,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Indian Air Force Day special edition, Tejas Mk1A aerial displays, border surveillance tech, and UN Peacekeeping mission updates.",
+        "summary": "Comprehensive February 2026 Week 1 Current Affairs & Defence Mock Test. Contains 10 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Indian Air Force marks 94th Anniversary with mega airshow and flypast",
-          "Indigenous anti-drone systems deployed along sensitive international frontiers",
-          "Indian Army contingent departs for multilateral peacekeeping deployment"
+          "Two new wetlands, Chhari Dhand and Patna Bird Sanctuary, were added to India's Ramsar netw...",
+          "What is the total financial outlay allocated for the newly launched 'Biopharma SHAKTI' ini...",
+          "Who won the Australian Open 2026 Men's Singles tennis title?...",
+          "Who won the Australian Open 2026 Women's Singles tennis title?..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w1.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_feb_w1.pdf",
+        "mockQuestions": [
+          {
+            "question": "Two new wetlands, Chhari Dhand and Patna Bird Sanctuary, were added to India's Ramsar network in February 2026. In which states are they located respectively?",
+            "options": [
+              "Rajasthan and Bihar",
+              "Gujarat and Uttar Pradesh",
+              "Haryana and Madhya Pradesh",
+              "Punjab and Odisha"
+            ],
+            "answer": 1,
+            "explanation": "Chhari Dhand is in Kutch, Gujarat, and Patna Bird Sanctuary is in Etah, Uttar Pradesh. With these additions, India now has 98 Ramsar sites. (່໊ ໙ ๼່ ໖ ൴ ໬ ໗, ່ ້ y່ൽ ๊ ෋໖ ໖ ່ ໬ ໗ ໖ ່ ່ ໬ y 98 ່ ඏ ໑ ໮)"
+          },
+          {
+            "question": "What is the total financial outlay allocated for the newly launched 'Biopharma SHAKTI' initiative in the Union Budget 2026-27? (໬෈໊ 2026-27 ໬ -໏ං ໎ '່໑່່x ๻൯' (Biopharma SHAKTI) ໖ ဎ ๼ တ່ ထ๊້ ๷ඌ z໙๸ တ່ ່ ໗?",
+            "options": [
+              "᧿5,000 crore",
+              "᧿10,000 crore",
+              "᧿15,000 crore",
+              "᧿20,000 crore"
+            ],
+            "answer": 1,
+            "explanation": "The initiative was allocated ᧿10,000 crore over five years in the Union Budget 2026-27 to strengthen India's position in the global biopharma market. (໗๻ඍ ່໑່່x ່່ ໬ ່ ໎ ๻ඏ๺ ໑ ๾ ໖ ໖ ဎ ໬෈໊ 2026-27 ໬ ໖ ່໙ ༆ ໬ ᚞10,000 ໑ z໙๸ တ ໮)"
+          },
+          {
+            "question": "Who won the Australian Open 2026 Men's Singles tennis title?",
+            "options": [
+              "Novak Djokovic",
+              "Jannik Sinner",
+              "Carlos Alcaraz",
+              "Daniil Medvedev"
+            ],
+            "answer": 2,
+            "explanation": "Carlos Alcaraz clinched the Australian Open 2026 men's singles title, adding another major Grand Slam victory to his career. (່໥ yඊ່ ໖ ඏශ໖ဎ 2026 ๼຤ ່ ဏ່ ້່, ໑ ໖ ๷ ໎ ້ ඹ໮ ඏ໗ ້ ໗)"
+          },
+          {
+            "question": "Who won the Australian Open 2026 Women's Singles tennis title?",
+            "options": [
+              "Aryna Sabalenka",
+              "Coco Gauff",
+              "Iga Swiatek",
+              "Elena Rybakina"
+            ],
+            "answer": 3,
+            "explanation": "Elena Rybakina emerged victorious in the Australian Open 2026 women's singles final. (໖່ ່တ່ ໖ ඏශ໖ဎ 2026 ๸່ ໖ ່ ໬ ້ ່ဎ ໎)"
+          },
+          {
+            "question": "India successfully test-fired which Intermediate Range Ballistic Missile (IRBM) from the coast of Odisha on February 6, 2026? (່ ໖ 6 ໊ 2026 ໑ ဒ່ ໖ ໖ တ ໙້ဒ ໬ ໗ဎ๻ඏ ဎ່ (IRBM) ່ ໊ တ່?",
+            "options": [
+              "Agni-II",
+              "Agni-III",
+              "Agni-IV",
+              "Agni-V"
+            ],
+            "answer": 1,
+            "explanation": "The Agni-III is a two-stage, solid-fuelled, indigenously developed ballistic missile with a strike range of 3,000൘3,500 km. (y๻൱-III ໑ ໰ ່໊, ඏ໖ ๺ဎx ໗ဎ๻ඏ ဎ່ ໗ ๻໎ ່ ່ 3,000-3,500 တ້ ໗)"
+          },
+          {
+            "question": "Which prominent spiritual leader won a 2026 Grammy Award in the 'Best Audiobook, Narration, and Storytelling Recording' category?",
+            "options": [
+              "Sadhguru",
+              "Sri Sri Ravi Shankar",
+              "Dalai Lama",
+              "Gaur Gopal Das"
+            ],
+            "answer": 2,
+            "explanation": "The Dalai Lama was honored at the 2026 Grammy Awards for his audiobook and storytelling recording. (່ ່່ ໑ ໖ ဒ໑๼ ඏ໑໊໖ဎ໙ ๷໏ဒ໴ ໖ ဎ 2026 ඹ໗້ y່༓x ໬ ඇ່๺ တ່ ່)"
+          },
+          {
+            "question": "DRDO recently conducted a flight demonstration of SFDR technology. What does 'SFDR' stand for?",
+            "options": [
+              "Solid Fuel Ducted Ramjet",
+              "Standard Fast Deployment Radar",
+              "Supersonic Flight Defence Rocket",
+              "Space Flight Development Research"
+            ],
+            "answer": 0,
+            "explanation": "India successfully demonstrated the Solid Fuel Ducted Ramjet (SFDR) technology, which is crucial for developing long-range air-to-air missiles. (່ ໖ ໏ဎ ඄๾ ൯໖ ໗໖ (SFDR) ້ ່ ෋x တ່, ໑ ໙້ ๾໊ ໎ ່ ໖ ່ ໬ ່ ໖ ່໊ ဎ່໰ ໑ ထဎ ໖ ໖ ဎ ൾ๾x ໗)"
+          },
+          {
+            "question": "The 'New START Treaty', which expired on February 5, 2026, was the last remaining bilateral nuclear arms-control treaty between which two nations?",
+            "options": [
+              "USA and China",
+              "USA and Russia",
+              "Russia and France",
+              "India and Pakistan"
+            ],
+            "answer": 1,
+            "explanation": "The New START Treaty was a key agreement between the US and Russia to limit their strategic nuclear arsenals, ending its legally binding ceilings upon expiration. (ං๾ ඏ່x ශ໊໊ y໖๷່ ລ ໖ ້ ໖ ້๺ ່๼ ဓ່໰ ໑ ້ဎ ໖ ໖ ဎ ෋๼ ໒່ ່, ໑ ່ඃ ໑໖ ່๾້ ລ ໖ ່ඁ່໊ ໊໙ ່)"
+          },
+          {
+            "question": "Which public sector company was recently granted 'Miniratna Category-I' status by the Government of India in February 2026?",
+            "options": [
+              "Mazagon Dock Limited",
+              "Yantra India Limited",
+              "Pawan Hans",
+              "Bharat Dynamics Limited"
+            ],
+            "answer": 1,
+            "explanation": "Defence Minister Rajnath Singh approved the Miniratna Category-I status for the defence PSU Yantra India Limited (YIL). (່ ໙ෆ້ ່່ ဎ໙ ໖ ່ ້๾ (PSU) ໙ෆ ໙ဒ່ ဎဎ໖ ໑ ဎ້ൾ ෕໖້-I ່ ່x ໖໖ ໎ ໙๾໊ ໊)"
+          },
+          {
+            "question": "According to the Union Budget 2026-27, the new manufacturing strategy explicitly marks a shift from 'assembly-led growth' to which new approach? \n(໬෈໊ 2026-27 ໖ y๼່, ထ๺່x ້๺ ඏඎ ລ ໖ 'y໬໊-z່๷ ထ່' (assembly-led growth) ໖ တ ມ๻ඎ໑ ໎ ່ ່ ෋້ ໗?",
+            "options": [
+              "Import substitution",
+              "Export promotion",
+              "Deep manufacturing",
+              "Service-led growth"
+            ],
+            "answer": 2,
+            "explanation": "The budget shifted focus toward deep manufacturing, emphasizing technological depth, supply-chain resilience, and global competitiveness. ( ໬ ້ ໗ං๼໗൯๷໙ ඁ່ ໬๸෈ တ່ ່ ໗, ๻໬ ້໎ ່, z๾๺x-෕຀໙່ ້່ ໗๻ඍ ෋๺ඏ່x ໑ ๸່ ່ ໗)"
+          }
+        ]
       },
       {
-        "id": "ca_w_oct_2026_w2",
-        "month": "October 2026",
+        "id": "ca_w_feb_2026_w2",
+        "month": "February 2026",
         "week": "Week 2",
-        "title": "October 2026 - Week 02 Defence & National Mock Test",
-        "date": "08 Oct - 14 Oct 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "February 2026 - Week 02 Current Affairs & Defence CBT Mock Test",
+        "date": "08 Feb - 14 Feb 2026",
+        "questionsCount": 20,
+        "durationMins": 20,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Joint military exercises 'Yudh Abhyas', new appointments in Armed Forces, and naval fleet upgrades.",
+        "summary": "Comprehensive February 2026 Week 2 Current Affairs & Defence Mock Test. Contains 20 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Indo-US joint army Exercise Yudh Abhyas conducted with focus on counter-terrorism",
-          "Appointments of senior commanders across Northern and Eastern Air Commands",
-          "Indian Navy commissions upgraded fast attack craft for littoral security"
+          "Which Indian state recently inaugurated the country's first private-sector helicopter Fina...",
+          "The joint military exercise 'Dharma Guardian 2026' was conducted between the Indian Army a...",
+          "Which state presented its largest-ever annual budget of ⶴ9.12 lakh crore for the financial...",
+          "National Productivity Day is observed across India on which date every year?..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w2.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_feb_w2.pdf",
+        "mockQuestions": [
+          {
+            "question": "Which Indian state recently inaugurated the country's first private-sector helicopter Final Assembly Line (FAL) in collaboration with Airbus? (⏅⃜⃼ ⃳≽⃶⃫≾⃵ ⃶≽Å⃵ ⃯⊋ ⃽≽⃷ ⃽≿ ⃴⊡ ⃂⃵⃶⃲⃼ ⃜⊋ ⃼⃽⃵⊆⃞ ⃼⊋ ⃭⊋⃺ ⃜⊃ ⃰⃽⃷≿ ∯⃯⃣≾ ⃾⊋ⅻ ⃜⊃ ⃽⊋⃷≿⃜⊄ℸ⃦⃶ ⃱≽₺⃯⃷ y⃼⊡⃲⃷≿ ⃷≽₺⃯ (FAL) ⃜≽ ₼⋊⃟≽⃦⃯ ⏅⃜⃵≽?",
+            "options": [
+              "Gujarat",
+              "Maharashtra",
+              "Karnataka",
+              "Tamil Nadu"
+            ],
+            "answer": 2,
+            "explanation": "India operationalized its first private-sector helicopter Final Assembly Line with the inauguration of the Airbus H125 manufacturing facility at Vemagal in Karnataka @1B. (⃳≽⃶⃫ ⃯⊋ ⃯⃜≽x⃦⃜ ⃜⊋ ⃹⊋⃴⃞⃷ ⃴⊡ ⃂⃵⃶⃲⃼ H125 ⏆⃹∯⃯⃴≽x⃪ ⃼∱⏆⃹⃮≽ ⃜⊋ ₼⋊⃟≽⃦⃯ ⃜⊋ ⃼≽⃬ y⃯⃰≾ ⃰⃽..."
+          },
+          {
+            "question": "The joint military exercise 'Dharma Guardian 2026' was conducted between the Indian Army and the ground forces of which country?",
+            "options": [
+              "France",
+              "Japan",
+              "Australia",
+              "USA"
+            ],
+            "answer": 1,
+            "explanation": "Exercise DHARMA GUARDIAN 2026 was conducted between the Indian Army and the Japan Ground Self-Defense Force at Chaubattia, Uttarakhand @1B. (y℻⃵≽⃼ ⃮⃴x ⃞≽∰⃣x⃵⃯ 2026 ⃳≽⃶⃫≾⃵ ⃼⊋⃯≽ ⃇⃶ ⃣≽⃰≽⃯ Ⅾ≽₼⊎⃨ ⃼⊋ℿ⃱-⏇⃨⃱⊡⃼ ⃱⊆⃼x ⃜⊋ ⃲≾⃡ ⃡⊇⃲∭⃦⃵≽, ₼⇿⃶≽⃝⊎⃨ ⃴⊡ z⃵⊆∰⃣⃫ ⏅⃜⃵≽ ⃞⃵≽..."
+          },
+          {
+            "question": "Which state presented its largest-ever annual budget of ⶴ9.12 lakh crore for the financial year 2026-27 in February 2026?",
+            "options": [
+              "Maharashtra",
+              "Uttar Pradesh",
+              "Gujarat",
+              "Madhya Pradesh"
+            ],
+            "answer": 1,
+            "explanation": "The Uttar Pradesh Finance Minister presented a massive ⶴ9,12,696.35 crore budget for 2026-27, the largest in the state's history, focusing on infrastructure and rural development @1B. (₼⇿⃶ ↀ⃭⊋⃺ ⃜⊋ ⏆⃹⇿ ⃴⊎ⅻ≾ ⃯⊋ 2026-27 ⃜⊋ ⏃⃷⃂ ⩓9,12,696.35 ⃜⃶⊆ℌ ⃜≽ ⃳≽⃶≿..."
+          },
+          {
+            "question": "National Productivity Day is observed across India on which date every year?",
+            "options": [
+              "10 February",
+              "11 February",
+              "12 February",
+              "13 February"
+            ],
+            "answer": 2,
+            "explanation": "The National Productivity Council (NPC) celebrates its Foundation Day on 12th February, marking the start of National Productivity Week @1B. (⃶≽⅃ⅶ≿⃵ ₼ℳ⃰≽⃫⃭⃜≽ ⃰∬⃶⃻⃭ (NPC) 12 ⃱⃶⃹⃶≿ ⃜⊆ y⃯⃰≽ ⅄⃬≽⃯⃰≽ ∭⃭⃹⃼ ⃴⃯≽⃫≾ ⃽⊌, ⃣⊆ ⃶≽⅃ⅶ≿⃵ ₼ℳ⃰≽⃫⃭⃜≽ ⃼ℸ⃫≽⃽ ⃜⊃ ⃺∱≙z⃫ ⃜≽ ↀ⃫≾⃜..."
+          },
+          {
+            "question": "Which international airport in India signed a Memorandum of Understanding (MoU) with Germany's Frankfurt Airport to boost air cargo trade? (⃳≽⃶⃫ ⃜⊋ ⏅⃜⃼ y⊎⃫⃶≽x⅃ⅶ≿⃵ ⃽⃹≽₻ y⋈⃨⊋ ⃯⊋ ⃂⃵⃶ ⃜≽⃞⊚ ⅁⃵≽⃰≽⃶ ⃜⊆ ⃲ℍ≽⃹≽ ⃭⊋⃯⊋ ⃜⊋ ⏃⃷⃂ ⃣⃴x⃯≾ ⃜⊋ ↁ⊣⃜⃱⃦x ⃽⃹≽₻ y⋈⃨⊋ ⃜⊋ ⃼≽⃬ ⃂⃜ ⃼⃴⃤⊇⃫≽ ⃿≽⃯⃰ (MoU) ⃰⃶ ⃽⅄⃫≽⃾⃶ ⏅⃜⃂?",
+            "options": [
+              "Indira Gandhi International Airport, Delhi",
+              "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
+              "Kempegowda International Airport, Bengaluru",
+              "Rajiv Gandhi International Airport, Hyderabad"
+            ],
+            "answer": 2,
+            "explanation": "Bengaluru's Kempegowda International Airport (BLR Airport) signed an MoU with Frankfurt Airport to create a seamless and efficient air cargo trade lane between India and European markets @1B. (⃲⊡⃞⃷∱≙ ⃜⊋ ⃜⊋ℼ⃰⊋⃞⊇ℌ≽ y⊎⃫⃶≽x⅃ⅶ≿⃵ ⃽⃹≽₻ y⋈⃨⊋ ⃯⊋ ⃳≽⃶⃫ ⃇⃶ ⃵∳⃶⊆⃰..."
+          },
+          {
+            "question": "World Radio Day is celebrated globally on which date?",
+            "options": [
+              "11 February",
+              "12 February",
+              "13 February",
+              "14 February"
+            ],
+            "answer": 2,
+            "explanation": "World Radio Day is observed globally on February 13 every year to highlight the importance of radio as an accessible medium for information and communication @1B. (⃼∳⃯⃡≽ ⃇⃶ ⃼⊎⃡≽⃶ ⃜⊋ ⏃⃷⃂ ⃂⃜ ⃼∱⃷⃳ ⃴≽ℶ⃵⃴ ⃜⊋ ≚⃰ ⃴⊡ ⃶⊋⏇⃨⃵⊆ ⃜⊋ ⃴⃽ℳ⃹ ⃜⊆ ₼⃣≽⃞⃶ ⃜⃶⃯⊋ ⃜⊋ ⏃⃷⃂ ⃽⃶ ⃼≽..."
+          },
+          {
+            "question": "In February 2026, the Supreme Court of India declared that menstrual health and hygiene are part of the 'Right to Life' guaranteed under which Article of the Constitution? (⃱⃶⃹⃶≿ 2026 ⃴⊡, ⃳≽⃶⃫ ⃜⊋ ⃼⃹⊚℩⃡ ℷ⃵≽⃵≽⃷⃵ ⃯⊋ ⃟⊆⏆⃻⃫ ⏅⃜⃵≽ ⏅⃜ ⃴≽⏃⃼⃜ ⃮⃴x ⅄⃹≽⅄ℴ⃵ ⃇⃶ ⅄⃹℩⃢⃫≽ ⃼⊎⏆⃹⃮≽⃯ ⃜⊋ ⏅⃜⃼ y⃯∱℩⃢⊋⃭ ⃜⊋ ⃫⃽⃫ ⃞≽⃶⊎⃦≿⃜∵⃫ '⃣≾⃹⃯ ⃜⊋ y⏈⃮⃜≽⃶' (Right to Life) ⃜≽ ∭⃽⅄⃼≽ ⃽⊣?",
+            "options": [
+              "Article 14",
+              "Article 19",
+              "Article 21",
+              "Article 25"
+            ],
+            "answer": 2,
+            "explanation": "The Supreme Court directed the implementation of a National Menstrual Hygiene Policy, stating that menstrual health falls under the fundamental Right to Life (Article 21) @2B. (⃼∱ↀ≾⃴ ⃜⊆⃦x ⃯⊋ ⃶≽⅃ⅶ≿⃵ ⃴≽⏃⃼⃜ ⃮⃴x ⅄⃹℩⃢⃫≽ ⃯≾∯⃫ ⃜⊆ ⃷≽⃞∳ ⃜⃶⃯⊋ ⃜≽ ∯⃯⃭⊒⃺ ∭⃭⃵≽, ∰⃣..."
+          },
+          {
+            "question": "Which senior IAS officer was given the additional charge of Chief Executive Officer (CEO) of NITI Aayog in February 2026? \n(⃱⃶⃹⃶≿ 2026 ⃴⊡ ⏅⃜⃼ ⃹∬⃶⅃⃧ IAS y⏈⃮⃜≽⃶≿ ⃜⊆ ⃯≾∯⃫ z⃵⊆⃞ ⃜⊋ ⃴∱℥⃵ ⃜≽⃵x⃜≽⃶≿ y⏈⃮⃜≽⃶≿ (CEO) ⃜≽ y∯⃫∬⃶ℤ⃫ ↀ⃳≽⃶ ∭⃭⃵≽ ⃞⃵≽?",
+            "options": [
+              "B.V.R. Subrahmanyam",
+              "Nidhi Chhibber",
+              "Ajay Sawhney",
+              "Suman Bery"
+            ],
+            "answer": 1,
+            "explanation": "IAS officer Nidhi Chhibber, who previously headed the CBSE, was assigned the additional charge as the CEO of NITI Aayog @1B. (IAS y⏈⃮⃜≽⃶≿ ∯⃯⏈⃮ ∯⃢℺⃲⃶, ⃣⊆ ⃰⃽⃷⊋ CBSE ⃜⊃ ↀ⃴∱⃝ ⃬≾⊎, ⃜⊆ ⃯≾∯⃫ z⃵⊆⃞ ⃜⊋ CEO ⃜⊋ ≚⃰ ⃴⊡ y∯⃫∬⃶ℤ⃫ ↀ⃳≽⃶ ⃼⊧⃰≽ ⃞⃵≽B)"
+          },
+          {
+            "question": "To align with the Ethanol Blended Petrol programme, the government has mandated E20 petrol with a minimum RON (Research Octane Number) of: (₺⃬⊋⃯⊄⃷ ⏃⃴⏈↊⃫ ⃰⊋ⅶ⊆⃷ ⃜≽⃵xⅬ⃴ ⃜⊋ ⃼≽⃬ ⃼⊎⃶⊋⏄⃝⃫ ⃜⃶⃯⊋ ⃜⊋ ⏃⃷⃂, ⃼⃶⃜≽⃶ ⃯⊋ ℷ⃵∳⃫⃯⃴ ⏅⃫⃯⃜⊋ RON (∬⃶⃼⃡x ⃄ℤ⃦⊋⃯ ⃯⊎⃲⃶) ⃜⊋ ⃼≽⃬ E20 ⃰⊋ⅶ⊆⃷ y∯⃯⃹≽⃵x ⃜⃶ ∭⃭⃵≽ ⃽⊌?",
+            "options": [
+              "RON 91",
+              "RON 93",
+              "RON 95",
+              "RON 98"
+            ],
+            "answer": 2,
+            "explanation": "The government mandated E20 petrol with a minimum RON of 95 to improve overall fuel quality and prevent engine knocking @1B. (⊟⃮⃯ ⃜⊃ ⃞∱⃪⃹⇿≽ ⃴⊡ ⃼∱⃮≽⃶ ⃇⃶ ₺⊎⃣⃯ ⃯⊄⏅⃜⊎⃞ ⃜⊆ ⃶⊆⃯⃜⊋ ⃜⊋ ⏃⃷⃂ ⃼⃶⃜≽⃶ ⃯⊋ 95 ⃜⊋ ℷ⃵∳⃫⃯⃴ RON ⃜⊋ ⃼≽⃬ E20 ⃰⊋ⅶ⊆⃷ y∯⃯⃹≽⃵x ⃜⃶ ∭⃭⃵≽ ⃽⊌B)"
+          },
+          {
+            "question": "The Employees' State Insurance Corporation (ESIC) signed an MoU with which authority to integrate their health schemes for better service delivery? (⃜⃴x⃡≽⃶≿ ⃶≽Å⃵ ⃲≾⃴≽ ∯⃯⃞⃴ (ESIC) ⃯⊋ ⃲⊋⃽⃫⃶ ⃼⊋⃹≽ ⏆⃹⃫⃶⃪ ⃜⊋ ⏃⃷⃂ y⃯⃰≾ ⅄⃹≽⅄ℴ⃵ ⃵⊆⃣⃯≽⃆⊎ ⃜⊆ ⃂⃜⊃⃜∵⃫ ⃜⃶⃯⊋ ⃜⊋ ⏃⃷⃂ ⏅⃜⃼ ↀ≽⏈⃮⃜⃶⃪ ⃜⊋ ⃼≽⃬ ⃂⃜ ⃼⃴⃤⊇⃫≽ ⃿≽⃯⃰ ⃰⃶ ⃽⅄⃫≽⃾⃶ ⏅⃜⃂?",
+            "options": [
+              "National Medical Commission",
+              "National Health Authority",
+              "Indian Council of Medical Research",
+              "AIIMS Delhi"
+            ],
+            "answer": 1,
+            "explanation": "ESIC and the National Health Authority (NHA) signed an agreement to integrate their respective health schemes to enhance service delivery for all beneficiaries @1B. (ESIC ⃇⃶ ⃶≽⅃ⅶ≿⃵ ⅄⃹≽⅄ℴ⃵ ↀ≽⏈⃮⃜⃶⃪ (NHA) ⃯⊋ ⃼⃳≾ ⃷≽⃳≽⏈⃬x⃵⊥ ⃜⊋ ⏃⃷⃂ ⃼⊋⃹≽ ⏆⃹⃫⃶⃪ ⃲ℍ≽⃯⊋ ⃽⊋⃫∱ y⃰..."
+          },
+          {
+            "question": "The Telecommunication Engineering Centre (TEC) signed an MoU with which IIT for advanced telecom research focusing on 6G and AI? (⃭∳⃶⃼⊎⃡≽⃶ ₺⊎⃣≾∯⃯⃵∬⃶⊎⃞ ⃜⊡ⅽ (TEC) ⃯⊋ 6G ⃇⃶ AI ⃰⃶ ⃜⊡∭ⅽ⃫ ₼ℷ⃫⃯ ⃭∳⃶⃼⊎⃡≽⃶ y⃯∱⃼⊎⃮≽⃯ ⃜⊋ ⏃⃷⃂ ⏅⃜⃼ IIT ⃜⊋ ⃼≽⃬ ⃼⃴⃤⊇⃫≽ ⃿≽⃯⃰ ⃰⃶ ⃽⅄⃫≽⃾⃶ ⏅⃜⃂?",
+            "options": [
+              "IIT Bombay",
+              "IIT Madras",
+              "IIT Delhi",
+              "IIT Kharagpur"
+            ],
+            "answer": 3,
+            "explanation": "The TEC partnered with IIT Kharagpur to collaborate on advanced telecom research, specifically focusing on 6G architecture and AI-based EMF monitoring @1B. (TEC ⃯⊋ ₼ℷ⃫⃯ ⃭∳⃶⃼⊎⃡≽⃶ y⃯∱⃼⊎⃮≽⃯, ⏆⃹⃺⊋⃻ ≚⃰ ⃼⊋ 6G ⃹≽⅄⃫∱⃜⃷≽ ⃇⃶ AI-z⃮≽∬⃶⃫ ∯⃯⃞⃶≽⃯≾ ⃰⃶ ⃼⃽⃵⊆⃞ ⃜⃶⃯⊋ ⃜⊋..."
+          },
+          {
+            "question": "What is the total prize pool offered by the newly launched 'Blockchain India Challenge' aimed at fostering digital governance solutions? (⏇⃨∰⃣⃦⃷ ⃞⃹⃯⊫⃼ ⃼⃴≽⃮≽⃯⊥ ⃜⊆ ⃲ℍ≽⃹≽ ⃭⊋⃯⊋ ⃜⊋ ₼⋊⃭⊋⅂⃵ ⃼⊋ ⃺∱≚ ⃜⊃ ⃞₻ '℺⃷⊄⃜⃡⊋⃯ ₺⊎⏇⃨⃵≽ ⃡⊌⃷⊡⃣' ⋊⃹≽⃶≽ ⃜∱⃷ ⏅⃫⃯⃜≾ ⃰∱⃶⅄⃜≽⃶ ⃶≽⏃⃺ (prize pool) ⃜⊃ ⃰⊋⃺⃜⃺ ⃜⊃ ⃞₻ ⃽⊌?",
+            "options": [
+              "ⶴ5.50 Crores",
+              "ⶴ7.00 Crores",
+              "ⶴ8.80 Crores",
+              "ⶴ10.00 Crores"
+            ],
+            "answer": 2,
+            "explanation": "The Blockchain India Challenge was launched to encourage startups and developers to build digital governance solutions, offering a total prize pool of ⶴ8.80 crores @1B. (⅄⃦≽⃦xyℸ⃼ ⃇⃶ ⃨⊋⃹⃷⃰⃼x ⃜⊆ ⏇⃨∰⃣⃦⃷ ⃞⃹⃯⊫⃼ ⃼⃴≽⃮≽⃯ ⃲⃯≽⃯⊋ ⃜⊋ ⏃⃷⃂ ↀ⊆ℳ⃼≽∭⃽⃫ ⃜⃶⃯⊋ ⃜⊋ ⏃⃷⃂ ⩓8...."
+          },
+          {
+            "question": "Which team secured the top spot and defended its team championship title at the Khelo India Winter Games (KIWG) 2026? (⏅⃜⃼ ⃦≿⃴ ⃯⊋ ⃝⊋⃷⊆ ₺⊎⏇⃨⃵≽ ⏆⃹⊎⃦⃶ ⃞⊋ℼ⃼ (KIWG) 2026 ⃴⊡ ⃺≾⃻x ⅄⃬≽⃯ ⃽≽⏃⃼⃷ ⏅⃜⃵≽ ⃇⃶ y⃯⃰≾ ⃦≿⃴ ⃡⊌∰ℼ⃰⃵⃯⏃⃺⃰ ⏄⃝⃫≽⃲ ⃜≽ ⃲⃡≽⃹ ⏅⃜⃵≽?",
+            "options": [
+              "Jammu & Kashmir",
+              "Indian Army",
+              "Himachal Pradesh",
+              "Maharashtra"
+            ],
+            "answer": 1,
+            "explanation": "The Indian Army finished at the top of the medal tally, securing 23 medals (9 gold, 6 silver, and 8 bronze) to win the Khelo India Winter Games 2026 @1B. (⃳≽⃶⃫≾⃵ ⃼⊋⃯≽ ⃯⊋ ⃝⊋⃷⊆ ₺⊎⏇⃨⃵≽ ⏆⃹⊎⃦⃶ ⃞⊋ℼ⃼ 2026 ⃣≾⃫⃯⊋ ⃜⊋ ⏃⃷⃂ 23 ⃭⃰⃜ (9 ⅄⃹⃪x, 6 ⃶⃣⃫ ⃇⃶ 8 ⃜≽⊎⅄⃵) ⃽≽⏃⃼⃷..."
+          },
+          {
+            "question": "In February 2026, the Central Government announced the launch of a multilingual artificial intelligence-based advisory platform for rural areas named:",
+            "options": [
+              "Bharat-VANI",
+              "Bharat-VISTAAR",
+              "Kisan-MITRA",
+              "Krishi-AI"
+            ],
+            "answer": 1,
+            "explanation": "The Union Budget 2026-27 announced the launch of Bharat-VISTAAR, a multilingual AI platform to strengthen technology-led decision-making for farmers and rural development @2B. (⃜⊡ⅽ≿⃵ ⃲⃣⃦ 2026-27 ⃴⊡ ⏅⃜⃼≽⃯⊥ ⃇⃶ Ⅾ≽⃴≾⃪ ⏆⃹⃜≽⃼ ⃜⊋ ⏃⃷⃂ ⃫⃯⃜≾⃜-z⃮≽∬⃶⃫ ∯⃪⃯x⃵ ⃷⊋⃯⊋..."
+          },
+          {
+            "question": "The Ministry of Women & Child Development recently highlighted the availability of 'Suvidha' oxo-biodegradable sanitary pads at ⶴ1 per pad under which scheme?",
+            "options": [
+              "Swachh Bharat Mission",
+              "PM Matru Vandana Yojana",
+              "Pradhan Mantri Bharatiya Janaushadhi Pariyojana",
+              "Beti Bachao Beti Padhao"
+            ],
+            "answer": 2,
+            "explanation": "'Suvidha' sanitary napkins are sold at highly subsidized rates of ⶴ1 per pad through Jan Aushadhi Kendras across the country @2B. (⃭⊋⃺ ⃳⃶ ⃴⊡ ⃣⃯ ⃇⃻⏈⃮ ⃜⊡ⅽ⊥ ⃜⊋ ⃴≽ℶ⃵⃴ ⃼⊋ '⃼∱⏆⃹⃮≽' ⃼⊌∯⃦⃯⃶≿ ⃯⊌⃰⏅⃯⃜ ⩓1 ↀ∯⃫ ⃰⊌⃨ ⃜⊃ yℳ⃵⏈⃮⃜ ∬⃶⃵≽⃵⃫≾ ⃭⃶ ⃰⃶ ⃲⊋⃡⊋ ⃣≽⃫⊋ ⃽⊣B)"
+          },
+          {
+            "question": "International Day of Women and Girls in Science is observed annually on:",
+            "options": [
+              "9 February",
+              "10 February",
+              "11 February",
+              "12 February"
+            ],
+            "answer": 2,
+            "explanation": "The day is celebrated on February 11th to promote full and equal access to and participation in science for women and girls @1B. (⃴∭⃽⃷≽⃆⊎ ⃇⃶ ⃷ℌ⏅⃜⃵⊥ ⃜⊋ ⏃⃷⃂ ⏆⃹⃿≽⃯ ⃴⊡ ⃰∳⃪x ⃇⃶ ⃼⃴≽⃯ ⃰⃽∱⊎⃡ ⃇⃶ ⃳≽⃞≾⃭≽⃶≿ ⃜⊆ ⃲ℍ≽⃹≽ ⃭⊋⃯⊋ ⃜⊋ ⏃⃷⃂ 11 ⃱⃶⃹⃶≿ ⃜⊆ ⃵⃽ ∭⃭⃹⃼ ⃴⃯≽⃵≽ ⃣≽⃫≽ ⃽⊌B..."
+          },
+          {
+            "question": "World Pulses Day is celebrated every year on which date to recognize the importance of pulses as a global food?",
+            "options": [
+              "9 February",
+              "10 February",
+              "11 February",
+              "12 February"
+            ],
+            "answer": 1,
+            "explanation": "The UN designated February 10 as World Pulses Day to increase awareness of the nutritional and environmental benefits of pulses @1B. (⃭≽⃷⊥ ⃜⊋ ⃰⊆⃻⃪ ⃇⃶ ⃰⃵≽x⃹⃶⃪≾⃵ ⃷≽⃳⊥ ⃜⊋ ⃲≽⃶⊋ ⃴⊡ ⃣≽⃞≚⃫⃜≽ ⃲ℍ≽⃯⊋ ⃜⊋ ⏃⃷⃂ ⃼⊎⃵∱ℤ⃫ ⃶≽⅃ⅶ ⃯⊋ 10 ⃱⃶⃹⃶≿ ⃜⊆ ⏆⃹⅂⃹ ⃭⃷⃽⃯ ∭⃭⃹⃼ ⃜⊋ ≚⃰ ⃴⊡ ⃯≽..."
+          },
+          {
+            "question": "Which international border crossing serves as Gaza's only border crossing that does not pass through Israel?",
+            "options": [
+              "Erez Crossing",
+              "Kerem Shalom Crossing",
+              "Rafah Crossing",
+              "Karni Crossing"
+            ],
+            "answer": 2,
+            "explanation": "The Rafah Crossing is located on the border between the Gaza Strip and Egypt and is the only crossing point not controlled by Israel @2B. \n(⃶≽⃱≽ Ⅼ⊄⏃⃼⊎⃞ ⃞≽⃣≽ ⃰⋆⃦≿ ⃇⃶ ⏃⃴↌ ⃜⊃ ⃼≾⃴≽ ⃰⃶ ∰⅄⃫⃬ ⃽⊌ ⃇⃶ ⃂⃜⃴≽ⅻ Ⅼ⊄⏃⃼⊎⃞ ⃰⊄₺⊎⃦ ⃽⊌ ⃣⊆ ₺ℇ⃶≽₺⃷ ⋊⃹≽⃶≽ ∯⃯⃵⊎∮ⅻ⃫ ⃯⃽≿⊎ ⃽⊌B)"
+          },
+          {
+            "question": "Under a recent ruling by the Supreme Court of India in February 2026, eligible Armed Forces personnel are entitled to full arrears of which pension?",
+            "options": [
+              "Family Pension",
+              "Disability Pension",
+              "Service Pension",
+              "Gallantry Award Pension"
+            ],
+            "answer": 1,
+            "explanation": "The Supreme Court ruled that eligible Armed Forces personnel are entitled to receive full arrears of their disability pension @2B. (⃼∱ↀ≾⃴ ⃜⊆⃦x ⃯⊋ ⃱⊌⃼⃷≽ ⃼∱⃯≽⃵≽ ⏅⃜ ⃰≽ⅻ ⃼⃺⅄ⅻ ⃲⃷ ⃜⃴⊔ y⃯⃰≾ ⏆⃹⃜⃷≽⊎⃞⃫≽ ⃰⊡⃺⃯ ⃜≽ ⃰∳⃶≽ ⃲⃜≽⃵≽ ↀ≽ℸ⃫ ⃜⃶⃯⊋ ⃜⊋ ⃽⃭⃜≽⃶ ⃽⊣B)"
+          },
+          {
+            "question": "In the Union Budget 2026-27, what is the corpus announced for the SME Growth Fund to boost Small and Medium Enterprises? (⃜⊡ⅽ≿⃵ ⃲⃣⃦ 2026-27 ⃴⊡, ⃷⃟∱ ⃇⃶ ⃴ℶ⃵⃴ ₼⋊⃵⃴⊥ (SMEs) ⃜⊆ ⃲ℍ≽⃹≽ ⃭⊋⃯⊋ ⃜⊋ ⏃⃷⃂ SME Ⅾ⊆⃬ ⃱⊎⃨ ⃜⊋ ⏃⃷⃂ ⏅⃫⃯⃜≾ ⃶≽⏃⃺ ⃜⊃ ⃟⊆⃻⃪≽ ⃜⊃ ⃞₻ ⃽⊌?",
+            "options": [
+              "ⶴ5,000 crore",
+              "ⶴ7,500 crore",
+              "ⶴ10,000 crore",
+              "ⶴ12,000 crore"
+            ],
+            "answer": 2,
+            "explanation": "A dedicated SME Growth Fund with a corpus of ⶴ10,000 crore was announced to provide financial support to small and medium enterprises @2B. (⃷⃟∱ ⃇⃶ ⃴ℶ⃵⃴ ₼⋊⃵⃴⊥ ⃜⊆ ⏆⃹⇿≾⃵ ⃼⃽≽⃵⃫≽ ↀ⃭≽⃯ ⃜⃶⃯⊋ ⃜⊋ ⏃⃷⃂ ⩓10,000 ⃜⃶⊆ℌ ⃜⊋ ⃜⊆⃻ ⃜⊋ ⃼≽⃬ ⃂⃜ ⃼⃴⏆⃰x⃫ SME Ⅾ⊆⃬ ⃱⊎⃨ ⃜⊃ ⃟⊆⃻⃪≽ ⃜..."
+          }
+        ]
       },
       {
-        "id": "ca_w_oct_2026_w3",
-        "month": "October 2026",
+        "id": "ca_w_feb_2026_w3",
+        "month": "February 2026",
         "week": "Week 3",
-        "title": "October 2026 - Week 03 Defence & National Mock Test",
-        "date": "15 Oct - 21 Oct 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "February 2026 - Week 03 Current Affairs & Defence CBT Mock Test",
+        "date": "15 Feb - 21 Feb 2026",
+        "questionsCount": 15,
+        "durationMins": 15,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Border infrastructure acceleration, BrahMos supersonic missile test firing, and Defence Space Agency exercises.",
+        "summary": "Comprehensive February 2026 Week 3 Current Affairs & Defence Mock Test. Contains 15 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Indian Navy conducts precision anti-ship strike firing with BrahMos from stealth frigate",
-          "Defence Space Agency simulates space situational awareness and satellite defense",
-          "BRO sets new record in border road construction in Eastern Ladakh"
+          "India's first CBDC-based Public Distribution System (PDS) was launched in which city in Fe...",
+          "Who was appointed as the Chairman of Gujarat International Finance Tec-City (GIFT City) in...",
+          "Mia Amor Mottley was re-elected as the Prime Minister of which country for the third conse...",
+          "Which space-tech startup partnered with ISRO's commercial arm NSIL in February 2026 to sel..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w3.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_feb_w3.pdf",
+        "mockQuestions": [
+          {
+            "question": "India's first CBDC-based Public Distribution System (PDS) was launched in which city in February 2026? (໊ 2026 ໬ ່ ໎ ໊ CBDC-z່๷ ່x๺ ထ ෋່໊ (PDS) တ ໬ ๼ລ ໎ ?",
+            "options": [
+              "Jaipur",
+              "Bhopal",
+              "Gandhinagar",
+              "Lucknow"
+            ],
+            "answer": 2,
+            "explanation": "Union Home Minister Amit Shah launched this pilot project in Gandhinagar, Gujarat. It uses Central Bank Digital Currency (CBDC) to ensure a transparent and leakage-free ration distribution system @2B. (໬෈໊ ຀ ໙ෆ້ yဎ ່ ໖ ๼່ ໖ ່໙້ ໬ ່ ෋໑໖൯ ໎ ๼຤z ໎B ່ໟ ໊..."
+          },
+          {
+            "question": "Who was appointed as the Chairman of Gujarat International Finance Tec-City (GIFT City) in February 2026? (໊ 2026 ໬ ๼່ ໙໖ ່໬ ໖-ဎ໊ (GIFT City) ໖ yඁ ໖ ລ ໬ တ໖ ๺๼൯ တ່ ່?",
+            "options": [
+              "Nandan Nilekani",
+              "Uday Kotak",
+              "Hasmukh Adhia",
+              "K. V. Kamath"
+            ],
+            "answer": 1,
+            "explanation": "Veteran banker and founder of Kotak Mahindra Bank, Uday Kotak, was appointed by the Gujarat government as the Chairman of the GIFT City development company, replacing Dr. Hasmukh Adhia @2B. (໑ ๸໙෈່ ໮ ໖ ໙ඏ່ ๸൱ ໮ ໑ ໑ ๼່ ່ ༕່່ ໏. ๼ yဓ່ ໖ ඏ່ GIFT ဎ໊ ထ່ ໙..."
+          },
+          {
+            "question": "Mia Amor Mottley was re-elected as the Prime Minister of which country for the third consecutive time in February 2026?",
+            "options": [
+              "Jamaica",
+              "Bahamas",
+              "Barbados",
+              "Trinidad and Tobago"
+            ],
+            "answer": 2,
+            "explanation": "Her Barbados Labour Party (BLP) achieved a clean sweep, winning all 30 seats in the House of Assembly to secure her third consecutive term as Prime Minister @3B. (໎ ່່໑ ໖ ່໠ (BLP) ໖ ່ y໬໊ ໎ ້ 30 ້໰ ້ ່ဎ ໎ ං໬ ່່ ້໊ ່ ෋່ ໙ෆ້ ໖ ລ ໬ ๼ဖ တ່B)"
+          },
+          {
+            "question": "Which space-tech startup partnered with ISRO's commercial arm NSIL in February 2026 to sell its satellite imagery solutions?",
+            "options": [
+              "Skyroot Aerospace",
+              "Agnikul Cosmos",
+              "Pixxel",
+              "GalaxEye"
+            ],
+            "answer": 3,
+            "explanation": "GalaxEye, a leading Indian space-tech startup, signed a data reseller partnership with NewSpace India Limited (NSIL) to commercialize satellite imagery @3B. (෋๼ ່້ ඏ໖-໖ ඏ່xy ໗໖൯້z ໖ ໗໖່ ໖໊ ໖ ඌ່້ ໖ ဎ ං๾ඏ໖ ໙ဒ່ ဎဎ໖ (NSIL) ໖ ່ ໖່ ๼ထxභ໖່ ່໖່໊ ඏ່ တB)"
+          },
+          {
+            "question": "Who was elected as the 74th President of the Institute of Chartered Accountants of India (ICAI) for the 2026൘27 term? (2026-27 ໖ ່x່ ໖ ဎ ໙ඏ໊༑๾ ່xx y່໙໬༑ ໙ဒ່ (ICAI) ໖ 74໬ yඁ ໖ ລ ໬ တ໖ ๼່ ່?",
+            "options": [
+              "Ranjeet Kumar Agarwal",
+              "Prasanna Kumar D",
+              "Mangesh Pandurang Kinare",
+              "Aniket Sunil Talati"
+            ],
+            "answer": 1,
+            "explanation": "CA Prasanna Kumar D was elected as the President, while CA Mangesh Pandurang Kinare was chosen as the Vice-President of ICAI for 2026-27 @2B. (CA ෋ං ๼່ ້ ໑ yඁ ๼່ ່, တ CA ໙໖ ່໙๼໙ တ໖ ໑ 2026-27 ໖ ဎ ICAI ່ ່ඁ ๼່ ່B)"
+          },
+          {
+            "question": "Pokkali rice, a unique climate-resilient and salt-tolerant rice variety recently in the news, is cultivated organically in which state?",
+            "options": [
+              "Tamil Nadu",
+              "Kerala",
+              "Andhra Pradesh",
+              "West Bengal"
+            ],
+            "answer": 1,
+            "explanation": "It is cultivated in the waterlogged coastal regions of Alappuzha, Thrissur, and Ernakulam in Kerala and represents a prime example of climate-resilient agriculture @4B. (໎ ໖້ ໖ ໖ y່ඃ๼່, ๹ෆ๾ ່x๼ ໖ ່ ່໖ ໊ ໖ෆ໰ ໬ ໎ ່້ ໗ ່๼-້໊ ຀ထ ່ ෋๼ ່ ໗B)"
+          },
+          {
+            "question": "'Operation Barkhane', recently seen in the news, was a large-scale counter-terrorism military operation conducted in Africa by which country?",
+            "options": [
+              "USA",
+              "France",
+              "United Kingdom",
+              "Russia"
+            ],
+            "answer": 1,
+            "explanation": "It was a French military operation aimed at combating Islamist extremist groups operating across the Sahara-Sahel belt in Africa @4B. ( ෌່໙້້ ໗ං yဎ່ ່ ๻່ ༕໖ඍ y෌໎່ ໬ ່່-່໖ ໖ඊ ໬ တභ ඏ່້ ໙້ ๾໰ ່ ๼່່ ່ ່B)"
+          },
+          {
+            "question": "Suranga Bawadi, an ancient underground stepwell that was featured in the World Monuments Watch List, is located in which state?",
+            "options": [
+              "Rajasthan",
+              "Gujarat",
+              "Karnataka",
+              "Madhya Pradesh"
+            ],
+            "answer": 2,
+            "explanation": "Suranga Bawadi is a historic water system located in Vijayapura (Bijapur), Karnataka, built during the Adil Shahi dynasty @6B. (๼໙່ ່້ ່x ໖ ထ๼່ (້່๼) ໬ ๻ඏ ๺່ဎ ෋່໊ ໗, ๻໖ z๸ ່໊ ່໙ ໖ ໒່ ່່ ່ ່B)"
+          },
+          {
+            "question": "Which Union Ministry launched the ᧿2,000 crore BIRAC-RDI Fund to boost the biotech sector in February 2026?",
+            "options": [
+              "Ministry of Health and Family Welfare",
+              "Ministry of Science and Technology",
+              "Ministry of Commerce and Industry",
+              "Ministry of Education"
+            ],
+            "answer": 1,
+            "explanation": "Union Minister Jitendra Singh launched this national call for the Biotechnology Industry Research Assistance Council (BIRAC) fund to boost research, development, and innovation @3B. \n(໬෈໊ ໙ෆ້ ๻໬෈ ဎ໙ ໖ y๼໙່, ထ່ ່່ ໑ ൘່່ ໖໖ ໖ ဎ ໗ ෋໒༕໑ဓ໎ ༕໑ y๼໙່ ່່ ๷ (B..."
+          },
+          {
+            "question": "India's first 'Cow Culture Museum' is planned to be established in which city?",
+            "options": [
+              "Ayodhya",
+              "Mathura",
+              "Varanasi",
+              "Haridwar"
+            ],
+            "answer": 1,
+            "explanation": "The country's first Cow Culture Museum, dedicated to showcasing the cultural, historical, and economic significance of cows, is planned for Mathura, Uttar Pradesh @1B. (່໰ ໖ ່໙ඏ຀๺, ๺່ဎ zဓx ൾ ໑ ෋ဎx ໖ ໖ ဎ ထx ໖ ່ ່ ໒ ໙ඏ຀๺ ໙ඹ່ ๊ ෋໖ ໖ ๼່ ໬ ່໖ ໎ ໑່ ໗B)"
+          },
+          {
+            "question": "The 'Banglar >uva Sathi Scheme' was announced by which state government to provide monthly financial support to the youth?",
+            "options": [
+              "Assam",
+              "Tripura",
+              "West Bengal",
+              "Odisha"
+            ],
+            "answer": 2,
+            "explanation": "The West Bengal government announced this scheme to provide a monthly financial support of ᧿1500 to eligible youth in the state @1B. (๻ඍ ໙່ ່ ໖ ່൶ ໬ ່ෆ ๼່໙ ໑ ᚞1500 ໎ ່ဎ ထ๊້ ່່ ෋່ ໖ ໖ ဎ ໑່ ໎ ໑່ ໎B)"
+          },
+          {
+            "question": "Which bank became the first in the Asia-Pacific region to pilot Visa Intelligent Commerce for daily payments?",
+            "options": [
+              "HDFC Bank",
+              "DBS Bank",
+              "Standard Chartered",
+              "State Bank of India"
+            ],
+            "answer": 1,
+            "explanation": "DBS Bank partnered with Visa to become the first bank in the Asia-Pacific region to pilot Visa Intelligent Commerce for seamless daily payments @3B. (๺່x ໗๺ ๼່ ໖ ဎ ້່ ໙໖ဎ໬ ໏x ໑ ๼ລ ໖ ່່ DBS ໮ ဎ່-෋່໙ ໖ෆ ່ ່ ໮ ່ ໗B)"
+          },
+          {
+            "question": "What is the primary objective of Mission Kakatiya which was recently highlighted in the news?",
+            "options": [
+              "Forest conservation",
+              "Restoration of minor irrigation tanks",
+              "Promotion of digital literacy",
+              "Maternal health improvement"
+            ],
+            "answer": 1,
+            "explanation": "Mission Kakatiya is a flagship program by the Telangana government aimed at restoring thousands of minor irrigation tanks and lakes across the state to boost agriculture @4B. (ဎ ່້ ໖໙່່ ່ ່ ෋๼ ່xභ ໗ ๻່ ༕໖ඍ ຀ထ ໑ ൘່່ ໖໖ ໖ ဎ ່൶ ໬ ່໰ ๼ ဎ໙່ ໮໰ ້໰ ໑ ່ ່ ໗B..."
+          },
+          {
+            "question": "Kawtchhuah Ropui, a major archaeological site meaning The Great Entranceway , is located in which state?",
+            "options": [
+              "Nagaland",
+              "Manipur",
+              "Mizoram",
+              "Arunachal Pradesh"
+            ],
+            "answer": 2,
+            "explanation": "It is an important heritage site located in the Champhai district of Mizoram, close to the India-Myanmar border @6B. ( ່-ඇ່໙່ ້່ ໖ ໊ ဎ໑ ໖ ໙່ ๻໖ ໬ ๻ඏ ൾ๾x ထ່ ඏ ໗B)"
+          },
+          {
+            "question": "Oussudu Lake (Ousteri Lake), proposed to be upgraded into a National Park, is shared between which two regions? (๼๼ ້ (ඏ໊ ້), ๻໖ ່ඎශ໊ ༕່ ໬ ං ໖ ່ ෋ඏ່ ໗, တ ໑ ໖ෆ໰ ໖ ້ ່່ ໎ ່້ ໗?",
+            "options": [
+              "Tamil Nadu and Puducherry",
+              "Kerala and Karnataka",
+              "Andhra Pradesh and Telangana",
+              "Odisha and West Bengal"
+            ],
+            "answer": 0,
+            "explanation": "Oussudu Lake is a man-made freshwater lake shared between the Union Territory of Puducherry and the state of Tamil Nadu, recognized for its rich biodiversity @6B. (๼๼ ້ ່ ๺ဎx ້໖ ່້ ໎ ້ ໗ ໑ ๼๼໖໊ ဎ່๼ ໖ ້ ່່ ໎ ່້ ໗, ๻໖ ໎ ຀༕ ໗ ထထ່ ໖ ဎ ່່ ່່ ໗B)"
+          }
+        ]
       },
       {
-        "id": "ca_w_oct_2026_w4",
-        "month": "October 2026",
+        "id": "ca_w_feb_2026_w4",
+        "month": "February 2026",
         "week": "Week 4",
-        "title": "October 2026 - Week 04 Defence & National Mock Test",
-        "date": "22 Oct - 31 Oct 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "February 2026 - Week 04 Current Affairs & Defence CBT Mock Test",
+        "date": "22 Feb - 28 Feb 2026",
+        "questionsCount": 20,
+        "durationMins": 20,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Defence budget mid-year review, indigenous drone procurement, and Quad naval interoperability drills.",
+        "summary": "Comprehensive February 2026 Week 4 Current Affairs & Defence Mock Test. Contains 20 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Cabinet Committee on Security (CCS) clears mega procurement for indigenous combat gear",
-          "Indian Army inducts tethered surveillance drone systems for mountain observation",
-          "Combined Commanders Conference discusses theaterisation and joint logistics"
+          "When is National Science Day celebrated across India to commemorate the discovery of the R...",
+          "Which state launched its first incubation and innovation hub named T-Nest in late February...",
+          "Which major international organization approved an $830 million loan for India's PM-SETU p...",
+          "What was the theme for Rare Disease Day observed globally on February 28, 2026? (28 , 2026..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_oct_w4.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_feb_w4.pdf",
+        "mockQuestions": [
+          {
+            "question": "When is National Science Day celebrated across India to commemorate the discovery of the Raman Effect? ( (Raman Effect) ?",
+            "options": [
+              "24 February",
+              "26 February",
+              "27 February",
+              "28 February"
+            ],
+            "answer": 3,
+            "explanation": "National Science Day is celebrated annually on February 28 to honor Sir C.V. Raman's discovery, for which he received the Nobel Prize in 1930 @3B. ( x 28 .. , 1930 B)"
+          },
+          {
+            "question": "Which state launched its first incubation and innovation hub named T-Nest in late February 2026? ( 2026 y - (T-Nest) y ?",
+            "options": [
+              "Tripura",
+              "Telangana",
+              "Tamil Nadu",
+              "Assam"
+            ],
+            "answer": 0,
+            "explanation": "Tripura launched T-Nest (Tripura: Nurturing Entrepreneurship and Startups) to boost the local startup ecosystem @3B. \n( xy - B)"
+          },
+          {
+            "question": "Which major international organization approved an $830 million loan for India's PM-SETU program to upgrade ITIs?",
+            "options": [
+              "Asian Development Bank",
+              "World Bank",
+              "International Monetary Fund",
+              "New Development Bank"
+            ],
+            "answer": 1,
+            "explanation": "The World Bank Group approved the loan to revamp Industrial Training Institutes (ITIs) across India under the PM-SETU initiative @1B. ( PM-SETU (ITI) B)"
+          },
+          {
+            "question": "What was the theme for Rare Disease Day observed globally on February 28, 2026? (28 , 2026 x (Rare Disease Day) ?",
+            "options": [
+              "United for Rare",
+              "Leave No One Behind",
+              "More than you can imagine: the realities behind rare diseases",
+              "Equity for All"
+            ],
+            "answer": 2,
+            "explanation": "The 19th edition of Rare Disease Day was observed with this theme to highlight the hidden struggles of patients @1B. ( x 19 B)"
+          },
+          {
+            "question": "India's nationwide HPV vaccination programme for girls, aimed at preventing cervical cancer, was officially launched from which city? (x (HPV) x z ?",
+            "options": [
+              "Bhopal",
+              "Ajmer",
+              "Lucknow",
+              "Pune"
+            ],
+            "answer": 1,
+            "explanation": "Prime Minister Narendra Modi launched the nationwide HPV vaccination campaign from Ajmer, Rajasthan, to reinforce preventive healthcare @3, 4B. ( y HPV y z B)"
+          },
+          {
+            "question": "Which state announced renaming its lone Pakyong Airport to 'Trilochan Pokhrel Airport' after a prominent freedom fighter?",
+            "options": [
+              "Assam",
+              "Meghalaya",
+              "Sikkim",
+              "Arunachal Pradesh"
+            ],
+            "answer": 2,
+            "explanation": "Sikkim's Chief Minister announced renaming the airport to honor Trilochan Pokhrel, recognized as the first independence activist from the state @1B. ( y B)"
+          },
+          {
+            "question": "Which Indian state presented a ₹1.72 Lakh Crore Budget for F>27 with a special focus on Bastar development?",
+            "options": [
+              "Jharkhand",
+              "Odisha",
+              "Madhya Pradesh",
+              "Chhattisgarh"
+            ],
+            "answer": 3,
+            "explanation": "The Chhattisgarh Finance Minister presented this budget centering around education, industry, and the development of the Bastar region @1B. ( , B)"
+          },
+          {
+            "question": "Which team won the overall Team Championship title at the 6th Khelo India Winter Games 2026 held in Jammu & Kashmir?",
+            "options": [
+              "Indo-Tibetan Border Police",
+              "Indian Army",
+              "Himachal Pradesh",
+              "Haryana"
+            ],
+            "answer": 1,
+            "explanation": "The Indian Army successfully defended its title by winning 23 medals (9 gold, 6 silver, and 8 bronze) @2B. ( 23 (9 x, 6 8 ) x y B)"
+          },
+          {
+            "question": "In February 2026, the Government of India launched a CBDC-based Digital Food Currency pilot for DBT under PMGKA> in which Union Territory? ( 2026 , PMGKA> (DBT) CBDC-z ?",
+            "options": [
+              "Chandigarh",
+              "Puducherry",
+              "Lakshadweep",
+              "Andaman and Nicobar"
+            ],
+            "answer": 1,
+            "explanation": "The pilot was launched in Puducherry using Central Bank Digital Currency to ensure targeted and leak-proof food subsidy delivery @1B. ( - B)"
+          },
+          {
+            "question": "Who was given the additional charge of Chief Executive Officer (CEO) of NITI Aayog in late February 2026? \n( 2026 y z x y (CEO) y ?",
+            "options": [
+              "Suman Bery",
+              "Nidhi Chhibber",
+              "Parameswaran Iyer",
+              "Amitabh Kant"
+            ],
+            "answer": 1,
+            "explanation": "Senior IAS officer Nidhi Chhibber was assigned the additional charge as the CEO of NITI Aayog by the Appointments Committee of the Cabinet @2B. ( z y z y B)"
+          },
+          {
+            "question": "At Rashtrapati Bhavan, the statue of British architect Edwin Lutyens was replaced with a bust of which prominent Indian leader in February 2026? ( 2026 x () ?",
+            "options": [
+              "Sardar Vallabhbhai Patel",
+              "Chakravarti Rajagopalachari",
+              "Dr. B.R. Ambedkar",
+              "Subhas Chandra Bose"
+            ],
+            "answer": 1,
+            "explanation": "Recognizing India's first and only Indian Governor-General, the government installed his bust at Rashtrapati Bhavan @5B. ( x- , B)"
+          },
+          {
+            "question": "According to ICRA's projection in February 2026, what is India's expected GDP growth rate in the third quarter (Q3) of F>2025-26? ( 2026 (ICRA) y y, x 2025-26 (Q3) y ?",
+            "options": [
+              "6.8%",
+              "7.2%",
+              "7.8%",
+              "8.2%"
+            ],
+            "answer": 1,
+            "explanation": "ICRA projected the Q3 growth to moderate to 7.2% compared to 8.2% in Q2, primarily due to slower growth in agriculture and services @5B. (ICRA Q3 7.2% y B)"
+          },
+          {
+            "question": "India signed an agreement with which African country to launch a pilot project of DigiLocker? ( y (DigiLocker) ?",
+            "options": [
+              "South Africa",
+              "Nigeria",
+              "Kenya",
+              "Tanzania"
+            ],
+            "answer": 2,
+            "explanation": "The Ministry of Electronics and IT (Meit>) signed the agreement with Kenya's Ministry of Information, Communications & Digital Economy @1B. \n( z (Meit>) , yx B)"
+          },
+          {
+            "question": "What is the name of the Indian Navy's first sail training ship that arrived in Sri Lanka to strengthen naval cooperation?",
+            "options": [
+              "INS Sudarshini",
+              "INS Tarangini",
+              "INS Darshak",
+              "INS Vikrant"
+            ],
+            "answer": 1,
+            "explanation": "INS Tarangini arrived in Trincomalee, Sri Lanka, to train Sri Lankan Navy trainee officers in practical ocean-sailing @3B. (INS y - , B)"
+          },
+          {
+            "question": "The Unique Identification Authority of India (UIDAI) collaborated with which tech giant to display verified Aadhaar Centres on its maps? ( (UIDAI) y z x ?",
+            "options": [
+              "Microsoft",
+              "Apple",
+              "Google",
+              "Meta"
+            ],
+            "answer": 2,
+            "explanation": "UIDAI partnered with Google to show authorized Aadhaar Centres on Google Maps, enhancing transparency and accessibility for citizens @1B. ( x UIDAI y z B)"
+          },
+          {
+            "question": "Prime Minister Narendra Modi inaugurated Micron Technology's Semiconductor ATMP Facility in which state? ( (ATMP) ?",
+            "options": [
+              "Karnataka",
+              "Gujarat",
+              "Maharashtra",
+              "Tamil Nadu"
+            ],
+            "answer": 1,
+            "explanation": "The facility, aiming to boost India's semiconductor manufacturing capabilities, was inaugurated in Gujarat @3B. ( x B)"
+          },
+          {
+            "question": "Which public sector enterprise was recently upgraded to a 'Schedule A' CPSE by the Ministry of MSME?",
+            "options": [
+              "CPSE y ?)",
+              "Khadi and Village Industries Commission",
+              "National Small Industries Corporation",
+              "Coir Board ( x) \nD) Small Industries Development Bank of India"
+            ],
+            "answer": 1,
+            "explanation": "The government upgraded NSIC to a Schedule A Central Public Sector Enterprise, granting it greater financial and operational autonomy @1B. ( NSIC A x y , y B)"
+          },
+          {
+            "question": "World NGO Day is observed globally every year on which date? ( (NGO) ?",
+            "options": [
+              "24 February",
+              "25 February",
+              "27 February",
+              "28 February"
+            ],
+            "answer": 2,
+            "explanation": "It is observed on February 27 to recognize and celebrate the contributions of Non-Governmental Organizations globally @1, 4B. ( - 27 B)"
+          },
+          {
+            "question": "Who recently became the youngest-ever Prime Minister of the Netherlands?",
+            "options": [
+              "Mark Rutte",
+              "Rob Jetten",
+              "Dick Schoof",
+              "Geert Wilders"
+            ],
+            "answer": 1,
+            "explanation": "Rob Jetten created history by becoming the youngest-ever Prime Minister to lead the Netherlands @5B. ( B)"
+          },
+          {
+            "question": "India and which neighboring country signed an MoU in late February 2026 to strengthen environmental cooperation and protect transboundary ecosystems? ( x 2026 y (MoU) ?",
+            "options": [
+              "Bhutan",
+              "Bangladesh",
+              "Nepal",
+              ""
+            ],
+            "answer": 1,
+            "explanation": "The MoU reinforces the shared commitment to protect transboundary ecosystems and tackle climate change impacts in the Himalayan and Terai regions @2B. ( - x B)"
+          }
+        ]
       },
       {
-        "id": "ca_w_sep_2026_w1",
-        "month": "September 2026",
+        "id": "ca_w_mar_2026_w1",
+        "month": "March 2026",
         "week": "Week 1",
-        "title": "September 2026 - Week 01 Defence & National Mock Test",
-        "date": "01 Sep - 07 Sep 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "March 2026 - Week 01 Current Affairs & Defence CBT Mock Test",
+        "date": "01 Mar - 07 Mar 2026",
+        "questionsCount": 10,
+        "durationMins": 10,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Naval Aviation golden jubilee, new defence startups funding under iDEX, and bilateral defence talks.",
+        "summary": "Comprehensive March 2026 Week 1 Current Affairs & Defence Mock Test. Contains 10 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "iDEX awards ₹100 crore innovation challenges to defence tech startups",
-          "Naval Aviation showcases MiG-29K operations on INS Vikrant"
+          "Which digital payments company launched an AI-powered natural language search feature buil...",
+          "Which state government recently announced the launch of 'CM Shri Schools' on the lines of ...",
+          "The 'Meri Rasoi' scheme, aimed at providing free food kits to nearly 40 lakh economically ...",
+          "Which organization successfully conducted flight trials of the indigenous VSHORADS (Very S..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_sep_w1.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_mar_w1.pdf",
+        "mockQuestions": [
+          {
+            "question": "Which digital payments company launched an AI-powered natural language search feature built on Microsoft Foundry in March 2026? (⁎※x 2026 ⁎ ‶⁖ ⁂‽⁀⁑ ⁍‸⁅⁉ ‶⁊⁉ ⁉ ⁎—⁖⁀ ⁋‖ (Microsoft Foundry) ⁊⁐ ⁉⁎x⁅ AI-⁖※⁑⁅ ‶⁅‶ ⁍⁕ ‷‽ ⁖⁓⁈ ⁑※ ‶?",
+            "options": [
+              "Paytm",
+              "Google Pay",
+              "Amazon Pay",
+              "PhonePe"
+            ],
+            "answer": 3,
+            "explanation": "PhonePe introduced an AI-powered voice and text search feature built on Microsoft Foundry, allowing users to make payments, recharge, and track transactions using natural language @1B. (⁋⁉⁊ ⁉ ⁎—⁖⁀ ⁋‖ ⁊⁐ z⁈⁐⁅ “z―-⁖※⁑⁅ ⁓⁏⁖ ‡⁐ ⁀⁀ ⁖※x ⁋※⁐ ⁊⁔ ‶⁏, ‽⁖⁖ ‖⁊⁏‸..."
+          },
+          {
+            "question": "Which state government recently announced the launch of 'CM Shri Schools' on the lines of the central government's PM Shri Schools initiative?",
+            "options": [
+              "Haryana",
+              "Punjab",
+              "Rajasthan",
+              "Uttar Pradesh"
+            ],
+            "answer": 0,
+            "explanation": "The Haryana government announced CM Shri Schools, modelled after the PM Shri initiative, to enhance the quality of state-run education and align with CBSE curriculum standards @1B. (⁗⁐⁏⁄ ⁖⁐‶⁐ ⁉ ⁖⁐‶⁐ ⁔⁘ ‶ ‸⁄⁓ ⁌⁧⁉ ‡⁐ ⁖⁌“⁖― ⁊⁏⁎ ⁎⁉‶ ‶ ⁖⁆ ⁖⁐‷⁅ ‶⁐⁉ ‶ ⁑“ ⁊“..."
+          },
+          {
+            "question": "The 'Meri Rasoi' scheme, aimed at providing free food kits to nearly 40 lakh economically weaker families, was launched by which state?",
+            "options": [
+              "Haryana",
+              "Punjab",
+              "Bihar",
+              "Jharkhand"
+            ],
+            "answer": 1,
+            "explanation": "The Punjab government launched the 'Meri Rasoi' scheme to provide free essential food kits (dal, sugar, oil, etc.) to blue card holder families to address nutritional gaps @1B. (⁊‽⁌ ⁖⁐‶⁐ ⁉ ⁊⁕⁄ ⁖⁌⁈ ‶⁎⁏ ‶ ⁇⁐ ‶⁐⁉ ‶ ⁑“ ⁑ ‶⁂x ⁈⁐‶ ⁊⁐⁓⁐ ‶ ⁎⁅ z⁓⁏‶ ‷⁏ ‶⁀ (⁇⁑,..."
+          },
+          {
+            "question": "Which organization successfully conducted flight trials of the indigenous VSHORADS (Very Short-Range Air Defence System) missile in early March 2026? (⁎※x 2026 ‶ ⁔z⁅ ⁎ ‶⁖ ⁖‸⁁⁉ ⁉ ⁓⁇⁔ VSHORADS (⁓⁐ ⁔⁀x-⁐‽ “⁏⁐ ⁂⁋⁖ ⁖⁀⁎) ⁎⁖—⁑ ‶ ⁖⁋⁑ ‖⁦⁉ ⁊⁐⁘⁄ ‶⁏?",
+            "options": [
+              "ISRO",
+              "HAL",
+              "DRDO",
+              "BDL"
+            ],
+            "answer": 2,
+            "explanation": "The Defence Research and Development Organisation (DRDO) conducted the trials, strengthening India's short-range and layered air defence capabilities against low-flying threats @1, 2B. (⁐⁘ y⁉⁖⁈⁉ “⁓ ⁓‶⁖ ⁖‸⁁⁉ (DRDO) ⁉ ⁊⁐⁘⁄ ‶“, ‽⁖⁖ ‶⁎ ‗※― ⁊⁐ ‖⁦⁉ ⁓⁑ ‷⁅⁐..."
+          },
+          {
+            "question": "What was the theme of National Science Day 2026?",
+            "options": [
+              "Science for Sustainable Development",
+              "Women in Science: Catalyzing Viksit Bharat",
+              "Innovation for Atmanirbhar Bharat",
+              "Empowering Youth through Science"
+            ],
+            "answer": 1,
+            "explanation": "The day is celebrated to commemorate the discovery of the Raman Effect. In 2026, the theme focused on empowering women in science to build a developed India @4, 5B. (⁏⁗ ⁇⁉ ⁐⁎⁉ ⁍⁓ (Raman Effect) ‶ ‷‽ ‶ ‖⁊⁑⁏ ⁎ ⁎⁉⁏ ‽⁅ ⁗B 2026 ⁎, —⁖ ⁓⁕⁏ ⁉ ⁓‶⁖⁅ ⁍⁐⁅ ‶ ⁉⁎x⁄..."
+          },
+          {
+            "question": "Which cricket team created history by winning their maiden Ranji Trophy title in the 2025⁧26 season?",
+            "options": [
+              "Vidarbha",
+              "Jammu & Kashmir",
+              "Saurashtra",
+              "Karnataka"
+            ],
+            "answer": 1,
+            "explanation": "The Jammu and Kashmir cricket team won their first-ever Ranji Trophy title by defeating eight-time champions Karnataka in the finals held in Hubballi @4B. (‽⁎ ‡⁐ ‶⁎⁐ ‶⁀ ⁀⁎ ⁉ ⁗⁌⁑ ⁎ z⁏‽⁅ ⁋—⁉⁑ ⁎ z⁁ ⁌⁐ ‶ ※⁊⁏⁉ ‶⁉x⁀‶ ‶ ⁗⁐‶⁐ y⁊⁉ ⁊⁗⁑ ⁐⁄‽ ⁋ ‷⁅⁌ ‽⁅B)"
+          },
+          {
+            "question": "INS Anjadip, commissioned into the Indian Navy recently, is associated with which naval project?",
+            "options": [
+              "Project 75",
+              "Project 15B",
+              "Anti-Submarine Warfare Shallow Water Craft Project",
+              "Project 17A"
+            ],
+            "answer": 2,
+            "explanation": "INS Anjadip is an Anti-Submarine Warfare Shallow Water Craft (ASW-SWC) designed to safeguard India's maritime trade routes and coastal infrastructure @4B. \n(INS y‽⁇⁊ “‶ “⁀-⁖⁌⁎⁐⁉ ⁓⁐⁋⁏⁐ ⁔⁑ ⁓⁀⁐ ⁀ ⁗ ‽⁖ ⁍⁐⁅ ‶ ⁖⁎ ⁏⁊⁐ ⁎‸ ‡⁐ ⁅⁀⁏ ⁌⁉⁏⁇ ⁃※ ‶ ⁖⁐⁘ ‶ ⁑“ ⁂⁡—⁉ ‶⁏ ‸⁏..."
+          },
+          {
+            "question": "During Prime Minister Narendra Modi's historic state visit to Israel in early 2026, bilateral ties were elevated to which framework?",
+            "options": [
+              "Global Innovation Alliance",
+              "Special Strategic Partnership for Peace, Innovation & Prosperity",
+              "Comprehensive Economic Partnership",
+              "Defence and Technology Partnership"
+            ],
+            "answer": 1,
+            "explanation": "India and Israel elevated their bilateral relationship to focus on deeper collaboration in technology, innovation, defence, trade, and strategic security @4B. (⁍⁐⁅ ‡⁐ —⁡⁐—⁑ ⁉ ⁏‸‶, ⁉⁓※⁐, ⁐⁘, ⁏⁊⁐ ‡⁐ ⁐⁄⁉⁅‶ ⁖⁐⁘ ⁎ ‸⁗⁐ ⁖⁗⁏‸ ⁊⁐ ⁏⁉ ‶⁅ ‶⁐⁉ ‶ ⁑“ y⁊⁉ ⁓⁊⁘⁏ ⁖⁌⁈ ‶..."
+          },
+          {
+            "question": "Utsav Charan Das, who passed away in early March 2026, was a legendary artist of which traditional folk dance form?",
+            "options": [
+              "Bihu",
+              "Kathak",
+              "Garba",
+              "Ghoda Nacha"
+            ],
+            "answer": 3,
+            "explanation": "Utsav Charan Das was a highly respected and renowned artist dedicated to preserving and promoting the traditional Odia folk dance form 'Ghoda Nacha' (dummy horse dance) @5B. (‖⁖⁓ ※⁐⁄ ⁇⁖ “‶ y⁏⁈‶ ⁖⁎⁉⁅ ‶⁑‶⁐ ⁆ ‽ ⁊⁐⁊⁐‶ ‖⁦⁏ ⁑‶ ⁉⁏ ⁔⁑ '‹⁦ ⁉※' ‶ ⁖⁐⁘⁅ ‶⁐⁉ ‡⁐ ⁌..."
+          },
+          {
+            "question": "The newly inaugurated inland waterway projects at Dibrugarh are situated on which National Waterway?",
+            "options": [
+              "National Waterway 1",
+              "National Waterway 2",
+              "National Waterway 3",
+              "National Waterway 4"
+            ],
+            "answer": 1,
+            "explanation": "Union Minister Sarbananda Sonowal inaugurated multiple waterway projects on National Waterway-2 (NW-2), which spans across the Brahmaputra River in Assam @5B. (‶⁏ ⁎ ⁖⁌x⁉⁇ ⁖⁉⁓⁑ ⁉ y⁖⁎ ⁎ ⁎⁊ ⁉⁇ ⁊⁐ ⁋⁑ ⁐⁏ ‽⁑⁎‸x-2 (NW-2) ⁊⁐ ‶― ‽⁑⁎‸x ⁊⁐⁏‽⁉† ‶ ‖‹⁀⁉ ‶⁏B)"
+          }
+        ]
       },
       {
-        "id": "ca_w_sep_2026_w2",
-        "month": "September 2026",
+        "id": "ca_w_mar_2026_w2",
+        "month": "March 2026",
         "week": "Week 2",
-        "title": "September 2026 - Week 02 Defence & National Mock Test",
-        "date": "08 Sep - 14 Sep 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "March 2026 - Week 02 Current Affairs & Defence CBT Mock Test",
+        "date": "08 Mar - 14 Mar 2026",
+        "questionsCount": 12,
+        "durationMins": 12,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Joint air combat exercise 'Tarang Shakti' debrief, missile propulsion advances, and international maritime security.",
+        "summary": "Comprehensive March 2026 Week 2 Current Affairs & Defence Mock Test. Contains 12 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "IAF successfully hosts Phase-II of multinational air exercise Tarang Shakti",
-          "DRDO tests next-gen solid fuel ducted ramjet (SFDR) technology"
+          "In March 2026, the Union Cabinet approved the extension of the Jal Jeevan Mission (JJM) ti...",
+          "Prime Minister Narendra Modi inaugurated India's first Ring Metro corridor in which city i...",
+          "<hich state will host the Khelo India Tribal Games 2026, as announced by the Union Ministe...",
+          "In March 2026, the Supreme Court of India allowed the withdrawal of life-sustaining treatm..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_sep_w2.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_mar_w2.pdf",
+        "mockQuestions": [
+          {
+            "question": "In March 2026, the Union Cabinet approved the extension of the Jal Jeevan Mission (JJM) till which year? (⃸⊁⃥x 2026 ⃸⊥, ⃠⊥ↁ⊃⃹ ⃸⊒∲ⅿ⃸⊒⃬⃻ ⃳⊏ ⃧⃻ ⃧⊂⃽⃳ ⏇⃸⃾⃳ (JJM) ⃠⊏ ⏊⃽ⅈ⃯⊁⃺ ⃠⊊ ⏉⃠℀ ⃽⃿x ⃯⃠ ⃠⊏ ⏇⃻⃆ ⃸⊒⃧∷⃺⊃ ⃱⊃?",
+            "options": [
+              "2027",
+              "2028",
+              "2029",
+              "2030"
+            ],
+            "answer": 1,
+            "explanation": "The Union Cabinet approved the extension of the Jal Jeevan Mission until 2028 with an enhanced total financial outlay of ⶸ8.69 lakh crore to ensure sustainable drinking water service delivery. (⃠⊥ↁ⊃⃹ ⃸⊒∲ⅿ⃸⊒⃬⃻ ⃳⊏ ℀⊒⃲⊁⃺⃮⊂⃹ ⃴⊏⃹⃧⃻ ℀⊏⃽⊁ ⏊⃽⃯⃺⃮ ℀∵∳⃳∴ⅆ⃥⃯ ⃠⃺⃳..."
+          },
+          {
+            "question": "Prime Minister Narendra Modi inaugurated India's first Ring Metro corridor in which city in March 2026?",
+            "options": [
+              "Mumbai",
+              "Bengaluru",
+              "New Delhi",
+              "Hyderabad"
+            ],
+            "answer": 2,
+            "explanation": "India's first Ring Metro corridor was inaugurated in Delhi, marking a major milestone in the expansion of the Delhi Metro network. (⃷⊁⃺⃯ ⃠⊏ ⃴℁⃻⊏ ∰⃺⊒⃢ ⃸⊏ⅺ⊊ ⃠⊈∰⃺⃬⊊⃺ ⃠⊁ ⃀⋎⃣⊁⃪⃳ ∱⃱⅃⃻⊃ ⃸⊥ ⏉⃠⃹⊁ ⃢⃹⊁, ⃧⊊ ∱⃱⅃⃻⊃ ⃸⊏ⅺ⊊ ⃳⊏⃪⃽⃠x ⃠⊏ ⏊⃽ⅈ⃯⊁⃺ ⃸⊥ ⃆⃠ ⃶ℐ⊁ ⃸⊂⃻ ⃠⊁ ⃴ℷ⃰⃺ ℁⊐B)"
+          },
+          {
+            "question": "<hich state will host the Khelo India Tribal Games 2026, as announced by the Union Minister for >outh Affairs and Sports?",
+            "options": [
+              "Jharkhand",
+              "Odisha",
+              "Chhattisgarh",
+              "Madhya Pradesh"
+            ],
+            "answer": 2,
+            "explanation": "It was announced in March 2026 that Chhattisgarh will host the upcoming edition of the Khelo India Tribal Games to promote indigenous sports. (⃸⊁⃥x 2026 ⃸⊥ ⃹℁ ⃣⊊⃿⃮⊁ ⃠⊇ ⃢₿ ⃰⊂ ⏉⃠ ⅈ⃽⃱⊏⃾⊂ ⃡⊏⃻⊩ ⃠⊊ ⃶ℑ⊁⃽⊁ ⃱⊏⃳⊏ ⃠⊏ ⏇⃻⃆ ⃦∃⊂℀⃢ℑ z⃢⊁⃸⊂ ⃡⊏⃻⊊ ₾⊒⏋⃬⃹⊁ ⅺ⊁₾⃶⃻ ⃢⊏⅀℀ ⃠⊇ ⃸..."
+          },
+          {
+            "question": "In March 2026, the Supreme Court of India allowed the withdrawal of life-sustaining treatment for a patient by applying the passive euthanasia framework laid down in which year? (⃸⊁⃥x 2026 ⃸⊥, ⃷⊁⃺⃯ ⃠⊏ ℀⃽⊞ℭ⃥ ℻⃹⊁⃹⊁⃻⃹ ⃳⊏ ⏉⃠℀ ⃽⃿x ∳⃳⃲⊁x∰⃺⃯ '∳⃳∴ⅇⅰ⃹ ₾ℭ⃦⊁⃸∹ℷ⃹∵' (passive euthanasia) ⃭⊁⊒⃥⊏ ⃠⊊ ⃻⊁⃢∷ ⃠⃺⃯⊏ ℁∵⃆ ⃆⃠ ⃸⃺⊃⃧ ⃠⊏ ⏇⃻⃆ ⃧⊂⃽⃳ ⃺ℂ⃠ ⃀⃴⃥⊁⃺ ⃽⊁⃴℀ ⃻⊏⃳⊏ ⃠⊇ y⃳∵⃸∳⃯ ⃱⊃?",
+            "options": [
+              "2014",
+              "2018",
+              "2020",
+              "2023"
+            ],
+            "answer": 1,
+            "explanation": "The Supreme Court permitted the withdrawal of life-sustaining treatment for a patient in a vegetative state for 13 years, marking the first real-case application of the passive euthanasia legal framework it originally established in 2018. (℀∵ↄ⊂⃸ ⃠⊊⃪x..."
+          },
+          {
+            "question": "<hich Indian bank launched a landmark 500 million syndicated social term loan in March 2026 dedicated exclusively to promoting women's economic empowerment?",
+            "options": [
+              "HDFC Bank",
+              "State Bank of India",
+              "ICICI Bank",
+              "Punjab National Bank"
+            ],
+            "answer": 1,
+            "explanation": "SBI launched this first-of-its-kind 500 million gender-themed syndicated social term loan, which is considered one of the largest globally in the ESG (Environmental, Social, and Governance) financing space. (SBI ⃳⊏ y⃴⃳⊂ ⃯⃺℁ ⃠⊁ ⃴℁⃻⊁ 500 ⏇⃸⏇⃻⃹⃳ ⃠⊁ ⃧⊥⃬⃺..."
+          },
+          {
+            "question": "Central Industrial Security Force (CISF) Raising Day is observed every year on which date in India? \n(⃷⊁⃺⃯ ⃸⊥ ⃠⊥ↁ⊃⃹ ⃋⋎⃹⊊⏌⃢⃠ ℀∵⃺ℂ⊁ ⃶⃻ (CISF) ⅈ⃰⊁⃴⃳⊁ ∱⃱⃽℀ ℁⃺ ℀⊁⃻ ⏉⃠℀ ⃯⊁⃺⊃⃡ ⃠⊊ ⃸⃳⊁⃹⊁ ⃧⊁⃯⊁ ℁⊐?",
+            "options": [
+              "8 March",
+              "9 March",
+              "10 March",
+              "12 March"
+            ],
+            "answer": 2,
+            "explanation": "The CISF Raising Day is celebrated on March 10 every year to commemorate the establishment of the force in 1969. (1969 ⃸⊥ ⃶⃻ ⃠⊇ ⅈ⃰⊁⃴⃳⊁ ⃠⊏ ⃀⃴⃻⅊⃹ ⃸⊥ ℁⃺ ℀⊁⃻ 10 ⃸⊁⃥x ⃠⊊ CISF ⅈ⃰⊁⃴⃳⊁ ∱⃱⃽℀ ⃸⃳⊁⃹⊁ ⃧⊁⃯⊁ ℁⊐B)"
+          },
+          {
+            "question": "In March 2026, the USA announced it would build its first new oil refinery in nearly 50 years with investment from which Indian company?",
+            "options": [
+              "Tata Sons",
+              "Adani Group",
+              "Reliance Industries Limited",
+              "ONGC"
+            ],
+            "answer": 2,
+            "explanation": "US President Donald Trump announced the construction of America's first new oil refinery in 50 years, largely backed by investments from Mukesh Ambani-led Reliance Industries Limited (RIL). \n(y⃸⊏∰⃺⃠⊇ ⃺⊁ⅇⅺ⃴∳⃯ ⃬⊊⃳⊁⅃⃬ ⅺ⅀⃴ ⃳⊏ 50 ⃽⃿⊿ ⃸⊥ y⃸⊏∰⃺⃠⊁ ⃠⊇ ⃴℁⃻⊃ ⃳₿..."
+          },
+          {
+            "question": "<hich State Legislative Assembly unanimously passed a resolution in March 2026 seeking the inclusion of its official language in the Eighth Schedule of the Constitution of India?",
+            "options": [
+              "Nagaland",
+              "Mizoram",
+              "Sikkim",
+              "Meghalaya"
+            ],
+            "answer": 1,
+            "explanation": "The Mizoram Legislative Assembly passed a resolution seeking the inclusion of the 'Mizo' language in the Eighth Schedule of the Indian Constitution to grant it national recognition. (⏇⃸⃧⊊⃺⃸ ⏊⃽⃲⊁⃳ ℀⃷⊁ ⃳⊏ '⏇⃸ℋ⊊' ⃷⊁⃿⊁ ⃠⊊ ⃺⊁ⅇⅺ⊃⃹ ⃸⊁℻⃹⃯⊁ ↄ⃱⊁⃳ ⃠⃺⃳⊏ ⃠⊏ ⏇⃻⃆ ⃷..."
+          },
+          {
+            "question": "<here was India's first microalgae-based PureAir Tower deployed to address urban air pollution caused by vehicular emissions? (⃽⊁℁⃳⊩ ⃠⊏ ⃀ℷ℀⃧x⃳ ⃠⊏ ⃠⊁⃺⃮ ℁⊊⃳⊏ ⃽⊁⃻⊏ ⃾℁⃺⊃ ⃽⊁⃹∵ ↄ⃱∷⃿⃮ ⃠⊊ ⃱∷⃺ ⃠⃺⃳⊏ ⃠⊏ ⏇⃻⃆ ⃷⊁⃺⃯ ⃠⊁ ⃴℁⃻⊁ ⃸⊁₾ⅰ⊊⃆⅃⃢⊂-z⃲⊁∰⃺⃯ (microalgae-based) ℼ⃹⊊⃺⃆⃹⃺ ⃪⊁⃽⃺ ⃠℁⊁⊑ ⃯⊐⃳⊁⃯ ⏉⃠⃹⊁ ⃢⃹⊁ ⃰⊁?",
+            "options": [
+              "New Delhi",
+              "Mumbai",
+              "Kolkata",
+              "Chennai"
+            ],
+            "answer": 0,
+            "explanation": "India's first microalgae-based PureAir Tower was deployed along the Aerocity highway corridor in New Delhi to naturally combat vehicular emissions. (⃽⊁℁⃳⊩ ⃠⊏ ⃀ℷ℀⃧x⃳ ℀⊏ ⅈ⃽⊁⃷⊁⏊⃽⃠ ≞⃴ ℀⊏ ∳⃳⃴⃪⃳⊏ ⃠⊏ ⏇⃻⃆ ⃳₿ ∱⃱⅃⃻⊃ ⃸⊥ ⃆⃹⃺⊊⏇℀⃪⊃ ℁⊁₿⃽⊏ ⃠⊈∰⃺⃬⊊⃺ ⃠⊏ ℀⊁⃰ ⃷⊁⃺⃯ ⃠⊁ ⃴℁⃻..."
+          },
+          {
+            "question": "India dispatched 1,000 metric tons of rice as humanitarian assistance in March 2026 to help which country address food shortages caused by a severe drought?",
+            "options": [
+              "Somalia",
+              "Sudan",
+              "Kenya",
+              "Malawi"
+            ],
+            "answer": 3,
+            "explanation": "As a gesture of global solidarity, India sent 1,000 metric tons of rice to the African nation of Malawi, which has been grappling with food insecurity due to extreme drought conditions. (⃽⊐∴ⅆ⃽⃠ ⃆⃠⃧∵⃪⃯⊁ ⃠⊏ ↄ⃯⊂⃠ ⃠⊏ ≞⃴ ⃸⊥, ⃷⊁⃺⃯ ⃳⊏ yↅ⊇⃠⊇ ⃱⊏⃾ ⃸⃻⊁⃽⊂ ⃠⊊ 1,0..."
+          },
+          {
+            "question": "Indian Railways launched which mobile application on International <omen's Day (8 March 2026) to strengthen workplace safety for its women employees? \n(⃷⊁⃺⃯⊂⃹ ⃺⊏⃻⃽⊏ ⃳⊏ y⃴⃳⊂ ⃸∱℁⃻⊁ ⃠⃸x⃥⊁∰⃺⃹⊩ ⃠⊏ ⏇⃻⃆ ⃠⊁⃹xⅈ⃰⃻ ℀∵⃺ℂ⊁ ⃠⊊ ⃸⃧⃶∷⃯ ⃠⃺⃳⊏ ⃠⊏ ⏇⃻⃆ y⊒⃯⃺⊁xⅇⅺ⊃⃹ ⃸∱℁⃻⊁ ∱⃱⃽℀ (8 ⃸⊁⃥x 2026) ⃴⃺ ⃠⊋⃳ ℀⊁ ⃸⊊⃶⊁₾⃻ ⃆∴ℼ⃻⃠⊏⃾⃳ ⃻⊈℻⃥ ⏉⃠⃹⊁?",
+            "options": [
+              "SURAKSHA App",
+              "SHINE App",
+              "NARI App",
+              "RAKSHAK App"
+            ],
+            "answer": 1,
+            "explanation": "The SHINE App was officially launched by Indian Railways to provide a dedicated, secure platform for women employees to report and resolve workplace safety concerns. (SHINE ⃇⃴ ⃠⊊ z⏌⃲⃠⊁∰⃺⃠ ⃯⊋⃺ ⃴⃺ ⃷⊁⃺⃯⊂⃹ ⃺⊏⃻⃽⊏ ⋎⃽⊁⃺⊁ ⃸∱℁⃻⊁ ⃠⃸x⃥⊁∰⃺⃹⊩ ⃠⊊ ⃠⊁⃹xⅈ⃰⃻ ℀∵⃺ℂ⊁ ⏌⃥⊒..."
+          },
+          {
+            "question": "<hich Indian city was announced as the host for the Asia Cup Archery 2027 (Second Leg), marking the event's return to the country after 22 years? (⏉⃠℀ ⃷⊁⃺⃯⊂⃹ ⃾℁⃺ ⃠⊊ ⃆⏇⃾⃹⊁ ⃠⃴ ⃯⊂⃺⊒⃱⊁⃧⊂ 2027 (⃱∷℀⃺⊏ ⃥⃺⃮) ⃠⊏ ⃸⊏⃧⃶⊁⃳ ⃠⊏ ≞⃴ ⃸⊥ ⃣⊊⏊⃿⃯ ⏉⃠⃹⊁ ⃢⃹⊁, ⃧⊊ 22 ℀⊁⃻ ⃶⊁⃱ ⃱⊏⃾ ⃸⊥ ₾℀ z⃹⊊⃧⃳ ⃠⊇ ⃽⊁⃴℀⊂ ⃠⊁ ↄ⃯⊂⃠ ℁⊐?",
+            "options": [
+              "New Delhi",
+              "Pune",
+              "Bhubaneswar",
+              "Bengaluru"
+            ],
+            "answer": 0,
+            "explanation": "Organised by the Archery Association of India (AAI), the Asia Cup Archery (Second Leg) will be hosted in New Delhi in 2027, making a comeback since it was last held there in 2005. \n(⃷⊁⃺⃯⊂⃹ ⃯⊂⃺⊒⃱⊁⃧⊂ ℀⊒⃣ (AAI) ⋎⃽⊁⃺⊁ z⃹⊊∴⃯⃧, ⃆⏇⃾⃹⊁ ⃠⃴ ⃯⊂⃺⊒⃱⊁⃧⊂ (⃱∷℀⃺⊁ ⃥⃺⃮..."
+          }
+        ]
       },
       {
-        "id": "ca_w_sep_2026_w3",
-        "month": "September 2026",
+        "id": "ca_w_mar_2026_w3",
+        "month": "March 2026",
         "week": "Week 3",
-        "title": "September 2026 - Week 03 Defence & National Mock Test",
-        "date": "15 Sep - 21 Sep 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "March 2026 - Week 03 Current Affairs & Defence CBT Mock Test",
+        "date": "15 Mar - 21 Mar 2026",
+        "questionsCount": 15,
+        "durationMins": 15,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Special forces training exercises, border outpost modernization, and naval diplomacy port calls.",
+        "summary": "Comprehensive March 2026 Week 3 Current Affairs & Defence Mock Test. Contains 15 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Indian Special Forces complete desert warfare evaluation drills",
-          "INS Tabar completes goodwill port calls across European and African ports"
+          "Who became India's 94th Chess Grandmaster in March 2026, marking the first from the northe...",
+          "Prime Minister Narendra Modi and French President Emmanuel Macron virtually inaugurated In...",
+          "The government announced the development of 500 villages as 'Natural Farming Clusters' in ...",
+          "A 58-foot bronze statue of which prominent freedom fighter, known for his fast-unto-death ..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_sep_w3.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_mar_w3.pdf",
+        "mockQuestions": [
+          {
+            "question": "Who became India's 94th Chess Grandmaster in March 2026, marking the first from the northeastern region?",
+            "options": [
+              "Rameshbabu Praggnanandhaa",
+              "Mayank Chakraborty",
+              "Gukesh D",
+              "Anish Giri"
+            ],
+            "answer": 1,
+            "explanation": "Mayank Chakraborty from Assam achieved the title, making him India's 94th chess Grandmaster and the very first player from India's northeastern region to earn this prestigious title. (y , 94 µ)"
+          },
+          {
+            "question": "Prime Minister Narendra Modi and French President Emmanuel Macron virtually inaugurated India's first Final Assembly Line (FAL) for H125 helicopters in which state? ( xy H125 y (FAL) ?",
+            "options": [
+              "Gujarat",
+              "Maharashtra",
+              "Karnataka",
+              "Tamil Nadu"
+            ],
+            "answer": 2,
+            "explanation": "The historic H125 helicopter manufacturing facility (FAL) was inaugurated in the Vemagal Industrial Area in Kolar, Karnataka, setting up a high-tech manufacturing ecosystem. ( H125 x (FAL) x , x zµ)"
+          },
+          {
+            "question": "The government announced the development of 500 villages as 'Natural Farming Clusters' in which state to promote chemical-free agriculture?",
+            "options": [
+              "Madhya Pradesh",
+              "Rajasthan",
+              "Gujarat",
+              "Punjab"
+            ],
+            "answer": 2,
+            "explanation": "The Gujarat Government announced plans to develop 500 villages as Natural Farming Clusters to enhance the availability of safe, nutritious, and chemical-free food. ( , – 500 µ)"
+          },
+          {
+            "question": "A 58-foot bronze statue of which prominent freedom fighter, known for his fast-unto-death for the creation of Andhra Pradesh, was unveiled in Amaravati in March 2026?",
+            "options": [
+              "Tanguturi Prakasam",
+              "Potti Sriramulu",
+              "Alluri Sitarama Raju",
+              "Pingali Venkayya"
+            ],
+            "answer": 1,
+            "explanation": "A majestic 58-foot bronze statue of Amarajeevi Potti Sriramulu was unveiled in Amaravati to honor his supreme sacrifice for the linguistic reorganization of states. ( x y y 58 y µ)"
+          },
+          {
+            "question": "SEBI issued a new circular in March 2026 permitting which financial institutions to engage in intra-day borrowing for the first time? (SEBI x 2026 - (intra-day borrowing) y ?",
+            "options": [
+              "Microfinance Institutions",
+              "Regional Rural Banks",
+              "Mutual Funds",
+              "Insurance Companies"
+            ],
+            "answer": 2,
+            "explanation": "The Securities and Exchange Board of India (SEBI) permitted the mutual fund industry to engage in intra-day borrowing to effectively manage liquidity. ( x (SEBI) y - y µ)"
+          },
+          {
+            "question": "Which Indian ministry unveiled the 'National AI-in-Healthcare Strategy and Data Platform' at the India AI Summit in New Delhi?",
+            "options": [
+              "Ministry of Science & Technology",
+              "Ministry of Electronics and IT",
+              "Ministry of Health and Family Welfare",
+              "Ministry of Ayush"
+            ],
+            "answer": 2,
+            "explanation": "Union Health Minister Jagat Prakash Nadda launched two major AI-health initiatives to establish a competitive health AI ecosystem across the country. ( z z- µ)"
+          },
+          {
+            "question": "The Indian Government has targeted to eliminate Lymphatic Filariasis by which year, well ahead of the global SDG target? ( SDG x () ?",
+            "options": [
+              "2026",
+              "2027",
+              "2028",
+              "2030"
+            ],
+            "answer": 1,
+            "explanation": "India aims to eliminate Lymphatic Filariasis by 2027, three years ahead of the global SDG 2030 target, adopting a unified annual Mass Drug Administration strategy. \n( 2027 , SDG 2030 µ)"
+          },
+          {
+            "question": "The National Highways Authority of India (NHAI) announced plans to develop at least three 'pollinator corridors' across the country in 2026–27 to support which species? ( x (NHAI) x 2026-27 ' ' (pollinator corridors) ?",
+            "options": [
+              "Butterflies",
+              "Bees",
+              "Birds",
+              "Bats"
+            ],
+            "answer": 1,
+            "explanation": "NHAI plans to plant around 40 lakh trees with about 60% dedicated to the 'Bee Corridor' initiative, aligning highway development with ecological conservation. (NHAI 40 , 60% ' ' ( ) x µ)"
+          },
+          {
+            "question": "Who was honored as the 'Best Woman Cricketer' at the BCCI's 'Naman Awards 2026' in New Delhi?",
+            "options": [
+              "Smriti Mandhana",
+              "Harmanpreet Kaur",
+              "Shafali Verma",
+              "Deepti Sharma"
+            ],
+            "answer": 2,
+            "explanation": "Shafali Verma was honored as the Best Woman Cricketer in senior domestic one-day competitions at the Naman Awards. ( x yx x µ)"
+          },
+          {
+            "question": "Former General Secretary of the All India Football Federation (AIFF), who passed away in March 2026 at the age of 66, was: (y (AIFF) x , x 2026 66 x z , ?",
+            "options": [
+              "Kushal Das",
+              "Praful Patel",
+              "Subrata Dutta",
+              "Shaji Prabhakaran"
+            ],
+            "answer": 0,
+            "explanation": "Kushal Das, the former General Secretary of the AIFF who served the organization for several years, passed away at 66. (AIFF x 66 x z , µ)"
+          },
+          {
+            "question": "Which Sikkimese film received significant recognition at major European film festivals in March 2026?",
+            "options": [
+              "Village Rockstars",
+              "Shape of Momo",
+              "Pahuna",
+              "The Red Phalarope"
+            ],
+            "answer": 1,
+            "explanation": "The Sikkimese film Shape of Momo garnered international acclaim and recognition at several European film festivals. ( y µ)"
+          },
+          {
+            "question": "According to a report by the Government of India in March 2026, the country's service exports exceeded what amount during the April-to-January period of the current financial year?",
+            "options": [
+              "US$ 250 billion",
+              "US$ 300 billion",
+              "US$ 348 billion",
+              "US$ 400 billion"
+            ],
+            "answer": 2,
+            "explanation": "Propelled by business and consulting services, India's service exports exceeded a massive US$ 348 billion in the initial 10-month period. ( x , x z 10 y 348 y µ)"
+          },
+          {
+            "question": "To facilitate transparent urban governance and digitize land mapping, which state/UT recently announced the launch of the Bhu-Aadhaar initiative? ( , / -z (Bhu-Aadhaar) ?",
+            "options": [
+              "Maharashtra",
+              "Haryana",
+              "New Delhi",
+              "Karnataka"
+            ],
+            "answer": 2,
+            "explanation": "The Delhi administration announced the launch of the Bhu-Aadhaar initiative to modernize and streamline land mapping and property identification. ( z -z µ)"
+          },
+          {
+            "question": "In March 2026, the Election Commission of India announced by-elections for how many assembly seats across six states?",
+            "options": [
+              "Five",
+              "Eight",
+              "Ten",
+              "Twelve"
+            ],
+            "answer": 1,
+            "explanation": "The ECI announced by-elections for eight assembly seats across six different states to fill vacant legislative positions. ( z y-y z µ)"
+          },
+          {
+            "question": "Which cricketer was awarded the prestigious 'Lala Amarnath Award' during the BCCI Naman Awards 2026?",
+            "options": [
+              "Ayush Mhatre",
+              "Harsh Dubey",
+              "±ashasvi Jaiswal",
+              "Sarfaraz Khan"
+            ],
+            "answer": 0,
+            "explanation": "Ayush Mhatre was presented with the Lala Amarnath Award for his brilliant performance in domestic cricket, while Harsh Dubey won the Best All-rounder for the Ranji Trophy. (z x y µ)"
+          }
+        ]
       },
       {
-        "id": "ca_w_sep_2026_w4",
-        "month": "September 2026",
+        "id": "ca_w_mar_2026_w4",
+        "month": "March 2026",
         "week": "Week 4",
-        "title": "September 2026 - Week 04 Defence & National Mock Test",
-        "date": "22 Sep - 30 Sep 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "March 2026 - Week 04 Current Affairs & Defence CBT Mock Test",
+        "date": "22 Mar - 31 Mar 2026",
+        "questionsCount": 15,
+        "durationMins": 15,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Monthly wrap-up, national security council directives, and tri-service integration milestones.",
+        "summary": "Comprehensive March 2026 Week 4 Current Affairs & Defence Mock Test. Contains 15 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "National Security Council reviews cyber resilience of strategic defence installations",
-          "Comprehensive September revision mock questions for Defence CBT exams"
+          "Which team won the title of the Women's Premier League (WPL) 2026 held in March 2026< (x 2...",
+          "World Water Day is observed globally every year on which date< ( <)...",
+          "The joint military exercise 'LAMITIVE-2026' was conducted between the Indian Army and the ...",
+          "What was the theme of World Tuberculosis (TB) Day observed on March 24, 2026< (24 x, 2026 ..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_sep_w4.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_mar_w4.pdf",
+        "mockQuestions": [
+          {
+            "question": "Which team won the title of the Women's Premier League (WPL) 2026 held in March 2026< (x 2026 z (WPL) 2026 <)",
+            "options": [
+              "Mumbai Indians",
+              "Delhi Capitals",
+              "Royal Challengers Bangalore",
+              "UP Warriorz"
+            ],
+            "answer": 2,
+            "explanation": "Royal Challengers Bangalore (RCB) secured the WPL 2026 championship title by putting up a stellar all-round performance in the final match. ( x (RCB) x WPL 2026 y )"
+          },
+          {
+            "question": "World Water Day is observed globally every year on which date< ( <)",
+            "options": [
+              "20 March",
+              "21 March",
+              "22 March",
+              "24 March"
+            ],
+            "answer": 2,
+            "explanation": "World Water Day is observed on 22nd March to highlight the importance of freshwater and advocate for the sustainable management of freshwater resources."
+          },
+          {
+            "question": "The joint military exercise 'LAMITIVE-2026' was conducted between the Indian Army and the defence forces of which country< ( y '-2026' (LAMITIVE-2026) z <)",
+            "options": [
+              "Maldives",
+              "Seychelles",
+              "Mauritius",
+              "Sri Lanka"
+            ],
+            "answer": 1,
+            "explanation": "Exercise LAMITIVE is a biennial joint military exercise between the Indian Army and the Seychelles Defence Forces aimed at enhancing interoperability in sub-conventional operations. (y x y - (sub-conventional) y y- )"
+          },
+          {
+            "question": "What was the theme of World Tuberculosis (TB) Day observed on March 24, 2026< (24 x, 2026 () <)",
+            "options": [
+              "Time to End TB!",
+              "Ves! We can end TB!",
+              "Invest to End TB. Save Lives.",
+              "Uniting the World Against TB"
+            ],
+            "answer": 1,
+            "explanation": "This day is observed to raise public awareness about the devastating health, social, and economic consequences of TB. The theme conveys a message of hope and high-level commitment. ( , zx z )"
+          },
+          {
+            "question": "Where was the 1st BRICS Employment Working Group (EWG) meeting under India's 2026 presidency held< ( 2026 y x (EWG) z <)",
+            "options": [
+              "New Delhi",
+              "Jaipur",
+              "Varanasi",
+              "Chennai"
+            ],
+            "answer": 1,
+            "explanation": "Under India's BRICS chairmanship for 2026, the first EWG meeting took place in Jaipur, Rajasthan, focusing on global labor market challenges and social security. (2026 y , EWG , , )"
+          },
+          {
+            "question": "What was India's rank in the World Happiness Report 2026 published by the UN Sustainable Development Solutions Network< ( x x 2026 <)",
+            "options": [
+              "112",
+              "120",
+              "126",
+              "132"
+            ],
+            "answer": 2,
+            "explanation": "India was ranked 126th in the World Happiness Report 2026, while Finland retained its position as the happiest country in the world for another consecutive year."
+          },
+          {
+            "question": "Which Indian airport was recognized as the 'Best Airport in the Asia-Pacific Region' (over 40 million passengers category) by the Airports Council International (ACI) in March 2026< (x 2026 x (ACI) y '- x y' (40 y ) <)",
+            "options": [
+              "Kempegowda International Airport, Bengaluru",
+              "Chhatrapati Shivaji Maharaj International Airport, Mumbai",
+              "Rajiv Gandhi International Airport, Hyderabad",
+              "Indira Gandhi International Airport, Delhi"
+            ],
+            "answer": 3,
+            "explanation": "Delhi's Indira Gandhi International (IGI) Airport won this prestigious ACI Airport Service Quality (ASQ) award for its outstanding customer experience and operational efficiency. ( yx (IGI) y y y ACI x x (ASQ) )"
+          },
+          {
+            "question": "The 'Earth Hour' 2026, a global environmental initiative by the World Wide Fund for Nature (WWF), was observed on which date< \n(x (WWF) x 'yx z' 2026 <)",
+            "options": [
+              "21 March",
+              "25 March",
+              "28 March",
+              "31 March"
+            ],
+            "answer": 2,
+            "explanation": "Earth Hour is traditionally observed on the last Saturday of March. In 2026, it fell on March 28, where people globally switched off non-essential lights for one hour at 8:30 PM. (yx z x y 2026 , 28 x , 8:30 - )"
+          },
+          {
+            "question": "Which public sector enterprise commissioned India's largest floating solar power project in Madhya Pradesh in late March 2026< (x 2026 y x x (floating solar power project) <)",
+            "options": [
+              "ONGC",
+              "NHPC",
+              "NTPC Limited",
+              "Power Grid Corporation"
+            ],
+            "answer": 2,
+            "explanation": "NTPC Limited successfully commissioned a massive floating solar photovoltaic (PV) project on a reservoir in Madhya Pradesh to boost the country's renewable energy capacity. \n( x (PV) x )"
+          },
+          {
+            "question": "Who was appointed as the new Director General of the National Investigation Agency (NIA) in March 2026< (x 2026 (NIA) <)",
+            "options": [
+              "Sadanand Date",
+              "Dinkar Gupta",
+              "Tapan Deka",
+              "Ravi Sinha"
+            ],
+            "answer": 0,
+            "explanation": "Senior IPS officer Sadanand Date took over the helm of the country's premier anti-terror probe agency, NIA. ( z y z NIA )"
+          },
+          {
+            "question": "The prestigious 'Abel Prize', announced in March 2026, is considered the highest international award in which field< (x 2026 ' ' y <)",
+            "options": [
+              "Architecture",
+              "Mathematics",
+              "Physics",
+              "Literature"
+            ],
+            "answer": 1,
+            "explanation": "Often described as the Nobel Prize of Mathematics, the Abel Prize is awarded annually by the King of Norway to outstanding mathematicians."
+          },
+          {
+            "question": "Which state's traditional 'Majuli Mask' making and 'Majuli Manuscript Painting' received the Geographical Indication (GI) tag in March 2026< (x 2026 ' ' () x ' ' (GI) z<)",
+            "options": [
+              "Manipur",
+              "West Bengal",
+              "Assam",
+              "Odisha"
+            ],
+            "answer": 2,
+            "explanation": "Deeply rooted in the neo-Vaishnavite culture of the river island of Majuli in Assam, these unique traditional arts were granted GI tags to protect their authenticity. (y - , y z )"
+          },
+          {
+            "question": "'PARAM Shakti-AI', recently commissioned in Pune, is India's latest and fastest indigenous: ( ' -z' (PARAM Shakti-AI), _____ :)",
+            "options": [
+              "Nuclear Reactor",
+              "AI Supercomputer",
+              "Earth Observation Satellite",
+              "Unmanned Combat Drone"
+            ],
+            "answer": 1,
+            "explanation": "Commissioned at C-DAC Pune, it is India's fastest artificial intelligence supercomputer designed to accelerate domestic AI research and large language model development. (C-DAC , zx z y (LLM) )"
+          },
+          {
+            "question": "The Indian Space Research Organisation (ISRO) successfully conducted the landing experiment of its Reusable Launch Vehicle (RLV) named: ( y y () y : (Reusable Launch Vehicle) x <)",
+            "options": [
+              "PUSHPAK",
+              "VAVAN",
+              "GAGAN",
+              "TRISHUL"
+            ],
+            "answer": 0,
+            "explanation": "ISRO achieved a major milestone by successfully conducting the autonomous landing mission of its RLV 'Pushpak' at the Aeronautical Test Range in Chitradurga."
+          },
+          {
+            "question": "World Theatre Day is celebrated worldwide on which date to highlight the importance of theatre arts< ( <)",
+            "options": [
+              "24 March",
+              "25 March",
+              "27 March",
+              "29 March"
+            ],
+            "answer": 2,
+            "explanation": "Initiated by the International Theatre Institute (ITI), World Theatre Day is celebrated annually on March 27 to promote the art form across the world. (yx (ITI) , x 27 x )"
+          }
+        ]
       },
       {
-        "id": "ca_w_aug_2026_w1",
-        "month": "August 2026",
+        "id": "ca_w_apr_2026_w1",
+        "month": "April 2026",
         "week": "Week 1",
-        "title": "August 2026 - Week 01 Defence & National Mock Test",
-        "date": "01 Aug - 07 Aug 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "April 2026 - Week 01 Current Affairs & Defence CBT Mock Test",
+        "date": "01 Apr - 07 Apr 2026",
+        "questionsCount": 15,
+        "durationMins": 15,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Independence Day defence preparations, gallantry awards announcements, and border security vigilance.",
+        "summary": "Comprehensive April 2026 Week 1 Current Affairs & Defence Mock Test. Contains 15 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Ministry of Defence announces gallantry award citations for Armed Forces personnel",
-          "Advanced air defence cover deployed for national security celebrations"
+          "On April 1, 2026, which massive nationwide exercise began in India involving over 3 millio...",
+          "Which state's legislative assembly passed a bill in early April 2026 to provide statutory ...",
+          "In early April 2026, the Supreme Court ruled that the Governor cannot arbitrarily reject d...",
+          "Which prominent politician resigned from the post of Chief Minister of Bihar in April 2026..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_aug_w1.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_apr_w1.pdf",
+        "mockQuestions": [
+          {
+            "question": "On April 1, 2026, which massive nationwide exercise began in India involving over 3 million officials?",
+            "options": [
+              "Swachh Bharat Mission 2.0",
+              "Population Census 2026",
+              "Digital India Survey",
+              "PM Gati Shakti Assessment"
+            ],
+            "answer": 1,
+            "explanation": "The decadal Population Census 2026 officially began on April 1. It is conducted by the Registrar General of India to collect vital data on population, literacy, employment, and housing [2i. ( 2026 z 1 y i , , z x z i)"
+          },
+          {
+            "question": "Which state's legislative assembly passed a bill in early April 2026 to provide statutory backing to Amaravati as its capital? ( y 2026 z y y x (statutory backing) ?",
+            "options": [
+              "Telangana",
+              "Karnataka",
+              "Andhra Pradesh",
+              "Tamil Nadu"
+            ],
+            "answer": 2,
+            "explanation": "The Andhra Pradesh Reorganisation (Amendment) Bill, 2026, was introduced to grant formal legal status and statutory backing to Amaravati as the singular capital city [1, 2i. (y x x z x () , 2026 i)"
+          },
+          {
+            "question": "In early April 2026, the Supreme Court ruled that the Governor cannot arbitrarily reject decisions made by the state cabinet. This ruling was primarily related to which state?",
+            "options": [
+              "Kerala",
+              "Tamil Nadu",
+              "West Bengal",
+              "Punjab"
+            ],
+            "answer": 1,
+            "explanation": "The Supreme Court's ruling in the context of Tamil Nadu reinforced the constitutional principle that the Governor must act on the advice of the Council of Ministers and cannot reject cabinet decisions arbitrarily [2i. ( x x x i)"
+          },
+          {
+            "question": "Which prominent politician resigned from the post of Chief Minister of Bihar in April 2026?",
+            "options": [
+              "Tejashwi Yadav",
+              "Nitish Kumar",
+              "Jitan Ram Manjhi",
+              "Sushil Kumar Modi"
+            ],
+            "answer": 1,
+            "explanation": "In April 2026, Nitish Kumar unexpectedly resigned as the Chief Minister of Bihar, marking a significant political development and leadership change in the state [2i. (y 2026 , y , x x i)"
+          },
+          {
+            "question": "The 'Jan Vishwas (Amendment of Provisions) Bill, 2026', recently in the news, primarily focuses on: ( ' ( ) , 2026' ?",
+            "options": [
+              "Increasing criminal penalties for cybercrimes",
+              "Decriminalising minor offences and reducing compliance burden",
+              "Nationalizing MSMEs",
+              "Expanding the scope of GST"
+            ],
+            "answer": 1,
+            "explanation": "The Bill shifts minor technical or procedural offences from criminal penalties (jail time) to civil penalties (fines), heavily promoting the 'ease of doing business' in India [1i. \n( y z () (x) , z (ease of doing business) i)"
+          },
+          {
+            "question": "Under which act did the Reserve Bank of India (RBI) cancel the banking license of Paytm Payments Bank Limited? ( x (RBI) y ?",
+            "options": [
+              "Reserve Bank of India Act, 1934",
+              "Banking Regulation Act, 1949",
+              "Payment and Settlement Systems Act, 2007",
+              "Companies Act, 2013"
+            ],
+            "answer": 1,
+            "explanation": "The RBI canceled the banking license of Paytm Payments Bank under the Banking Regulation Act, 1949, citing persistent non-compliance and continued material supervisory concerns [4, 5i. (RBI -y x y, 1949 i)"
+          },
+          {
+            "question": "What is the primary objective of the newly introduced 'Nyaya Setu' initiative? (-x ' ' (Nyaya Setu) ?",
+            "options": [
+              "To connect all High Courts digitally",
+              "To expedite corporate insolvency resolution",
+              "To provide easy and multilingual access to legal information using AI",
+              "To establish fast-track courts for women"
+            ],
+            "answer": 2,
+            "explanation": "Nyaya Setu aims to democratize access to justice by removing language and literacy barriers for the common citizen using artificial intelligence and voice-first technology [1i. ( zx -x z i)"
+          },
+          {
+            "question": "Viktor Axelsen, who announced his retirement in April 2026, was a celebrated athlete in which sport?",
+            "options": [
+              "Tennis",
+              "Badminton",
+              "Table Tennis",
+              "Squash"
+            ],
+            "answer": 1,
+            "explanation": "Danish badminton star and two-time Olympic champion Viktor Axelsen announced his retirement in April 2026 due to persistent injuries, marking the end of a highly successful era [2i. (x y 2026 y i)"
+          },
+          {
+            "question": "In April 2026, the Prime Minister of which European country, Pedro Sánchez, took a strong anti-war stance regarding tensions involving Iran?",
+            "options": [
+              "France",
+              "Italy",
+              "Germany",
+              "Spain"
+            ],
+            "answer": 3,
+            "explanation": "Spain's Prime Minister Pedro Sánchez took a strong anti-war stance, emphasizing diplomacy and peaceful resolution amid escalating tensions involving Iran [2i. ( x - yi)"
+          },
+          {
+            "question": "The IRDAI mandated that all insurance companies must present their financial statements according to the Indian Accounting Standards (Ind AS) starting from which date? (IRDAI yx (Ind AS) y y ?",
+            "options": [
+              "April 1, 2026",
+              "December 31, 2026",
+              "April 1, 2027",
+              "January 1, 2027"
+            ],
+            "answer": 0,
+            "explanation": "The Insurance Regulatory and Development Authority of India (IRDAI) mandated transitioning to Ind AS starting \nApril 1, 2026, to align local insurers with global accounting transparency standards [2, 3i. ( (IRDAI) x x 1 y 2026 Ind AS yx i)"
+          },
+          {
+            "question": "Which country resumed its crude oil exports to Asian markets in early April 2026, reflecting changing global energy dynamics?",
+            "options": [
+              "Iran",
+              "Venezuela",
+              "Russia",
+              "Libya"
+            ],
+            "answer": 1,
+            "explanation": "Venezuela resumed its crude oil exports to Asia in early April 2026, marking a significant move in global energy trade and geopolitics [2i. ( y 2026 z y x , x x i)"
+          },
+          {
+            "question": "What was the primary purpose of the 'IONS IMEX TTX 2026' exercise conducted by the Indian Navy?",
+            "options": [
+              "To test nuclear-powered submarines",
+              "To enhance maritime cooperation among countries in the Indian Ocean Region",
+              "To conduct anti-piracy operations in the Red Sea",
+              "To test indigenous anti-ship missiles"
+            ],
+            "answer": 1,
+            "explanation": "The Indian Ocean Naval Symposium (IONS) conducted this exercise to enhance maritime security and cooperation among member states across the Indian Ocean Region [1i. ( (IONS) y z i)"
+          },
+          {
+            "question": "In early April 2026, the Reserve Bank of India (RBI) extended the maximum export credit tenure to how many days to ease liquidity pressure due to global trade disruptions? (y 2026 z , x (RBI) y x y (export credit tenure) ?",
+            "options": [
+              "180 days",
+              "270 days",
+              "360 days",
+              "450 days"
+            ],
+            "answer": 3,
+            "explanation": "To support exporters facing logistical delays and supply chain issues, the RBI provided relief by extending the maximum export credit tenure up to 450 days [1i. ( zx x x , RBI y x y 450 i)"
+          },
+          {
+            "question": "The Survey Vessel 'Sanshodhak', recently in the news, is primarily used for: ( '' (Sanshodhak) ?",
+            "options": [
+              "Anti-submarine warfare",
+              "Launching satellite launch vehicles",
+              "Hydrographic and oceanographic surveys",
+              "Deep-sea mining of polymetallic nodules"
+            ],
+            "answer": 2,
+            "explanation": "'Sanshodhak' is a specialized survey vessel used by the Indian Navy for mapping the seabed, studying ocean data, and supporting safe navigation [1i. ( , y x i)"
+          },
+          {
+            "question": "In early April 2026, which firm received SEBI approval to commence Portfolio Management Services (PMS)? (y 2026 z , x x (PMS) SEBI ?",
+            "options": [
+              "Bajaj Alternate Investment Management",
+              "ICICI Prudential AMC",
+              "Tata Capital Wealth",
+              "Zerodha Asset Management"
+            ],
+            "answer": 0,
+            "explanation": "Bajaj Alternate Investment Management received the regulatory nod from the Securities and Exchange Board of India (SEBI) to provide PMS services to investors [2i. ( y PMS x (SEBI) i)"
+          }
+        ]
       },
       {
-        "id": "ca_w_aug_2026_w2",
-        "month": "August 2026",
+        "id": "ca_w_apr_2026_w2",
+        "month": "April 2026",
         "week": "Week 2",
-        "title": "August 2026 - Week 02 Defence & National Mock Test",
-        "date": "08 Aug - 14 Aug 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "April 2026 - Week 02 Current Affairs & Defence CBT Mock Test",
+        "date": "08 Apr - 14 Apr 2026",
+        "questionsCount": 15,
+        "durationMins": 15,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Indigenous ammunition manufacturing boosts, joint army exercise 'Mitra Shakti', and naval patrol operations.",
+        "summary": "Comprehensive April 2026 Week 2 Current Affairs & Defence Mock Test. Contains 15 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Indian Army & Sri Lankan Army conduct joint exercise Mitra Shakti",
-          "Private defence manufacturing lines commissioned for 155mm artillery shells"
+          "In April 2026, India's first indigenously developed 500 Megawatt electric (MWe) Prototype ...",
+          "Which became the first Indian Fast-Moving Consumer Goods (FMCG) company to cross an annual...",
+          "Which Regional Passport Office (RPO) became the first in India to launch Braille and Sign ...",
+          "In April 2026, which bank became the first Urban Cooperative Bank (UCB) in India to cross ..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_aug_w2.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_apr_w2.pdf",
+        "mockQuestions": [
+          {
+            "question": "In April 2026, India's first indigenously developed 500 Megawatt electric (MWe) Prototype Fast Breeder Reactor (PFBR) achieved criticality. Where is it located? (y⃡⇭ 2026 ∂, ⇞ ⇞ ⇞ ⇬⇟ ↻ ⇬ ⌧⌤ 500 ⇬⇞⇞ ⇬↑⃗ (MWe) ⃡⇧⇧⇞ ⇞ ⃣⇟ ↍ (PFBR) ⌦⃍↎⌤⇠ (criticality) →⇮ ⇞ ⇞⇮ ↑ ⇭?",
+            "options": [
+              "Tarapur, Maharashtra",
+              "Kalpakkam, Tamil Nadu",
+              "Rawatbhata, Rajasthan",
+              "Kaiga, Karnataka"
+            ],
+            "answer": 1,
+            "explanation": "The PFBR at Kalpakkam achieved criticality (a controlled nuclear fission chain reaction), marking a major milestone for the second stage of India's nuclear power program. ( ∂ PFBR ⇬ ⌦⃍↎⌤⇠ ( ←⇯↏⃜ ⇞→ ⌧ü⇯ ⃫↖⇯ü⇞ ⃡←⌦⃍⇞) ⇞⌤ ⇤, ⇧ ⇞ ⇬ ⇞→ ⇞x ⇞x⃍ ⇬ ↔⇬ ⇬ ⌤ ⃡→ü..."
+          },
+          {
+            "question": "Which became the first Indian Fast-Moving Consumer Goods (FMCG) company to cross an annual turnover of ⴕ1 lakh crore (ⴕ1 Trillion) in April 2026? (y⃡⇭ 2026 ∂ ⴕ1 ⇞ü ⇧ (ⴕ1 ↎⃗⌤) ⇞ ⇞⌧x ⇞⇧⇞ ⇞ ⇬ ⇞⇠ ⇠ ⇞⇟ ⇞-↔⌧⇯ ⇯↔ →∩ (FMCG) ⇯⇟ ⇨ ⇟ ?",
+            "options": [
+              "ITC Limited",
+              "Britannia Industries",
+              "Parle Products",
+              "Anand Milk Union Limited"
+            ],
+            "answer": 3,
+            "explanation": "AMUL became the first company in India's FMCG sector to achieve an annual turnover of over ⴕ1 lakh crore in FY26. (y↔ FY26 ∂ ⦴1 ⇞ü ⇧ ⇬ y〈 ⇞ ⇞⌧x ⇞⇧⇞ ⇞⌤ ⇬ ⇞⇠ ⇞ ⇬ FMCG ⇬⃜ ⇤ ⇠ ⇯⇟ ⇭)"
+          },
+          {
+            "question": "Which Regional Passport Office (RPO) became the first in India to launch Braille and Sign Language services in April 2026? (y⃡⇭ 2026 ∂ ⃣⇬ ⇞⇯⇬← ⇞⇞ (Sign Language) ⇬⇞⇯ →↻ ⇬ ⇞⇞ ⇞ ⇞ ⇞ ⇬⃜⇟ ⇞⇧x ⇞⇞x (RPO) ⇨ ⇞ ⇞?",
+            "options": [
+              "RPO New Delhi",
+              "RPO Bhopal",
+              "RPO Mumbai",
+              "RPO Chennai"
+            ],
+            "answer": 1,
+            "explanation": "The Regional Passport Office in Bhopal, Madhya Pradesh, introduced these inclusive services to assist visually and hearing-impaired applicants. (⇧⇞, ⃡⇬ ∂ ⇬⃜⇟ ⇞⇧x ⇞⇞x ⇬ ↷↑ ⃫-⇞〈 z⇬∆ ⇤ ⇞⇞ ⇬ ⌤ ⇞⇬⇟ ⇬⇞⇯ ⇤ →↺z ⇤)"
+          },
+          {
+            "question": "In April 2026, which bank became the first Urban Cooperative Bank (UCB) in India to cross a total business of ⴕ1 lakh crore? (y⃡⇭ 2026 ∂, ⇨ ⇞ ∄ ⴕ1 ⇞ü ⇧ ⇞ → ⇞⇧⇞ ⇞ ⇬ ⇞⇞ ⇞ ⇞ ⇞ ⇠ ⇞⇠ ∄ (UCB) ⇞?",
+            "options": [
+              "Saraswat Cooperative Bank",
+              "Cosmos Cooperative Bank",
+              "Shamrao Vithal Cooperative Bank",
+              "Abhyudaya Cooperative Bank"
+            ],
+            "answer": 0,
+            "explanation": "Headquartered in Mumbai, Saraswat Cooperative Bank achieved the historic milestone of crossing ⴕ1 lakh crore in total business. (→⇯ ∂ →⇞ ⇞⇬ ⇞ ⇞⇠ ∄ ⇬ → ⇞⇧⇞ ∂ ⦴1 ⇞ü ⇧ ⇧ ⇞ ⇬ ⇞ ←⇞⌤ ⇟ ⇞ ⇞⌤ ⌦⇞)"
+          },
+          {
+            "question": "The Ministry of New and Renewable Energy (MNRE) announced that India achieved its highest-ever annual wind energy capacity addition of 6.05 GW in FY25-26. What is India's target for non-fossil fuel capacity by 2030? (⇟ ⇟⇟ ⇞x ⇯⃜⇞ (MNRE) ⇬ ⇧⇞ ⇤ ⌦ ⇞ ⇬ FY25-26 ∂ 6.05 GW ⇤ y⇟ y ⇤ ⇬ y〈 ⇞⌧x ⇞x ⇞ ↖∫〈 ⇞⌤ ⇤ ⇭ 2030 ⇞ ⇞ ⇭-⇟⇞ ∀ ⇞ ⇞ ⇞ ⇭?",
+            "options": [
+              "300 GW",
+              "400 GW",
+              "450 GW",
+              "500 GW"
+            ],
+            "answer": 3,
+            "explanation": "With total installed wind power capacity crossing 56 GW, India is strengthening its path to achieve the target of 500 GW non-fossil fuel capacity by 2030. (→ ⇞⌧ ⇞x ⇞ 56 GW ⇧ ⇞ ⇬ ⇬ ⇞, ⇞ 2030 500 GW ⇭-⇟⇞ ∀ ⇞ ⇬ ⇧ ⃡⇞ ⇬ ⇬ y⇬ ⇞⇬ ⇧ ↔ ⇞ ⇭)"
+          },
+          {
+            "question": "The Indian Army recently unveiled a Technology Roadmap focused on which of the following areas in New Delhi? (⇞⇟ ⇬⇞ ⇬ ⇞ ⇠ ∂ ↎⇠ ∂ ←⌤⌥ü ∂ ⇬ ⌦ ⇬⃜ ∂↎⃞ ⃡⇨∫⇧〈⇤ ⇧⇭ (Technology Roadmap) ⇞ y⇞ ⌦⇞?",
+            "options": [
+              "Autonomous Submarines",
+              "Unmanned Aerial Systems (UAS) & Loitering Munitions",
+              "Hypersonic Missiles",
+              "Cyber Warfare"
+            ],
+            "answer": 1,
+            "explanation": "The Indian Army released a roadmap to integrate advanced drones (UAS) and loitering munitions into its combat strategies. (⇞⇟ ⇬⇞ ⇬ ⃙⇧ (UAS) ⇧↍⇯ →← ⇧ y⇟ →∫ ⇟←∆ ∂ ⇤↖ ⇬ ⇬ ⌤ ⇧⇭ ⇞⇠ ⌦⇞)"
+          },
+          {
+            "question": "Dredging Corporation of India Limited (DCIL) signed a Memorandum of Understanding (MoU) with which neighboring country's port authority for a strategic alliance in shipbuilding and repair in April 2026? (⃙⇬↑⇯ ⇥⇻⇬ ⇯⌨⇞ ⌤⌤⇬ (DCIL) ⇬ y⃡⇭ 2026 ∂ ⇞ ←⇞x ∂ ⇟← ⇯ ⇬ ⌤ ⌦ ⇧⇟ ⇬ ⇬ ⇯⇞ ⃡⇞〈 ⇬ ⇞ ⇨⇞ ⇞ ⇞ ⌦?",
+            "options": [
+              "Maldives",
+              "Bangladesh",
+              "Sri Lanka",
+              "Myanmar"
+            ],
+            "answer": 2,
+            "explanation": "DCIL signed a strategic MoU with Sri Lanka's Colombo Dockyard to collaborate on ship repair and shipbuilding operations. \n(DCIL ⇬ ⇞ ⇤ ⇞ ←⇞x ⇞∜ ∂ ⇧ ⇬ ⇬ ⌤ ⃫⇟⇯⇞ ⇬ ⇧⇯⇧ ⇥⇞x ⇬ ⇞ ⇟← ⇨⇞ ⇞ ⇞ ⌦)"
+          },
+          {
+            "question": "The National Biodiversity Authority (NBA) recently notified 'Referral Centre Bhavasagara' as a specialized national facility dedicated to deep-sea biodiversity. It operates under which institution? (⇞⃗⇠ ⇭ ⌧⌧⇞ ⃡⇞〈 (NBA) ⇬ ⇞ ⇠ ∂ '⇬ ∂ ⇞' ⇧ ⇬ →⃞ ⇤ ⇭ ⌧⌧⇞ ⇬ ⌤ ⌧x ⌧⇬ ⇞⃗⇠ →⌧⇞ ⇬ ↻ ∂ y〈↔〈 ⌦⇞ ⇭ ⌦ ⇯⇞ ⇬ y⇯x ⇞x ⇞ ⇭?",
+            "options": [
+              "National Institute of Oceanography",
+              "Centre for Marine Living Resources and Ecology",
+              "INCOIS Hyderabad",
+              "NIOT Chennai"
+            ],
+            "answer": 1,
+            "explanation": "It is a specialized facility working under the Ministry of Earth Sciences, located at CMLRE in Kochi, Kerala. ( ↖⇟ ⌧⇞ ⇯⃜⇞ ⇬ ⇞ ⇬ ⇞⇠ ⌧⇬ →⌧⇞ ⇭, ⇧ ⇧↑, ⇬ ∂ CMLRE ∂ ↑ ⇭)"
+          },
+          {
+            "question": "Which state's famous traditional temple festival 'Thrissur Pooram' was recently in the news during April 2026?",
+            "options": [
+              "Tamil Nadu",
+              "Karnataka",
+              "Kerala",
+              "Andhra Pradesh"
+            ],
+            "answer": 2,
+            "explanation": "Thrissur Pooram is an annual Hindu temple festival held in Thrissur, Kerala. It was in the news recently regarding discussions on scaling down the festivities. (↏⃜↔ ↔ ↏⃜↔, ⇬ ∂ z⇧↑ ⇞⌧x ↎⇯↔ ⇯↎ ⇭ ⇧ ⇟⌤ ⇬ ⇤ ⇞x⇯ ⇬ ⇞ ⇞ ⇠ ∂ ü∆ ∂ ⇞)"
+          },
+          {
+            "question": "In April 2026, a new Doppler Weather Radar was commissioned at Mahabaleshwar to improve high-resolution weather monitoring. It uses which radar band?",
+            "options": [
+              "S-band",
+              "C-band",
+              "X-band",
+              "Ku-band"
+            ],
+            "answer": 2,
+            "explanation": "The Indian Institute of Tropical Meteorology (IITM) commissioned an X-band Doppler Weather Radar, which is known for high-resolution weather monitoring over shorter ranges. (⇞⇟ ↎⇯⇟ ⇨ ⌧⇞ ⇯⇞ (IITM) ⇬ X-∄ ⇥ ⇨ ⇞ ⇞↔ ⌦⇞, ⇧ ↔⇠ -↍⇥↔ ⇨ ←⇞⇟ ⇬ ⌤ ⇞⇞ ⇞⇞ ⇭)"
+          },
+          {
+            "question": "'Operation Global Hunt', recently seen in the news in April 2026, was conducted by the Narcotics Control Bureau (NCB) in \ncoordination with which country to secure the return of a major drug trafficker? (⇞ ⇠ ∂ y⃡⇭ 2026 ∂ ü∆ ∂ ⇞ '⇬ ⇧ ⇯', ⃡→ü ⃙ ⇤ ⇞⇟ →←↑ ⇬ ⇬ ⌤ ⇞⇧↎ ⇯⃗⇧ ↔⇧ (NCB) ∫⇞⇞ ⌦ ⇬ ⇬ ∂ ⇞⇞ ⇞ ⇞?",
+            "options": [
+              "UAE",
+              "Türkiye",
+              "Thailand",
+              "Colombia"
+            ],
+            "answer": 1,
+            "explanation": "The NCB secured the return of drug trafficker Mohammad Salim Dola from Türkiye under this operation, a major step against international narcotics networks. (NCB ⇬ ⇬ ⇬ →⌦x⇬ ⇬ ⃙ ⇧ ⇠ ⇧⇞ ⇤ ⇞⇟ →⌬ ⇤, ⇧ y⇯⇞⃗⇠ ⇟⇬ ⇞∜ ⇬ ⇬x ⇬ ⌥ü⇞ ⇞ ⇭)"
+          },
+          {
+            "question": "Which Asian country launched the first 'UNESCO Chair on Gender Inclusion and Skill Development' at the Symbiosis Skills and Professional University?",
+            "options": [
+              "Japan",
+              "Singapore",
+              "South Korea",
+              "India"
+            ],
+            "answer": 3,
+            "explanation": "The first UNESCO Chair in Asia for Gender Inclusion and Skill Development was inaugurated at the Symbiosis Skills and Professional University in Pune, India. (⌤⇯ ⇞⇬ ⇨ ⌧⇞ ⇬ ⌤ ⌤⇞ ∂ ⇠ ↔⇬⇧ ⇬ ⇞ ∫⇞ →⇬, ⇞ ∂ ⌤⇞⇧⌤ ↑ ⇯ ⃡⇧⇬ ↔←⌤x⇠ ∂ ⌦⇞ ⇞ ⇞)"
+          },
+          {
+            "question": "India successfully met its highest-ever peak electricity demand in April 2026. What was the approximate peak demand recorded? (⇞ ⇬ y⃡⇭ 2026 ∂ y⇟ y ⇤ ⇬ y〈 ⇟ ↏⇠ ⇤ ⇞⇯ (peak electricity demand) ⇧ ⇞↔x ↔⇞ ⌦⇞ x ⇤ y→⇞← ⇟ ⇞⇯ ⌦⇟ ⇟?",
+            "options": [
+              "200 GW",
+              "225 GW",
+              "256 GW",
+              "280 GW"
+            ],
+            "answer": 2,
+            "explanation": "Due to extreme heatwaves and rising industrial demand, India's power grid successfully met an unprecedented peak demand of approximately 256 GW. (⇟ ⇵ ⇟ ∫⇧〈 ⇞⇯ ⇬ ⇞, ⇞ ⇬ ⇞ 〈⃏ ⇬ 256 ⇟⇞⇥ (GW) ⇤ y↔↔x ⇟ ⇞⇯ ⇧ ⇞↔x ↔⇞ ⌦⇞)"
+          },
+          {
+            "question": "A synchronized population survey for the Nilgiri Tahr was recently conducted. This endangered species is primarily found in which region? (⇞ ⇠ ∂ ⇟〈↍ (Nilgiri Tahr) ⇬ ⌤ ⌤⇯⃍⇧⇞ ⇯⇞ ⇳ z⇧↑ ⌦⇞ ⇞ ⇞ →⃡⇞ ⃡⇞← → ↻ ⇬ ⌦ ⇬⃜ ∂ ⇞ ⇞⇟ ⇭?",
+            "options": [
+              "Eastern Himalayas",
+              "Western Ghats",
+              "Aravalli Range",
+              "Andaman and Nicobar Islands"
+            ],
+            "answer": 1,
+            "explanation": "The Nilgiri Tahr is the state animal of Tamil Nadu and is endemic to the high-altitude grassy hills of the Western Ghats. (⇟〈↍ ⌤⇞→ ⇞ ⇞⇤ → ⇭ ↑⇟ ⇞ ⇤ ⇯⇞ ⇞⇠ ⇞ ⇤ ⇞⌨∆ ⇤ ⇞← ⃡⇞← ⇭)"
+          },
+          {
+            "question": "New climate research suggests that constructing a dam across the Bering Strait could potentially stabilize ocean currents (AMOC). The Bering Strait is located between: ( ⇞→ y→⇯⇞ ⇬ ⇞ ⇞ ⇭ ⌦ ⇬↍⇯ ↻ (Bering Strait) ⇬ ⇞ ⇞⇯ ⇞⇬ ⇬ ⇯⇞⌧ ↻ ⇬ →⃞⇠ ⇞⇞⇯ (AMOC) ⇧ ↑ ⌦⇞ ⇞ ⇞ ⇭ ⇬↍⇯ ↻ ⌦⇬ ⇟ ↑ ⇭?",
+            "options": [
+              "Greenland and Iceland",
+              "Russia and Alaska",
+              "UK and France",
+              "Australia and New Zealand"
+            ],
+            "answer": 1,
+            "explanation": "The Bering Strait separates the continents of Asia (Russia) and North America (Alaska, USA) and connects the Pacific and Arctic oceans. (⇬↍⇯ ↻ ⌤⇞ (↻) Ⅰ⇠ y⇬↍⇞ (y⇞⇞, y⇬↍⇞) ⇞∫⇟∆ ⇧ y ⇞ ⇭ ⃡⇞⇯ ⇞ zx↎ ⇞⇞∆ ⇧ ⇧⇞ ⇭)"
+          }
+        ]
       },
       {
-        "id": "ca_w_aug_2026_w3",
-        "month": "August 2026",
+        "id": "ca_w_apr_2026_w3",
+        "month": "April 2026",
         "week": "Week 3",
-        "title": "August 2026 - Week 03 Defence & National Mock Test",
-        "date": "15 Aug - 21 Aug 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "April 2026 - Week 03 Current Affairs & Defence CBT Mock Test",
+        "date": "15 Apr - 21 Apr 2026",
+        "questionsCount": 15,
+        "durationMins": 15,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Aatmanirbhar Bharat defence milestone, LCA Tejas weapon integration tests, and maritime domain awareness.",
+        "summary": "Comprehensive April 2026 Week 3 Current Affairs & Defence Mock Test. Contains 15 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Tejas aircraft successfully fires indigenous Astra Beyond Visual Range (BVR) missile",
-          "Information Fusion Centre - Indian Ocean Region (IFC-IOR) tracks maritime traffic"
+          "In April 2026, which country emerged as the global leader in issuing Internationally Recog...",
+          "Who is the author of the book 'Tides of Time: Bharat's History through Murals in Parliamen...",
+          "Which Indian state signed a Letter of Intent (LoI) with SpaceX's Starlink to boost satelli...",
+          "The Reserve Bank of India (RBI) approved the acquisition of a 60\n stake in RBL Bank by whi..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_aug_w3.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_apr_w3.pdf",
+        "mockQuestions": [
+          {
+            "question": "In April 2026, which country emerged as the global leader in issuing Internationally Recognised Certificates of Compliance (IRCCs) under the Nagoya Protocol@ (yↀ⊌⃷ 2026 ⃴⊡, ⃯≽⃞⊆⃵≽ ↀ⊆⃦⊆⃜⊄⃷ (Nagoya Protocol) ⃜⊋ ⃫⃽⃫ y⊎⃫⃶⃶≽⅃ⅶ≿⃵ ⅄⃫⃶ ⃰⃶ ⃴≽ℷ⃵⃫≽ ↀ≽ℸ⃫ y⃯∱⃰≽⃷⃯ ↀ⃴≽⃪ ⃰ⅻ (IRCCs) ⃣≽⃶≿ ⃜⃶⃯⊋ ⃴⊡ ⃜⊇⃯ ⃼≽ ⃭⊋⃺ ⃹⊌∰⅂⃹⃜ ⃯⊋⃫≽ ⃲⃯⃜⃶ ₼⃳⃶≽@)",
+            "options": [
+              "Brazil",
+              "India",
+              "China",
+              "South Africa"
+            ],
+            "answer": 1,
+            "explanation": "India emerged as the global leader in issuing IRCCs, reflecting the effective implementation of its Access and Benefit-Sharing (ABS) framework to protect genetic resources and traditional knowledge [2]. (⃳≽⃶⃫ z⃯∱⃹⊎⏃⃺⃜ ⃼⊎⃼≽⃮⃯⊥ ⃇⃶ ⃰≽⃶⊎⃰∬⃶⃜ ⃿≽⃯ ⃜⊃ ⃶⃾≽ ⃜..."
+          },
+          {
+            "question": "Who is the author of the book 'Tides of Time: Bharat's History through Murals in Parliament', released by Vice President C.P. Radhakrishnan in April 2026@ (yↀ⊌⃷ 2026 ⃴⊡ ₼⃰⃶≽⅃ⅶ⃰∯⃫ ⃼≾.⃰≾. ⃶≽⃮≽⃜∵⅃⃪⃯ ⋊⃹≽⃶≽ ⏆⃹⃴⊆⏈⃫⃡ ⃰∱⅄⃫⃜ '⃦≽₺⋈⃼ ⃄⃱ ⃦≽₺⃴: ⃳≽⃶⃫ ⃜⊃ ∭⃽⅄ⅶ≿ ⅼ∳ ℼ⃵∳⃶ℿ⃼ ₺⃯ ⃰≽⏃⃷x⃵≽⃴⊡⃦' (Tides of Time: Bharat's History through Murals in Parliament) ⃜⊋ ⃷⊋⃝⃜ ⃜⊇⃯ ⃽⊣@)",
+            "options": [
+              "Shashi Tharoor",
+              "Sudha Murty",
+              "Vikram Sampath",
+              "Sanjeev Sanyal"
+            ],
+            "answer": 1,
+            "explanation": "Rajya Sabha MP and renowned author Sudha Murty wrote this book, which explores India's rich history as depicted through the murals in the Samvidhan Sadan (Old Parliament Building) [2]. (⃶≽Å⃵⃼⃳≽ ⃼≽⊎⃼⃭ ⃇⃶ ↀ⏃⃼⋊⃮ ⃷⊋⏄⃝⃜≽ ⃼∱⃮≽ ⃴∳∯⃫x ⃯⊋ ⃵⃽ ⃰∱⅄⃫⃜ ⏃⃷⃝≾ ⃽⊌, ⃣⊆..."
+          },
+          {
+            "question": "Which Indian state signed a Letter of Intent (LoI) with SpaceX's Starlink to boost satellite internet connectivity in remote areas in April 2026@ (⏅⃜⃼ ⃳≽⃶⃫≾⃵ ⃶≽Å⃵ ⃯⊋ yↀ⊌⃷ 2026 ⃴⊡ ⃭∳⃶⃭⃶≽⃣ ⃜⊋ ⃾⊋ⅻ⊥ ⃴⊡ ⃼⊌⃦⊋⃷≽₺⃦ ₺⊎⃦⃶⃯⊋⃦ ⃯⃜⊋∰ℤ⃦⏆⃹⃦≿ ⃜⊆ ⃲ℍ≽⃹≽ ⃭⊋⃯⊋ ⃜⊋ ⏃⃷⃂ ⅄⃰⊋⃼⃂ℤ⃼ ⃜⊋ '⅄⃦≽⃶⏃⃷⊎⃜' (Starlink) ⃜⊋ ⃼≽⃬ ⃂⃜ z⃺⃵ ⃰ⅻ (LoI) ⃰⃶ ⃽⅄⃫≽⃾⃶ ⏅⃜⃂@)",
+            "options": [
+              "Arunachal Pradesh",
+              "Himachal Pradesh",
+              "Meghalaya",
+              "Uttarakhand"
+            ],
+            "answer": 2,
+            "explanation": "The Government of Meghalaya partnered with Starlink to implement satellite-based internet services across key sectors like education, healthcare, and disaster management in its remote regions [2]. (⃴⊋⃟≽⃷⃵ ⃼⃶⃜≽⃶ ⃯⊋ y⃯⃰⊋ ⃭∳⃶⃭⃶≽⃣ ⃜⊋ ⃾⊋ⅻ⊥ ⃴⊡ ⏃⃺⃾≽, ⅄⃹≽⅄ℴ⃵..."
+          },
+          {
+            "question": "The Reserve Bank of India (RBI) approved the acquisition of a 60\n stake in RBL Bank by which foreign bank in April 2026@ \n(⃳≽⃶⃫≾⃵ ∬⃶ℇ⃹x ⃲⊣⃜ (RBI) ⃯⊋ yↀ⊌⃷ 2026 ⃴⊡ ⏅⃜⃼ ⏆⃹⃭⊋⃺≾ ⃲⊣⃜ ⋊⃹≽⃶≽ RBL ⃲⊣⃜ ⃴⊡ 60\n ∭⃽⅄⃼⊋⃭≽⃶≿ ⃜⊋ y⏈⃮Ⅾ⃽⃪ ⃜⊆ ⃴⊎⃣∳⃶≿ ⃭≿@)",
+            "options": [
+              "Standard Chartered Bank",
+              "DBS Bank",
+              "First Abu Dhabi Bank",
+              "Emirates NBD"
+            ],
+            "answer": 3,
+            "explanation": "The RBI approved UAE-based Emirates NBD's acquisition of a 60\n stake in RBL Bank in a major banking deal valued at around ⶴ26,853 crore [2]. (RBI ⃯⊋ ⃷⃞⃳⃞ ⩓26,853 ⃜⃶⊆ℌ ⃜⊋ ⃂⃜ ⃲ℌ⊋ ⃲⊣⏅⃜⊎⃞ ⃼⊇⃭⊋ ⃴⊡ RBL ⃲⊣⃜ ⃴⊡ UAE ∰⅄⃫⃬ ⃂⏃⃴⃶⊋⋆⃼ NBD (Emirates NBD) ⃜⊋ 60\n ∭⃽⅄⃼..."
+          },
+          {
+            "question": "Which became the first Indian state to implement a scientific 'Marine Spatial Planning' framework to balance ocean ecology and the blue economy@ (⃼⃴∱ⅽ≿ ⃰≽∬⃶∰⅄⃬∯⃫⃜⊃ ⃇⃶ ⃯≾⃷≿ y⃬x⅁⃵⃹⅄⃬≽ (blue economy) ⃜⊆ ⃼⊎⃫∱⏃⃷⃫ ⃜⃶⃯⊋ ⃜⊋ ⏃⃷⃂ ⃹⊌⃿≽∯⃯⃜ '⃼⃴∱ⅽ≿ ⅄⃬≽∯⃯⃜ ⃵⊆⃣⃯≽' (Marine Spatial Planning) ⃩≽⊎⃡≽ ⃷≽⃞∳ ⃜⃶⃯⊋ ⃹≽⃷≽ ⃰⃽⃷≽ ⃳≽⃶⃫≾⃵ ⃶≽Å⃵ ⃜⊇⃯ ⃼≽ ⃲⃯ ⃞⃵≽@)",
+            "options": [
+              "Gujarat",
+              "Kerala",
+              "Odisha",
+              "Tamil Nadu"
+            ],
+            "answer": 2,
+            "explanation": "Odisha became the first state in India to launch Marine Spatial Planning, an ocean zoning framework to reduce user conflicts and support sustainable blue economy growth [3]. \n(⃆⏇⃨⃺≽ ⃼⃴∱ⅽ≿ ⅄⃬≽∯⃯⃜ ⃵⊆⃣⃯≽ ⃺∱≚ ⃜⃶⃯⊋ ⃹≽⃷≽ ⃳≽⃶⃫ ⃜≽ ⃰⃽⃷≽ ⃶≽Å⃵ ⃲⃯ ⃞⃵≽, ⃣⊆ ₼⃰⃵⊆⃞⃜..."
+          },
+          {
+            "question": "Which space agency successfully launched four astronauts on the crewed lunar mission 'Artemis II' using the Space Launch System (SLS) rocket@ (⏅⃜⃼ y⊎⃫∬⃶⃾ ⃂⃣⊡⃼≾ ⃯⊋ ⅄⃰⊋⃼ ⃷⊄ℷ⃡ ⏃⃼⅄⃦⃴ (SLS) ⃶⊄⃜⊋⃦ ⃜≽ ₼⃰⃵⊆⃞ ⃜⃶⃜⊋ ⃡≽⃷⃜ ⃭⃷ ⃹≽⃷⊋ ⃡⊎ⅽ ⏃⃴⃺⃯ 'z⃦⊒⏃⃴⃼ II' ⃰⃶ ⃡≽⃶ y⊎⃫∬⃶⃾ ⃵≽∮ⅻ⃵⊥ ⃜⊆ ⃼⃱⃷⃫≽⃰∳⃹x⃜ ⃷⊄ℷ⃡ ⏅⃜⃵≽@)",
+            "options": [
+              "ISRO",
+              "ESA",
+              "Roscosmos",
+              "NASA"
+            ],
+            "answer": 3,
+            "explanation": "NASA launched the Artemis II mission to send four astronauts on a crewed test flight to the Moon's vicinity, testing systems for long-term lunar exploration [2]. (⃯≽⃼≽ ⃯⊋ ⃡≽⃶ y⊎⃫∬⃶⃾ ⃵≽∮ⅻ⃵⊥ ⃜⊆ ⃡⊎ⅽ⃴≽ ⃜⊋ z⃼⃰≽⃼ ⃂⃜ ⃴≽⃯⃹⃵∱ℤ⃫ ⃰⃶≿⃾⃪ ₼ℌ≽⃯ ⃰⃶ ⃳⊋⃣⃯⊋ ⃜⊋ ⏃⃷⃂ z⃦⊒⏃..."
+          },
+          {
+            "question": "Where was India's first Special Economic Zone (SEZ) exclusively for semiconductor manufacturing approved@ (⏆⃹⃺⊋⃻ ≚⃰ ⃼⊋ ⃼⊋⃴≾⃜⊎⃨ℤ⃦⃶ ⏆⃹∯⃯⃴≽x⃪ ⃜⊋ ⏃⃷⃂ ⃳≽⃶⃫ ⃜≽ ⃰⃽⃷≽ ⏆⃹⃺⊋⃻ z⏈⃬x⃜ ⃾⊋ⅻ (SEZ) ⃜⃽≽⊍ ⅄⃹≾⃜∵⃫ ⏅⃜⃵≽ ⃞⃵≽ ⃬≽@)",
+            "options": [
+              "Dholera, Gujarat",
+              "Sriperumbudur, Tamil Nadu",
+              "Sanand, Gujarat",
+              "Mysuru, Karnataka"
+            ],
+            "answer": 0,
+            "explanation": "The government granted SEZ approval for a major Tata Semiconductor project in Dholera, a massive step in making India a global hub for semiconductor manufacturing [1, 5]. (⃼⃶⃜≽⃶ ⃯⊋ ⃮⊆⃷⊋⃶≽ ⃴⊡ ⃂⃜ ↀ⃴∱⃝ ⃦≽⃦≽ ⃼⊋⃴≾⃜⊎⃨ℤ⃦⃶ ⃰∬⃶⃵⊆⃣⃯≽ ⃜⊋ ⏃⃷⃂ SEZ ⃜⊃ ⃴⊎⃣∳⃶≿ ⃭≿, ⃣..."
+          },
+          {
+            "question": "'Project Punarvika', recently seen in the news during April 2026, was launched to assist which group of people@ (yↀ⊌⃷ 2026 ⃜⊋ ⃭⊇⃶≽⃯ ⃽≽⃷ ⃽≿ ⃴⊡ ⃝⃲⃶⊥ ⃴⊡ ⃶⃽≽ 'ↀ⊆⃣⊋ℤ⃦ ⃰∱⃯⏆⃹x⃜≽' (Project Punarvika) ⏅⃜⃼ ⃼⃴∳⃽ ⃜⊋ ⃷⊆⃞⊥ ⃜⊃ ⃼⃽≽⃵⃫≽ ⃜⊋ ⏃⃷⃂ ⃺∱≚ ⏅⃜⃵≽ ⃞⃵≽ ⃬≽@)",
+            "options": [
+              "Senior citizens living alone",
+              "Children affected by rare diseases",
+              "Women entrepreneurs in rural areas",
+              "Farmers facing crop failure"
+            ],
+            "answer": 1,
+            "explanation": "Project Punarvika was launched as a specialized healthcare initiative to support the treatment and well-being of children diagnosed with rare diseases [5]. (⃭∱⃷x⃳ ⃲≾⃴≽∬⃶⃵⊥ (rare diseases) ⃼⊋ ⃰≾⏇ℌ⃫ ⃲℩⃡⊥ ⃜⊋ ₺⃷≽⃣ ⃇⃶ ⃳⃷≽₻ ⃜≽ ⃼⃴⃬x⃯ ⃜⃶⃯⊋ ⃜⊋ ⏃⃷⃂ ⃂⃜ ⏆⃹⃺⊋⃻ ⅄⃹..."
+          },
+          {
+            "question": "India's Khanij Bidesh India Limited (KABIL) received clearance to secure lithium assets in Argentina. Argentina is part of the 'Lithium Triangle' along with which other two countries@ (⃳≽⃶⃫ ⃜⊋ ⃝∯⃯⃣ ∮⃲⃭⊋⃺ ₺⊎⏇⃨⃵≽ ⏃⃷⏃⃴⃦⊋⃨ (KABIL) ⃜⊆ y⃣⊫⃦≿⃯≽ ⃴⊡ ⏃⃷⏈⃬⃵⃴ ⃼⊎⃰⏆⇿ ⃼∱⃶⏋⃾⃫ ⃜⃶⃯⊋ ⃜⊃ ⃴⊎⃣∳⃶≿ ⏃⃴⃷ ⃞₻] y⃣⊫⃦≿⃯≽ ⏅⃯⃜ yℷ⃵ ⃭⊆ ⃭⊋⃺⊥ ⃜⊋ ⃼≽⃬ '⏃⃷⏈⃬⃵⃴ ∮ⅻ⃜⊆⃪' (Lithium Triangle) ⃜≽ ∭⃽⅄⃼≽ ⃽⊌@)",
+            "options": [
+              "Peru and Colombia",
+              "Chile and Bolivia",
+              "Brazil and Ecuador",
+              "Venezuela and Paraguay"
+            ],
+            "answer": 1,
+            "explanation": "The Lithium Triangle in South America encompasses parts of Argentina, Bolivia, and Chile, holding a vast majority of the world's known lithium reserves essential for batteries and EVs [5]. (⃭⏋⃾⃪ y⃴⊋∬⃶⃜≽ ⃴⊡ ⏃⃷⏈⃬⃵⃴ ∮ⅻ⃜⊆⃪ ⃴⊡ y⃣⊫⃦≿⃯≽, ⃲⊆⃷≿⏆⃹⃵≽ ⃇⃶ ⏈⃡⃷≿ ⃜⊋..."
+          },
+          {
+            "question": "Cochin Shipyard Limited (CSL) delivered the second Anti-Submarine Warfare (ASW) Shallow Water Craft to the Indian Navy in April 2026. What is its name@ (⃜⊆⃡≾⃯ ⏃⃺⃰⃵≽⃨x ⏃⃷⏃⃴⃦⊋⃨ (CSL) ⃯⊋ yↀ⊌⃷ 2026 ⃴⊡ ⃳≽⃶⃫≾⃵ ⃯⊇⃼⊋⃯≽ ⃜⊆ ⃭∳⃼⃶≽ ⃂⊎⃦≿-⃼⃲⃴⃶≿⃯ ⃹≽⃶⃱⊋⃵⃶ (ASW) ⃺⊌⃷⊆ ⃹≽⃦⃶ Ⅼ≽ℹ⃦ ⃼⊧⃰≽] ₺⃼⃜≽ ⃯≽⃴ ℤ⃵≽ ⃽⊌@)",
+            "options": [
+              "INS Mahe",
+              "INS Malpe",
+              "INS Malwan",
+              "INS Mulki"
+            ],
+            "answer": 2,
+            "explanation": "CSL delivered INS Malwan, the second vessel in the series of 8 ASW Shallow Water Crafts being built for the Indian Navy to enhance coastal defence [2]. (CSL ⃯⊋ ⃫⃦≿⃵ ⃶⃾≽ ⃜⊆ ⃲ℍ≽⃯⊋ ⃜⊋ ⏃⃷⃂ ⃳≽⃶⃫≾⃵ ⃯⊇⃼⊋⃯≽ ⃜⊋ ⏃⃷⃂ ⃲⃯≽⃂ ⃣≽ ⃶⃽⊋ 8 ASW ⃺⊌⃷⊆ ⃹≽⃦⃶ Ⅼ≽ℹ⋆⃼ ⃜⊃ ↊∵⊎⃝⃷≽..."
+          },
+          {
+            "question": "The Ministry of Statistics and Programme Implementation (MoSPI) developed the 'India SDG Dashboard' in collaboration with which international organization@ (⃼≽⊎∰℥⃵⃜⊃ ⃇⃶ ⃜≽⃵xⅬ⃴ ⃜≽⃵≽xℷ⃹⃵⃯ ⃴⊎ⅻ≽⃷⃵ (MoSPI) ⃯⊋ ⏅⃜⃼ y⊎⃫⃶≽x⅃ⅶ≿⃵ ⃼⊎⃞⃯⃧ ⃜⊋ ⃼⃽⃵⊆⃞ ⃼⊋ '₺⊎⏇⃨⃵≽ ⃂⃼⃨≾⃣≾ ⃨⊌⃺⃲⊆⃨x' (India SDG Dashboard) ⏆⃹⃜⏃⃼⃫ ⏅⃜⃵≽@)",
+            "options": [
+              "World Bank",
+              "United Nations Resident Coordinator Office",
+              "Asian Development Bank",
+              "World Economic Forum"
+            ],
+            "answer": 1,
+            "explanation": "MoSPI, in partnership with the UNRCO, developed this dashboard to closely monitor and track India's progress on the Sustainable Development Goals (SDGs) [2]. (MoSPI ⃯⊋ UNRCO ⃜⊋ ⃼≽⃬ ⃼≽⃤⊋⃭≽⃶≿ ⃴⊡ ⃼⃫⃫ ⏆⃹⃜≽⃼ ⃷ⅆ⃵⊥ (SDGs) ⃰⃶ ⃳≽⃶⃫ ⃜⊃ ↀ⃞∯⃫ ⃜⊃ ⃲≽⃶≿⃜⊃ ⃼⊋ ∯⃯⃞⃶≽⃯..."
+          },
+          {
+            "question": "The Ministry of Education (MoE) and CBSE launched a new 'AI and Computational Thinking Curriculum' in April 2026. This curriculum targets students of which classes@ (⏃⃺⃾≽ ⃴⊎ⅻ≽⃷⃵ (MoE) ⃇⃶ CBSE ⃯⊋ yↀ⊌⃷ 2026 ⃴⊡ ⃂⃜ ⃯⃵≽ 'AI ⃇⃶ ⃜ℼℸ⃵∳⃦⊋⃺⃯⃷ ⏈⃬⊎⏅⃜⊎⃞ ⃜∬⃶⃜∱⃷⃴' ⃷⊄ℷ⃡ ⏅⃜⃵≽] ⃵⃽ ⃰≽⋇⃵Ⅼ⃴ ⏅⃯⃜ ⃜⃾≽⃆⊎ ⃜⊋ ⃢≽ⅻ⊥ ⃜⊆ ⃷⏋⃾⃫ ⃜⃶⃫≽ ⃽⊌@)",
+            "options": [
+              "Classes 1 to 5",
+              "Classes 3 to 8",
+              "Classes 9 to 12",
+              "Classes 6 to 10"
+            ],
+            "answer": 1,
+            "explanation": "To prepare young minds for future technologies, the CBSE introduced an Artificial Intelligence (AI) and Computational Thinking curriculum for students from Class 3 to Class 8 [2]. (⃵∱⃹≽ ∭⃭⃴≽⃞⊥ ⃜⊆ ⃳⏆⃹⅃⃵ ⃜⊃ ⃫⃯⃜≾⃜⊥ ⃜⊋ ⏃⃷⃂ ⃫⊌⃵≽⃶ ⃜⃶⃯⊋ ⃜⊋ ⏃⃷⃂, CBSE ⃯⊋ ⃜⃾≽..."
+          },
+          {
+            "question": "India introduced the 'PROG Rules 2026' in April to strictly regulate which sector@ (⃳≽⃶⃫ ⃯⊋ yↀ⊌⃷ ⃴⊡ ⏅⃜⃼ ⃾⊋ⅻ ⃜⊆ ⃼℥⃫≾ ⃼⊋ ⏆⃹∯⃯⃵⏃⃴⃫ ⃜⃶⃯⊋ ⃜⊋ ⏃⃷⃂ 'PROG Rules 2026' ⃰⊋⃺ ⏅⃜⃵≽@)",
+            "options": [
+              "Pharmaceutical exports",
+              "OTT content platforms",
+              "Online Gaming",
+              "Cryptocurrency trading"
+            ],
+            "answer": 2,
+            "explanation": "India introduced the PROG (Protection and Regulation of Online Gaming) Rules 2026 to ban real-money betting games while providing a safe framework for e-sports and social games [3]. (⃳≽⃶⃫ ⃯⊋ ₻-⅄⃰⊆⋆x⃼ ⃇⃶ ⃼≽⃴≽∰⃣⃜ ⃝⊋⃷⊥ ⃜⊋ ⏃⃷⃂ ⃂⃜ ⃼∱⃶⏋⃾⃫ ⃩≽⊎⃡≽ ↀ⃭≽⃯ ⃜⃶⃫⊋ ⃽..."
+          },
+          {
+            "question": "The 'Arogya Van' initiative, recently highlighted for ecological conservation, was launched by which organization@ \n(⃰≽∬⃶∰⅄⃬∯⃫⃜ ⃼⊎⃶⃾⃪ ⃜⊋ ⏃⃷⃂ ⃽≽⃷ ⃽≿ ⃴⊡ ⃡⃡≽x ⃴⊡ ⃶⃽≿ 'z⃶⊆Ω⃵ ⃹⃯' (Arogya Van) ⃰⃽⃷ ⏅⃜⃼ ⃼⊎⃞⃯⃧ ⋊⃹≽⃶≽ ⃺∱≚ ⃜⊃ ⃞₻ ⃬≾@)",
+            "options": [
+              "NITI Aayog",
+              "National Highways Authority of India",
+              "Ministry of Ayush",
+              "Indian Council of Forestry Research"
+            ],
+            "answer": 1,
+            "explanation": "The NHAI launched the 'Arogya Van' initiative, which involves planting medicinal and local plant species along national highways to promote green corridors and environmental health [1]. (NHAI ⃯⊋ 'z⃶⊆Ω⃵ ⃹⃯' ⃰⃽⃷ ⃺∱≚ ⃜⊃, ∰⃣⃼⃴⊡ Ⅾ≾⃯ ⃜⊄∬⃶⃨⊆⃶ ⃇⃶ ⃰⃵≽x⃹⃶⃪≾⃵ ⅄..."
+          },
+          {
+            "question": "The Department of Telecommunications (DoT) extended the deadline for Over-The-Top (OTT) platforms to implement SIM-binding to which date@ (⃭∳⃶⃼⊎⃡≽⃶ ⏆⃹⃳≽⃞ (DoT) ⃯⊋ ⃆⃹⃶-⃭-⃦⊄⃰ (OTT) ℸ⃷⊋⃦⃱⊄⃴x ⃜⊋ ⏃⃷⃂ ⏃⃼⃴-⃲≽₺⊎⏇⃨⊎⃞ (SIM-binding) ⃷≽⃞∳ ⃜⃶⃯⊋ ⃜⊃ ⃼⃴⃵ ⃼≾⃴≽ ⏅⃜⃼ ⃫≽⃶≿⃝ ⃫⃜ ⃲ℍ≽ ⃭≿ ⃽⊌@)",
+            "options": [
+              "30 June 2026",
+              "31 August 2026",
+              "31 December 2026",
+              "31 March 2027"
+            ],
+            "answer": 2,
+            "explanation": "To enhance cybersecurity and prevent fraud, the DoT has mandated SIM-binding for OTT communication apps, extending the compliance deadline to December 31, 2026 [2]. (⃼≽₺⃲⃶ ⃼∱⃶⃾≽ ⃲ℍ≽⃯⊋ ⃇⃶ ⃮⊆⃝≽⃮ℌ≾ ⃜⊆ ⃶⊆⃯⃜⊋ ⃜⊋ ⏃⃷⃂, DoT ⃯⊋ OTT ⃼⊎⃡≽⃶ ⃃ℸ⃼ ⃜⊋ ⏃⃷⃂ ⏃⃼⃴-⃲≽₺⊎⏇⃨..."
+          }
+        ]
       },
       {
-        "id": "ca_w_aug_2026_w4",
-        "month": "August 2026",
+        "id": "ca_w_apr_2026_w4",
+        "month": "April 2026",
         "week": "Week 4",
-        "title": "August 2026 - Week 04 Defence & National Mock Test",
-        "date": "22 Aug - 31 Aug 2026",
-        "questionsCount": 30,
-        "durationMins": 25,
+        "title": "April 2026 - Week 04 Current Affairs & Defence CBT Mock Test",
+        "date": "22 Apr - 30 Apr 2026",
+        "questionsCount": 15,
+        "durationMins": 15,
         "isFreeDemo": false,
         "badge": "🔒 Batch Exclusive",
-        "summary": "Monthly comprehensive summary, joint logistics node inaugurations, and military medicine advancements.",
+        "summary": "Comprehensive April 2026 Week 4 Current Affairs & Defence Mock Test. Contains 15 authentic questions with detailed explanations matching the official PDF.",
         "highlights": [
-          "Third Joint Logistics Node operationalized to streamline supply chain for all three wings",
-          "August complete monthly capsule with 200 high-yield revision MCQs"
+          "In April 2026, India signed a landmark Free Trade Agreement (FTA) with which country? (y෋໗...",
+          "In April 2026, the Supreme Court of India declared the 'Right to Safe Road Travel' as an i...",
+          "Which country formally joined the India-led International Solar Alliance (ISA), CDRI, and ...",
+          "Who was appointed as the new Vice-Chairman of NITI Aayog by the Government of India in Apr..."
         ],
-        "pdfUrl": "/uploads/pdfs/ca_weekly_aug_w4.pdf"
+        "pdfUrl": "/uploads/pdfs/ca_weekly_apr_w4.pdf",
+        "mockQuestions": [
+          {
+            "question": "In April 2026, India signed a landmark Free Trade Agreement (FTA) with which country? (y෋໗ 2026 ໬, ່ ໖ တ ໖ ໖ ່ ๺່ဎ ๼൯ ඌ່່ ໒໖ (FTA) ඏ່ တ?",
+            "options": [
+              "Australia",
+              "New Zealand",
+              "United Kingdom",
+              "Canada"
+            ],
+            "answer": 1,
+            "explanation": "India and New Zealand officially signed the India൘New Zealand Free Trade Agreement (IN-NZ FTA) in New Delhi to boost bilateral trade and investment [2, 3^. (່ ං๾້໮ ໖ ༕ထ້ ඌ່່ ๺໖ ໑ ൘່່ ໖໖ ໖ ဎ ๸ඊ໊ ໬ zဓ່๷ ໒ ່-ං๾້໮ ๼൯ ඌ່່ ໒໖ (IN-NZ FTA) ඏ່ တ^)"
+          },
+          {
+            "question": "In April 2026, the Supreme Court of India declared the 'Right to Safe Road Travel' as an integral part of the Right to Life under which Article of the Constitution? (y෋໗ 2026 ໬, ່ ໖ ໥൴ ං່່ ໖ ໙ထ່ ໖ တ y๼൴໖ ໖ '๼ဖ ່ෆ່ ໖ yဓ່' (Right to Safe Road Travel) ໑ ້ ໖ yဓ່ ່ yဎං y໙ ໑ထ တ່?",
+            "options": [
+              "Article 14",
+              "Article 19",
+              "Article 21",
+              "Article 25"
+            ],
+            "answer": 2,
+            "explanation": "Emphasizing road safety, the Supreme Court officially ruled that the right to safe road travel is inherently protected as a fundamental Right to Life under Article 21 [2, 3^."
+          },
+          {
+            "question": "Which country formally joined the India-led International Solar Alliance (ISA), CDRI, and Global Biofuels Alliance (GBA) in April 2026? (y෋໗ 2026 ໬ ໒ ່ ໖ ່๷ ລ ໖ ່ ໖ ໖຀ൾ ່໖ y໙່xඎශ໊ ໒ ໙ (ISA), CDRI ൱໑ ່໑඄๾ ່໙ (GBA) ໬ ່ဎ ๼z?",
+            "options": [
+              "Egypt",
+              "Jordan",
+              "Oman",
+              "Kenya"
+            ],
+            "answer": 1,
+            "explanation": "The Hashemite Kingdom of Jordan joined these global initiatives to strengthen strategic cooperation with India in clean energy and climate resilience [2, 3^."
+          },
+          {
+            "question": "Who was appointed as the new Vice-Chairman of NITI Aayog by the Government of India in April 2026? (y෋໗ 2026 ໬ ່ ່ ༕່່ ້๺ z໑ (NITI Aayog) ໖ ່ඁ ໖ ລ ໬ တ໖ ๺๼൯ တ່ ່?",
+            "options": [
+              "Dr. Suman Bery",
+              "Dr. Arvind Panagariya",
+              "Dr. Ashok Lahiri",
+              "Dr. Rajiv Kumar"
+            ],
+            "answer": 2,
+            "explanation": "Veteran economist and former Chief Economic Advisor Dr. Ashok Lahiri was appointed as the new Vice-Chairman of NITI Aayog [1^."
+          },
+          {
+            "question": "The Government of India constituted a panel under the chairmanship of SBI Chairman C.S. Setty to assess potential risks from which advanced AI platform? (່ ່ ໖ တ ං z (AI) ඃ໖໏x ໖ ໙່ထ ໑ဏ໰ ່ z ໖ ໖ ဎ SBI ໖ yඁ ້.. ໖༑໊ ໎ yඁ່ ໬ ໗ ່ တ່?",
+            "options": [
+              "ChatGPT",
+              "Gemini",
+              "Mythos",
+              "Claude 4"
+            ],
+            "answer": 2,
+            "explanation": "The panel was formed to evaluate potential economic and security risks emerging from Anthropic's advanced AI platform 'Mythos' and suggest mitigating measures [1^."
+          },
+          {
+            "question": "Where was India's first integrated lithium-ion battery and rare earth magnet recycling plant inaugurated by Rocklink India? (໏ဎ໙ ໙ဒ່ ༕່່ ່ ໖ ໖ ໎຀ ဎဓ-z ໗໊ ๼x ຀ൿ້ (rare earth) ๼໙ ໊່๻൯໙ ໙໙ෆ ່ ༕່ ່໘ တ່ ່?",
+            "options": [
+              "Pune, Maharashtra",
+              "Sikandrabad, Uttar Pradesh",
+              "Chennai, Tamil Nadu",
+              "Sanand, Gujarat"
+            ],
+            "answer": 1,
+            "explanation": "Rocklink India Private Limited opened the country's first integrated facility for recycling lithium-ion batteries in the Bulandshahr district of UP to boost the circular economy [1^."
+          },
+          {
+            "question": "Which Indian municipal corporation won the prestigious UNIDO GEM (Gender Equality Mobilisation) Award 2026 in Vienna, Austria? (๻ඏශ່ ໖ ထ່ ໬ တ ່້ ๺ ໖ ෋๺๻ඎ UNIDO GEM (໬ ൯໖ဎ໊ ໑๹່໖) y່x 2026 ້່?",
+            "options": [
+              "Indore Municipal Corporation",
+              "Brihanmumbai Municipal Corporation",
+              "Guntur Municipal Corporation",
+              "Surat Municipal Corporation"
+            ],
+            "answer": 2,
+            "explanation": "The Guntur Municipal Corporation (GMC) from Andhra Pradesh won the award for its outstanding efforts in shaping women-friendly industry and urban development [1^. (z໙෉ ෋໖ ໖ ๼໙๾ ๺ (GMC) ໖ ๸່-y๼๾ ༕໑ ໊ ထ່ ໑ z່ ໖໖ ໬ y໖ ൾ຀ඎ ෋່໰ ໖ ဎ ๼ඏ່ ້່^)"
+          },
+          {
+            "question": "The SMILE Mobile Application, recently launched by the Ministry of Social Justice and Empowerment (MSJE), is primarily designed for: (່່๻ ං່ yဓ່๷່ ໙ෆ່ (MSJE) ༕່່ ່ ໊ ໬ ໏ං တ່ ່ SMILE ໑່ ๻ඃ໖ ๼൰ ລ ໖ တ໖ ဎ ဒ່ တ່ ່ ໗?",
+            "options": [
+              "Senior citizens' health tracking",
+              "Beggary survey and rehabilitation",
+              "Scholarship distribution for students",
+              "Mental health counseling"
+            ],
+            "answer": 1,
+            "explanation": "The SMILE൘Beggary Survey App was launched to digitally map and support marginalized individuals for livelihood and enterprise [4^."
+          },
+          {
+            "question": "Kenyan athlete Sebastian Sawe created history in April 2026 by becoming the first runner to officially break the two-hour barrier in a competitive marathon. Which marathon was it?",
+            "options": [
+              "Berlin Marathon",
+              "Boston Marathon",
+              "London Marathon",
+              "Tokyo Marathon"
+            ],
+            "answer": 2,
+            "explanation": "Sebastian Sawe completed the London Marathon 2026 in 1 hour 59 minutes and 30 seconds, marking a monumental achievement in athletics [4, 5^."
+          },
+          {
+            "question": "What was the theme for World Veterinary Day observed on April 25, 2026? (25 y෋໗, 2026 ໑ ່ ထඍ ๼ ဓတൾ່ ๸ ່ ထ (Theme) ൯່ ່?",
+            "options": [
+              "Promoting Animal Welfare in a Changing Climate",
+              "Veterinarians: Guardians of Food and Health",
+              "One Health, One Planet",
+              "Protecting the Future of Animal Agriculture"
+            ],
+            "answer": 1,
+            "explanation": "The 2026 theme highlighted the critical role of veterinarians not only in animal care but in ensuring global food safety and public health [2, 3^."
+          },
+          {
+            "question": "Which country finished on top of the medal standings at the ISSF Junior World Cup 2026 held in Cairo, Egypt?",
+            "options": [
+              "China",
+              "USA",
+              "India",
+              "Italy"
+            ],
+            "answer": 2,
+            "explanation": "The Indian Junior Shooting Team dominated the tournament, topping the tally with 16 medals, including 5 Gold, 6 Silver, and 5 Bronze [4, 5^."
+          },
+          {
+            "question": "According to Knight Frank's Wealth Report 2026 released in April, what is India's global rank in terms of ultra-wealthy population (UHNWIs)? (y෋໗ ໬ ່໊ ່ ෌໮ ໎ ໖ඊ ๷໑x 2026 ໖ y๼່, y๺-່ z່໊ (UHNWIs) ໖ ່໖ ໬ ່ ່ ໗๻ඍ ඏ່ ൯່ ໗?",
+            "options": [
+              "3rd",
+              "4th",
+              "6th",
+              "8th"
+            ],
+            "answer": 2,
+            "explanation": "India ranked 6th globally with an estimated 19,877 Ultra-High Net-Worth Individuals in 2026, while the USA and China retained the top positions [4^."
+          },
+          {
+            "question": "In April 2026, the Reserve Bank of India (RBI) approved the reappointment of B. Ramesh Babu as the MD and CEO of which bank? \n(y෋໗ 2026 ໬, ່້ ๷x ໮ (RBI) ໖ တ ໮ ໖ ້ (MD) ້ (CEO) ໖ ລ ໬ ້. ໖ ່๾ ໎ ๼๺x๼๻൯ ໑ ໙๾໊ ໊?",
+            "options": [
+              "City Union Bank",
+              "Federal Bank",
+              "Karur Vysya Bank",
+              "South Indian Bank"
+            ],
+            "answer": 2,
+            "explanation": "The RBI approved his reappointment for a third term, recognizing his leadership in helping the bank achieve significant business milestones rapidly [4^."
+          },
+          {
+            "question": "To boost e-commerce exports and ease of doing business, the Central Board of Indirect Taxes and Customs (CBIC) removed the ᧿10 lakh value cap on which type of consignments effective April 1, 2026? (-໏x ๺່x ඌ່່ ໖ ໬ z່້ (ease of doing business) ໑ ൘່່ ໖໖ ໖ ဎ, ໬෈໊ y෋ൾ ້່ ๼ඊ ໑x (CBIC) ໖ 1 y෋໗ 2026 ໖ တ ෋່ ໖ ෋໖ (consignments) ᧿10 ່ ๾ඊ ໎ ້່ ່ ໊?",
+            "options": [
+              "Pharmaceutical exports",
+              "Courier export consignments",
+              "Agricultural exports",
+              "IT hardware exports"
+            ],
+            "answer": 1,
+            "explanation": "The CBIC removed the ᧿10 lakh limit on courier exports, allowing Indian MSMEs and sellers to ship high-value goods like jewelry and electronics globally via courier [5^."
+          },
+          {
+            "question": "The 'Vibrant Villages Programme-II' recently included six border villages located in which Indian Union Territory? (່ ໊ ໬ '່෍໬ ထ໖໖ ෋໑ඹ່-II' (Vibrant Villages Programme-II) ໬ တ ່້ ໬෈ ່ဎ ෋໖ ໬ ๻ඏ ້່ໟ ່໙໰ ໑ ່ဎ တ່ ່?",
+            "options": [
+              "Ladakh",
+              "Jammu and Kashmir",
+              "Andaman and Nicobar",
+              "Puducherry"
+            ],
+            "answer": 1,
+            "explanation": "Six border villages in Jammu & Kashmir were included under the Vibrant Villages Programme to enhance border infrastructure, promote tourism, and prevent out-migration [4^."
+          }
+        ]
       }
     ],
     "monthly": [
       {
-        "id": "ca_m_nov_2026",
-        "month": "November 2026",
-        "title": "November 2026 - Complete Monthly Defence Digest & 200 MCQ Practice Set",
-        "date": "November 2026 Edition",
-        "size": "7.2 MB",
-        "pages": 84,
-        "badge": "🔥 Latest Edition",
-        "pdfUrl": "/uploads/pdfs/ca_monthly_nov_2026.pdf",
-        "summary": "Comprehensive 84-page November 2026 edition. Full coverage of DRDO missile tests, Exercise Malabar, Exercise Sea Vigil, DAC approvals, appointments, international summits, and 200 high-yield CBT MCQs with detailed explanations."
+        "id": "ca_m_jan_2026",
+        "month": "January 2026",
+        "title": "January 2026 - Complete Monthly Current Affairs & Defence Digest",
+        "date": "January 2026 Full Edition",
+        "size": "1.2 MB",
+        "pages": 45,
+        "badge": "⭐ Complete Edition",
+        "pdfUrl": "/uploads/pdfs/ca_monthly_jan_2026.pdf",
+        "summary": "Full January 2026 Monthly Digest covering all 4 weeks of Defence, National & International Current Affairs with CBT practice questions and detailed explanations."
       },
       {
-        "id": "ca_m_oct_2026",
-        "month": "October 2026",
-        "title": "October 2026 - Complete Monthly Defence Digest & 200 MCQ Practice Set",
-        "date": "October 2026 Edition",
-        "size": "6.8 MB",
-        "pages": 76,
-        "badge": "Completed",
-        "pdfUrl": "/uploads/pdfs/ca_monthly_oct_2026.pdf",
-        "summary": "Full 76-page October edition covering Air Force Day milestones, LCA Tejas Mk1A demonstrations, Indo-US Yudh Abhyas, BRO tunnel inaugurations, and 200 practice MCQs."
+        "id": "ca_m_feb_2026",
+        "month": "February 2026",
+        "title": "February 2026 - Complete Monthly Current Affairs & Defence Digest",
+        "date": "February 2026 Full Edition",
+        "size": "1.5 MB",
+        "pages": 52,
+        "badge": "⭐ Complete Edition",
+        "pdfUrl": "/uploads/pdfs/ca_monthly_feb_2026.pdf",
+        "summary": "Full February 2026 Monthly Digest covering all 4 weeks of Defence, National & International Current Affairs with CBT practice questions and detailed explanations."
       },
       {
-        "id": "ca_m_sep_2026",
-        "month": "September 2026",
-        "title": "September 2026 - Complete Monthly Defence Digest & 200 MCQ Practice Set",
-        "date": "September 2026 Edition",
-        "size": "6.1 MB",
-        "pages": 72,
-        "badge": "Completed",
-        "pdfUrl": "/uploads/pdfs/ca_monthly_sep_2026.pdf",
-        "summary": "Full 72-page September edition with complete coverage of multinational Exercise Tarang Shakti, iDEX startup initiatives, naval fleet exercises, and 200 practice MCQs."
+        "id": "ca_m_mar_2026",
+        "month": "March 2026",
+        "title": "March 2026 - Complete Monthly Current Affairs & Defence Digest",
+        "date": "March 2026 Full Edition",
+        "size": "1.4 MB",
+        "pages": 48,
+        "badge": "⭐ Complete Edition",
+        "pdfUrl": "/uploads/pdfs/ca_monthly_mar_2026.pdf",
+        "summary": "Full March 2026 Monthly Digest covering all 4 weeks of Defence, National & International Current Affairs with CBT practice questions and detailed explanations."
       },
       {
-        "id": "ca_m_aug_2026",
-        "month": "August 2026",
-        "title": "August 2026 - Complete Monthly Defence Digest & 200 MCQ Practice Set",
-        "date": "August 2026 Edition",
-        "size": "5.9 MB",
-        "pages": 68,
-        "badge": "Archive",
-        "pdfUrl": "/uploads/pdfs/ca_monthly_aug_2026.pdf",
-        "summary": "Comprehensive 68-page August edition covering Independence Day gallantry awards, Astra BVR missile firings from Tejas, Exercise Mitra Shakti, and 200 practice MCQs."
+        "id": "ca_m_apr_2026",
+        "month": "April 2026",
+        "title": "April 2026 - Complete Monthly Current Affairs & Defence Digest",
+        "date": "April 2026 Full Edition",
+        "size": "1.6 MB",
+        "pages": 55,
+        "badge": "⭐ Complete Edition",
+        "pdfUrl": "/uploads/pdfs/ca_monthly_apr_2026.pdf",
+        "summary": "Full April 2026 Monthly Digest covering all 4 weeks of Defence, National & International Current Affairs with CBT practice questions and detailed explanations."
       }
     ]
   },

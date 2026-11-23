@@ -3242,11 +3242,13 @@ ${eb.previewText || 'Sample preview chapter...'}
       ? mock.mockQuestions
       : this.generateCaMockQuestions(mock);
 
+    const testDuration = mock.durationMins || (questions && questions.length > 0 ? questions.length : 10);
     const testObj = {
       id: mock.id,
       title: mock.title || `${mock.month} ${mock.week} CBT Mock Test`,
       category: 'Current Affairs',
-      duration: mock.durationMins || 25,
+      duration: testDuration,
+      durationMinutes: testDuration,
       maxMarks: questions.length,
       positiveMark: 1,
       negativeMark: 0.25,
@@ -3348,12 +3350,12 @@ ${eb.previewText || 'Sample preview chapter...'}
     const weekly = ca.weekly || [];
     const monthly = ca.monthly || [];
 
-    // Distinct list of months
+    // Distinct list of months (January to April - 4 Months)
     const defaultMonths = [
-      { name: 'November 2026', isCurrent: true, badge: '🔒 PAID BATCH • 4 Weekly Mocks', icon: '🔥', count: 4 },
-      { name: 'October 2026', isCurrent: false, badge: '🔒 PAID BATCH • 4 Mocks & Digest', icon: '📁', count: 4 },
-      { name: 'September 2026', isCurrent: false, badge: '🔒 PAID BATCH • 4 Mocks & Digest', icon: '📁', count: 4 },
-      { name: 'August 2026', isCurrent: false, badge: '🔒 PAID BATCH • 4 Mocks & Digest', icon: '📁', count: 4 }
+      { name: 'January 2026', badge: '📁 4 Weekly Mocks & PDF', icon: '📅', count: 4 },
+      { name: 'February 2026', badge: '📁 4 Weekly Mocks & PDF', icon: '📅', count: 4 },
+      { name: 'March 2026', badge: '📁 4 Weekly Mocks & PDF', icon: '📅', count: 4 },
+      { name: 'April 2026', badge: '📁 4 Weekly Mocks & PDF', icon: '📅', count: 4 }
     ];
 
     const months = (ca.months && ca.months.length > 0) ? ca.months : defaultMonths;

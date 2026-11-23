@@ -11,7 +11,7 @@ class CBTTestEngine {
     this.userAnswers = {}; // { questionId: selectedOptionIndex }
     this.reviewFlags = {}; // { questionId: boolean }
     this.visitedFlags = { 0: true };
-    this.timeRemainingSeconds = (this.test.durationMinutes || 45) * 60;
+    this.timeRemainingSeconds = (this.test.durationMinutes || this.test.duration || (this.test.questions ? this.test.questions.length : 10)) * 60;
     this.totalDurationSeconds = this.timeRemainingSeconds;
     this.timerInterval = null;
     this.startTime = Date.now();
